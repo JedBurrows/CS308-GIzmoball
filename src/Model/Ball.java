@@ -1,4 +1,4 @@
 package Model;
 
-public class Ball {
+public class Ball implements IGizmo{
 }
