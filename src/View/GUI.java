@@ -50,17 +50,21 @@ public class GUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();
-        if(arg =="Build Mode"){
+        if(arg.equals("Build Mode")){
             JOptionPane.showMessageDialog(null,"Going to Build Mode...");
-            buildGUI();
+            //buildGUI();
+            frame.setVisible(false);
+            frame.dispose();
+            IModeGUI build = new BuildGUI();
+
 
         }
-        else if(arg == "Run Mode"){
+        else if(arg.equals("Run Mode")){
             JOptionPane.showMessageDialog(null,"Going to Run Mode...");
         }
     }
 
-    public void buildGUI(){
+    /*public void buildGUI(){
         buildFrame = new JFrame("Build Mode!");
         buildFrame.setLayout(new GridLayout(1,2));
 
@@ -135,6 +139,6 @@ public class GUI extends JFrame implements ActionListener {
         buildFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         buildFrame.setVisible(true);
 
-    }
+    }*/
 }
 
