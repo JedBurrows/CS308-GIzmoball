@@ -1,5 +1,8 @@
 package View;
 
+import Controller.RightClickListener;
+import Controller.SliderChangeListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

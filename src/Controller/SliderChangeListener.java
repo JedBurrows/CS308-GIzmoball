@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

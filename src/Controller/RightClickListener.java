@@ -1,4 +1,6 @@
-package View;
+package Controller;
+
+import View.RightClickMenu;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
