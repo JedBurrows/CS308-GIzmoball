@@ -30,6 +30,15 @@ public class BuildGUI implements IModeGUI,ActionListener {
         fileMenu.add(exitMenuItem);
 
         JPanel gizmoBoard = new JPanel(new GridLayout(20, 20));
+//        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        for (int i =0; i<(20*20); i++){
+            final JLabel label = new JLabel();
+            label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            gizmoBoard.add(label);
+        }
+        
+        
         gizmoBoard.setPreferredSize(new Dimension(600,600));
         gizmoBoard.setBackground(Color.black);
         gizmoBoard.setVisible(true);
@@ -37,7 +46,7 @@ public class BuildGUI implements IModeGUI,ActionListener {
 
 
 
-        btnGizmo = new JButton("Gizmo");
+        btnGizmo = new JButton("Add Gizmo");
         btnGizmo.setPreferredSize(new Dimension(150, 50));
         btnGizmo.addActionListener(this);
         JComboBox<String> boxGizmo = new JComboBox<>();
