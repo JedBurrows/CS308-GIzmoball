@@ -19,9 +19,11 @@ public class RunGUI implements IModeGUI {
         menuBar.add(fileMenu);
 
         JMenuItem menuItemLoad = new JMenuItem("Load");
+        JMenuItem menuItemSave = new JMenuItem("Save");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(e -> System.exit(0));
         fileMenu.add(menuItemLoad);
+        fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
 
         //buildFrame.add(menuBar);
