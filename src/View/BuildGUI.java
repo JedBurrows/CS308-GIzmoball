@@ -12,6 +12,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class BuildGUI implements IModeGUI,ActionListener {
     private JButton  btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
+    private JFrame buildFrame;
 
 
     public BuildGUI() {
@@ -24,9 +25,11 @@ public class BuildGUI implements IModeGUI,ActionListener {
         JMenu fileMenu = new JMenu("File");
         menuBar.add(fileMenu);
         JMenuItem menuItemLoad = new JMenuItem("Load");
+        JMenuItem menuItemSave = new JMenuItem("Save");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(e -> System.exit(0));
         fileMenu.add(menuItemLoad);
+        fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
 
         JPanel gizmoBoard = new JPanel(new GridLayout(20, 20));
@@ -153,6 +156,11 @@ public class BuildGUI implements IModeGUI,ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String arg = e.getActionCommand();
+        if(arg.equals("Run")) {
+            IModeGUI run = new RunGUI();
+
+        }
 
     }
 }
