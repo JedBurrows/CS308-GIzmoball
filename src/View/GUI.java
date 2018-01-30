@@ -61,6 +61,9 @@ public class GUI extends JFrame implements ActionListener {
         }
         else if(arg.equals("Run Mode")){
             JOptionPane.showMessageDialog(null,"Going to Run Mode...");
+            frame.setVisible(false);
+            frame.dispose();
+            IModeGUI run = new RunGUI();
         }
     }
 
