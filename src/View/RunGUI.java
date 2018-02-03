@@ -8,13 +8,15 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class RunGUI implements IModeGUI {
 
+    JFrame runFrame;
+
     public RunGUI() {
 
-        JFrame buildFrame = new JFrame("Run Mode!");
-        buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        runFrame = new JFrame("Run Mode!");
+        runFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JMenuBar menuBar = new JMenuBar();
-        buildFrame.setJMenuBar(menuBar);
+        runFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
         menuBar.add(fileMenu);
 
@@ -26,7 +28,7 @@ public class RunGUI implements IModeGUI {
         fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
 
-        //buildFrame.add(menuBar);
+        //runFrame.add(menuBar);
 
 
 
@@ -62,17 +64,22 @@ public class RunGUI implements IModeGUI {
 
 
 
-        buildFrame.add(menuBar);
+        runFrame.add(menuBar);
         JPanel panel = new JPanel();
         panel.add(panelBtn);
         panel.add(gizmoBoard);
-        buildFrame.add(panel);
-        buildFrame.pack();
-        buildFrame.setResizable(false);
-        buildFrame.setLocationRelativeTo(null);
-        buildFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        buildFrame.setVisible(true);
+        runFrame.add(panel);
+        runFrame.pack();
+        runFrame.setResizable(false);
+        runFrame.setLocationRelativeTo(null);
+        runFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        runFrame.setVisible(true);
 
 
+    }
+
+    @Override
+    public JFrame getFrame() {
+        return runFrame;
     }
 }

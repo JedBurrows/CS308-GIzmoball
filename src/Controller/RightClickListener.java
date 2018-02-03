@@ -2,6 +2,7 @@ package Controller;
 
 import View.RightClickMenu;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,8 +14,10 @@ public class RightClickListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        RightClickMenu gizmoMenu = new RightClickMenu();
-        gizmoMenu.show(e.getComponent(), e.getX(), e.getY());
+        if (SwingUtilities.isRightMouseButton(e)) {
+            RightClickMenu gizmoMenu = new RightClickMenu();
+            gizmoMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
     }
 
     @Override

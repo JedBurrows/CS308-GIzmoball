@@ -2,24 +2,45 @@ package View;
 
 import Controller.RightClickListener;
 import Controller.SliderChangeListener;
+import Controller.ButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class BuildGUI implements IModeGUI,ActionListener {
+public class BuildGUI implements IModeGUI {
     private JButton  btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
+    private JComboBox<String> boxGizmo;
+
+
     private JFrame buildFrame;
+    private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
 
 
     public BuildGUI() {
 
-        JFrame buildFrame = new JFrame("Build Mode!");
+        buildFrame = new JFrame("Build Mode!");
         buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        createMenuBar();
+        createGameBoard();
+        initialiseButtons();
+        initialiseSliders();
+        arrangeButtons();
+
+        JPanel panel = new JPanel();
+        panel.add(panelBtn);
+        panel.add(gizmoBoard);
+        buildFrame.add(panel);
+        buildFrame.pack();
+        buildFrame.setResizable(false);
+        buildFrame.setLocationRelativeTo(null);
+        buildFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        buildFrame.setVisible(true);
+    }
+
+    private void createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         buildFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
@@ -31,8 +52,12 @@ public class BuildGUI implements IModeGUI,ActionListener {
         fileMenu.add(menuItemLoad);
         fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
+        buildFrame.add(menuBar);
+    }
 
-        JPanel gizmoBoard = new JPanel(new GridLayout(20, 20));
+    private void createGameBoard(){
+
+        gizmoBoard = new JPanel(new GridLayout(20, 20));
 //        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         for (int i =0; i<(20*20); i++){
@@ -40,19 +65,19 @@ public class BuildGUI implements IModeGUI,ActionListener {
             label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
             gizmoBoard.add(label);
         }
-        
-        
+
+
         gizmoBoard.setPreferredSize(new Dimension(600,600));
         gizmoBoard.setBackground(Color.black);
         gizmoBoard.setVisible(true);
         gizmoBoard.addMouseListener(new RightClickListener());
 
+    }
 
-
+    private void initialiseButtons(){
         btnGizmo = new JButton("Add Gizmo");
         btnGizmo.setPreferredSize(new Dimension(150, 50));
-        btnGizmo.addActionListener(this);
-        JComboBox<String> boxGizmo = new JComboBox<>();
+        boxGizmo = new JComboBox<>();
         boxGizmo.setPreferredSize(new Dimension(150, 50));
         boxGizmo.addItem("Square");
         boxGizmo.addItem("Circle");
@@ -60,34 +85,37 @@ public class BuildGUI implements IModeGUI,ActionListener {
         boxGizmo.addItem("Left Flipper");
         boxGizmo.addItem("Right Flipper");
         boxGizmo.addItem("Absorber");
+        btnGizmo.addMouseListener(new ButtonListener(ButtonListener.Type.ADD_GIZMO, boxGizmo.getSelectedItem().toString(), this));
 
         btnBall = new JButton("Add Ball");
         btnBall.setPreferredSize(new Dimension(150, 50));
-        btnBall.addActionListener(this);
+        btnBall.addMouseListener(new ButtonListener(ButtonListener.Type.ADD_BALL, this));;
         ////text field for ball////
         btnClear = new JButton("Clear Board");
         btnClear.setPreferredSize(new Dimension(150, 50));
-        btnClear.addActionListener(this);
+        btnClear.addMouseListener(new ButtonListener(ButtonListener.Type.CLEAR_BOARD, this));;
         btnCon = new JButton("Connect");
         btnCon.setPreferredSize(new Dimension(150, 50));
-        btnCon.addActionListener(this);
+        btnCon.addMouseListener(new ButtonListener(ButtonListener.Type.CONNECT, this));;
         btnDisc = new JButton("Disconnect");
         btnDisc.setPreferredSize(new Dimension(150, 50));
-        btnDisc.addActionListener(this);
+        btnDisc.addMouseListener(new ButtonListener(ButtonListener.Type.DISCONNECT, this));;
         btnKeyCon = new JButton("Key Connect");
         btnKeyCon.setPreferredSize(new Dimension(150, 50));
-        btnKeyCon.addActionListener(this);
+        btnKeyCon.addMouseListener(new ButtonListener(ButtonListener.Type.KEY_CONNECT, this));;
         btnKeyDisc = new JButton("Key Disconnect");
         btnKeyDisc.setPreferredSize(new Dimension(150, 50));
-        btnKeyDisc.addActionListener(this);
+        btnKeyDisc.addMouseListener(new ButtonListener(ButtonListener.Type.KEY_DISCONNECT, this));;
         btnRunMode = new JButton("Run");
         btnRunMode.setPreferredSize(new Dimension(150, 50));
-        btnRunMode.addActionListener(this);
+        btnRunMode.addMouseListener(new ButtonListener(ButtonListener.Type.RUN, this));;
+    }
 
+    private void initialiseSliders(){
         JSlider frictionSlider1 = new JSlider();
         frictionSlider1.addChangeListener(new SliderChangeListener());
         JLabel frictionLabel1 = new JLabel("Friction");
-        JPanel frictionPanel1 = new JPanel();
+        frictionPanel1 = new JPanel();
         frictionPanel1.setLayout(new GridLayout(1,2));
         frictionPanel1.add(frictionSlider1);
         frictionPanel1.add(frictionLabel1,0);
@@ -95,7 +123,7 @@ public class BuildGUI implements IModeGUI,ActionListener {
         JSlider frictionSlider2 = new JSlider();
         frictionSlider2.addChangeListener(new SliderChangeListener());
         JLabel frictionLabel2 = new JLabel("Friction");
-        JPanel frictionPanel2 = new JPanel();
+        frictionPanel2 = new JPanel();
         frictionPanel2.setLayout(new GridLayout(1,2));
         frictionPanel2.add(frictionSlider2);
         frictionPanel2.add(frictionLabel2,0);
@@ -103,7 +131,7 @@ public class BuildGUI implements IModeGUI,ActionListener {
         JSlider gravitySlider = new JSlider();
         gravitySlider.addChangeListener(new SliderChangeListener());
         JLabel gravityLabel = new JLabel("Gravity");
-        JPanel gravityPanel = new JPanel();
+        gravityPanel = new JPanel();
         gravityPanel.setLayout(new GridLayout(1,2));
         gravityPanel.add(gravitySlider);
         gravityPanel.add(gravityLabel,0);
@@ -114,7 +142,11 @@ public class BuildGUI implements IModeGUI,ActionListener {
         slidersPanel.add(frictionPanel2);
         slidersPanel.add(gravityPanel);
 
-        JPanel panelBtn = new JPanel();
+    }
+
+    private void arrangeButtons(){
+
+        panelBtn = new JPanel();
         panelBtn.setLayout(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
         c1.insets = new Insets(5, 0, 5, 0);
@@ -137,30 +169,20 @@ public class BuildGUI implements IModeGUI,ActionListener {
         panelBtn.add(gravityPanel, c2);
         panelBtn.add(frictionPanel1, c2);
         panelBtn.add(btnRunMode, c2);
-        buildFrame.add(menuBar);
-        
-
-        buildFrame.add(menuBar);
-        JPanel panel = new JPanel();
-        panel.add(panelBtn);
-        panel.add(gizmoBoard);
-        buildFrame.add(panel);
-        buildFrame.pack();
-        buildFrame.setResizable(false);
-        buildFrame.setLocationRelativeTo(null);
-        buildFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        buildFrame.setVisible(true);
-
 
     }
 
     @Override
+    public JFrame getFrame() {
+        return buildFrame;
+    }
+    /*@Override
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();
         if(arg.equals("Run")) {
             IModeGUI run = new RunGUI();
 
-        }
+    }*/
 
-    }
 }
+
