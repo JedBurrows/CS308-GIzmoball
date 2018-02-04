@@ -7,22 +7,13 @@ public class Board {
 	private static final double DEFAULT_GRAVITY = 25;
 	private static final double DEFAULT_MU = 0.025;
 	private static final double DEFAULT_MU2 = 0.025;
-
-
 	private boolean playMode;
-
-	public Ball getGizmoBall() {
-		return gizmoBall;
-	}
-
 	private Ball gizmoBall;
 	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
 	private Wall[] walls = new Wall[4];
 	private ArrayList<Chain> chains = new ArrayList<>();
-	private double gravity;
-	private double mu;
-	private double mu2;
+	private double gravity, mu, mu2;
 
 
 	/*
@@ -42,13 +33,15 @@ public class Board {
 
 	}
 
+	public Ball getGizmoBall() {
+		return gizmoBall;
+	}
+
 	public void setGravity(){
 		this.gravity = gravity;
 	}
 
 	public void addChain(){
-
-
 	}
 
 

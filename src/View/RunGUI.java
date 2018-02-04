@@ -82,4 +82,6 @@ public class RunGUI implements IModeGUI {
     public JFrame getFrame() {
         return runFrame;
     }
+
+
 }

@@ -1,8 +1,6 @@
 package View;
 
-import Controller.RightClickListener;
-import Controller.SliderChangeListener;
-import Controller.ButtonListener;
+import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +10,10 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 public class BuildGUI implements IModeGUI {
     private JButton  btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
     private JComboBox<String> boxGizmo;
-
-
     private JFrame buildFrame;
     private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
+
+
 
 
     public BuildGUI() {
@@ -70,7 +68,7 @@ public class BuildGUI implements IModeGUI {
         gizmoBoard.setPreferredSize(new Dimension(600,600));
         gizmoBoard.setBackground(Color.black);
         gizmoBoard.setVisible(true);
-        gizmoBoard.addMouseListener(new RightClickListener());
+        gizmoBoard.addMouseListener(new GameBoardListener(this));
 
     }
 
@@ -85,30 +83,32 @@ public class BuildGUI implements IModeGUI {
         boxGizmo.addItem("Left Flipper");
         boxGizmo.addItem("Right Flipper");
         boxGizmo.addItem("Absorber");
-        btnGizmo.addMouseListener(new ButtonListener(ButtonListener.Type.ADD_GIZMO, boxGizmo.getSelectedItem().toString(), this));
-
+        //btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
+        final MousePressListener addGizmoListener = new AddGizmoPressListener();
+        //final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
         btnBall = new JButton("Add Ball");
         btnBall.setPreferredSize(new Dimension(150, 50));
-        btnBall.addMouseListener(new ButtonListener(ButtonListener.Type.ADD_BALL, this));;
+        //btnBall.addMouseListener(new MousePressListener(MousePressListener.Type.ADD_BALL, this));;
+        final MousePressListener addBallListener = new AddBallPressListener();
         ////text field for ball////
         btnClear = new JButton("Clear Board");
         btnClear.setPreferredSize(new Dimension(150, 50));
-        btnClear.addMouseListener(new ButtonListener(ButtonListener.Type.CLEAR_BOARD, this));;
+        final MousePressListener clearBoardListener = new ClearBoardPressListener();
         btnCon = new JButton("Connect");
         btnCon.setPreferredSize(new Dimension(150, 50));
-        btnCon.addMouseListener(new ButtonListener(ButtonListener.Type.CONNECT, this));;
+        final MousePressListener connectListener = new ConnectPressListener();
         btnDisc = new JButton("Disconnect");
         btnDisc.setPreferredSize(new Dimension(150, 50));
-        btnDisc.addMouseListener(new ButtonListener(ButtonListener.Type.DISCONNECT, this));;
+        final MousePressListener disconnectListener = new DisconnectPressListener();
         btnKeyCon = new JButton("Key Connect");
         btnKeyCon.setPreferredSize(new Dimension(150, 50));
-        btnKeyCon.addMouseListener(new ButtonListener(ButtonListener.Type.KEY_CONNECT, this));;
+        final MousePressListener keyConnectListener = new KeyConnectPressListener();
         btnKeyDisc = new JButton("Key Disconnect");
         btnKeyDisc.setPreferredSize(new Dimension(150, 50));
-        btnKeyDisc.addMouseListener(new ButtonListener(ButtonListener.Type.KEY_DISCONNECT, this));;
+        final MousePressListener keyDisconnectListener = new KeyDisconnectPressListener();
         btnRunMode = new JButton("Run");
         btnRunMode.setPreferredSize(new Dimension(150, 50));
-        btnRunMode.addMouseListener(new ButtonListener(ButtonListener.Type.RUN, this));;
+        final MousePressListener runListener = new RunPressListener();
     }
 
     private void initialiseSliders(){
@@ -172,10 +172,14 @@ public class BuildGUI implements IModeGUI {
 
     }
 
+
+
+
     @Override
     public JFrame getFrame() {
         return buildFrame;
     }
+
     /*@Override
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();

@@ -8,4 +8,6 @@ public class PlayGUI implements IModeGUI {
     public JFrame getFrame() {
         return null;
     }
+
+
 }
