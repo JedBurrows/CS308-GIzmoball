@@ -1,9 +1,21 @@
 package Model;
-
+import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import physics.Vect;
 import physics.Circle;
 
-public class Ball  {
+
+public class Ball extends JPanel {
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawOval(0,0,150,150);
+
+    }
+
+
 
     private String name;
     private float x;
@@ -56,3 +68,9 @@ public class Ball  {
         return vy;
     }
 }
+
+
+
+
+
+

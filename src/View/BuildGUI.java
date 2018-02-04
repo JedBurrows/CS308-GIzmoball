@@ -1,19 +1,23 @@
 package View;
 
+
+import Controller.SliderChangeListener;
+import Model.Ball;
 import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class BuildGUI implements IModeGUI {
     private JButton  btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
     private JComboBox<String> boxGizmo;
+
+
     private JFrame buildFrame;
     private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
-
-
 
 
     public BuildGUI() {
@@ -173,8 +177,14 @@ public class BuildGUI implements IModeGUI {
     }
 
 
+    public void actionPerformed(ActionEvent e) {
+        String arg = e.getActionCommand();
+        if(arg.equals("Add Ball")){
+            Ball paintComponent = new Ball();
+        }
 
 
+        }
     @Override
     public JFrame getFrame() {
         return buildFrame;
