@@ -3,9 +3,11 @@ package View;
 import Controller.RightClickListener;
 import Controller.SliderChangeListener;
 import Controller.ButtonListener;
+import Model.Ball;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -172,6 +174,15 @@ public class BuildGUI implements IModeGUI {
 
     }
 
+
+    public void actionPerformed(ActionEvent e) {
+        String arg = e.getActionCommand();
+        if(arg.equals("Add Ball")){
+            Ball paintComponent = new Ball();
+        }
+
+
+        }
     @Override
     public JFrame getFrame() {
         return buildFrame;
