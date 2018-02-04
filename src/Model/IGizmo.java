@@ -19,7 +19,7 @@ public interface IGizmo {
 	 *
 	 * ID's:
 	 * Triangle 'T'+ number
-	 * Circle 'C'+ number
+	 * GizmoCircle 'C'+ number
 	 * Square 'S'+ number
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number

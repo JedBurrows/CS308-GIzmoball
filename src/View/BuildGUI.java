@@ -80,7 +80,7 @@ public class BuildGUI implements IModeGUI {
         boxGizmo = new JComboBox<>();
         boxGizmo.setPreferredSize(new Dimension(150, 50));
         boxGizmo.addItem("Square");
-        boxGizmo.addItem("Circle");
+        boxGizmo.addItem("GizmoCircle");
         boxGizmo.addItem("Triangle");
         boxGizmo.addItem("Left Flipper");
         boxGizmo.addItem("Right Flipper");
