@@ -26,14 +26,14 @@ public class Ball extends JPanel {
     private Circle circle;
 
 
-    public Ball(String n, float x_coordinate, float y_coordinate, float x_vector, float y_vector){
-        name = n;
+    public Ball(){
+        /*name = n;
         x = x_coordinate;
         y = y_coordinate;
         vx = x_vector;
         vy =y_vector;
         radius = 0.2;
-        circle = new Circle(new Vect(x,y), radius);
+        circle = new Circle(new Vect(x,y), radius);*/
     }
 
 
@@ -52,13 +52,13 @@ public class Ball extends JPanel {
         return name;
     }
 
-    public float getX() {
+ /*   public float getX() {
         return x;
     }
 
     public float getY() {
         return y;
-    }
+    }*/
 
     public float getVX() {
         return vx;
