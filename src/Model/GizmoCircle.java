@@ -1,6 +1,17 @@
 package Model;
 
-public class Circle implements IGizmo{
+
+import physics.Circle;
+
+public class GizmoCircle implements IGizmo {
+
+    public Circle getCircle() {
+        return circle;
+    }
+
+    private Circle circle;
+
+
     @Override
     public void action() {
 

@@ -13,4 +13,8 @@ public class Wall {
 
 
 	}
+
+    public LineSegment getLine() {
+        return ls;
+    }
 }

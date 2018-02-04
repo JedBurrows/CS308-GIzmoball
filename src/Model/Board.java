@@ -10,6 +10,11 @@ public class Board {
 
 
 	private boolean playMode;
+
+	public Ball getGizmoBall() {
+		return gizmoBall;
+	}
+
 	private Ball gizmoBall;
 	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
