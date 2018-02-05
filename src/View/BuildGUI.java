@@ -72,7 +72,8 @@ public class BuildGUI implements IModeGUI {
         gizmoBoard.setPreferredSize(new Dimension(600,600));
         gizmoBoard.setBackground(Color.black);
         gizmoBoard.setVisible(true);
-        gizmoBoard.addMouseListener(new GameBoardListener(this));
+//        gizmoBoard.addMouseListener(new GameBoardListener(this));
+        gizmoBoard.addKeyListener(new KeyPressListener());
 
     }
 
