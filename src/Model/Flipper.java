@@ -2,6 +2,9 @@ package Model;
 
 public class Flipper implements IGizmo{
 
+	//status of activated or not
+	//left and right flipper class
+
 	public static final int FLIPPER_LEFT = 0;
 	public static final int FLIPPER_RIGHT = 1;
 
