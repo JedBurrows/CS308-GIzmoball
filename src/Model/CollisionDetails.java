@@ -6,10 +6,13 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CollisionDetails {
 
     private double minTime;
+    private Circle ball;
+    private Vect ballVelocity;
     private Vect velocityAfterCollision;
 
     public CollisionDetails(){
@@ -17,43 +20,35 @@ public class CollisionDetails {
     }
 
     /**
-    *Calculates minimum time until collision
-    **/
-    public void calculateMinTime(Ball ball, ArrayList<Wall> walls, ArrayList<GizmoCircle> gizmoCircles){
-        Circle ballCircle = ball.getCircle();
-        Vect ballVelocity = ball.getVelocity();
-        minTime = 0;
-        calculateWallCollision( walls, ballCircle,  ballVelocity);
-        calculateCircleCollision(gizmoCircles, ballCircle, ballVelocity);
-        //calculate square, triangle and flipper collisions
-        //calculate collisions with size zero circless
+     *Calculates minimum time until collision
+     **/
 
-    }
+    public void calculateMinTime(Ball ball, Board gameboard){
+        double time;
+        this.ball = ball.getCircle();
+        ballVelocity = ball.getVelocity();
+        ArrayList<IGizmo> gizmos = gameboard.getGizmos();
+        ArrayList<Circle> componentCircles;
+        ArrayList<LineSegment> componentLines;
 
-    private void calculateCircleCollision(ArrayList<GizmoCircle> gizmoCircles, Circle ballCircle, Vect ballVelocity){
-        for(GizmoCircle gizmoCircle : gizmoCircles){
-            double time = Geometry.timeUntilCircleCollision(gizmoCircle.getCircle(), ballCircle, ballVelocity);
-            if(minTime == 0)
-                minTime = time;
-            else if(time < minTime) {
-                minTime = time;
-                velocityAfterCollision = Geometry.reflectCircle(gizmoCircle.getCircle().getCenter(), ballCircle.getCenter(), ballVelocity, 1);
+        for(IGizmo gizmo : gizmos){
+            componentCircles = gizmo.getCircles();
+            componentLines = gizmo.getLines();
+
+            for (Circle componentCircle : componentCircles){
+                time = Geometry.timeUntilCircleCollision(componentCircle, this.ball, ballVelocity);
+                if (time < minTime)
+                    minTime = time;
+            }
+            for (LineSegment line: componentLines){
+                time = Geometry.timeUntilWallCollision(line, this.ball, ballVelocity);
+                if (time < minTime)
+                    minTime = time;
             }
         }
     }
 
-    private void calculateWallCollision(ArrayList<Wall> walls, Circle ballCircle, Vect ballVelocity){
-        for(Wall wall : walls){
-            LineSegment line = wall.getLine();
-            double time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-            if(minTime == 0)
-                minTime = time;
-            else if(time < minTime) {
-                minTime = time;
-                velocityAfterCollision = Geometry.reflectWall(line, ballVelocity, 1);
-            }
-        }
-    }
+
 
     private double getMinTime(){
         return minTime;

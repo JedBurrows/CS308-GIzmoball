@@ -45,5 +45,7 @@ public class Board {
 	}
 
 
-
+    public ArrayList<IGizmo> getGizmos() {
+        return gizmos;
+    }
 }

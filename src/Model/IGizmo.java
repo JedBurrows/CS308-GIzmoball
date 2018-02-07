@@ -1,5 +1,10 @@
 package Model;
 
+import physics.Circle;
+import physics.LineSegment;
+
+import java.util.ArrayList;
+
 public interface IGizmo {
 
 	/**
@@ -30,15 +35,7 @@ public interface IGizmo {
 	public Boolean move(int x, int y);
 
 
+    ArrayList<Circle> getCircles();
 
-
-
-
-
-
-
-
-
-
-
+	ArrayList<LineSegment> getLines();
 }
