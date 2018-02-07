@@ -1,7 +1,8 @@
-package Model;
+package Model.Gizmos;
 
-public class Triangle implements IGizmo {
+public class Square implements IGizmo {
 
+    private static final String TYPE = "Square";
 
     @Override
     public void action() {
@@ -21,5 +22,10 @@ public class Triangle implements IGizmo {
     @Override
     public Boolean move(int x, int y) {
         return null;
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
     }
 }

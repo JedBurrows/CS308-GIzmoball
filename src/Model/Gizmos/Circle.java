@@ -1,15 +1,16 @@
-package Model;
+package Model.Gizmos;
 
 
-import physics.Circle;
+public class Circle implements IGizmo {
 
-public class GizmoCircle implements IGizmo {
-
-    public Circle getCircle() {
+    public physics.Circle getCircle() {
         return circle;
     }
 
-    private Circle circle;
+    private physics.Circle circle;
+
+    private static final String TYPE = "Circle";
+
 
 
     @Override
@@ -30,5 +31,10 @@ public class GizmoCircle implements IGizmo {
     @Override
     public Boolean move(int x, int y) {
         return null;
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
     }
 }

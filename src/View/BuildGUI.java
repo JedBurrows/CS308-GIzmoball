@@ -60,6 +60,7 @@ public class BuildGUI implements IModeGUI {
         gizmoBoard = new JPanel(new GridLayout(20, 20));
 //        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         gizmoBoard.setFocusable(true);
+        gizmoBoard.setFocusCycleRoot(true);
 
         for (int i =0; i<(20*20); i++){
             final JLabel label = new JLabel();
@@ -82,7 +83,7 @@ public class BuildGUI implements IModeGUI {
         boxGizmo = new JComboBox<>();
         boxGizmo.setPreferredSize(new Dimension(150, 50));
         boxGizmo.addItem("Square");
-        boxGizmo.addItem("GizmoCircle");
+        boxGizmo.addItem("Circle");
         boxGizmo.addItem("Triangle");
         boxGizmo.addItem("Left Flipper");
         boxGizmo.addItem("Right Flipper");

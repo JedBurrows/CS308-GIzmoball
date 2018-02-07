@@ -16,8 +16,8 @@ public class KeyPressListener implements KeyListener {
         int key = e.getKeyCode();
 
 
-        if(key == KeyEvent.VK_ENTER){
-            System.out.println("hello");
+        if(key == KeyEvent.VK_ENTER) {
+            //Do Something
         }
 
     }
