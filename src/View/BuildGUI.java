@@ -1,7 +1,6 @@
 package View;
 
 
-import Controller.SliderChangeListener;
 import Model.Ball;
 import Controller.*;
 
@@ -54,13 +53,13 @@ public class BuildGUI implements IModeGUI {
         fileMenu.add(menuItemLoad);
         fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
-        buildFrame.add(menuBar);
     }
 
     private void createGameBoard(){
 
         gizmoBoard = new JPanel(new GridLayout(20, 20));
 //        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        gizmoBoard.setFocusable(true);
 
         for (int i =0; i<(20*20); i++){
             final JLabel label = new JLabel();
