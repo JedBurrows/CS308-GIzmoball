@@ -6,7 +6,6 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CollisionDetails {
 
@@ -37,20 +36,32 @@ public class CollisionDetails {
 
             for (Circle componentCircle : componentCircles){
                 time = Geometry.timeUntilCircleCollision(componentCircle, this.ball, ballVelocity);
-                if (time < minTime)
+                if (time < minTime) {
                     minTime = time;
+                    setVelocityAfterCollision(componentCircle, null);
+                }
             }
             for (LineSegment line: componentLines){
                 time = Geometry.timeUntilWallCollision(line, this.ball, ballVelocity);
-                if (time < minTime)
+                if (time < minTime) {
                     minTime = time;
+                    setVelocityAfterCollision(null, line);
+                }
             }
+        }
+    }
+
+    private void setVelocityAfterCollision(Circle componentCircle, LineSegment line){
+        if (line.equals(null)){ //closest component is circle
+
+        }else{  //closest component is line
+
         }
     }
 
 
 
-    private double getMinTime(){
+    public double getMinTime(){
         return minTime;
     }
 

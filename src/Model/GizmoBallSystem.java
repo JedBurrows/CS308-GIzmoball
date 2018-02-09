@@ -1,7 +1,25 @@
 package Model;
 
 public class GizmoBallSystem {
-    public static void main(String[] args){
-        GizmoBallTimer timer = new GizmoBallTimer(0, null);
+    Board gameboard;
+    CollisionDetails collisionDetails;
+    double timerTick;
+
+    public GizmoBallSystem(){
+        gameboard = new Board();
+        collisionDetails = new CollisionDetails();
+
     }
+
+    private void collisions(Ball ball){
+        collisionDetails.calculateMinTime(ball, gameboard);
+        if(collisionDetails.getMinTime() <= timerTick){
+            collisionDetails.
+        }
+    }
+
+
+
+
+
 }
