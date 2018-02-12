@@ -1,5 +1,10 @@
 package Model.Gizmos;
 
+import physics.Circle;
+import physics.LineSegment;
+
+import java.util.ArrayList;
+
 public class Triangle implements IGizmo {
 
     private static final String TYPE = "Triangle";
@@ -28,5 +33,15 @@ public class Triangle implements IGizmo {
     @Override
     public String getType() {
         return TYPE;
+    }
+
+    @Override
+    public ArrayList<Circle> getCircles() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<LineSegment> getLines() {
+        return null;
     }
 }

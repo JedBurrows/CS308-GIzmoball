@@ -131,5 +131,7 @@ public class Board {
 		public NoSuchGizmoException(Throwable cause) { super(cause); }
 	}
 
-
+    public ArrayList<IGizmo> getGizmos() {
+        return gizmos;
+    }
 }
