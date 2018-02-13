@@ -13,10 +13,11 @@ public class Flipper implements IGizmo{
 	public static final int FLIPPER_LEFT = 0;
 	public static final int FLIPPER_RIGHT = 1;
 
+	private String id;
 
-	public Flipper(int orientation){
 
-
+	public Flipper(String id,int orientation){
+		this.id = id;
 	}
 
 
@@ -35,10 +36,6 @@ public class Flipper implements IGizmo{
 		return null;
 	}
 
-	@Override
-	public Boolean move(int x, int y) {
-		return null;
-	}
 
 	@Override
 	public ArrayList<Circle> getCircles() {

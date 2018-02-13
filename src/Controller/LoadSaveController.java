@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Board;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,11 +39,14 @@ public class LoadSaveController implements ActionListener {
 					FileReader fileReader = new FileReader(file);
 
 					BufferedReader bufferedReader = new BufferedReader(fileReader);
+					Board board = new Board();
 					String line = bufferedReader.readLine();
 					while (line != null){
 						Scanner scanner = new Scanner(line);
 
 						String element = scanner.next();
+
+						System.out.println("First element pulled from scanner was: " + element);
 
 						switch (element){
 
@@ -61,12 +64,17 @@ public class LoadSaveController implements ActionListener {
 
 								 */
 							case  "Ball":
+								board.addGizmoBall(new Ball(scanner.next(),scanner.nextFloat(),scanner.nextFloat(),scanner.nextFloat(),scanner.nextFloat()));
 								break;
 
 								/*
 									"Rotate" (IDENTIFIER name)
 								 */
 							case "Rotate":
+								IGizmo gizmo = board.getGizmoByID(scanner.next());
+								if (gizmo!= null){
+									gizmo.rotate();
+								}
 								break;
 
 								/*
@@ -100,12 +108,15 @@ public class LoadSaveController implements ActionListener {
 									"Gravity" (FLOAT g)
 								 */
 							case "Gravity":
+								board.setGravity(scanner.nextFloat());
 								break;
 
 								/*
 									"Friction" (FLOAT mu) (FLOAT mu2)
 								 */
 							case "Friction":
+								board.setFriction(scanner.nextFloat(),scanner.nextFloat());
+
 								break;
 
 
@@ -114,16 +125,21 @@ public class LoadSaveController implements ActionListener {
 								Creates the given gizmo with its upper left-corner at (x,y), in the default orientation.
 							 */
 							case "Square":
+								board.addGizmo(new Square(scanner.next()),scanner.nextInt(),scanner.nextInt());
 								break;
 							case "Circle":
+								board.addGizmo(new GizmoCircle(scanner.next()),scanner.nextInt(),scanner.nextInt());
 								break;
 							case "Triangle":
+								board.addGizmo(new Triangle(scanner.next()),scanner.nextInt(),scanner.nextInt());
 								break;
 							case "RightFlipper":
 								break;
 							case "LeftFlipper":
 								break;
+							//may need case for empty line or return carriage
 						}
+						line = bufferedReader.readLine();
 
 
 					}

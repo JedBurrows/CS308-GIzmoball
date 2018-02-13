@@ -8,6 +8,12 @@ import java.util.ArrayList;
 
 public class GizmoCircle implements IGizmo {
 
+    private String id;
+
+    public GizmoCircle(String id){
+        this.id = id;
+    }
+
     public Circle getCircle() {
         return circle;
     }
@@ -27,11 +33,6 @@ public class GizmoCircle implements IGizmo {
 
     @Override
     public String getID() {
-        return null;
-    }
-
-    @Override
-    public Boolean move(int x, int y) {
         return null;
     }
 

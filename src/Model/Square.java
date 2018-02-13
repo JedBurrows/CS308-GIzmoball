@@ -6,6 +6,15 @@ import physics.LineSegment;
 import java.util.ArrayList;
 
 public class Square implements IGizmo {
+
+    private String id;
+
+
+
+    public Square(String id){
+        this.id =id;
+    }
+
     @Override
     public void action() {
 
@@ -18,11 +27,6 @@ public class Square implements IGizmo {
 
     @Override
     public String getID() {
-        return null;
-    }
-
-    @Override
-    public Boolean move(int x, int y) {
         return null;
     }
 

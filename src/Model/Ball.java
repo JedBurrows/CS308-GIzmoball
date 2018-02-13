@@ -26,7 +26,7 @@ public class Ball extends JPanel {
     private Circle circle;
 
 
-    public Ball(){
+    public Ball(String name, float x, float y, float vx, float vy){
         /*name = n;
         x = x_coordinate;
         y = y_coordinate;

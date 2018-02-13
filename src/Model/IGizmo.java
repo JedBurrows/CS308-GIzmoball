@@ -32,7 +32,6 @@ public interface IGizmo {
 	 */
 	public String getID();
 
-	public Boolean move(int x, int y);
 
 
     ArrayList<Circle> getCircles();
