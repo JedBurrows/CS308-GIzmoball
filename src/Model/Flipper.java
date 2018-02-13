@@ -40,7 +40,7 @@ public class Flipper implements IGizmo{
 	}
 
 	@Override
-	public ArrayList<Circle> getCircles() {
+	public ArrayList<ComponentCircle> getCircles() {
 		return null;
 	}
 

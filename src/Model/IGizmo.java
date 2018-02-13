@@ -35,7 +35,7 @@ public interface IGizmo {
 	public Boolean move(int x, int y);
 
 
-    ArrayList<Circle> getCircles();
+    ArrayList<ComponentCircle> getCircles();
 
 	ArrayList<VerticalLine> getLines();
 }

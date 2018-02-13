@@ -8,7 +8,7 @@ public class Square implements IGizmo {
 
     int size;
     ArrayList<VerticalLine> lines;
-    ArrayList<Circle> circles;
+    ArrayList<ComponentCircle> circles;
 
     public Square(){
 //        size = 1;
@@ -46,7 +46,7 @@ public class Square implements IGizmo {
     }
 
     @Override
-    public ArrayList<Circle> getCircles() {return circles;}
+    public ArrayList<ComponentCircle> getCircles() {return circles;}
 
     @Override
     public ArrayList<VerticalLine> getLines() {

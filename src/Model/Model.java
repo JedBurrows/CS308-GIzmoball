@@ -14,6 +14,7 @@ import physics.Vect;
 
 public class Model extends Observable {
 
+	private ArrayList<IGizmo> gizmos;
 	private ArrayList<VerticalLine> lines;
 	private ArrayList<ComponentCircle> circles;
 	private Ball ball;
@@ -128,6 +129,15 @@ public class Model extends Observable {
 	}
 
 	public void addCircle(ComponentCircle c){circles.add(c);}
+
+	public void addGizmo(IGizmo g){
+		for(VerticalLine l:g.getLines()){
+			lines.add(l);
+		}
+		for(ComponentCircle c : g.getCircles()){
+			circles.add(c);
+		}
+	}
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));

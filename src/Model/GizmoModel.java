@@ -1,8 +1,6 @@
 package Model;
 
 
-import physics.Vect;
-
 public class GizmoModel {
     Model model;
 
@@ -10,14 +8,14 @@ public class GizmoModel {
         model = m;
     }
 
-    public IGizmo createGizmo(char type, Vect pos){
+    public IGizmo createGizmo(char type, int x, int y){
         switch (type){
-            /*case 's':
+            case 's':
                 return new Square();
             case 'c':
-                return new ComponentCircle();
+                return new GizmoCircle(x, y);
             case 't':
-                return new Triangle();*/
+                return new Triangle();
         }
         return null;
     }

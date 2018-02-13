@@ -2,13 +2,10 @@ package main;
 
 import javax.swing.UIManager;
 
-import Model.VerticalLine;
-import Model.ComponentCircle;
+import Model.IGizmo;
 import Model.Model;
 import Model.GizmoModel;
-import Model.IGizmo;
 import View.MITRunGui;
-import physics.Vect;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -29,12 +26,14 @@ public class Main {
 
 		model.setBallSpeed(200, 200);
 
+		IGizmo c1 = gizmoCreator.createGizmo('c', 100, 100);
+		model.addGizmo(c1);
 		// Vertical line at (100,100), width 300
 //		model.addLine(new VerticalLine(100, 100, 300));
 //		model.addCircle(new ComponentCircle(100,100,0));
 //		model.addCircle(new ComponentCircle(400,100,0));
 //
-		model.addCircle(new ComponentCircle(100, 100));
+		//model.addCircle(new ComponentCircle(100, 100));
 
 		/*model.addLine(new VerticalLine(100, 200, 300));
 		model.addLine(new VerticalLine(100, 300, 300));
@@ -46,7 +45,7 @@ public class Main {
 
 	public void addGizmo(GizmoModel gizmoCreator, Model model){
 
-		IGizmo s1 = gizmoCreator.createGizmo('s', new Vect(100 , 200));
+		//IGizmo s1 = gizmoCreator.createGizmo('s', new Vect(100 , 200));
 //		for(VerticalLine l : s1.getLines())
 //			model.addLine(l);
 	}

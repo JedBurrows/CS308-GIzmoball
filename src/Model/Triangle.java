@@ -28,7 +28,7 @@ public class Triangle implements IGizmo {
     }
 
     @Override
-    public ArrayList<Circle> getCircles() {
+    public ArrayList<ComponentCircle> getCircles() {
         return null;
     }
 
