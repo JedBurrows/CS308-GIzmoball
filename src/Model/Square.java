@@ -10,19 +10,17 @@ public class Square implements IGizmo {
     ArrayList<VerticalLine> lines;
     ArrayList<ComponentCircle> circles;
 
-    public Square(){
-//        size = 1;
-//        Vect v2 = new Vect(x+size, y);
-//        Vect v3 = new Vect(x+size, y+size);
-//        Vect v4 = new Vect(x, y+size);
-//        lines.add(new VerticalLine(x, y, size));
-//        lines.add(new VerticalLine(x+size, size,0));
-//        lines.add(new VertiaclLine(x, y+size,);
-//        lines.add(new LineSegment(v4, pos));
-//        circles.add(new Circle(pos,0));
-//        circles.add(new Circle(v2,0));
-//        circles.add(new Circle(v3,0));
-//        circles.add(new Circle(v4,0));
+    public Square(int x, int y){
+        size = 1;
+
+        lines.add(new VerticalLine(x, y, size, 0));
+        lines.add(new VerticalLine(x+size, y-size,0, size));
+        lines.add(new VerticalLine(x, y-size,size,0));
+        lines.add(new VerticalLine(x,y-size,0,size));
+        circles.add(new ComponentCircle(x,y,0));
+        circles.add(new ComponentCircle(x+size, y, 0));
+        circles.add(new ComponentCircle(x+size, y-size, 0));
+        circles.add(new ComponentCircle(x, y-size,0));
     }
 
     @Override

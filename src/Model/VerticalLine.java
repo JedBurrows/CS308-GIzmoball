@@ -11,14 +11,16 @@ public class VerticalLine {
 	private int xpos;
 	private int ypos;
 	private int width;
+	private int height;
 	private LineSegment ls;
 
-	public VerticalLine(int x, int y, int w) {
+	public VerticalLine(int x, int y, int w, int h) {
 		xpos = x;
 		ypos = y;
 		width = w;
-		ls = new LineSegment(x, y, x + w, y);
+		ls = new LineSegment(x, y, x + w, y + h);
 	}
+
 
 	public LineSegment getLineSeg() {
 		return ls;
