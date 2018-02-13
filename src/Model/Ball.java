@@ -1,76 +1,83 @@
 package Model;
+
 import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import physics.Vect;
+
+import Model.Model;
 import physics.Circle;
+import physics.Vect;
 
+/**
+ * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
+ */
 
-public class Ball extends JPanel {
+public class Ball {
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.drawOval(0,0,150,150);
+	private Vect velocity;
+	private double radius;
+	private double xpos;
+	private double ypos;
+	private Color colour;
 
-    }
+	private boolean stopped;
 
+	// x, y coordinates and x,y velocity
+	public Ball(double x, double y, double xv, double yv) {
+		xpos = x; // Centre coordinates
+		ypos = y;
+		colour = Color.BLUE;
+		velocity = new Vect(xv, yv);
+		radius = 10;
+		stopped = false;
+	}
 
+	public Vect getVelo() {
+		return velocity;
+	}
 
-    private String name;
-    private float x;
-    private float y;
-    private float vx;
-    private float vy;
-    private double radius;
-    private Circle circle;
+	public void setVelo(Vect v) {
+		velocity = v;
+	}
 
+	public double getRadius() {
+		return radius;
+	}
 
-    public Ball(){
-        /*name = n;
-        x = x_coordinate;
-        y = y_coordinate;
-        vx = x_vector;
-        vy =y_vector;
-        radius = 0.2;
-        circle = new Circle(new Vect(x,y), radius);*/
-    }
+	public Circle getCircle() {
+		return new Circle(xpos, ypos, radius);
 
+	}
 
-    public Circle getCircle() {
-        return circle;
-    }
+	// Ball specific methods that deal with double precision.
+	public double getExactX() {
+		return xpos;
+	}
 
+	public double getExactY() {
+		return ypos;
+	}
 
-    public Vect getVelocity(){
-        Vect vector = new Vect(vx, vy);
-        return vector;
-    }
+	public void setExactX(double x) {
+		xpos = x;
+	}
 
+	public void setExactY(double y) {
+		ypos = y;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void stop() {
+		stopped = true;
+	}
 
- /*   public float getX() {
-        return x;
-    }
+	public void start() {
+		stopped = false;
+	}
 
-    public float getY() {
-        return y;
-    }*/
+	public boolean stopped() {
+		return stopped;
+	}
 
-    public float getVX() {
-        return vx;
-    }
+	public Color getColour() {
+		return colour;
+	}
 
-    public float getVY() {
-        return vy;
-    }
 }
-
-
-
-
-
-

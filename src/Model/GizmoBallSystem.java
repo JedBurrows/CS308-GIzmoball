@@ -7,16 +7,16 @@ public class GizmoBallSystem {
 
     public GizmoBallSystem(){
         gameboard = new Board();
-        collisionDetails = new CollisionDetails();
+        //collisionDetails = new CollisionDetails();
 
     }
-
-    private void collisions(Ball ball){
-        collisionDetails.calculateMinTime(ball, gameboard);
-        if(collisionDetails.getMinTime() <= timerTick){
-            collisionDetails.
-        }
-    }
+//
+//    private void collisions(Ball ball){
+//        collisionDetails.calculateMinTime(ball, gameboard);
+//        if(collisionDetails.getMinTime() <= timerTick){
+//            collisionDetails.
+//        }
+//    }
 
 
 

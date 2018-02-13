@@ -2,7 +2,6 @@ package View;
 
 
 import Controller.SliderChangeListener;
-import Model.Ball;
 import Controller.*;
 
 import javax.swing.*;
@@ -83,7 +82,7 @@ public class BuildGUI implements IModeGUI {
         boxGizmo = new JComboBox<>();
         boxGizmo.setPreferredSize(new Dimension(150, 50));
         boxGizmo.addItem("Square");
-        boxGizmo.addItem("GizmoCircle");
+        boxGizmo.addItem("ComponentCircle");
         boxGizmo.addItem("Triangle");
         boxGizmo.addItem("Left Flipper");
         boxGizmo.addItem("Right Flipper");
@@ -181,7 +180,7 @@ public class BuildGUI implements IModeGUI {
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();
         if(arg.equals("Add Ball")){
-            Ball paintComponent = new Ball();
+            //Ball paintComponent = new Ball();
         }
 
 

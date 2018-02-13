@@ -24,7 +24,7 @@ public interface IGizmo {
 	 *
 	 * ID's:
 	 * Triangle 'T'+ number
-	 * GizmoCircle 'C'+ number
+	 * ComponentCircle 'C'+ number
 	 * Square 'S'+ number
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number
@@ -37,5 +37,5 @@ public interface IGizmo {
 
     ArrayList<Circle> getCircles();
 
-	ArrayList<LineSegment> getLines();
+	ArrayList<VerticalLine> getLines();
 }

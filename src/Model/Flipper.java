@@ -1,5 +1,9 @@
 package Model;
 
+import physics.Circle;
+
+import java.util.ArrayList;
+
 public class Flipper implements IGizmo{
 
 	//status of activated or not
@@ -32,6 +36,16 @@ public class Flipper implements IGizmo{
 
 	@Override
 	public Boolean move(int x, int y) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<Circle> getCircles() {
+		return null;
+	}
+
+	@Override
+	public ArrayList<VerticalLine> getLines() {
 		return null;
 	}
 }

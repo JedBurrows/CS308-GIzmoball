@@ -1,7 +1,6 @@
 package Model;
 
 import physics.Circle;
-import physics.LineSegment;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ public class Triangle implements IGizmo {
     }
 
     @Override
-    public ArrayList<LineSegment> getLines() {
+    public ArrayList<VerticalLine> getLines() {
         return null;
     }
 }
