@@ -186,7 +186,7 @@ public class BuildGUI implements IModeGUI {
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();
         if(arg.equals("Add Ball")){
-            Ball paintComponent = new Ball();
+            Ball paintComponent = new Ball("B",5f,5f,5f,5f);
         }
 
 

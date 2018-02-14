@@ -60,10 +60,12 @@ public class Board {
 	}
 
 	public boolean moveGizmo(){
+    	return false;
 
 	}
 
 	public boolean deleteGizmo(){
+		return false;
 
 	}
 
