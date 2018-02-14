@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 public class Triangle implements IGizmo {
 
-    private static final String TYPE = "Triangle";
+    private String id;
+
+    public Triangle(String id){
+        this.id = id;
+    }
 
 
     @Override
@@ -23,16 +27,6 @@ public class Triangle implements IGizmo {
     @Override
     public String getID() {
         return null;
-    }
-
-    @Override
-    public Boolean move(int x, int y) {
-        return null;
-    }
-
-    @Override
-    public String getType() {
-        return TYPE;
     }
 
     @Override

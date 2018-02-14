@@ -7,6 +7,7 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -42,6 +43,7 @@ public class BuildGUI implements IModeGUI {
     }
 
     private void createMenuBar(){
+        ActionListener lsListener = new LoadSaveController(buildFrame);
         JMenuBar menuBar = new JMenuBar();
         buildFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
@@ -50,6 +52,10 @@ public class BuildGUI implements IModeGUI {
         JMenuItem menuItemSave = new JMenuItem("Save");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(e -> System.exit(0));
+        menuItemLoad.addActionListener(lsListener);
+        menuItemSave.addActionListener(lsListener);
+        menuItemLoad.setActionCommand("load");
+        menuItemSave.setActionCommand("save");
         fileMenu.add(menuItemLoad);
         fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
@@ -181,7 +187,7 @@ public class BuildGUI implements IModeGUI {
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();
         if(arg.equals("Add Ball")){
-            Ball paintComponent = new Ball();
+            Ball paintComponent = new Ball("B",5f,5f,5f,5f);
         }
 
 

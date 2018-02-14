@@ -1,19 +1,25 @@
 package Model;
 
+
 import physics.Circle;
 import physics.LineSegment;
 
 import java.util.ArrayList;
 
-public class Square implements IGizmo {
+public class GizmoCircle implements IGizmo {
 
     private String id;
 
-
-
-    public Square(String id){
-        this.id =id;
+    public GizmoCircle(String id){
+        this.id = id;
     }
+
+    public Circle getCircle() {
+        return circle;
+    }
+
+    private Circle circle;
+
 
     @Override
     public void action() {

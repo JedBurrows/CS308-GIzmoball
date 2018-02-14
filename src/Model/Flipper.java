@@ -1,8 +1,11 @@
 package Model;
 
-import Model.Gizmos.IGizmo;
+import physics.Circle;
+import physics.LineSegment;
 
-public class Flipper implements IGizmo {
+import java.util.ArrayList;
+
+public class Flipper implements IGizmo{
 
 	//status of activated or not
 	//left and right flipper class
@@ -10,10 +13,11 @@ public class Flipper implements IGizmo {
 	public static final int FLIPPER_LEFT = 0;
 	public static final int FLIPPER_RIGHT = 1;
 
+	private String id;
 
-	public Flipper(int orientation){
 
-
+	public Flipper(String id,int orientation){
+		this.id = id;
 	}
 
 
@@ -33,7 +37,12 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
-	public Boolean move(int x, int y) {
+	public ArrayList<Circle> getCircles() {
+		return null;
+	}
+
+	@Override
+	public ArrayList<LineSegment> getLines() {
 		return null;
 	}
 }
