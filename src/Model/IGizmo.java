@@ -1,8 +1,6 @@
 package Model;
 
-import physics.Circle;
-import physics.LineSegment;
-
+import java.awt.*;
 import java.util.ArrayList;
 
 public interface IGizmo {
@@ -37,5 +35,7 @@ public interface IGizmo {
 
     ArrayList<ComponentCircle> getCircles();
 
-	ArrayList<VerticalLine> getLines();
+	ArrayList<Line> getLines();
+
+	void draw(Graphics2D g2);
 }

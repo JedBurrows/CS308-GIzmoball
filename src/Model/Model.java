@@ -15,7 +15,7 @@ import physics.Vect;
 public class Model extends Observable {
 
 	private ArrayList<IGizmo> gizmos;
-	private ArrayList<VerticalLine> lines;
+	private ArrayList<Line> lines;
 	private ArrayList<ComponentCircle> circles;
 	private Ball ball;
 	private Walls gws;
@@ -29,8 +29,9 @@ public class Model extends Observable {
 		gws = new Walls(0, 0, 500, 500);
 
 		// Lines added in Main
-		lines = new ArrayList<VerticalLine>();
+		lines = new ArrayList<Line>();
 		circles = new ArrayList<ComponentCircle>();
+		gizmos = new ArrayList<IGizmo>();
 	}
 
 	public void moveBall() {
@@ -93,7 +94,7 @@ public class Model extends Observable {
 		}
 
 		// Time to collide with any vertical lines
-		for (VerticalLine line : lines) {
+		for (Line line : lines) {
 			LineSegment ls = line.getLineSeg();
 			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
@@ -118,26 +119,29 @@ public class Model extends Observable {
 		return ball;
 	}
 
-	public ArrayList<VerticalLine> getLines() {
+	public ArrayList<Line> getLines() {
 		return lines;
 	}
 
 	public ArrayList<ComponentCircle> getCircles(){return circles;}
 
-	public void addLine(VerticalLine l) {
+	public void addLine(Line l) {
 		lines.add(l);
 	}
 
 	public void addCircle(ComponentCircle c){circles.add(c);}
 
 	public void addGizmo(IGizmo g){
-		for(VerticalLine l:g.getLines()){
+		gizmos.add(g);
+		for(Line l:g.getLines()){
 			lines.add(l);
 		}
 		for(ComponentCircle c : g.getCircles()){
 			circles.add(c);
 		}
 	}
+
+	public ArrayList<IGizmo> getGizmos(){return gizmos;}
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));

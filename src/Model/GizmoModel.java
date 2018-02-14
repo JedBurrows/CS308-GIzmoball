@@ -11,11 +11,11 @@ public class GizmoModel {
     public IGizmo createGizmo(char type, int x, int y){
         switch (type){
             case 's':
-                return new Square();
+                return new Square(x, y);
             case 'c':
                 return new GizmoCircle(x, y);
             case 't':
-                return new Triangle();
+                return new Triangle(x,y);
         }
         return null;
     }

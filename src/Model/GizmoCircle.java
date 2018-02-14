@@ -1,8 +1,6 @@
 package Model;
 
-import physics.Circle;
-import physics.Vect;
-
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GizmoCircle implements IGizmo{
@@ -46,7 +44,12 @@ public class GizmoCircle implements IGizmo{
     }
 
     @Override
-    public ArrayList<VerticalLine> getLines() {
-        return new ArrayList<VerticalLine>();
+    public ArrayList<Line> getLines() {
+        return new ArrayList<Line>();
+    }
+
+    @Override
+    public void draw(Graphics2D g2) {
+        g2.fillOval((int) (xpos-radius), (int) (ypos-radius), (int) (2*radius), (int) (2*radius));
     }
 }

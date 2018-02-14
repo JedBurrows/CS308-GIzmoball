@@ -1,7 +1,6 @@
 package Model;
 
-import physics.Circle;
-
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Flipper implements IGizmo{
@@ -45,7 +44,12 @@ public class Flipper implements IGizmo{
 	}
 
 	@Override
-	public ArrayList<VerticalLine> getLines() {
+	public ArrayList<Line> getLines() {
 		return null;
+	}
+
+	@Override
+	public void draw(Graphics2D g2) {
+
 	}
 }

@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 
 import Model.Ball;
 import Model.Model;
-import Model.VerticalLine;
-import Model.ComponentCircle;
+import Model.IGizmo;
+import Model.Line;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -44,17 +44,15 @@ public  class Board extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-		
-		// Draw all the vertical lines
-		for (VerticalLine vl : gm.getLines()) {
-			g2.fillRect(vl.getX(), vl.getY(), vl.getWidth(), 1);
-		}
 
-		for (ComponentCircle c : gm.getCircles()) {
-			int d = (int) (2*c.getRadius());
-			System.out.println(2*d);
-			g2.fillOval(c.getX(), c.getY(), d, d);
+
+		for (IGizmo gizmo : gm.getGizmos()) {
+			gizmo.draw(g2);
 		}
+//		for (ComponentCircle c : gm.getCircles()) {
+//			int d = (int) (2*c.getRadius());
+//			g2.fillOval(c.getX(), c.getY(), d, d);
+//		}
 		
 		Ball b = gm.getBall();
 		if (b != null) {
