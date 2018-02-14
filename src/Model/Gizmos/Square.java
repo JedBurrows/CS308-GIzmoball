@@ -1,5 +1,6 @@
-package Model;
+package Model.Gizmos;
 
+import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
 

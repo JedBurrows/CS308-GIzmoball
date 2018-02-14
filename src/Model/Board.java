@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Gizmos.IGizmo;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,11 +16,10 @@ public class Board {
 	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
 	private Wall[] walls = new Wall[4];
-	private ArrayList<Chain> chains = new ArrayList<>();
-	private float gravity, mu, mu2;
-	private HashMap<String,IGizmo> gizmoHashMap = new HashMap<>();
 	private ArrayList<Connector> connectors = new ArrayList<>();
 	private float gravity, mu, mu2;
+
+	private HashMap<String,IGizmo> gizmoHashMap = new HashMap<>();
 
 
 	/*
@@ -29,6 +30,11 @@ public class Board {
 		mu = DEFAULT_MU;
 		mu2 = DEFAULT_MU2;
 
+
+	}
+
+	public void addGizmoBall(Ball ball){
+		this.gizmoBall = ball;
 
 	}
 
@@ -46,44 +52,73 @@ public class Board {
 	}
 
 
-    public ArrayList<IGizmo> getGizmos() {
-        return gizmos;
-    }
+	public void addConnector(){
+	}
 
-    public boolean addGizmo(IGizmo gizmo, int x, int y){
-		if (grid[x][y]==null){
-			grid[x][y] = gizmo;
-			return true;
-		}
-		else{
+	/**
+	 *
+	 * @param gizmo
+	 * @param x coordinate left to right on grid from 0 to 19
+	 * @param y coordinate top to bottom on grid from 0 to 19
+	 * @return
+	 */
+	public boolean addGizmo(IGizmo gizmo, int x, int y){
+		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
+			String gizmoClass = gizmo.getClass().getSimpleName();
+			System.out.println("\n"+gizmoClass+"\n");
+			if ((gizmoClass.equals("LeftFlipper") || gizmoClass.equals("RightFlipper"))&& (x <19 && y<19)){
+
+
+
+
+
+
+			}
+			if (grid[x][y] == null) {
+				grid[x][y] = gizmo;
+				gizmoHashMap.put(gizmo.getID(),gizmo);
+				return true;
+			} else {
+				//Grid loc already occupied
+				return false;
+			}
+		}else{
+			//Cords out of range
 			return false;
 		}
 	}
 
-	public boolean moveGizmo(){
-    	return false;
-
+	public boolean removeGizmo(int x, int y){
+		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
+			grid[x][y] = null;
+			return true;
+		}else{
+			//Cords out of range
+			return false;
+		}
 	}
 
-	public boolean deleteGizmo(){
-		return false;
+	public IGizmo getGizmoByID(String id) throws NoSuchGizmoException{
 
-	}
-
-	//TODO Change to boolean, allow for collection of gizmoballs referenced by HashMap from unique name(key) > ball (value) and return false if ball with specified name already exists.
-	public void addGizmoBall(Ball gizmoBall){
-    	this.gizmoBall = gizmoBall;
-
-
-	}
-	public IGizmo getGizmoByID(String id){
-		if (gizmoHashMap.containsKey(id)){
+		if (gizmoHashMap.containsKey(id)) {
 			return gizmoHashMap.get(id);
-		}else {
-			return null;
+		}
+		else {
+			throw new NoSuchGizmoException("Gizmo with specified ID does not exist.");
 		}
 
 
+
 	}
 
+	public class NoSuchGizmoException extends Exception{
+		public NoSuchGizmoException(){super();}
+		public NoSuchGizmoException(String message) { super(message); }
+		public NoSuchGizmoException(String message, Throwable cause) { super(message, cause); }
+		public NoSuchGizmoException(Throwable cause) { super(cause); }
+	}
+
+    public ArrayList<IGizmo> getGizmos() {
+        return gizmos;
+    }
 }

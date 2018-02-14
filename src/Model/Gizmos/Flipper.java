@@ -1,11 +1,12 @@
-package Model;
+package Model.Gizmos;
 
+import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
 
 import java.util.ArrayList;
 
-public class Flipper implements IGizmo{
+public class Flipper implements IGizmo {
 
 	//status of activated or not
 	//left and right flipper class

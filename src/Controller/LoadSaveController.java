@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.*;
+import Model.Gizmos.*;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,6 +81,7 @@ public class LoadSaveController implements ActionListener {
 														vy=scanner.nextFloat();
 
 														board.addGizmoBall(new Ball(name,x,y,vx,vy));
+														System.out.println("Created Ball name:"+name+" x coord:"+x +" y coord:"+y +" x velocity:"+vx +" y velocity:"+vy);
 													}else{
 														System.out.println("Ball command missing vy velocity or velocity is not of type float.");
 													}
@@ -100,10 +103,16 @@ public class LoadSaveController implements ActionListener {
 									"Rotate" (IDENTIFIER name)
 								 */
 								case "Rotate":
-									IGizmo gizmo = board.getGizmoByID(scanner.next());
-									if (gizmo!= null){
-										gizmo.rotate();
+
+									try{
+										IGizmo gizmo = board.getGizmoByID(scanner.next());
+										if (gizmo!= null){
+											gizmo.rotate();
+										}
+									}catch(Board.NoSuchGizmoException e){
+
 									}
+
 									break;
 
 								/*

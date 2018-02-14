@@ -1,20 +1,25 @@
 package Model.Gizmos;
 
 
-import physics.LineSegment;
+import Model.Gizmos.IGizmo;
 import physics.Circle;
+import physics.LineSegment;
 
 import java.util.ArrayList;
 
 public class GizmoCircle implements IGizmo {
 
-	public physics.Circle getCircle() {
+	private String id;
+
+	public GizmoCircle(String id){
+		this.id = id;
+	}
+
+	public Circle getCircle() {
 		return circle;
 	}
 
-	private physics.Circle circle;
-
-	private static final String TYPE = "Circle";
+	private Circle circle;
 
 
 	@Override
@@ -33,11 +38,6 @@ public class GizmoCircle implements IGizmo {
 	}
 
 	@Override
-	public Boolean move(int x, int y) {
-		return null;
-	}
-
-	@Override
 	public ArrayList<Circle> getCircles() {
 		return null;
 	}
@@ -45,10 +45,5 @@ public class GizmoCircle implements IGizmo {
 	@Override
 	public ArrayList<LineSegment> getLines() {
 		return null;
-	}
-
-	@Override
-	public String getType() {
-		return TYPE;
 	}
 }
