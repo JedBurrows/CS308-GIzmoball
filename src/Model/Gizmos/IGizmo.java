@@ -36,4 +36,9 @@ public interface IGizmo {
     ArrayList<Circle> getCircles();
 
 	ArrayList<LineSegment> getLines();
+
+	int getxPos();
+	int getyPos();
+
+
 }

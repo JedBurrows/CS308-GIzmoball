@@ -1,7 +1,6 @@
 package Model.Gizmos;
 
 
-import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -10,9 +9,12 @@ import java.util.ArrayList;
 public class GizmoCircle implements IGizmo {
 
 	private String id;
+	private int xPos,yPos;
 
-	public GizmoCircle(String id){
+	public GizmoCircle(String id, int x, int y){
 		this.id = id;
+		this.xPos = x;
+		this.yPos = y;
 	}
 
 	public Circle getCircle() {
@@ -45,5 +47,15 @@ public class GizmoCircle implements IGizmo {
 	@Override
 	public ArrayList<LineSegment> getLines() {
 		return null;
+	}
+
+	@Override
+	public int getxPos() {
+		return xPos;
+	}
+
+	@Override
+	public int getyPos() {
+		return yPos;
 	}
 }

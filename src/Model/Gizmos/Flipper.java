@@ -16,9 +16,16 @@ public class Flipper implements IGizmo {
 
 	private String id;
 
+	//In reference to the flipper this is the Northwest corner pos on grid
+	private int xPos, yPos, orientation;
 
-	public Flipper(String id,int orientation){
+
+	public Flipper(String id,int x,int y,int orientation){
 		this.id = id;
+		this.xPos =x;
+		this.yPos = y;
+		this.orientation=orientation;
+
 	}
 
 
@@ -45,5 +52,15 @@ public class Flipper implements IGizmo {
 	@Override
 	public ArrayList<LineSegment> getLines() {
 		return null;
+	}
+
+	@Override
+	public int getxPos() {
+		return xPos;
+	}
+
+	@Override
+	public int getyPos() {
+		return yPos;
 	}
 }

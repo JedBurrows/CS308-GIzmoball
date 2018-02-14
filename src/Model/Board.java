@@ -63,18 +63,23 @@ public class Board {
 	 * @return
 	 */
 	public boolean addGizmo(IGizmo gizmo, int x, int y){
+
+		//TODO Clean these if statements works well for now
 		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
 			String gizmoClass = gizmo.getClass().getSimpleName();
-			System.out.println("\n"+gizmoClass+"\n");
 			if ((gizmoClass.equals("LeftFlipper") || gizmoClass.equals("RightFlipper"))&& (x <19 && y<19)){
+				if ((grid[x][y] ==null) && (grid[x][y+1] ==null) && (grid[x+1][y] ==null) && (grid[x+1][y+1]==null)){
+					grid[x][y] = gizmo;
+					grid[x][y+1] = gizmo;
+					grid[x+1][y] = gizmo;
+					grid[x+1][y+1] = gizmo;
 
-
-
-
-
-
-			}
-			if (grid[x][y] == null) {
+					return true;
+				}else{
+					//One of 4 grid locs required for flipper is occupied
+					return false;
+				}
+			}else if(grid[x][y] == null) {
 				grid[x][y] = gizmo;
 				gizmoHashMap.put(gizmo.getID(),gizmo);
 				return true;
@@ -88,7 +93,7 @@ public class Board {
 		}
 	}
 
-	public boolean removeGizmo(int x, int y){
+	public boolean deleteGizmo(int x, int y){
 		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
 			grid[x][y] = null;
 			return true;

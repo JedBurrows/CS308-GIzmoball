@@ -9,11 +9,15 @@ import java.util.ArrayList;
 public class Square implements IGizmo {
 
     private String id;
+    private int xPos, yPos;
 
 
 
-    public Square(String id){
+    public Square(String id, int x,int y){
         this.id =id;
+        this.xPos = x;
+        this.yPos = y;
+
     }
 
     @Override
@@ -39,5 +43,15 @@ public class Square implements IGizmo {
     @Override
     public ArrayList<LineSegment> getLines() {
         return null;
+    }
+
+    @Override
+    public int getxPos() {
+        return xPos;
+    }
+
+    @Override
+    public int getyPos() {
+        return yPos;
     }
 }

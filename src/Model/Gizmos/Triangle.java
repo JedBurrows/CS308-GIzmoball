@@ -8,9 +8,12 @@ import java.util.ArrayList;
 public class Triangle implements IGizmo {
 
     private String id;
+    private int xPos, yPos;
 
-    public Triangle(String id){
+    public Triangle(String id, int x, int y){
         this.id = id;
+        this.xPos =x;
+        this.yPos =y;
     }
 
 
@@ -26,7 +29,7 @@ public class Triangle implements IGizmo {
 
     @Override
     public String getID() {
-        return null;
+        return id;
     }
 
     @Override
@@ -37,5 +40,15 @@ public class Triangle implements IGizmo {
     @Override
     public ArrayList<LineSegment> getLines() {
         return null;
+    }
+
+    @Override
+    public int getxPos() {
+        return xPos;
+    }
+
+    @Override
+    public int getyPos() {
+        return yPos;
     }
 }
