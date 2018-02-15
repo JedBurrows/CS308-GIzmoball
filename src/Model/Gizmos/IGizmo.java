@@ -1,4 +1,4 @@
-package Model;
+package Model.Gizmos;
 
 import physics.Circle;
 import physics.LineSegment;
@@ -24,7 +24,7 @@ public interface IGizmo {
 	 *
 	 * ID's:
 	 * Triangle 'T'+ number
-	 * GizmoCircle 'C'+ number
+	 * Circle 'C'+ number
 	 * Square 'S'+ number
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number
@@ -32,10 +32,13 @@ public interface IGizmo {
 	 */
 	public String getID();
 
-	public Boolean move(int x, int y);
-
 
     ArrayList<Circle> getCircles();
 
 	ArrayList<LineSegment> getLines();
+
+	int getxPos();
+	int getyPos();
+
+
 }

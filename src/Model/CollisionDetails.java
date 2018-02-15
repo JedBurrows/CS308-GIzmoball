@@ -1,6 +1,7 @@
 package Model;
 
 import physics.Circle;
+import Model.Gizmos.*;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;

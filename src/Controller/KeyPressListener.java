@@ -13,7 +13,13 @@ public class KeyPressListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("hello");
+        int key = e.getKeyCode();
+
+
+        if(key == KeyEvent.VK_ENTER) {
+            //Do Something
+        }
+
     }
 
     @Override

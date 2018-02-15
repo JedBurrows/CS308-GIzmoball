@@ -1,13 +1,13 @@
 package View;
 
 
-import Controller.SliderChangeListener;
 import Model.Ball;
 import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -43,6 +43,7 @@ public class BuildGUI implements IModeGUI {
     }
 
     private void createMenuBar(){
+        ActionListener lsListener = new LoadSaveController(buildFrame);
         JMenuBar menuBar = new JMenuBar();
         buildFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
@@ -51,16 +52,21 @@ public class BuildGUI implements IModeGUI {
         JMenuItem menuItemSave = new JMenuItem("Save");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(e -> System.exit(0));
+        menuItemLoad.addActionListener(lsListener);
+        menuItemSave.addActionListener(lsListener);
+        menuItemLoad.setActionCommand("load");
+        menuItemSave.setActionCommand("save");
         fileMenu.add(menuItemLoad);
         fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
-        buildFrame.add(menuBar);
     }
 
     private void createGameBoard(){
 
         gizmoBoard = new JPanel(new GridLayout(20, 20));
 //        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        gizmoBoard.setFocusable(true);
+        gizmoBoard.setFocusCycleRoot(true);
 
         for (int i =0; i<(20*20); i++){
             final JLabel label = new JLabel();
@@ -83,7 +89,7 @@ public class BuildGUI implements IModeGUI {
         boxGizmo = new JComboBox<>();
         boxGizmo.setPreferredSize(new Dimension(150, 50));
         boxGizmo.addItem("Square");
-        boxGizmo.addItem("GizmoCircle");
+        boxGizmo.addItem("Circle");
         boxGizmo.addItem("Triangle");
         boxGizmo.addItem("Left Flipper");
         boxGizmo.addItem("Right Flipper");
@@ -181,7 +187,7 @@ public class BuildGUI implements IModeGUI {
     public void actionPerformed(ActionEvent e) {
         String arg = e.getActionCommand();
         if(arg.equals("Add Ball")){
-            Ball paintComponent = new Ball();
+            Ball paintComponent = new Ball("B",5f,5f,5f,5f);
         }
 
 
