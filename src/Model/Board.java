@@ -16,8 +16,8 @@ public class Board {
 	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
 	private Wall[] walls = new Wall[4];
-	private ArrayList<Connector> connectors = new ArrayList<>();
 	private float gravity, mu, mu2;
+	private ArrayList<Connector> connectors;
 
 	private HashMap<String,IGizmo> gizmoHashMap = new HashMap<>();
 
@@ -52,7 +52,27 @@ public class Board {
 	}
 
 
-	public void addConnector(){
+	public boolean addConnector(String name1, String name2){
+		IGizmo gizmoSource, gizmoTarget;
+
+		try{
+			gizmoSource = getGizmoByID(name1);
+			gizmoTarget = getGizmoByID(name2);
+
+			connectors.add(new Connector(gizmoSource,gizmoTarget));
+			return true;
+
+		}catch (NoSuchGizmoException e){
+			return false;
+		}
+	}
+
+	public void removeConnector(IGizmo gizmo){
+		for (Connector connection: connectors) {
+			if (connection.getSource().equals(gizmo)||connection.getTarget().equals(gizmo)){
+				connectors.remove(connection);
+			}
+		}
 	}
 
 	/**
@@ -101,6 +121,10 @@ public class Board {
 			//Cords out of range
 			return false;
 		}
+	}
+
+	public boolean deleteGizmo(String id){
+	return false;
 	}
 
 	public IGizmo getGizmoByID(String id) throws NoSuchGizmoException{

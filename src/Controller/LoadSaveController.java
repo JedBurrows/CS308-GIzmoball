@@ -24,11 +24,9 @@ public class LoadSaveController implements ActionListener {
 		int returnVal = fc.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION){
 			if(fc.getSelectedFile().isDirectory()){
-
+				//TODO SAVING
 			}
 		}
-
-
 	}
 	public Board load(){
 		JFileChooser fc = new JFileChooser();
@@ -49,7 +47,7 @@ public class LoadSaveController implements ActionListener {
 						if(scanner.hasNext()){
 							String element = scanner.next();
 
-							String name;
+							String name, producer, consumer;
 							float x,y,vx,vy,mu1,mu2,g;
 							int x1,x2,y1,y2;
 
@@ -135,8 +133,15 @@ public class LoadSaveController implements ActionListener {
 									"Connect" (IDENTIFIER producer) (IDENTIFIER consumer)
 								 */
 								case "Connect":
-									System.out.println("'Connect' - command in file in file, cannot connect.");
+									if (scanner.hasNext()){
+										producer = scanner.next();
+										if (scanner.hasNext()){
+											consumer= scanner.next();
 
+											board.addConnector(producer,consumer);
+										}
+
+									}
 									break;
 
 								/*
@@ -144,7 +149,7 @@ public class LoadSaveController implements ActionListener {
 									"KeyConnect" "key" (KEYNUM num) "up" (IDENTIFIER consumer)
 								 */
 								case "KeyConnect":
-									System.out.println("'KeyConnect' - command in file in file, cannot create absorber");
+									System.out.println("'KeyConnect' - command in file in file, cannot create KeyConnect");
 
 									break;
 
@@ -173,101 +178,51 @@ public class LoadSaveController implements ActionListener {
 								Creates the given gizmo with its upper left-corner at (x,y), in the default orientation.
 							 */
 								case "Square":
-									if (scanner.hasNext()){
-										name = scanner.next();
-										if (scanner.hasNextInt()){
-											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
-												y1 = scanner.nextInt();
-												board.addGizmo(new Square(name,x1,y1),x1,y1);
-											}else{
-												System.out.println("Square command missing y position or position is not of type int.");
-											}
-										}else {
-											System.out.println("Square command missing x position or position is not of type int.");
-										}
-									}else {
-										System.out.println("Square command missing name.");
-									}
-
-									break;
-
 								case "Circle":
-									if (scanner.hasNext()){
-										name = scanner.next();
-										if (scanner.hasNextInt()){
-											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
-												y1 = scanner.nextInt();
-												board.addGizmo(new GizmoCircle(name,x1,y1),x1,y1);
-											}else{
-												System.out.println("Circle command missing y position or position is not of type int.");
-											}
-										}else {
-											System.out.println("Circle command missing x position or position is not of type int.");
-										}
-									}else {
-										System.out.println("Circle command missing name.");
-									}
-									break;
-
 								case "Triangle":
-									if (scanner.hasNext()){
-										name = scanner.next();
-										if (scanner.hasNextInt()){
-											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
-												y1 = scanner.nextInt();
-												board.addGizmo(new Triangle(name,x1,y1),x1,y1);
-											}else{
-												System.out.println("Triangle command missing y position or position is not of type int.");
-											}
-										}else {
-											System.out.println("Triangle command missing x position or position is not of type int.");
-										}
-									}else {
-										System.out.println("Triangle command missing name.");
-									}
-									break;
-
 								case "RightFlipper":
-									if (scanner.hasNext()){
-										name = scanner.next();
-										if (scanner.hasNextInt()){
-											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
-												y1 = scanner.nextInt();
-												board.addGizmo(new Flipper(name,x1,y1,Flipper.FLIPPER_RIGHT),x1,y1);
-											}else{
-												System.out.println("RightFlipper command missing y position or position is not of type int.");
-											}
-										}else {
-											System.out.println("RightFlipper command missing x position or position is not of type int.");
-										}
-									}else {
-										System.out.println("RightFlipper command missing name.");
-									}
-									break;
 								case "LeftFlipper":
+									//From here
 									if (scanner.hasNext()){
 										name = scanner.next();
 										if (scanner.hasNextInt()){
 											x1 = scanner.nextInt();
 											if (scanner.hasNextInt()){
 												y1 = scanner.nextInt();
-												board.addGizmo(new Flipper(name,x1,y1,Flipper.FLIPPER_RIGHT),x1,y1);
+												switch (element){
+													case "Square":
+														board.addGizmo(new Square(name,x1,y1),x1,y1);
+														System.out.println("Created new " + element);
+														break;
+													case "Circle":
+														board.addGizmo(new GizmoCircle(name,x1,y1),x1,y1);
+														System.out.println("Created new " + element);
+														break;
+													case "Triangle":
+														board.addGizmo(new Triangle(name,x1,y1),x1,y1);
+														System.out.println("Created new " + element);
+														break;
+													case "RightFlipper":
+														board.addGizmo(new Flipper(name,x1,y1,Flipper.FLIPPER_RIGHT),x1,y1);
+														System.out.println("Created new " + element);
+														break;
+													case "LeftFlipper":
+														board.addGizmo(new Flipper(name,x1,y1,Flipper.FLIPPER_LEFT),x1,y1);
+														System.out.println("Created new " + element);
+														break;
+												}
 											}else{
-												System.out.println("LeftFlipper command missing y position or position is not of type int.");
+												System.out.println(element + " command missing y position or position is not of type int.");
 											}
 										}else {
-											System.out.println("LeftFlipper command missing x position or position is not of type int.");
+											System.out.println(element + " command missing x position or position is not of type int.");
 										}
 									}else {
-										System.out.println("LeftFlipper command missing name.");
+										System.out.println(element + " command missing name.");
 									}
-									break;
 								//may need case for empty line or return carriage
 							}
+
 
 						}
 
