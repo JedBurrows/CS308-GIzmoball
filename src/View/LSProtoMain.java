@@ -39,6 +39,7 @@ public class LSProtoMain extends JFrame implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.pack();
 
     }
 

@@ -17,7 +17,8 @@ public class BuildGUI implements IModeGUI {
 
 
     private JFrame buildFrame;
-    private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
+    private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
+    private BoardPanel gizmoBoard;
 
 
     public BuildGUI() {
@@ -43,7 +44,7 @@ public class BuildGUI implements IModeGUI {
     }
 
     private void createMenuBar(){
-        ActionListener lsListener = new LoadSaveController(buildFrame);
+        ActionListener lsListener = new LoadSaveController(gizmoBoard);
         JMenuBar menuBar = new JMenuBar();
         buildFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
@@ -63,7 +64,7 @@ public class BuildGUI implements IModeGUI {
 
     private void createGameBoard(){
 
-        gizmoBoard = new JPanel(new GridLayout(20, 20));
+        gizmoBoard.setLayout(new GridLayout(20, 20));
 //        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         gizmoBoard.setFocusable(true);
         gizmoBoard.setFocusCycleRoot(true);

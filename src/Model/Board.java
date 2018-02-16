@@ -1,11 +1,12 @@
 package Model;
 
 import Model.Gizmos.IGizmo;
-
+import java.util.Observable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observer;
 
-public class Board {
+public class Board extends Observable{
 
 	private static final float DEFAULT_GRAVITY = 25f;
 	private static final float DEFAULT_MU = 0.025f;
@@ -13,13 +14,14 @@ public class Board {
 
 	private boolean playMode;
 	private Ball gizmoBall;
-	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
 	private Wall[] walls = new Wall[4];
 	private float gravity, mu, mu2;
-	private ArrayList<Connector> connectors;
+	private ArrayList<Connector> connectors = new ArrayList<>();
 
 	private HashMap<String,IGizmo> gizmoHashMap = new HashMap<>();
+
+	private Observer observer;
 
 
 	/*
@@ -147,7 +149,9 @@ public class Board {
 		public NoSuchGizmoException(Throwable cause) { super(cause); }
 	}
 
-    public ArrayList<IGizmo> getGizmos() {
-        return gizmos;
-    }
+	public boolean isPlayMode() {
+		return playMode;
+	}
+	public ArrayList<IGizmo> getGizmos(){return new ArrayList<>(gizmoHashMap.values());}
+
 }

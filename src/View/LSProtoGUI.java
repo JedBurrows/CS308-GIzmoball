@@ -4,6 +4,7 @@ package View;
 import Controller.KeyPressListener;
 import Controller.LoadSaveController;
 import Model.Ball;
+import Model.Board;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,7 @@ public class LSProtoGUI implements IModeGUI {
 
 
 	private JFrame buildFrame;
-	private JPanel gizmoBoard;
+	private BoardPanel gizmoBoard;
 
 
 	public LSProtoGUI() {
@@ -24,8 +25,9 @@ public class LSProtoGUI implements IModeGUI {
 		buildFrame = new JFrame("Build Mode!");
 		buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		createMenuBar();
 		createGameBoard();
+		createMenuBar();
+
 
 		JPanel panel = new JPanel();
 		panel.add(gizmoBoard);
@@ -38,7 +40,7 @@ public class LSProtoGUI implements IModeGUI {
 	}
 
 	private void createMenuBar() {
-		ActionListener lsListener = new LoadSaveController(buildFrame);
+		ActionListener lsListener = new LoadSaveController(gizmoBoard);
 		JMenuBar menuBar = new JMenuBar();
 		buildFrame.setJMenuBar(menuBar);
 		JMenu fileMenu = new JMenu("File");
@@ -58,20 +60,16 @@ public class LSProtoGUI implements IModeGUI {
 
 	private void createGameBoard() {
 
-		gizmoBoard = new JPanel(new GridLayout(20, 20));
-//        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		gizmoBoard = new BoardPanel(new Board());
+
+		gizmoBoard.setVisible(true);
+
+
+
+
+
 		gizmoBoard.setFocusable(true);
 		gizmoBoard.setFocusCycleRoot(true);
-
-		for (int i = 0; i < (20 * 20); i++) {
-			final JLabel label = new JLabel();
-			label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-			gizmoBoard.add(label);
-		}
-
-
-		gizmoBoard.setPreferredSize(new Dimension(600, 600));
-		gizmoBoard.setBackground(Color.black);
 		gizmoBoard.setVisible(true);
 //        gizmoBoard.addMouseListener(new GameBoardListener(this));
 		gizmoBoard.addKeyListener(new KeyPressListener());

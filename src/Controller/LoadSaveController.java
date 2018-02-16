@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import Model.Gizmos.*;
+import View.BoardPanel;
 
 
 import javax.swing.*;
@@ -12,9 +13,9 @@ import java.io.*;
 import java.util.Scanner;
 
 public class LoadSaveController implements ActionListener {
-	private Component panel;
+	private BoardPanel panel;
 
-	public LoadSaveController(Component panel){
+	public LoadSaveController(BoardPanel panel){
 		this.panel = panel;
 	}
 
@@ -28,7 +29,8 @@ public class LoadSaveController implements ActionListener {
 			}
 		}
 	}
-	public Board load(){
+	private Board load(){
+		Board board = new Board();
 		JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Open");
 		int returnVal = fc.showOpenDialog(null);
@@ -39,7 +41,6 @@ public class LoadSaveController implements ActionListener {
 					FileReader fileReader = new FileReader(file);
 
 					BufferedReader bufferedReader = new BufferedReader(fileReader);
-					Board board = new Board();
 					String line = bufferedReader.readLine();
 					while (line != null){
 						Scanner scanner = new Scanner(line);
@@ -222,16 +223,9 @@ public class LoadSaveController implements ActionListener {
 									}
 								//may need case for empty line or return carriage
 							}
-
-
 						}
-
-
 						line = bufferedReader.readLine();
-
-
 					}
-
 
 				}catch(FileNotFoundException e){
 
@@ -241,7 +235,7 @@ public class LoadSaveController implements ActionListener {
 
 			}
 		}
-		return null;
+		return board;
 	}
 
 	@Override
@@ -250,7 +244,7 @@ public class LoadSaveController implements ActionListener {
 		if (command == "save"){
 			save();
 		}else if (command == "load"){
-			load();
+			panel.setBoard(load());
 
 		}
 

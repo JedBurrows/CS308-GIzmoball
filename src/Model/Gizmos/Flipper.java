@@ -41,7 +41,7 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public String getID() {
-		return null;
+		return id;
 	}
 
 	@Override

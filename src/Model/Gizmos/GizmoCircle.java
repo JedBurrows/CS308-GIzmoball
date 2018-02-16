@@ -31,12 +31,13 @@ public class GizmoCircle implements IGizmo {
 
 	@Override
 	public void rotate() {
+		//No point rotating
 
 	}
 
 	@Override
 	public String getID() {
-		return null;
+		return id;
 	}
 
 	@Override
