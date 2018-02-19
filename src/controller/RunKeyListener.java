@@ -2,6 +2,7 @@ package controller;
 
 import model.LeftFlipper;
 import model.Model;
+import model.RightFlipper;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,14 +26,16 @@ public class RunKeyListener implements KeyListener {
         int key = e.getKeyCode();
 
         System.out.println("Got a key...");
-        if (key == KeyEvent.VK_SPACE) {
+        if (key == KeyEvent.VK_LEFT) {
             for (LeftFlipper lf : model.getLeftFlippers()) {
                 lf.setkeyPress();
             }
-
-
         }
-
+        if (key == KeyEvent.VK_RIGHT) {
+            for (RightFlipper rf : model.getRightFlippers()) {
+                rf.setkeyPress();
+            }
+        }
     }
 
     @Override
@@ -40,12 +43,15 @@ public class RunKeyListener implements KeyListener {
         int key = e.getKeyCode();
         System.out.println("Released a key...");
 
-        if (key == KeyEvent.VK_SPACE) {
+        if (key == KeyEvent.VK_LEFT) {
             for (LeftFlipper lf : model.getLeftFlippers()) {
                 lf.setkeyPress();
             }
-
         }
-
+        if (key == KeyEvent.VK_RIGHT) {
+            for (RightFlipper rf : model.getRightFlippers()) {
+                rf.setkeyPress();
+            }
+        }
     }
 }

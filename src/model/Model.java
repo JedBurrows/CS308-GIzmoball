@@ -11,6 +11,7 @@ import java.util.Observable;
 public class Model extends Observable {
 
     private ArrayList<LeftFlipper> leftFlippers;
+    private ArrayList<RightFlipper> rightFlippers;
     private Ball ball;
     private Wall gws;
 
@@ -24,6 +25,7 @@ public class Model extends Observable {
         // Lines added in Main
 //        line = new ArrayList<VerticalLine>();
         leftFlippers = new ArrayList<LeftFlipper>();
+        rightFlippers = new ArrayList<RightFlipper>();
     }
 
     public void moveBall() {
@@ -45,16 +47,24 @@ public class Model extends Observable {
 //            }
 
         // Notify observers ... redraw updated view
-        this.flipFlipper(moveTime);
+        this.flipLeftFlipper(moveTime);
+        this.flipRightFlipper(moveTime);
         this.setChanged();
         this.notifyObservers();
 
     }
 
-    public void flipFlipper(double tickTime) {
+    public void flipLeftFlipper(double tickTime) {
 
         for (model.LeftFlipper lf : leftFlippers) {
             lf.flip(tickTime);
+        }
+    }
+
+    public void flipRightFlipper(double tickTime) {
+
+        for (model.RightFlipper rf : rightFlippers) {
+            rf.flip(tickTime);
         }
     }
 
@@ -125,10 +135,19 @@ public class Model extends Observable {
     public ArrayList<model.LeftFlipper> getLeftFlippers() {
         return leftFlippers;
     }
+    public ArrayList<model.RightFlipper> getRightFlippers() {
+        return rightFlippers;
+    }
+
 
     public void addLeftFlipper(model.LeftFlipper lf) {
         leftFlippers.add(lf);
         System.out.println("flipper added: " + lf);
+    }
+
+    public void addRightFlipper(model.RightFlipper rf) {
+        rightFlippers.add(rf);
+        System.out.println("flipper added: " + rf);
     }
 
     public void removeLeftFlipper(model.LeftFlipper lf) {
