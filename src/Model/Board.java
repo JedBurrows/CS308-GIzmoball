@@ -12,7 +12,7 @@ public class Board {
 	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
 	private Wall[] walls = new Wall[4];
-	private ArrayList<Chain> chains = new ArrayList<>();
+	private ArrayList<Connect> connects = new ArrayList<>();
 	private double gravity, mu, mu2;
 
 

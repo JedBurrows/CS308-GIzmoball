@@ -1,6 +1,6 @@
 package Model;
 
-public class Flipper implements IGizmo{
+public class Flipper {
 
 	//status of activated or not
 	//left and right flipper class

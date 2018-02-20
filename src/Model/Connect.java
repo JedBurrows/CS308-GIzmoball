@@ -1,12 +1,13 @@
 package Model;
 
-public class Chain {
+public class
+Connect {
 	private IGizmo source, target;
 
 	/**
 	 * Creates a new chain between the specified source gizmo and target.
 	 */
-	public Chain(IGizmo source, IGizmo target){
+	public Connect(IGizmo source, IGizmo target){
 		this.source = source;
 		this.target = target;
 
