@@ -60,8 +60,23 @@ public class LoadSaveController implements ActionListener {
 
 							 */
 								case "Absorber":
-									System.out.println("'Absorber' - command in file in file, cannot create absorber");
-									break;
+									if (scanner.hasNext()){
+										name = scanner.next();
+										if (scanner.hasNextInt()){
+											x1 = scanner.nextInt();
+											if (scanner.hasNextInt()){
+												y1 = scanner.nextInt();
+												if (scanner.hasNextInt()){
+													x2 = scanner.nextInt();
+													if (scanner.hasNextInt()){
+														y2 = scanner.nextInt();
+														board.
+													}
+												}
+											}
+										}
+										break;
+									}
 
 								/*
 									"Ball" (IDENTIFIER name) (FLOAT x) (FLOAT y) (FLOAT vx) (FLOAT vy)

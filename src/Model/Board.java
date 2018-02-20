@@ -14,12 +14,14 @@ public class Board extends Observable{
 
 	private boolean playMode;
 	private Ball gizmoBall;
-	private IGizmo[][] grid = new IGizmo[20][20];
-	private Wall[] walls = new Wall[4];
+	private IGizmo[][] grid;
+	private Wall[] walls ;
 	private float gravity, mu, mu2;
-	private ArrayList<Connector> connectors = new ArrayList<>();
+	private ArrayList<Connector> connectors;
 
-	private HashMap<String,IGizmo> gizmoHashMap = new HashMap<>();
+	private HashMap<String,IGizmo> gizmoHashMap;
+
+	private Absorber absorber;
 
 	private Observer observer;
 
@@ -32,11 +34,23 @@ public class Board extends Observable{
 		mu = DEFAULT_MU;
 		mu2 = DEFAULT_MU2;
 
+		grid = new IGizmo[20][20];
+		connectors = new ArrayList<>();
+		gizmoHashMap = new HashMap<>();
+
+		walls = new Wall[4];
+
+		playMode = false;
+
 
 	}
 
 	public void addGizmoBall(Ball ball){
 		this.gizmoBall = ball;
+
+	}
+
+	public int addAbsorber(){
 
 	}
 
@@ -153,5 +167,7 @@ public class Board extends Observable{
 		return playMode;
 	}
 	public ArrayList<IGizmo> getGizmos(){return new ArrayList<>(gizmoHashMap.values());}
+	public ArrayList<Connector> getConnectors(){return new ArrayList<>(connectors);}
+
 
 }

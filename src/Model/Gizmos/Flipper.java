@@ -17,13 +17,16 @@ public class Flipper implements IGizmo {
 	private String id;
 
 	//In reference to the flipper this is the Northwest corner pos on grid
-	private int xPos, yPos, orientation;
+	private int xPos, yPos, rotation,orientation;
 
 
 	public Flipper(String id,int x,int y,int orientation){
 		this.id = id;
 		this.xPos =x;
 		this.yPos = y;
+
+		this.rotation=0;
+
 		this.orientation=orientation;
 
 	}
@@ -36,7 +39,17 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public void rotate() {
+		rotation = (rotation+1)%4;
 
+	}
+
+	@Override
+	public int getRotation() {
+		return rotation;
+	}
+
+	public int getOrientation() {
+		return orientation;
 	}
 
 	@Override

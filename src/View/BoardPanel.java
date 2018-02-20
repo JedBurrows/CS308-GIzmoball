@@ -1,6 +1,8 @@
 package View;
 
 import Model.Board;
+import Model.Connector;
+import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
 
 import javax.swing.*;
@@ -33,20 +35,76 @@ public class BoardPanel extends JPanel implements Observer{
 
 
 
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0,0,width,height);
 
 		ArrayList<IGizmo> gizmos = board.getGizmos();
-		g.setColor(Color.GREEN);
 
 		for (IGizmo gizmo : gizmos){
+			g.setColor(Color.GREEN);
+
 			String type = gizmo.getClass().getSimpleName();
 			switch(type){
 				case "Square":
 					g.fillRect(gizmo.getxPos()*Lwidth,gizmo.getyPos()*Lheight,Lwidth,Lheight);
 					break;
 				case "GizmoCircle":
-					g.drawOval(gizmo.getxPos()*Lwidth,gizmo.getyPos()*Lheight,Lwidth,Lheight);
+					g.fillOval(gizmo.getxPos()*Lwidth,gizmo.getyPos()*Lheight,Lwidth,Lheight);
+					break;
+				case "Triangle":
+					int rotationTriangle;
+
+					rotationTriangle = gizmo.getRotation();
+
+					Point LTopLeft,LTopRight, LBottomLeft, LBottomRight;
+
+					LTopLeft = new Point(gizmo.getxPos()*Lwidth,gizmo.getyPos()*Lheight);
+					LTopRight = new Point(gizmo.getxPos()*Lwidth+(Lwidth),gizmo.getyPos()*Lheight);
+					LBottomLeft = new Point(gizmo.getxPos()*Lwidth,gizmo.getyPos()*Lheight+(Lheight));
+					LBottomRight = new Point(gizmo.getxPos()*Lwidth+(Lwidth),gizmo.getyPos()*Lheight+(Lheight));
+
+					int xPoints[]=new int[4], yPoints[] = new int[4];
+					switch (rotationTriangle){
+						case 0:
+							xPoints = new int[]{LTopLeft.x,LBottomLeft.x,LTopRight.x};
+							yPoints = new int[]{LTopLeft.y,LBottomLeft.y,LTopRight.y};
+							break;
+						case 1:
+							xPoints = new int[]{LTopLeft.x,LBottomRight.x,LTopRight.x};
+							yPoints = new int[]{LTopLeft.y,LBottomRight.y,LTopRight.y};
+							break;
+						case 2:
+							xPoints = new int[]{LBottomRight.x,LBottomLeft.x,LTopRight.x};
+							yPoints = new int[]{LBottomRight.y,LBottomLeft.y,LTopRight.y};
+							break;
+						case 3:
+							xPoints = new int[]{LTopLeft.x,LBottomLeft.x,LBottomRight.x};
+							yPoints = new int[]{LTopLeft.y,LBottomLeft.y,LBottomRight.y};
+							break;
+
+					}
+					g.fillPolygon(xPoints,yPoints,3);
+					break;
+				case "Flipper":
+					g.setColor(Color.YELLOW);
+					Flipper flipper = (Flipper)gizmo;
+					int orientatation = flipper.getOrientation();
+					int rotation = flipper.getRotation();
+					int xPos = flipper.getxPos(), yPos = flipper.getyPos();
+
+					if ((orientatation == Flipper.FLIPPER_LEFT && rotation == 0)|| (orientatation == Flipper.FLIPPER_RIGHT && rotation == 2)){
+						g.fillOval(xPos*Lwidth,yPos*Lheight,Lwidth/2,Lheight/2);
+						g.fillRect(xPos*Lwidth,(yPos*Lheight)+(Lheight/4),Lwidth/2,Lheight+(Lheight/2));
+						g.fillOval(xPos*Lwidth,((yPos+1)*Lheight)+(Lheight/2),Lwidth/2,Lheight/2);
+
+
+					} else if((orientatation == Flipper.FLIPPER_LEFT && rotation == 1)|| (orientatation == Flipper.FLIPPER_RIGHT && rotation == 3)){
+
+					}else if((orientatation == Flipper.FLIPPER_LEFT && rotation == 2)|| (orientatation == Flipper.FLIPPER_RIGHT && rotation == 0)){
+
+					}else if ((orientatation == Flipper.FLIPPER_LEFT && rotation == 3)|| (orientatation == Flipper.FLIPPER_RIGHT && rotation == 1))
+
 					break;
 			}
 		}
@@ -62,8 +120,22 @@ public class BoardPanel extends JPanel implements Observer{
 			}
 
 
+			g.setColor(Color.BLUE);
+			ArrayList<Connector> connectors = board.getConnectors();
+
+			for(Connector connection: connectors){
+				IGizmo source =connection.getSource(), target = connection.getTarget();
+
+				int xSource = source.getxPos(),ySource = source.getyPos(),xTarget = target.getxPos(), yTarget = target.getyPos();
+				g.drawLine((xSource*Lwidth) + (Lwidth/2),(ySource*Lheight) + (Lheight/2),(xTarget*Lwidth) + (Lwidth/2),(yTarget*Lheight) + (Lheight/2));
+
+
+
+			}
+
 
 		}
+
 
 	}
 

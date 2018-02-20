@@ -36,6 +36,11 @@ public class GizmoCircle implements IGizmo {
 	}
 
 	@Override
+	public int getRotation() {
+		return 0;
+	}
+
+	@Override
 	public String getID() {
 		return id;
 	}

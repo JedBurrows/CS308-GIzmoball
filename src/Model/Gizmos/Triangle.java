@@ -9,11 +9,13 @@ public class Triangle implements IGizmo {
 
     private String id;
     private int xPos, yPos;
+    private int rotation;
 
     public Triangle(String id, int x, int y){
         this.id = id;
         this.xPos =x;
         this.yPos =y;
+        this.rotation = 0;
     }
 
 
@@ -24,6 +26,8 @@ public class Triangle implements IGizmo {
 
     @Override
     public void rotate() {
+        rotation = (rotation+1)%4;
+
 
     }
 
@@ -50,5 +54,9 @@ public class Triangle implements IGizmo {
     @Override
     public int getyPos() {
         return yPos;
+    }
+
+    public int getRotation() {
+        return rotation;
     }
 }

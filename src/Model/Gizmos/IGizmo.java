@@ -18,6 +18,8 @@ public interface IGizmo {
 	 */
 	public void rotate();
 
+	public int getRotation();
+
 
 	/**
 	 * Retruns ID of GIZMO
