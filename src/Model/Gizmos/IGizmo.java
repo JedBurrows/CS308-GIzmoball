@@ -42,5 +42,9 @@ public interface IGizmo {
 	int getxPos();
 	int getyPos();
 
+	void setxPos(int x);
+
+	void setyPos(int y);
+
 
 }

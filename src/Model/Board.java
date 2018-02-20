@@ -1,10 +1,8 @@
 package Model;
 
 import Model.Gizmos.IGizmo;
-import java.util.Observable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Observer;
+
+import java.util.*;
 
 public class Board extends Observable{
 
@@ -14,7 +12,7 @@ public class Board extends Observable{
 
 	private boolean playMode;
 	private Ball gizmoBall;
-	private IGizmo[][] grid;
+	private boolean[][] grid;
 	private Wall[] walls ;
 	private float gravity, mu, mu2;
 	private ArrayList<Connector> connectors;
@@ -34,7 +32,11 @@ public class Board extends Observable{
 		mu = DEFAULT_MU;
 		mu2 = DEFAULT_MU2;
 
-		grid = new IGizmo[20][20];
+		grid = new boolean[20][20];
+		for (boolean[] row: grid) {
+			Arrays.fill(row, false);
+		}
+
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
@@ -50,8 +52,31 @@ public class Board extends Observable{
 
 	}
 
-	public int addAbsorber(){
+	public boolean setAbsorber(Absorber absorber){
+		int x1 = absorber.getxPos1(),y1 = absorber.getyPos1(),x2 = absorber.getxPos2(),y2 = absorber.getyPos2();
+		for (int xPos = x1; xPos<x2;xPos++){
+			for (int yPos = y1; yPos<y2;yPos++){
+				grid[xPos][yPos] = true;
+			}
 
+		}
+		this.absorber = absorber;
+		return true;
+	}
+
+	public boolean hasAbsorber(){
+		if (absorber!= null ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public boolean hasGizmoBall(){
+		if (gizmoBall!= null ){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public void setFriction(float mu, float mu2){
@@ -66,6 +91,8 @@ public class Board extends Observable{
 	public Ball getGizmoBall() {
 		return gizmoBall;
 	}
+
+	public Absorber getAbsorber(){return absorber;}
 
 
 	public boolean addConnector(String name1, String name2){
@@ -104,19 +131,19 @@ public class Board extends Observable{
 		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
 			String gizmoClass = gizmo.getClass().getSimpleName();
 			if ((gizmoClass.equals("LeftFlipper") || gizmoClass.equals("RightFlipper"))&& (x <19 && y<19)){
-				if ((grid[x][y] ==null) && (grid[x][y+1] ==null) && (grid[x+1][y] ==null) && (grid[x+1][y+1]==null)){
-					grid[x][y] = gizmo;
-					grid[x][y+1] = gizmo;
-					grid[x+1][y] = gizmo;
-					grid[x+1][y+1] = gizmo;
+				if ((grid[x][y] ==false) && (grid[x][y+1] ==false) && (grid[x+1][y] ==false) && (grid[x+1][y+1]==false)){
+					grid[x][y] = true;
+					grid[x][y+1] = true;
+					grid[x+1][y] = true;
+					grid[x+1][y+1] = true;
 
 					return true;
 				}else{
 					//One of 4 grid locs required for flipper is occupied
 					return false;
 				}
-			}else if(grid[x][y] == null) {
-				grid[x][y] = gizmo;
+			}else if(grid[x][y] == false) {
+				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(),gizmo);
 				return true;
 			} else {
@@ -129,18 +156,46 @@ public class Board extends Observable{
 		}
 	}
 
-	public boolean deleteGizmo(int x, int y){
-		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
-			grid[x][y] = null;
-			return true;
-		}else{
-			//Cords out of range
-			return false;
-		}
-	}
 
 	public boolean deleteGizmo(String id){
-	return false;
+		if (gizmoHashMap.containsKey(id)){
+			IGizmo deletedGizmo = gizmoHashMap.remove(id);
+
+			String type = deletedGizmo.getClass().getSimpleName();
+
+			int x = deletedGizmo.getxPos(),y = deletedGizmo.getyPos();
+			grid[x][y] = false;
+
+			if (type.equals("Flipper")){
+				grid[x][y+1] = false;
+				grid[x+1][y] = false;
+				grid[x+1][y+1] = false;
+			}
+			return true;
+		}else{
+			//Doesnt exist
+			return false;
+		}
+
+	}
+
+	public boolean moveGizmo(String id, int newX, int newY){
+		try {
+			IGizmo gizmo = getGizmoByID(id);
+
+			//TODO Check for validity before removing gizmo entirely
+
+			deleteGizmo(id);
+
+			gizmo.setxPos(newX);
+			gizmo.setyPos(newY);
+
+			addGizmo(gizmo,newX,newY);
+
+		}catch (NoSuchGizmoException e){
+			return false;
+		}
+
 	}
 
 	public IGizmo getGizmoByID(String id) throws NoSuchGizmoException{

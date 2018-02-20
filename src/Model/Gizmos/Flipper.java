@@ -76,4 +76,14 @@ public class Flipper implements IGizmo {
 	public int getyPos() {
 		return yPos;
 	}
+
+	@Override
+	public void setxPos(int x) {
+		this.xPos = x;
+	}
+
+	@Override
+	public void setyPos(int y) {
+		this.yPos = y;
+	}
 }

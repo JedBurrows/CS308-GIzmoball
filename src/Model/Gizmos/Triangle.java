@@ -56,6 +56,16 @@ public class Triangle implements IGizmo {
         return yPos;
     }
 
+    @Override
+    public void setxPos(int x) {
+        this.xPos =x;
+    }
+
+    @Override
+    public void setyPos(int y) {
+        this.yPos =y;
+    }
+
     public int getRotation() {
         return rotation;
     }

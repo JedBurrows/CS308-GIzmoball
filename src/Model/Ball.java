@@ -7,14 +7,7 @@ import physics.Vect;
 import physics.Circle;
 
 
-public class Ball extends JPanel {
-
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.drawOval(0,0,150,150);
-
-    }
-
+public class Ball {
 
 
     private String name;
@@ -27,13 +20,11 @@ public class Ball extends JPanel {
 
 
     public Ball(String name, float x, float y, float vx, float vy){
-        /*name = n;
-        x = x_coordinate;
-        y = y_coordinate;
-        vx = x_vector;
-        vy =y_vector;
-        radius = 0.2;
-        circle = new Circle(new Vect(x,y), radius);*/
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy =vy;
     }
 
 
@@ -52,20 +43,12 @@ public class Ball extends JPanel {
         return name;
     }
 
- /*   public float getX() {
+    public float getXPos() {
         return x;
     }
 
-    public float getY() {
+    public float getYPos() {
         return y;
-    }*/
-
-    public float getVX() {
-        return vx;
-    }
-
-    public float getVY() {
-        return vy;
     }
 }
 

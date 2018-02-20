@@ -1,5 +1,7 @@
 package View;
 
+import Model.Absorber;
+import Model.Ball;
 import Model.Board;
 import Model.Connector;
 import Model.Gizmos.Flipper;
@@ -108,6 +110,49 @@ public class BoardPanel extends JPanel implements Observer{
 					break;
 			}
 		}
+
+
+		//Draw Absorber
+		g.setColor(Color.MAGENTA);
+
+		if(board.hasAbsorber()){
+			Absorber absober = board.getAbsorber();
+			int x1 = absober.getxPos1(),y1 = absober.getyPos1(),x2 = absober.getxPos2(),y2 = absober.getyPos2();
+			for (int xPos = x1; xPos<=x2;xPos++){
+				for (int yPos = y1; yPos<=y2;yPos++){
+					g.fillRect(xPos*Lwidth,yPos*Lheight,Lwidth,Lheight);
+				}
+
+			}
+
+		}
+
+		g.setColor(Color.BLUE);
+
+		if (board.hasGizmoBall()){
+			Ball ball = board.getGizmoBall();
+
+			float x = ball.getXPos(), y = ball.getYPos();
+
+			System.out.println("X: " + x + "	Y:"+y);
+
+
+			x = (float)Lwidth*x;
+			y = (float)Lheight*y;
+
+			System.out.println("X: " + x + "	Y:"+y);
+
+			int r = Lwidth/4;
+
+
+			g.fillOval((int)x -r,(int)y-r,Lwidth/2,Lheight/2);
+		}
+
+
+
+
+
+
 
 		if(!board.isPlayMode()){
 			//Draw Grid Lines

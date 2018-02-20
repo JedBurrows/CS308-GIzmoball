@@ -29,6 +29,9 @@ public class LoadSaveController implements ActionListener {
 			}
 		}
 	}
+	/*
+		TODO Key Connect + Painting flippers on top bottom and right delete and move;
+	 */
 	private Board load(){
 		Board board = new Board();
 		JFileChooser fc = new JFileChooser();
@@ -70,7 +73,7 @@ public class LoadSaveController implements ActionListener {
 													x2 = scanner.nextInt();
 													if (scanner.hasNextInt()){
 														y2 = scanner.nextInt();
-														board.
+														board.setAbsorber(new Absorber(name,x1,y1,x2,y2));
 													}
 												}
 											}
@@ -131,7 +134,10 @@ public class LoadSaveController implements ActionListener {
 									"Delete" (IDENTIFIER name)
 								 */
 								case "Delete":
-									System.out.println("'Delete' - command in file in file, cannot delete.");
+									if(scanner.hasNext()){
+										name = scanner.next();
+										board.deleteGizmo(name);
+									}
 
 									break;
 
@@ -243,6 +249,7 @@ public class LoadSaveController implements ActionListener {
 					}
 
 				}catch(FileNotFoundException e){
+
 
 				}catch (IOException e){
 
