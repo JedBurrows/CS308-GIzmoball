@@ -54,6 +54,7 @@ public class Board extends JPanel implements Observer {
 //            transform.rotate(Math.toRadians(lf.getAngle()-90), points[0].x+6, points[0].y+6);
 //            g2.transform(transform);
 //            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
+            g2.setColor(Color.green);
             g2.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
             g2.drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
 
@@ -66,7 +67,9 @@ public class Board extends JPanel implements Observer {
 //            g2.transform(transform);
 //            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
             g2.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
+            g2.setColor(Color.blue);
             g2.drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
+
 
         }
 
