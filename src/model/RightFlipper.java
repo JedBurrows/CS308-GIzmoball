@@ -37,7 +37,7 @@ public class RightFlipper {
         maxAngle = 90;
         minAngle = 0;
         angle = 90;
-        angVel = 90;
+        angVel = 1080;
 
         keyPress = false;
 

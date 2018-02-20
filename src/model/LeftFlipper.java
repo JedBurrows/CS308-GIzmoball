@@ -18,7 +18,6 @@ public class LeftFlipper {
 
     private int length;
     private int id;
-    private boolean onOff;
 
     private double maxAngle;
     private double minAngle;
@@ -37,7 +36,7 @@ public class LeftFlipper {
         maxAngle = 90;
         minAngle = 0;
         angle = 90;
-        angVel = 90;
+        angVel = 1080;
 
         keyPress = false;
 

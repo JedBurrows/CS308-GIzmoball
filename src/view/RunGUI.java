@@ -55,8 +55,11 @@ public class RunGUI implements IModeGUI {
         btnStart.addKeyListener(new MagicKeyListener(listener1));
         btnStart.setPreferredSize(new Dimension(75, 75));
         JButton btnStop = new JButton("Stop");
+        btnStop.addActionListener(listener);
+
         btnStop.setPreferredSize(new Dimension(75, 75));
         JButton btnTick = new JButton("Tick");
+        btnTick.addActionListener(listener);
         btnTick.setPreferredSize(new Dimension(75, 75));
         JButton btnBuildMode = new JButton("Build");
         btnBuildMode.setPreferredSize(new Dimension(75, 75));

@@ -25,12 +25,12 @@ public class Main {
 
 //        model.setBallSpeed(100, 100);
         model.addLeftFlipper(new LeftFlipper(1,100, 100, 50));
-        model.addLeftFlipper(new LeftFlipper(2,200, 100, 50));
-        model.addLeftFlipper(new LeftFlipper(3,300, 100, 50));
-
+//        model.addLeftFlipper(new LeftFlipper(2,200, 100, 50));
+//        model.addLeftFlipper(new LeftFlipper(3,300, 100, 50));
+//
         model.addRightFlipper(new RightFlipper(1,100, 400, 50));
-        model.addRightFlipper(new RightFlipper(2,200, 400, 50));
-        model.addRightFlipper(new RightFlipper(3,300, 400, 50));
+//        model.addRightFlipper(new RightFlipper(2,200, 400, 50));
+//        model.addRightFlipper(new RightFlipper(3,300, 400, 50));
 
 //        model.addLine(new VerticalLine(200, 200, 100));
 

@@ -5,6 +5,8 @@ import model.Model;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
@@ -23,10 +25,12 @@ public class Board extends JPanel implements Observer {
     protected int width;
     protected int height;
     protected Model gm;
+    private Ellipse2D.Double circle = null;
 
     public Board(int w, int h, Model m) {
         // Observe changes in Model
 //        buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB_PRE);
+       circle = new Ellipse2D.Double(10, 10, 350, 350);
         m.addObserver(this);
         width = w;
         height = h;
@@ -44,23 +48,25 @@ public class Board extends JPanel implements Observer {
 
         //Draw all right flippers
         for (LeftFlipper lf : gm.getLeftFlippers()) {
-            Graphics2D g2 = (Graphics2D) g;
+//            AffineTransform transform = new AffineTransform();
             Point[] points = lf.getPoints();
-            AffineTransform transform = new AffineTransform();
-            transform.setToRotation(Math.toRadians(lf.getAngle()-90), points[0].x+6, points[0].y+6);
-            g2.transform(transform);
-            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
+            Graphics2D g2 = (Graphics2D) g;
+//            transform.rotate(Math.toRadians(lf.getAngle()-90), points[0].x+6, points[0].y+6);
+//            g2.transform(transform);
+//            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
+            g2.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
+            g2.drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
 
         }
         for (RightFlipper rf : gm.getRightFlippers()) {
-            Graphics2D g2 = (Graphics2D) g;
-
+//            AffineTransform transform = new AffineTransform();
             Point[] points = rf.getPoints();
-            AffineTransform transform = new AffineTransform();
-            transform.setToRotation(Math.toRadians(90-rf.getAngle()), points[0].x+6, points[0].y+6);
-            g2.transform(transform);
-            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
-            g2.dispose();
+            Graphics2D g2 = (Graphics2D) g;
+//            transform.rotate(Math.toRadians(90-rf.getAngle()), points[0].x+6, points[0].y+6);
+//            g2.transform(transform);
+//            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
+            g2.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
+            g2.drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
 
         }
 
