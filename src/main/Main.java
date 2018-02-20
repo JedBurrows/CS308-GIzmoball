@@ -43,25 +43,8 @@ public class Main {
 		model.addGizmo(gizmoCreator.createGizmo('t',400,50));
 
 
-		// Vertical line at (100,100), width 300
-//		model.addLine(new Line(100, 100, 300));
-//		model.addCircle(new ComponentCircle(100,100,0));
-//		model.addCircle(new ComponentCircle(400,100,0));
-//
-		//model.addCircle(new ComponentCircle(100, 100));
-
-		/*model.addLine(new Line(100, 200, 300));
-		model.addLine(new Line(100, 300, 300));
-		model.addLine(new Line(100, 400, 300));*/
-
 		MITRunGui gui = new MITRunGui(model);
 		gui.createAndShowGUI();
 	}
 
-	public void addGizmo(GizmoModel gizmoCreator, Model model){
-
-		//IGizmo s1 = gizmoCreator.createGizmo('s', new Vect(100 , 200));
-//		for(Line l : s1.getLines())
-//			model.addLine(l);
-	}
 }
