@@ -5,6 +5,8 @@
 .idea/uiDesigner.xml
 *.iml
 
+.idea/
+
 
 # IntelliJ
 out/
