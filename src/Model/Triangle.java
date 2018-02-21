@@ -58,4 +58,5 @@ public class Triangle implements IGizmo {
         int[] ypoints = {y,y-size,y-size};
         g2.fillPolygon(xpoints, ypoints,3);
     }
+
 }

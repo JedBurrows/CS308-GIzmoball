@@ -61,4 +61,5 @@ public class Square implements IGizmo {
         g2.fillPolygon(xpoints, ypoints,4);
 
     }
+
 }

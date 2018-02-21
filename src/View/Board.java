@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,6 +15,7 @@ import Model.Ball;
 import Model.Model;
 import Model.IGizmo;
 import Model.Line;
+import Model.ComponentCircle;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -45,9 +47,18 @@ public  class Board extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 
+		ArrayList<Line> lines;
+		ArrayList<ComponentCircle> circles;
 
 		for (IGizmo gizmo : gm.getGizmos()) {
+			/*lines = gizmo.getLines();
+			circles = gizmo.getCircles();
+			for(Line l : lines)
+				g2.drawLine(l.getX(),l.getY(),l.getX()+l.getLength(),l.getY()+l.getHeight());
+			for(ComponentCircle c : circles)
+				g2.drawOval(c.getX(),c.getY(),(int)(c.getRadius()),(int)(c.getRadius()));*/
 			gizmo.draw(g2);
+
 		}
 //		for (ComponentCircle c : gm.getCircles()) {
 //			int d = (int) (2*c.getRadius());
