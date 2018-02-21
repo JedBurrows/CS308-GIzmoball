@@ -19,11 +19,15 @@ public class LSProtoGUI implements IModeGUI {
 	private JFrame buildFrame;
 	private BoardPanel gizmoBoard;
 
+	private KeyPressListener keyListener;
+
 
 	public LSProtoGUI() {
 
 		buildFrame = new JFrame("Build Mode!");
 		buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
 
 		createGameBoard();
 		createMenuBar();
@@ -40,7 +44,8 @@ public class LSProtoGUI implements IModeGUI {
 	}
 
 	private void createMenuBar() {
-		ActionListener lsListener = new LoadSaveController(gizmoBoard);
+		LoadSaveController lsListener = new LoadSaveController(gizmoBoard);
+		lsListener.setKeyPressListener(keyListener);
 		JMenuBar menuBar = new JMenuBar();
 		buildFrame.setJMenuBar(menuBar);
 		JMenu fileMenu = new JMenu("File");
@@ -59,8 +64,10 @@ public class LSProtoGUI implements IModeGUI {
 	}
 
 	private void createGameBoard() {
+		Board board = new Board();
+		keyListener = new KeyPressListener(board);
 
-		gizmoBoard = new BoardPanel(new Board());
+		gizmoBoard = new BoardPanel(board);
 
 		gizmoBoard.setVisible(true);
 
@@ -72,7 +79,7 @@ public class LSProtoGUI implements IModeGUI {
 		gizmoBoard.setFocusCycleRoot(true);
 		gizmoBoard.setVisible(true);
 //        gizmoBoard.addMouseListener(new GameBoardListener(this));
-		gizmoBoard.addKeyListener(new KeyPressListener());
+		gizmoBoard.addKeyListener(new KeyPressListener(board));
 
 	}
 

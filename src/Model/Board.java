@@ -130,12 +130,14 @@ public class Board extends Observable{
 		//TODO Clean these if statements works well for now
 		if ((x >=0 && x <= 19)&& (y >=0 && y <= 19)) {
 			String gizmoClass = gizmo.getClass().getSimpleName();
-			if ((gizmoClass.equals("LeftFlipper") || gizmoClass.equals("RightFlipper"))&& (x <19 && y<19)){
+			if (gizmoClass.equals("Flipper") && (x <19 && y<19)){
 				if ((grid[x][y] ==false) && (grid[x][y+1] ==false) && (grid[x+1][y] ==false) && (grid[x+1][y+1]==false)){
 					grid[x][y] = true;
 					grid[x][y+1] = true;
 					grid[x+1][y] = true;
 					grid[x+1][y+1] = true;
+					gizmoHashMap.put(gizmo.getID(),gizmo);
+
 
 					return true;
 				}else{
@@ -155,6 +157,8 @@ public class Board extends Observable{
 			return false;
 		}
 	}
+
+
 
 
 	public boolean deleteGizmo(String id){
@@ -182,17 +186,59 @@ public class Board extends Observable{
 	public boolean moveGizmo(String id, int newX, int newY){
 		try {
 			IGizmo gizmo = getGizmoByID(id);
+			String type = gizmo.getClass().getSimpleName();
+			if ((newX >=0 && newX <= 19)&& (newY >=0 && newY <= 19)) {
+				String gizmoClass = gizmo.getClass().getSimpleName();
+				if (gizmoClass.equals("Flipper") && (newX <19 && newY<19)){
+					if ((grid[newX][newY] ==false) && (grid[newX][newY+1] ==false) && (grid[newX+1][newY] ==false) && (grid[newX+1][newY+1]==false)){
+						grid[newX][newY] = true;
+						grid[newX][newY+1] = true;
+						grid[newX+1][newY] = true;
+						grid[newX+1][newY+1] = true;
 
-			//TODO Check for validity before removing gizmo entirely
+						deleteGizmo(id);
 
-			deleteGizmo(id);
+						gizmo.setxPos(newX);
+						gizmo.setyPos(newY);
 
-			gizmo.setxPos(newX);
-			gizmo.setyPos(newY);
+						addGizmo(gizmo,newX,newY);
 
-			addGizmo(gizmo,newX,newY);
+						return true;
+					}else{
+						//One of 4 grid locs required for flipper is occupied
+						return false;
+					}
+				}else if(grid[newX][newY] == false) {
+					grid[newY][newY] = true;
 
+					deleteGizmo(id);
+
+					gizmo.setxPos(newX);
+					gizmo.setyPos(newY);
+
+					addGizmo(gizmo,newX,newY);
+					return true;
+				} else {
+					//Grid loc already occupied
+					return false;
+				}
+			}else{
+				//Cords out of range
+				return false;
+			}
 		}catch (NoSuchGizmoException e){
+			return false;
+		}
+	}
+
+	public boolean moveGizmoBall(String name, float x, float y){
+
+		if ((x >=0.5 && x<=19.5) && (y >=0.5 && y<=19.5)){
+			gizmoBall.setXPos(x);
+			gizmoBall.setYPos(y);
+			return true;
+
+		}else{
 			return false;
 		}
 
@@ -223,6 +269,8 @@ public class Board extends Observable{
 	}
 	public ArrayList<IGizmo> getGizmos(){return new ArrayList<>(gizmoHashMap.values());}
 	public ArrayList<Connector> getConnectors(){return new ArrayList<>(connectors);}
+
+
 
 
 }

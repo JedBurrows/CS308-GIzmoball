@@ -13,7 +13,7 @@ public class LSProtoMain extends JFrame implements ActionListener {
 
 
     public static void main(String[] args){
-        new LSProtoMain();
+        new LSProtoGUI();
     }
 
     public LSProtoMain(){

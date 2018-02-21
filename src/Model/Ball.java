@@ -50,6 +50,14 @@ public class Ball {
     public float getYPos() {
         return y;
     }
+
+    public void setXPos(float x) {
+        this.x=x;
+    }
+
+    public void setYPos(float y) {
+        this.y = y;
+    }
 }
 
 

@@ -14,9 +14,9 @@ import java.util.Scanner;
 
 public class LoadSaveController implements ActionListener {
 	private BoardPanel panel;
+	private KeyPressListener keyPressListener;
 
-	public LoadSaveController(BoardPanel panel){
-		this.panel = panel;
+	public LoadSaveController(BoardPanel panel){ this.panel = panel;
 	}
 
 	public void save(){
@@ -147,8 +147,24 @@ public class LoadSaveController implements ActionListener {
 									In the first form, moves the gizmo with the given name so that its upper-left corner is at (x,y). In the second form, moves the ball with the given name so that its center is at (x,y).
 								 */
 								case "Move":
-									System.out.println("'Move' - command in file in file, cannot move.");
+									if (scanner.hasNext()){
+										name = scanner.next();
+										if (scanner.hasNextFloat()){
+											x = scanner.nextFloat();
+											if (scanner.hasNextFloat()){
+												y = scanner.nextFloat();
+												board.moveGizmoBall(name,x,y);
+											}
 
+										}else if(scanner.hasNextInt()){
+											x1 = scanner.nextInt();
+											if (scanner.hasNextInt()){
+												y1 = scanner.nextInt();
+												board.moveGizmo(name,x1,y1);
+											}
+
+										}
+									}
 									break;
 
 								/*
@@ -258,6 +274,9 @@ public class LoadSaveController implements ActionListener {
 			}
 		}
 		return board;
+	}
+	public void setKeyPressListener(KeyPressListener listener){
+		this.keyPressListener = listener;
 	}
 
 	@Override
