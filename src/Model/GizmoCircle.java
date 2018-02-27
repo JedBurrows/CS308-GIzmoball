@@ -1,6 +1,7 @@
 package Model;
 
 import physics.Circle;
+import physics.LineSegment;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ public class GizmoCircle implements IGizmo{
     }
 
     @Override
-    public ArrayList<Line> getLines() {
-        return new ArrayList<Line>();
+    public ArrayList<LineSegment> getLines() {
+        return new ArrayList<LineSegment>();
     }
 
 

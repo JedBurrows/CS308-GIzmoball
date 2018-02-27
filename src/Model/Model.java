@@ -15,7 +15,7 @@ import physics.Vect;
 public class Model extends Observable {
 
 	private ArrayList<IGizmo> gizmos;
-	private ArrayList<Line> lines;
+	private ArrayList<LineSegment> lines;
 	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls gws;
@@ -29,7 +29,7 @@ public class Model extends Observable {
 		gws = new Walls(0, 0, 500, 500);
 
 		// Lines added in Proto3Main
-		lines = new ArrayList<Line>();
+		lines = new ArrayList<LineSegment>();
 		circles = new ArrayList<Circle>();
 		gizmos = new ArrayList<IGizmo>();
 	}
@@ -94,8 +94,7 @@ public class Model extends Observable {
 		}
 
 		// Time to collide with any vertical lines
-		for (Line line : lines) {
-			LineSegment ls = line.getLineSeg();
+		for (LineSegment ls : lines) {
 			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
@@ -118,13 +117,13 @@ public class Model extends Observable {
 		return ball;
 	}
 
-	public ArrayList<Line> getLines() {
+	public ArrayList<LineSegment> getLines() {
 		return lines;
 	}
 
 	public ArrayList<Circle> getCircles(){return circles;}
 
-	public void addLine(Line l) {
+	public void addLine(LineSegment l) {
 		lines.add(l);
 	}
 
@@ -132,7 +131,7 @@ public class Model extends Observable {
 
 	public void addGizmo(IGizmo g){
 		gizmos.add(g);
-		for(Line l:g.getLines()){
+		for(LineSegment l:g.getLines()){
 			lines.add(l);
 		}
 		for(Circle c : g.getCircles()){

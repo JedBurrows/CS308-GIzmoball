@@ -1,6 +1,7 @@
 package Model;
 
 import physics.Circle;
+import physics.LineSegment;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public interface IGizmo {
 
     ArrayList<Circle> getCircles();
 
-	ArrayList<Line> getLines();
+	ArrayList<LineSegment> getLines();
 
 
 
