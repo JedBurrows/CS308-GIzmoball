@@ -1,11 +1,31 @@
 package Model;
 
-import physics.Circle;
-import physics.LineSegment;
-
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Square implements IGizmo {
+
+    int x,y,size;
+    ArrayList<Line> lines;
+    ArrayList<ComponentCircle> circles;
+
+    public Square(int x, int y){
+        size = 20;
+        this.x = x;
+        this.y = y;
+        lines = new ArrayList<Line>();
+        circles = new ArrayList<ComponentCircle>();
+
+        lines.add(new Line(x, y, size, 0));
+        lines.add(new Line(x+size, y,0, (-size)));
+        lines.add(new Line(x+size, y-size,(-size),0));
+        lines.add(new Line(x,y-size,0,size));
+        circles.add(new ComponentCircle(x,y,0));
+        circles.add(new ComponentCircle(x+size, y, 0));
+        circles.add(new ComponentCircle(x+size, y-size, 0));
+        circles.add(new ComponentCircle(x, y-size,0));
+    }
+
     @Override
     public void action() {
 
@@ -23,16 +43,23 @@ public class Square implements IGizmo {
 
     @Override
     public Boolean move(int x, int y) {
-        return null;
+        return false;
     }
 
     @Override
-    public ArrayList<Circle> getCircles() {
-        return null;
+    public ArrayList<ComponentCircle> getCircles() {return circles;}
+
+    @Override
+    public ArrayList<Line> getLines() {
+        return lines;
     }
 
     @Override
-    public ArrayList<LineSegment> getLines() {
-        return null;
+    public void draw(Graphics2D g2) {
+        int[] xpoints = {x,x+size,x+size, x};
+        int[] ypoints = {y,y,y-size,y-size};
+        g2.fillPolygon(xpoints, ypoints,4);
+
     }
+
 }

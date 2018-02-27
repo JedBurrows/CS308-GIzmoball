@@ -1,5 +1,8 @@
 package Model;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class Flipper implements IGizmo{
 
 	//status of activated or not
@@ -33,5 +36,20 @@ public class Flipper implements IGizmo{
 	@Override
 	public Boolean move(int x, int y) {
 		return null;
+	}
+
+	@Override
+	public ArrayList<ComponentCircle> getCircles() {
+		return null;
+	}
+
+	@Override
+	public ArrayList<Line> getLines() {
+		return null;
+	}
+
+	@Override
+	public void draw(Graphics2D g2) {
+
 	}
 }

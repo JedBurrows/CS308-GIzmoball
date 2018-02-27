@@ -1,8 +1,6 @@
 package Model;
 
-import physics.Circle;
-import physics.LineSegment;
-
+import java.awt.*;
 import java.util.ArrayList;
 
 public interface IGizmo {
@@ -24,7 +22,7 @@ public interface IGizmo {
 	 *
 	 * ID's:
 	 * Triangle 'T'+ number
-	 * GizmoCircle 'C'+ number
+	 * ComponentCircle 'C'+ number
 	 * Square 'S'+ number
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number
@@ -35,7 +33,10 @@ public interface IGizmo {
 	public Boolean move(int x, int y);
 
 
-    ArrayList<Circle> getCircles();
+    ArrayList<ComponentCircle> getCircles();
 
-	ArrayList<LineSegment> getLines();
+	ArrayList<Line> getLines();
+
+	void draw(Graphics2D g2);
+
 }

@@ -1,19 +1,20 @@
 package Model;
 
-
-import physics.Circle;
-import physics.LineSegment;
-
+import java.awt.*;
 import java.util.ArrayList;
 
-public class GizmoCircle implements IGizmo {
+public class GizmoCircle implements IGizmo{
+    private int xpos;
+    private int ypos;
+    private double radius;
+    private ComponentCircle circle;
 
-    public Circle getCircle() {
-        return circle;
+    public GizmoCircle(int x, int y) {
+        xpos = x;
+        ypos = y;
+        radius = 10;
+        circle = new ComponentCircle(x, y, radius);
     }
-
-    private Circle circle;
-
 
     @Override
     public void action() {
@@ -36,12 +37,20 @@ public class GizmoCircle implements IGizmo {
     }
 
     @Override
-    public ArrayList<Circle> getCircles() {
-        return null;
+    public ArrayList<ComponentCircle> getCircles() {
+        ArrayList<ComponentCircle> c = new ArrayList<ComponentCircle>();
+        c.add(circle);
+        return c;
     }
 
     @Override
-    public ArrayList<LineSegment> getLines() {
-        return null;
+    public ArrayList<Line> getLines() {
+        return new ArrayList<Line>();
     }
+
+    @Override
+    public void draw(Graphics2D g2) {
+        g2.fillOval((int) (xpos-radius), (int) (ypos-radius), (int) (2*radius), (int) (2*radius));
+    }
+
 }
