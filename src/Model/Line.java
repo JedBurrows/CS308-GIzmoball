@@ -34,7 +34,6 @@ public class Line {
 		return ypos;
 	}
 
-
 	public int getLength() {
 		return length;
 	}
