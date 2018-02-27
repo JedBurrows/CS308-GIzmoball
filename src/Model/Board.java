@@ -11,7 +11,7 @@ public class Board {
 	private Ball gizmoBall;
 	private ArrayList<IGizmo> gizmos;
 	private IGizmo[][] grid = new IGizmo[20][20];
-	private Wall[] walls = new Wall[4];
+	private Walls walls;
 	private ArrayList<Chain> chains = new ArrayList<>();
 	private double gravity, mu, mu2;
 

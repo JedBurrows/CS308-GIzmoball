@@ -20,9 +20,9 @@ public class Square implements IGizmo {
         circles = new ArrayList<Circle>();
 
         lines.add(new LineSegment(x, y, x+ size, y));
-        lines.add(new LineSegment(x+size, y,x, (y-size)));
-        lines.add(new LineSegment(x+size, y-size,(x-size),y));
-        lines.add(new LineSegment(x,y-size,x,y+size));
+        lines.add(new LineSegment(x+size,y-size, x+size, y));
+        lines.add(new LineSegment(x, y,(x),y-size));
+        lines.add(new LineSegment(x,y-size,x+size,y-size));
         circles.add(new Circle(x,y,0));
         circles.add(new Circle(x+size, y, 0));
         circles.add(new Circle(x+size, y-size, 0));

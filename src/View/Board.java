@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import Model.Ball;
 import Model.Model;
 import Model.IGizmo;
-import Model.Line;
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -46,17 +48,19 @@ public  class Board extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		ArrayList<Line> lines;
-		ArrayList<ComponentCircle> circles;
+		ArrayList<LineSegment> lines;
+		ArrayList<Circle> circles;
 
 		for (IGizmo gizmo : gm.getGizmos()) {
-			/*lines = gizmo.getLines();
+			lines = gizmo.getLines();
 			circles = gizmo.getCircles();
-			for(Line l : lines)
-				g2.drawLine(l.getX(),l.getY(),l.getX()+l.getLength(),l.getY()+l.getHeight());
-			for(ComponentCircle c : circles)
-				g2.drawOval(c.getX(),c.getY(),(int)(c.getRadius()),(int)(c.getRadius()));*/
-			gizmo.draw(g2);
+			for(LineSegment l : lines) {
+				Vect p1 = l.p1();
+				Vect p2 = l.p2();
+				g2.drawLine((int) (p1.x()), (int) (p1.y()), (int) (p2.x()), (int) (p2.y()));
+			}
+			for(Circle c : circles)
+				g2.drawOval((int)(c.getCenter()).x() ,(int)(c.getCenter().y()),(int)(c.getRadius()),(int)(c.getRadius()));
 
 		}
 //		for (ComponentCircle c : gm.getCircles()) {

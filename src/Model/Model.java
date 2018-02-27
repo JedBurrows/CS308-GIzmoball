@@ -8,9 +8,6 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class Model extends Observable {
 
@@ -18,7 +15,7 @@ public class Model extends Observable {
 	private ArrayList<LineSegment> lines;
 	private ArrayList<Circle> circles;
 	private Ball ball;
-	private Walls gws;
+	private Walls walls;
 
 	public Model() {
 
@@ -26,7 +23,7 @@ public class Model extends Observable {
 		ball = new Ball(25, 25, 100, 100);
 
 		// Wall size 500 x 500 pixels
-		gws = new Walls(0, 0, 500, 500);
+		walls = new Walls(0, 0, 500, 500);
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();
@@ -84,7 +81,7 @@ public class Model extends Observable {
 		double time = 0.0;
 
 		// Time to collide with 4 walls
-		ArrayList<LineSegment> lss = gws.getLineSegments();
+		ArrayList<LineSegment> lss = walls.getLineSegments();
 		for (LineSegment line : lss) {
 			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {

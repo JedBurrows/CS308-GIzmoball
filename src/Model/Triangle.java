@@ -19,9 +19,9 @@ public class Triangle implements IGizmo {
         lines = new ArrayList<LineSegment>();
         circles = new ArrayList<Circle>();
 
-        lines.add(new LineSegment(x, y, x+ size, (y-size)));
-        lines.add(new LineSegment(x, y-size,x+size,y));
-        lines.add(new LineSegment(x,y-size,x,y+size));
+        lines.add(new LineSegment(x, y, x, (y-size)));
+        lines.add(new LineSegment(x, y-size,x+size,y-size));
+        lines.add(new LineSegment(x,y,x+size,y-size));
         circles.add(new Circle(x,y,0));
         circles.add(new Circle(x+size, y-size, 0));
         circles.add(new Circle(x, y-size, 0));
