@@ -28,7 +28,7 @@ public class Model extends Observable {
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
 
-		// Lines added in Main
+		// Lines added in Proto3Main
 		lines = new ArrayList<Line>();
 		circles = new ArrayList<ComponentCircle>();
 		gizmos = new ArrayList<IGizmo>();

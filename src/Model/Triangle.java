@@ -52,11 +52,5 @@ public class Triangle implements IGizmo {
         return lines;
     }
 
-    @Override
-    public void draw(Graphics2D g2) {
-        int[] xpoints = {x,x+size,x};
-        int[] ypoints = {y,y-size,y-size};
-        g2.fillPolygon(xpoints, ypoints,3);
-    }
 
 }

@@ -2,24 +2,22 @@ package main;
 
 import javax.swing.UIManager;
 
-import Model.IGizmo;
 import Model.Model;
 import Model.GizmoModel;
 import View.MITRunGui;
-import Model.L_Measurement;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
  */
 
-public class Main {
+public class Proto3Main {
 
 	public static void main(String[] args) {
 		try {
 			// Use the platform look and feel
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			System.out.println("Look and Feel error in Main");
+			System.out.println("Look and Feel error in Proto3Main");
 		}
 
 		Model model = new Model();

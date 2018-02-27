@@ -37,6 +37,6 @@ public interface IGizmo {
 
 	ArrayList<Line> getLines();
 
-	void draw(Graphics2D g2);
+
 
 }

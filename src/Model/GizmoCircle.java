@@ -48,9 +48,6 @@ public class GizmoCircle implements IGizmo{
         return new ArrayList<Line>();
     }
 
-    @Override
-    public void draw(Graphics2D g2) {
-        g2.fillOval((int) (xpos-radius), (int) (ypos-radius), (int) (2*radius), (int) (2*radius));
-    }
+
 
 }

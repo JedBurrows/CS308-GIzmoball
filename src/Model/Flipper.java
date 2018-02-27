@@ -48,8 +48,5 @@ public class Flipper implements IGizmo{
 		return null;
 	}
 
-	@Override
-	public void draw(Graphics2D g2) {
 
-	}
 }
