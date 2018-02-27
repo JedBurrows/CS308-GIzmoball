@@ -1,5 +1,7 @@
 package Model;
 
+import physics.Circle;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public interface IGizmo {
 	public Boolean move(int x, int y);
 
 
-    ArrayList<ComponentCircle> getCircles();
+    ArrayList<Circle> getCircles();
 
 	ArrayList<Line> getLines();
 

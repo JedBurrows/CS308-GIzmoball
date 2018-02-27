@@ -16,7 +16,7 @@ public class Model extends Observable {
 
 	private ArrayList<IGizmo> gizmos;
 	private ArrayList<Line> lines;
-	private ArrayList<ComponentCircle> circles;
+	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls gws;
 
@@ -30,7 +30,7 @@ public class Model extends Observable {
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<Line>();
-		circles = new ArrayList<ComponentCircle>();
+		circles = new ArrayList<Circle>();
 		gizmos = new ArrayList<IGizmo>();
 	}
 
@@ -104,8 +104,7 @@ public class Model extends Observable {
 		}
 
 		// Time to collide with circles
-		for (ComponentCircle circle : circles){
-			Circle c = circle.getCirle();
+		for (Circle c : circles){
 			time = Geometry.timeUntilCircleCollision(c,ballCircle,ballVelocity);
 			if(time<shortestTime){
 				shortestTime=time;
@@ -123,20 +122,20 @@ public class Model extends Observable {
 		return lines;
 	}
 
-	public ArrayList<ComponentCircle> getCircles(){return circles;}
+	public ArrayList<Circle> getCircles(){return circles;}
 
 	public void addLine(Line l) {
 		lines.add(l);
 	}
 
-	public void addCircle(ComponentCircle c){circles.add(c);}
+	public void addCircle(Circle c){circles.add(c);}
 
 	public void addGizmo(IGizmo g){
 		gizmos.add(g);
 		for(Line l:g.getLines()){
 			lines.add(l);
 		}
-		for(ComponentCircle c : g.getCircles()){
+		for(Circle c : g.getCircles()){
 			circles.add(c);
 		}
 	}

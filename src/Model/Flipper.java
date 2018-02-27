@@ -1,5 +1,7 @@
 package Model;
 
+import physics.Circle;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -39,7 +41,7 @@ public class Flipper implements IGizmo{
 	}
 
 	@Override
-	public ArrayList<ComponentCircle> getCircles() {
+	public ArrayList<Circle> getCircles() {
 		return null;
 	}
 

@@ -1,5 +1,7 @@
 package Model;
 
+import physics.Circle;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -7,13 +9,13 @@ public class GizmoCircle implements IGizmo{
     private int xpos;
     private int ypos;
     private double radius;
-    private ComponentCircle circle;
+    private Circle circle;
 
     public GizmoCircle(int x, int y) {
         xpos = x;
         ypos = y;
         radius = 10;
-        circle = new ComponentCircle(x, y, radius);
+        circle = new Circle(x, y, radius);
     }
 
     @Override
@@ -37,8 +39,8 @@ public class GizmoCircle implements IGizmo{
     }
 
     @Override
-    public ArrayList<ComponentCircle> getCircles() {
-        ArrayList<ComponentCircle> c = new ArrayList<ComponentCircle>();
+    public ArrayList<Circle> getCircles() {
+        ArrayList<Circle> c = new ArrayList<Circle>();
         c.add(circle);
         return c;
     }

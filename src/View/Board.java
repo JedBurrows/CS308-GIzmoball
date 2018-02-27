@@ -15,7 +15,6 @@ import Model.Ball;
 import Model.Model;
 import Model.IGizmo;
 import Model.Line;
-import Model.ComponentCircle;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
