@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Gizmos.IGizmo;
+import Model.Walls;
 
 import java.util.*;
 
@@ -13,7 +14,7 @@ public class Board extends Observable{
 	private boolean playMode;
 	private Ball gizmoBall;
 	private boolean[][] grid;
-	private Wall[] walls ;
+	private Walls walls ;
 	private float gravity, mu, mu2;
 	private ArrayList<Connector> connectors;
 
@@ -40,7 +41,7 @@ public class Board extends Observable{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
-		walls = new Wall[4];
+		walls = new Walls(0,0,20,20);
 
 		playMode = false;
 

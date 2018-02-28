@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import Model.Ball;
 import Model.Model;
-import Model.IGizmo;
+import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
