@@ -3,6 +3,7 @@ package Model.Gizmos;
 import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public interface IGizmo {
@@ -26,7 +27,7 @@ public interface IGizmo {
 	 *
 	 * ID's:
 	 * Triangle 'T'+ number
-	 * Circle 'C'+ number
+	 * ComponentCircle 'C'+ number
 	 * Square 'S'+ number
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number

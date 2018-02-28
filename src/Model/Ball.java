@@ -1,55 +1,62 @@
 package Model;
 import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import physics.Vect;
+
 import physics.Circle;
+import physics.Vect;
 
 
 public class Ball {
 
-
     private String name;
     private float x;
     private float y;
-    private float vx;
-    private float vy;
+	private Vect velocity;
     private double radius;
-    private Circle circle;
-
+	private Color colour;
+	private boolean stopped;
 
     public Ball(String name, float x, float y, float vx, float vy){
         this.name = name;
         this.x = x;
         this.y = y;
-        this.vx = vx;
-        this.vy =vy;
+		this.velocity = new Vect(vx, vy);
+		this.radius = 10;
+		this.stopped = false;
+
     }
 
+	public Vect getVelo() {
+		return velocity;
+	}
 
-    public Circle getCircle() {
-        return circle;
-    }
+	public void setVelo(Vect v) {
+		this.velocity = v;
+	}
 
+	public double getRadius() {
+		return radius;
+	}
 
-    public Vect getVelocity(){
-        Vect vector = new Vect(vx, vy);
-        return vector;
-    }
+	public Circle getCircle() {
+		return new Circle(x, y, radius);
+
+	}
+
+	// Ball specific methods that deal with double precision.
+	public double getXPos() {
+		return x;
+	}
+
+	public double getYPos() {
+		return y;
+	}
 
 
     public String getName() {
         return name;
     }
 
-    public float getXPos() {
-        return x;
-    }
 
-    public float getYPos() {
-        return y;
-    }
 
     public void setXPos(float x) {
         this.x=x;
@@ -58,6 +65,23 @@ public class Ball {
     public void setYPos(float y) {
         this.y = y;
     }
+
+	public void stop() {
+		stopped = true;
+	}
+
+	public void start() {
+		stopped = false;
+	}
+
+	public boolean stopped() {
+		return stopped;
+	}
+
+	public Color getColour() {
+		return colour;
+	}
+
 }
 
 
