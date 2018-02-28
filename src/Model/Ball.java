@@ -1,29 +1,30 @@
 package Model;
-import java.awt.Color;
 
 import physics.Circle;
 import physics.Vect;
 
+import java.awt.*;
+
 
 public class Ball {
 
-    private String name;
-    private float x;
-    private float y;
+	private String name;
+	private float x;
+	private float y;
 	private Vect velocity;
-    private double radius;
+	private double radius;
 	private Color colour;
 	private boolean stopped;
 
-    public Ball(String name, float x, float y, float vx, float vy){
-        this.name = name;
-        this.x = x;
-        this.y = y;
+	public Ball(String name, float x, float y, float vx, float vy) {
+		this.name = name;
+		this.x = x;
+		this.y = y;
 		this.velocity = new Vect(vx, vy);
 		this.radius = 10;
 		this.stopped = false;
 
-    }
+	}
 
 	public Vect getVelo() {
 		return velocity;
@@ -43,28 +44,27 @@ public class Ball {
 	}
 
 	// Ball specific methods that deal with double precision.
-	public double getXPos() {
+	public float getXPos() {
 		return x;
 	}
 
-	public double getYPos() {
+	public float getYPos() {
 		return y;
 	}
 
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
 
+	public void setXPos(float x) {
+		this.x = x;
+	}
 
-    public void setXPos(float x) {
-        this.x=x;
-    }
-
-    public void setYPos(float y) {
-        this.y = y;
-    }
+	public void setYPos(float y) {
+		this.y = y;
+	}
 
 	public void stop() {
 		stopped = true;

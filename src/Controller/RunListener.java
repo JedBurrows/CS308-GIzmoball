@@ -1,9 +1,10 @@
 package Controller;
 
+import Model.Model;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
-import Model.Model;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -26,18 +27,18 @@ public class RunListener implements ActionListener {
 			model.moveBall();
 		} else
 			switch (e.getActionCommand()) {
-			case "Start":
-				timer.start();
-				break;
-			case "Stop":
-				timer.stop();
-				break;
-			case "Tick":
-				model.moveBall();
-				break;
-			case "Quit":
-				System.exit(0);
-				break;
+				case "Start":
+					timer.start();
+					break;
+				case "Stop":
+					timer.stop();
+					break;
+				case "Tick":
+					model.moveBall();
+					break;
+				case "Quit":
+					System.exit(0);
+					break;
 			}
 	}
 }

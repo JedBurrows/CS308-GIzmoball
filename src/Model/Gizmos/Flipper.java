@@ -1,6 +1,5 @@
 package Model.Gizmos;
 
-import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -17,17 +16,17 @@ public class Flipper implements IGizmo {
 	private String id;
 
 	//In reference to the flipper this is the Northwest corner pos on grid
-	private int xPos, yPos, rotation,orientation;
+	private int xPos, yPos, rotation, orientation;
 
 
-	public Flipper(String id,int x,int y,int orientation){
+	public Flipper(String id, int x, int y, int orientation) {
 		this.id = id;
-		this.xPos =x;
+		this.xPos = x;
 		this.yPos = y;
 
-		this.rotation=0;
+		this.rotation = 0;
 
-		this.orientation=orientation;
+		this.orientation = orientation;
 
 	}
 
@@ -39,7 +38,7 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public void rotate() {
-		rotation = (rotation+1)%4;
+		rotation = (rotation + 1) % 4;
 
 	}
 

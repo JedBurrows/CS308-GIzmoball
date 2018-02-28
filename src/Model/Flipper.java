@@ -3,10 +3,9 @@ package Model;
 import physics.Circle;
 import physics.LineSegment;
 
-import java.awt.*;
 import java.util.ArrayList;
 
-public class Flipper implements IGizmo{
+public class Flipper implements IGizmo {
 
 	//status of activated or not
 	//left and right flipper class
@@ -15,7 +14,7 @@ public class Flipper implements IGizmo{
 	public static final int FLIPPER_RIGHT = 1;
 
 
-	public Flipper(int orientation){
+	public Flipper(int orientation) {
 
 
 	}

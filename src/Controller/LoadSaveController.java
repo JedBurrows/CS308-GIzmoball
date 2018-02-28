@@ -1,12 +1,12 @@
 package Controller;
 
-import Model.*;
-import Model.Gizmos.*;
+import Model.Absorber;
+import Model.Ball;
+import Model.Board;
+import Model.Gizmos.IGizmo;
 import View.BoardPanel;
 
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -16,23 +16,25 @@ public class LoadSaveController implements ActionListener {
 	private BoardPanel panel;
 	private KeyPressListener keyPressListener;
 
-	public LoadSaveController(BoardPanel panel){ this.panel = panel;
+	public LoadSaveController(BoardPanel panel) {
+		this.panel = panel;
 	}
 
-	public void save(){
+	public void save() {
 		JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Save");
 		int returnVal = fc.showSaveDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION){
-			if(fc.getSelectedFile().isDirectory()){
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			if (fc.getSelectedFile().isDirectory()) {
 				//TODO SAVING
 			}
 		}
 	}
+
 	/*
 		TODO Key Connect + Painting flippers on top bottom and right delete and move;
 	 */
-	private Board load(){
+	private Board load() {
 		Board board = new Board();
 		JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Open");
@@ -40,22 +42,22 @@ public class LoadSaveController implements ActionListener {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			if (fc.getSelectedFile().isFile()) {
 				File file = fc.getSelectedFile();
-				try{
+				try {
 					FileReader fileReader = new FileReader(file);
 
 					BufferedReader bufferedReader = new BufferedReader(fileReader);
 					String line = bufferedReader.readLine();
-					while (line != null){
+					while (line != null) {
 						Scanner scanner = new Scanner(line);
 
-						if(scanner.hasNext()){
+						if (scanner.hasNext()) {
 							String element = scanner.next();
 
 							String name, producer, consumer;
-							float x,y,vx,vy,mu1,mu2,g;
-							int x1,x2,y1,y2;
+							float x, y, vx, vy, mu1, mu2, g;
+							int x1, x2, y1, y2;
 
-							switch (element){
+							switch (element) {
 
 							/*
 								"Absorber" (IDENTIFIER name) (INTEGER x1) (INTEGER y1) (INTEGER x2) (INTEGER y2)
@@ -63,17 +65,17 @@ public class LoadSaveController implements ActionListener {
 
 							 */
 								case "Absorber":
-									if (scanner.hasNext()){
+									if (scanner.hasNext()) {
 										name = scanner.next();
-										if (scanner.hasNextInt()){
+										if (scanner.hasNextInt()) {
 											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
+											if (scanner.hasNextInt()) {
 												y1 = scanner.nextInt();
-												if (scanner.hasNextInt()){
+												if (scanner.hasNextInt()) {
 													x2 = scanner.nextInt();
-													if (scanner.hasNextInt()){
+													if (scanner.hasNextInt()) {
 														y2 = scanner.nextInt();
-														board.setAbsorber(new Absorber(name,x1,y1,x2,y2));
+														board.setAbsorber(new Absorber(name, x1, y1, x2, y2));
 													}
 												}
 											}
@@ -85,33 +87,33 @@ public class LoadSaveController implements ActionListener {
 									"Ball" (IDENTIFIER name) (FLOAT x) (FLOAT y) (FLOAT vx) (FLOAT vy)
 									Name must be unique, x and y refer to positions, vx and vy refer to velocity.
 								 */
-								case  "Ball":
+								case "Ball":
 
 									//Not pretty but effective, TODO maybe come up of a cleaner way log some better display messages maybe.
-									if (scanner.hasNext()){
+									if (scanner.hasNext()) {
 										name = scanner.next();
-										if (scanner.hasNextFloat()){
+										if (scanner.hasNextFloat()) {
 											x = scanner.nextFloat();
-											if (scanner.hasNextFloat()){
-												y=scanner.nextFloat();
-												if (scanner.hasNextFloat()){
-													vx=scanner.nextFloat();
-													if (scanner.hasNextFloat()){
-														vy=scanner.nextFloat();
-														board.addGizmoBall(new Ball(name,x,y,vx,vy));
-													}else{
+											if (scanner.hasNextFloat()) {
+												y = scanner.nextFloat();
+												if (scanner.hasNextFloat()) {
+													vx = scanner.nextFloat();
+													if (scanner.hasNextFloat()) {
+														vy = scanner.nextFloat();
+														board.addGizmoBall(new Ball(name, x, y, vx, vy));
+													} else {
 														System.out.println("Ball command missing vy velocity or velocity is not of type float.");
 													}
-												}else{
+												} else {
 													System.out.println("Ball command missing vx velocity or velocity is not of type float.");
 												}
-											}else{
+											} else {
 												System.out.println("Ball command missing y coordinate or coordinate is not of type float.");
 											}
-										}else{
+										} else {
 											System.out.println("Ball command missing x coordinate or coordinate is not of type float.");
 										}
-									}else{
+									} else {
 										System.out.println("Ball command missing name or has incorrect name.");
 									}
 									break;
@@ -120,12 +122,12 @@ public class LoadSaveController implements ActionListener {
 									"Rotate" (IDENTIFIER name)
 								 */
 								case "Rotate":
-									try{
+									try {
 										IGizmo gizmo = board.getGizmoByID(scanner.next());
-										if (gizmo!= null){
+										if (gizmo != null) {
 											gizmo.rotate();
 										}
-									}catch(Board.NoSuchGizmoException e){
+									} catch (Board.NoSuchGizmoException e) {
 										System.out.println("Gizmo with the specified id does not exist.");
 									}
 									break;
@@ -134,7 +136,7 @@ public class LoadSaveController implements ActionListener {
 									"Delete" (IDENTIFIER name)
 								 */
 								case "Delete":
-									if(scanner.hasNext()){
+									if (scanner.hasNext()) {
 										name = scanner.next();
 										board.deleteGizmo(name);
 									}
@@ -147,20 +149,20 @@ public class LoadSaveController implements ActionListener {
 									In the first form, moves the gizmo with the given name so that its upper-left corner is at (x,y). In the second form, moves the ball with the given name so that its center is at (x,y).
 								 */
 								case "Move":
-									if (scanner.hasNext()){
+									if (scanner.hasNext()) {
 										name = scanner.next();
-										if (scanner.hasNextFloat()){
+										if (scanner.hasNextFloat()) {
 											x = scanner.nextFloat();
-											if (scanner.hasNextFloat()){
+											if (scanner.hasNextFloat()) {
 												y = scanner.nextFloat();
-												board.moveGizmoBall(name,x,y);
+												board.moveGizmoBall(name, x, y);
 											}
 
-										}else if(scanner.hasNextInt()){
+										} else if (scanner.hasNextInt()) {
 											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
+											if (scanner.hasNextInt()) {
 												y1 = scanner.nextInt();
-												board.moveGizmo(name,x1,y1);
+												board.moveGizmo(name, x1, y1);
 											}
 
 										}
@@ -171,12 +173,12 @@ public class LoadSaveController implements ActionListener {
 									"Connect" (IDENTIFIER producer) (IDENTIFIER consumer)
 								 */
 								case "Connect":
-									if (scanner.hasNext()){
+									if (scanner.hasNext()) {
 										producer = scanner.next();
-										if (scanner.hasNext()){
-											consumer= scanner.next();
+										if (scanner.hasNext()) {
+											consumer = scanner.next();
 
-											board.addConnector(producer,consumer);
+											board.addConnector(producer, consumer);
 										}
 
 									}
@@ -195,10 +197,10 @@ public class LoadSaveController implements ActionListener {
 									"Gravity" (FLOAT g)
 								 */
 								case "Gravity":
-									if (scanner.hasNextFloat()){
+									if (scanner.hasNextFloat()) {
 										g = scanner.nextFloat();
 										board.setGravity(g);
-									}else{
+									} else {
 										System.out.println("");
 									}
 									break;
@@ -207,7 +209,7 @@ public class LoadSaveController implements ActionListener {
 									"Friction" (FLOAT mu) (FLOAT mu2)
 								 */
 								case "Friction":
-									board.setFriction(scanner.nextFloat(),scanner.nextFloat());
+									board.setFriction(scanner.nextFloat(), scanner.nextFloat());
 
 									break;
 
@@ -221,53 +223,53 @@ public class LoadSaveController implements ActionListener {
 								case "RightFlipper":
 								case "LeftFlipper":
 									//From here
-									if (scanner.hasNext()){
+									if (scanner.hasNext()) {
 										name = scanner.next();
-										if (scanner.hasNextInt()){
+										if (scanner.hasNextInt()) {
 											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()){
+											if (scanner.hasNextInt()) {
 												y1 = scanner.nextInt();
-												switch (element){
+												switch (element) {
 													case "Square":
-														board.addGizmo(new Square(name,x1,y1),x1,y1);
+														board.addGizmo(new Square(name, x1, y1), x1, y1);
 														System.out.println("Created new " + element);
 														break;
 													case "Circle":
-														board.addGizmo(new GizmoCircle(name,x1,y1),x1,y1);
+														board.addGizmo(new GizmoCircle(name, x1, y1), x1, y1);
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
-														board.addGizmo(new Triangle(name,x1,y1),x1,y1);
+														board.addGizmo(new Triangle(name, x1, y1), x1, y1);
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":
-														board.addGizmo(new Flipper(name,x1,y1,Flipper.FLIPPER_RIGHT),x1,y1);
+														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_RIGHT), x1, y1);
 														System.out.println("Created new " + element);
 														break;
 													case "LeftFlipper":
-														board.addGizmo(new Flipper(name,x1,y1,Flipper.FLIPPER_LEFT),x1,y1);
+														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_LEFT), x1, y1);
 														System.out.println("Created new " + element);
 														break;
 												}
-											}else{
+											} else {
 												System.out.println(element + " command missing y position or position is not of type int.");
 											}
-										}else {
+										} else {
 											System.out.println(element + " command missing x position or position is not of type int.");
 										}
-									}else {
+									} else {
 										System.out.println(element + " command missing name.");
 									}
-								//may need case for empty line or return carriage
+									//may need case for empty line or return carriage
 							}
 						}
 						line = bufferedReader.readLine();
 					}
 
-				}catch(FileNotFoundException e){
+				} catch (FileNotFoundException e) {
 
 
-				}catch (IOException e){
+				} catch (IOException e) {
 
 				}
 
@@ -275,16 +277,17 @@ public class LoadSaveController implements ActionListener {
 		}
 		return board;
 	}
-	public void setKeyPressListener(KeyPressListener listener){
+
+	public void setKeyPressListener(KeyPressListener listener) {
 		this.keyPressListener = listener;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		if (command == "save"){
+		if (command == "save") {
 			save();
-		}else if (command == "load"){
+		} else if (command == "load") {
 			panel.setBoard(load());
 
 		}

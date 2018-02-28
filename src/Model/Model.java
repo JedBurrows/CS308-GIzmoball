@@ -1,12 +1,12 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Observable;
-
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.util.ArrayList;
+import java.util.Observable;
 
 
 public class Model extends Observable {
@@ -58,14 +58,14 @@ public class Model extends Observable {
 
 	private Ball movelBallForTime(Ball ball, double time) {
 
-		double newX = 0.0;
-		double newY = 0.0;
-		double xVel = ball.getVelo().x();
-		double yVel = ball.getVelo().y();
-		newX = ball.getExactX() + (xVel * time);
-		newY = ball.getExactY() + (yVel * time);
-		ball.setExactX(newX);
-		ball.setExactY(newY);
+		float newX = 0.0f;
+		float newY = 0.0f;
+		float xVel = (float) ball.getVelo().x();
+		float yVel = (float) ball.getVelo().y();
+		newX = ball.getXPos() + (xVel * (float) time);
+		newY = ball.getYPos() + (yVel * (float) time);
+		ball.setXPos(newX);
+		ball.setYPos(newY);
 		return ball;
 	}
 
@@ -100,10 +100,10 @@ public class Model extends Observable {
 		}
 
 		// Time to collide with circles
-		for (Circle c : circles){
-			time = Geometry.timeUntilCircleCollision(c,ballCircle,ballVelocity);
-			if(time<shortestTime){
-				shortestTime=time;
+		for (Circle c : circles) {
+			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
 				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
 			}
 		}
@@ -118,25 +118,31 @@ public class Model extends Observable {
 		return lines;
 	}
 
-	public ArrayList<Circle> getCircles(){return circles;}
+	public ArrayList<Circle> getCircles() {
+		return circles;
+	}
 
 	public void addLine(LineSegment l) {
 		lines.add(l);
 	}
 
-	public void addCircle(Circle c){circles.add(c);}
+	public void addCircle(Circle c) {
+		circles.add(c);
+	}
 
-	public void addGizmo(IGizmo g){
+	public void addGizmo(IGizmo g) {
 		gizmos.add(g);
-		for(LineSegment l:g.getLines()){
+		for (LineSegment l : g.getLines()) {
 			lines.add(l);
 		}
-		for(Circle c : g.getCircles()){
+		for (Circle c : g.getCircles()) {
 			circles.add(c);
 		}
 	}
 
-	public ArrayList<IGizmo> getGizmos(){return gizmos;}
+	public ArrayList<IGizmo> getGizmos() {
+		return gizmos;
+	}
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));

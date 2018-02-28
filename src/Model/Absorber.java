@@ -1,10 +1,10 @@
 package Model;
 
 public class Absorber {
-	private int xPos1, yPos1, xPos2,yPos2;
+	private int xPos1, yPos1, xPos2, yPos2;
 	private String id;
 
-	public Absorber(String id, int x1,int y1, int x2, int y2){
+	public Absorber(String id, int x1, int y1, int x2, int y2) {
 		this.id = id;
 		this.xPos1 = x1;
 		this.xPos2 = x2;

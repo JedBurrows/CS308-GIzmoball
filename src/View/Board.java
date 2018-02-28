@@ -1,28 +1,23 @@
 package View;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
 import Model.Ball;
-import Model.Model;
 import Model.Gizmos.IGizmo;
+import Model.Model;
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
  */
 
-public  class Board extends JPanel implements Observer {
+public class Board extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1L;
 	protected int width;
@@ -54,20 +49,20 @@ public  class Board extends JPanel implements Observer {
 		for (IGizmo gizmo : gm.getGizmos()) {
 			lines = gizmo.getLines();
 			circles = gizmo.getCircles();
-			for(LineSegment l : lines) {
+			for (LineSegment l : lines) {
 				Vect p1 = l.p1();
 				Vect p2 = l.p2();
 				g2.drawLine((int) (p1.x()), (int) (p1.y()), (int) (p2.x()), (int) (p2.y()));
 			}
-			for(Circle c : circles)
-				g2.drawOval((int)(c.getCenter()).x() ,(int)(c.getCenter().y()),(int)(c.getRadius()),(int)(c.getRadius()));
+			for (Circle c : circles)
+				g2.drawOval((int) (c.getCenter()).x(), (int) (c.getCenter().y()), (int) (c.getRadius()), (int) (c.getRadius()));
 
 		}
 //		for (ComponentCircle c : gm.getCircles()) {
 //			int d = (int) (2*c.getRadius());
 //			g2.fillOval(c.getX(), c.getY(), d, d);
 //		}
-		
+
 		Ball b = gm.getBall();
 		if (b != null) {
 			g2.setColor(b.getColour());
@@ -80,7 +75,7 @@ public  class Board extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-			repaint();
-		}
-	
+		repaint();
+	}
+
 }

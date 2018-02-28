@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class GizmoCircle implements IGizmo {
 
 	private String id;
-	private int xPos,yPos;
+	private int xPos, yPos;
 
-	public GizmoCircle(String id, int x, int y){
+	public GizmoCircle(String id, int x, int y) {
 		this.id = id;
 		this.xPos = x;
 		this.yPos = y;
@@ -67,11 +67,11 @@ public class GizmoCircle implements IGizmo {
 
 	@Override
 	public void setxPos(int x) {
-		this.xPos =x;
+		this.xPos = x;
 	}
 
 	@Override
 	public void setyPos(int y) {
-		this.yPos =y;
+		this.yPos = y;
 	}
 }

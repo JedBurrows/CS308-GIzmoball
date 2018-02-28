@@ -2,19 +2,19 @@ package View;
 
 import javax.swing.*;
 
-public class RightClickMenu extends JPopupMenu{
+public class RightClickMenu extends JPopupMenu {
 
-    JMenuItem delete, move, rotate;
+	JMenuItem delete, move, rotate;
 
-    public RightClickMenu(){
-        delete = new JMenuItem("Delete Gizmo");
-        add(delete);
+	public RightClickMenu() {
+		delete = new JMenuItem("Delete Gizmo");
+		add(delete);
 
-        move = new JMenuItem("Move Gizmo");
-        add(move);
+		move = new JMenuItem("Move Gizmo");
+		add(move);
 
-        rotate = new JMenuItem("Rotate Gizmo");
-        add(rotate);
-    }
+		rotate = new JMenuItem("Rotate Gizmo");
+		add(rotate);
+	}
 
 }
