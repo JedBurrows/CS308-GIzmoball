@@ -12,7 +12,7 @@ public class Triangle implements IGizmo {
 	private int rotation;
 	private ArrayList<LineSegment> lines;
 	private ArrayList<Circle> circles;
-	private static int size = 20;
+	private static final int size = 20;
 
 	public Triangle(String id, int x, int y) {
 		this.id = id;

@@ -3,6 +3,7 @@ package Controller;
 import Model.Absorber;
 import Model.Ball;
 import Model.Board;
+import Model.GizmoCreator;
 import Model.Gizmos.IGizmo;
 import View.BoardPanel;
 
@@ -38,6 +39,7 @@ public class LoadSaveController implements ActionListener {
 		Board board = new Board();
 		JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Open");
+		GizmoCreator gizmoCreator = new GizmoCreator();
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			if (fc.getSelectedFile().isFile()) {
@@ -229,7 +231,8 @@ public class LoadSaveController implements ActionListener {
 											x1 = scanner.nextInt();
 											if (scanner.hasNextInt()) {
 												y1 = scanner.nextInt();
-												switch (element) {
+												board.addGizmo(gizmoCreator.createGizmo(name,x1,y1),x1,y1);
+												/*switch (element) {
 													case "Square":
 														board.addGizmo(new Square(name, x1, y1), x1, y1);
 														System.out.println("Created new " + element);
@@ -239,7 +242,7 @@ public class LoadSaveController implements ActionListener {
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
-														board.addGizmo(new Triangle(name, x1, y1), x1, y1);
+														//board.addGizmo(new Triangle(name, x1, y1), x1, y1);
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":
@@ -250,7 +253,7 @@ public class LoadSaveController implements ActionListener {
 														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_LEFT), x1, y1);
 														System.out.println("Created new " + element);
 														break;
-												}
+												}*/
 											} else {
 												System.out.println(element + " command missing y position or position is not of type int.");
 											}

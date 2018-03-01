@@ -18,6 +18,7 @@ public class BuildGUI implements IModeGUI {
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
 
 
+
 	public BuildGUI() {
 
 		buildFrame = new JFrame("Build Mode!");
