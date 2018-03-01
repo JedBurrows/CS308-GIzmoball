@@ -10,19 +10,16 @@ public class GizmoCircle implements IGizmo {
 
 	private String id;
 	private int xPos, yPos;
+	private Circle circle;
+	private static int radius = 10;
 
 	public GizmoCircle(String id, int x, int y) {
 		this.id = id;
 		this.xPos = x;
 		this.yPos = y;
+		circle = new Circle(xPos, yPos, radius);
+
 	}
-
-	public Circle getCircle() {
-		return circle;
-	}
-
-	private Circle circle;
-
 
 	@Override
 	public void action() {
@@ -46,13 +43,25 @@ public class GizmoCircle implements IGizmo {
 	}
 
 	@Override
+	public void createLineSegments() {
+
+	}
+
+	@Override
+	public void createCircles() {
+
+	}
+
+	@Override
 	public ArrayList<Circle> getCircles() {
-		return null;
+		ArrayList<Circle> c = new ArrayList<Circle>();
+		c.add(circle);
+		return c;
 	}
 
 	@Override
 	public ArrayList<LineSegment> getLines() {
-		return null;
+		return new ArrayList<LineSegment>();
 	}
 
 	@Override

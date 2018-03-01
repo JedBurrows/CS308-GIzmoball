@@ -33,6 +33,9 @@ public interface IGizmo {
 	 */
 	public String getID();
 
+	void createLineSegments();
+
+	void createCircles();
 
 	ArrayList<Circle> getCircles();
 

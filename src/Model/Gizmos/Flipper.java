@@ -14,6 +14,8 @@ public class Flipper implements IGizmo {
 	public static final int FLIPPER_RIGHT = 1;
 
 	private String id;
+	private ArrayList<LineSegment> lines;
+	private ArrayList<Circle> circles;
 
 	//In reference to the flipper this is the Northwest corner pos on grid
 	private int xPos, yPos, rotation, orientation;
@@ -57,13 +59,19 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
+	public void createLineSegments() {}
+
+	@Override
+	public void createCircles() {}
+
+	@Override
 	public ArrayList<Circle> getCircles() {
-		return null;
+		return circles;
 	}
 
 	@Override
 	public ArrayList<LineSegment> getLines() {
-		return null;
+		return lines;
 	}
 
 	@Override

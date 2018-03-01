@@ -9,6 +9,9 @@ public class Square implements IGizmo {
 
 	private String id;
 	private int xPos, yPos;
+	private ArrayList<LineSegment> lines;
+	private ArrayList<Circle> circles;
+	private static int size = 20;
 
 
 	public Square(String id, int x, int y) {
@@ -16,6 +19,11 @@ public class Square implements IGizmo {
 		this.xPos = x;
 		this.yPos = y;
 
+		lines = new ArrayList<LineSegment>();
+		circles = new ArrayList<Circle>();
+		
+		createCircles();
+		createLineSegments();
 	}
 
 	@Override
@@ -39,13 +47,29 @@ public class Square implements IGizmo {
 	}
 
 	@Override
+	public void createLineSegments() {
+		lines.add(new LineSegment(xPos, yPos, xPos + size, yPos));
+		lines.add(new LineSegment(xPos + size, yPos - size, xPos + size, yPos));
+		lines.add(new LineSegment(xPos, yPos, (xPos), yPos - size));
+		lines.add(new LineSegment(xPos, yPos - size, xPos + size, yPos - size));
+	}
+
+	@Override
+	public void createCircles() {
+		circles.add(new Circle(xPos, yPos, 0));
+		circles.add(new Circle(xPos + size, yPos, 0));
+		circles.add(new Circle(xPos + size, yPos - size, 0));
+		circles.add(new Circle(xPos, yPos - size, 0));
+	}
+
+	@Override
 	public ArrayList<Circle> getCircles() {
-		return null;
+		return circles;
 	}
 
 	@Override
 	public ArrayList<LineSegment> getLines() {
-		return null;
+		return lines;
 	}
 
 	@Override

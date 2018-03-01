@@ -10,12 +10,18 @@ public class Triangle implements IGizmo {
 	private String id;
 	private int xPos, yPos;
 	private int rotation;
+	private ArrayList<LineSegment> lines;
+	private ArrayList<Circle> circles;
+	private static int size = 20;
 
 	public Triangle(String id, int x, int y) {
 		this.id = id;
 		this.xPos = x;
 		this.yPos = y;
 		this.rotation = 0;
+
+		lines = new ArrayList<LineSegment>();
+		circles = new ArrayList<Circle>();
 	}
 
 
@@ -37,13 +43,27 @@ public class Triangle implements IGizmo {
 	}
 
 	@Override
+	public void createLineSegments() {
+		lines.add(new LineSegment(xPos, yPos, xPos, (yPos - size)));
+		lines.add(new LineSegment(xPos, yPos - size, xPos + size, yPos - size));
+		lines.add(new LineSegment(xPos, yPos, xPos + size, yPos - size));
+	}
+
+	@Override
+	public void createCircles() {
+		circles.add(new Circle(xPos, yPos, 0));
+		circles.add(new Circle(xPos + size, yPos - size, 0));
+		circles.add(new Circle(xPos, yPos - size, 0));
+	}
+
+	@Override
 	public ArrayList<Circle> getCircles() {
-		return null;
+		return circles;
 	}
 
 	@Override
 	public ArrayList<LineSegment> getLines() {
-		return null;
+		return lines;
 	}
 
 	@Override

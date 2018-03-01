@@ -1,21 +1,26 @@
 package Model;
 
 
-public class GizmoModel {
-	Model model;
+import Model.Gizmos.GizmoCircle;
+import Model.Gizmos.IGizmo;
+import Model.Gizmos.Square;
+import Model.Gizmos.Triangle;
 
-	public GizmoModel(Model m) {
-		model = m;
-	}
+public class GizmoModel {
+
 
 	public IGizmo createGizmo(char type, int x, int y) {
+		String id = String.valueOf(type);
+		id.concat(String.valueOf(x));
+		id.concat(String.valueOf(y));
+		
 		switch (type) {
 			case 's':
-				return new Square(x, y);
+				return new Square(id,x, y);
 			case 'c':
-				return new GizmoCircle(x, y);
+				return new GizmoCircle(id,x, y);
 			case 't':
-				return new Triangle(x, y);
+				return new Triangle(id,x, y);
 		}
 		return null;
 	}
