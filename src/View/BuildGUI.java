@@ -16,6 +16,7 @@ public class BuildGUI implements IModeGUI {
 
 	private JFrame buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
+	private Board board;
 
 
 
@@ -29,6 +30,7 @@ public class BuildGUI implements IModeGUI {
 		initialiseButtons();
 		initialiseSliders();
 		arrangeButtons();
+		
 
 		JPanel panel = new JPanel();
 		panel.add(panelBtn);

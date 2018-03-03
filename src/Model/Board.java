@@ -17,7 +17,7 @@ public class Board extends Observable {
 	private float gravity, mu, mu2;
 	private ArrayList<Connector> connectors;
 	private HashMap<String, IGizmo> gizmoHashMap;
-	private Absorber absorber
+	private Absorber absorber;
 	private Observer observer;
 
 
