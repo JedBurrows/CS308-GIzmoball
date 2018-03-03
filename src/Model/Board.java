@@ -16,11 +16,8 @@ public class Board extends Observable {
 	private Walls walls;
 	private float gravity, mu, mu2;
 	private ArrayList<Connector> connectors;
-
 	private HashMap<String, IGizmo> gizmoHashMap;
-
-	private Absorber absorber;
-
+	private Absorber absorber
 	private Observer observer;
 
 
@@ -65,19 +62,11 @@ public class Board extends Observable {
 	}
 
 	public boolean hasAbsorber() {
-		if (absorber != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return absorber != null;
 	}
 
 	public boolean hasGizmoBall() {
-		if (gizmoBall != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return gizmoBall != null;
 	}
 
 	public void setFriction(float mu, float mu2) {
