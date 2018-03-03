@@ -17,11 +17,13 @@ public class Model extends Observable {
 	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls walls;
+	private static final double GRAVITY = 25;
+	private int L;
 
 	public Model() {
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(25, 25, 100, 100);
+		ball = new Ball("1",25, 25, 100, 100);
 
 		// Wall size 500 x 500 pixels
 		walls = new Walls(0, 0, 500, 500);
@@ -67,7 +69,27 @@ public class Model extends Observable {
 		newY = ball.getYPos() + (yVel * (float) time);
 		ball.setXPos(newX);
 		ball.setYPos(newY);
+
+		applyGravity(time);
+		applyFriction(time);
 		return ball;
+	}
+
+	private void applyGravity(double time){
+		double oldSpeed = ball.getVelo().y();
+		double newSpeed = oldSpeed + (GRAVITY * time * L);
+
+		ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
+	}
+
+	private void applyFriction(double time){
+		double mu = 0.025 / 20; //0.025 per second
+		double mu2 = 0.025 / L; //0.025 per L
+
+		double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time) ;
+		double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
+
+		ball.setVelo(new Vect(newSpeedX,newSpeedY));
 	}
 
 	private CollisionDetails timeUntilCollision() {
@@ -140,6 +162,11 @@ public class Model extends Observable {
 			circles.add(c);
 		}
 	}
+
+	public void setL(double width){
+		L = (int) width/20;
+	}
+
 
 	public ArrayList<IGizmo> getGizmos() {
 		return gizmos;
