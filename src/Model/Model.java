@@ -1,6 +1,8 @@
 package Model;
 
+import Model.Gizmos.GizmoCircle;
 import Model.Gizmos.IGizmo;
+import Model.Gizmos.Square;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
@@ -17,13 +19,13 @@ public class Model extends Observable {
 	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls walls;
-	private static final double GRAVITY = 25;
+	private static final double GRAVITY = 20;
 	private int L;
 
 	public Model() {
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball("1",25, 25, 100, 100);
+		ball = new Ball("1",25, 25, 1000, 1000);
 
 		// Wall size 500 x 500 pixels
 		walls = new Walls(0, 0, 500, 500);
@@ -32,6 +34,17 @@ public class Model extends Observable {
 		lines = new ArrayList<LineSegment>();
 		circles = new ArrayList<Circle>();
 		gizmos = new ArrayList<IGizmo>();
+
+		gizmos.add(new Square("1", 150, 200));
+		gizmos.add(new Square("2", 250, 200));
+		gizmos.add(new Square("3", 350, 200));
+		gizmos.add(new Square("4", 450, 200));
+		gizmos.add(new Square("5", 10, 200));
+
+		gizmos.add( new GizmoCircle("1", 200, 250));
+
+		
+
 	}
 
 	public void moveBall() {
@@ -72,6 +85,7 @@ public class Model extends Observable {
 
 		applyGravity(time);
 		applyFriction(time);
+		System.out.println(ball.getXPos());
 		return ball;
 	}
 

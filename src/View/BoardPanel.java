@@ -170,14 +170,8 @@ public class BoardPanel extends JPanel implements Observer {
 
 				int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
 				g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
-
-
 			}
-
-
 		}
-
-
 	}
 
 	public void setBoard(Board board) {

@@ -28,6 +28,7 @@ public class RunListener implements ActionListener {
 		} else
 			switch (e.getActionCommand()) {
 				case "Start":
+					System.out.println("hello");
 					timer.start();
 					break;
 				case "Stop":

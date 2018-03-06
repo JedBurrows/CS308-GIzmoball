@@ -20,6 +20,7 @@ public class BuildGUI{
 	private JFrame buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
 	private Board board;
+	private BoardPanel boardPanel;
 	private Model model;
 
 
@@ -31,6 +32,10 @@ public class BuildGUI{
 		buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		model = m;
+
+
+		board = new Board(20,20, model);
+//		boardPanel = new BoardPanel();
 		createMenuBar();
 		createGameBoard();
 		initialiseButtons();
@@ -53,10 +58,17 @@ public class BuildGUI{
 		buildFrame.setJMenuBar(menuBar);
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
+
 		JMenuItem menuItemLoad = new JMenuItem("Load");
+		menuItemLoad.addActionListener(new LoadSaveController(boardPanel));
+
 		JMenuItem menuItemSave = new JMenuItem("Save");
+		menuItemSave.addActionListener(new LoadSaveController(boardPanel));
+
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.addActionListener(e -> System.exit(0));
+
+
 		fileMenu.add(menuItemLoad);
 		fileMenu.add(menuItemSave);
 		fileMenu.add(exitMenuItem);
