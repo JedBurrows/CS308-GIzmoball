@@ -1,7 +1,7 @@
 package Controller;
 
 
-import View.IModeGUI;
+import View.BuildGUI;
 import View.RightClickMenu;
 
 import javax.swing.*;
@@ -9,10 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class GameBoardListener implements MouseListener {
-	IModeGUI gui;
+	BuildGUI gui;
 
-	public GameBoardListener(IModeGUI gui) {
-		this.gui = gui;
+	public GameBoardListener(BuildGUI g) {
+		this.gui = g;
 	}
 
 	@Override

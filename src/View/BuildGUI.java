@@ -6,10 +6,13 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import Model.Model;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class BuildGUI implements IModeGUI {
+public class BuildGUI{
 	private JButton btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
 	private JComboBox<String> boxGizmo;
 
@@ -17,21 +20,22 @@ public class BuildGUI implements IModeGUI {
 	private JFrame buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
 	private Board board;
+	private Model model;
 
 
 
-	public BuildGUI() {
+
+	public BuildGUI(Model m) {
 
 		buildFrame = new JFrame("Build Mode!");
 		buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		model = m;
 		createMenuBar();
 		createGameBoard();
 		initialiseButtons();
 		initialiseSliders();
 		arrangeButtons();
-		
-
 		JPanel panel = new JPanel();
 		panel.add(panelBtn);
 		panel.add(gizmoBoard);
@@ -41,6 +45,7 @@ public class BuildGUI implements IModeGUI {
 		buildFrame.setLocationRelativeTo(null);
 		buildFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		buildFrame.setVisible(true);
+
 	}
 
 	private void createMenuBar() {
@@ -74,7 +79,7 @@ public class BuildGUI implements IModeGUI {
 		gizmoBoard.setBackground(Color.black);
 		gizmoBoard.setVisible(true);
 //        gizmoBoard.addMouseListener(new GameBoardListener(this));
-		gizmoBoard.addKeyListener(new KeyPressListener());
+//		gizmoBoard.addKeyListener(new KeyPressListener());
 
 	}
 
@@ -90,31 +95,32 @@ public class BuildGUI implements IModeGUI {
 		boxGizmo.addItem("Right Flipper");
 		boxGizmo.addItem("Absorber");
 		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
-		final MousePressListener addGizmoListener = new AddGizmoPressListener();
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
 		btnBall = new JButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
 		//btnBall.addMouseListener(new MousePressListener(MousePressListener.Type.ADD_BALL, this));;
-		final MousePressListener addBallListener = new AddBallPressListener();
 		////text field for ball////
+
+
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
-		final MousePressListener clearBoardListener = new ClearBoardPressListener();
+
 		btnCon = new JButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
-		final MousePressListener connectListener = new ConnectPressListener();
+
 		btnDisc = new JButton("Disconnect");
 		btnDisc.setPreferredSize(new Dimension(150, 50));
-		final MousePressListener disconnectListener = new DisconnectPressListener();
+
 		btnKeyCon = new JButton("Key Connect");
 		btnKeyCon.setPreferredSize(new Dimension(150, 50));
-		final MousePressListener keyConnectListener = new KeyConnectPressListener();
+
 		btnKeyDisc = new JButton("Key Disconnect");
 		btnKeyDisc.setPreferredSize(new Dimension(150, 50));
-		final MousePressListener keyDisconnectListener = new KeyDisconnectPressListener();
+
+
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		final MousePressListener runListener = new RunPressListener();
+		btnRunMode.addActionListener(new ModeListener(model, this, null));
 	}
 
 	private void initialiseSliders() {
@@ -188,10 +194,16 @@ public class BuildGUI implements IModeGUI {
 
 	}
 
-	@Override
+
 	public JFrame getFrame() {
 		return buildFrame;
 	}
+
+	public void close(){
+		buildFrame.setVisible(false);
+		buildFrame.dispose();
+	}
+
 
     /*@Override
 	public void actionPerformed(ActionEvent e) {

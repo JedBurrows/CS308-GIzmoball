@@ -1,6 +1,5 @@
 package View;
 
-import Controller.MousePressListener;
 import Model.Ball;
 import Model.Gizmos.IGizmo;
 import Model.Model;
@@ -10,6 +9,7 @@ import physics.Vect;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,7 +21,7 @@ import java.util.Observer;
 public class Board extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1L;
-	private MousePressListener listener;
+	private MouseListener listener;
 	protected int width;
 	protected int height;
 	protected Model gm;
@@ -81,11 +81,11 @@ public class Board extends JPanel implements Observer {
 		repaint();
 	}
 
-    public MousePressListener getListener() {
+    public MouseListener getListener() {
         return listener;
     }
 
-    public void setListener(MousePressListener listener) {
+    public void setListener(MouseListener listener) {
         this.listener = listener;
     }
 }
