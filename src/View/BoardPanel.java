@@ -86,22 +86,22 @@ public class BoardPanel extends JPanel implements Observer {
 				case "Flipper":
 					g.setColor(Color.YELLOW);
 					Flipper flipper = (Flipper) gizmo;
-					int orientatation = flipper.getOrientation();
+					int orientation = flipper.getOrientation();
 					int rotation = flipper.getRotation();
 					int xPos = flipper.getxPos(), yPos = flipper.getyPos();
 
-					if ((orientatation == Flipper.FLIPPER_LEFT && rotation == 0) || (orientatation == Flipper.FLIPPER_RIGHT && rotation == 2)) {
+					if ((orientation == Flipper.FLIPPER_LEFT && rotation == 0) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 2)) {
 						g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth / 2, 2 * Lheight, Lwidth / 2, Lheight / 2);
-					} else if ((orientatation == Flipper.FLIPPER_LEFT && rotation == 1) || (orientatation == Flipper.FLIPPER_RIGHT && rotation == 3)) {
+					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 1) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 3)) {
 
 						g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
 
 
-					} else if ((orientatation == Flipper.FLIPPER_LEFT && rotation == 2) || (orientatation == Flipper.FLIPPER_RIGHT && rotation == 0)) {
+					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 2) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 0)) {
 						g.fillRoundRect(((xPos + 1) * Lwidth) + Lwidth / 2, yPos * Lheight, Lwidth / 2, Lheight * 2, Lwidth / 2, Lheight / 2);
 
 
-					} else if ((orientatation == Flipper.FLIPPER_LEFT && rotation == 3) || (orientatation == Flipper.FLIPPER_RIGHT && rotation == 1)) {
+					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 3) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 1)) {
 						g.fillRoundRect(xPos * Lwidth, ((yPos + 1) * Lheight) + Lheight / 2, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
 
 					}
