@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import Model.Exceptions.NoSuchGizmoException;
 
 public class KeyPressListener implements KeyListener {
 	private HashMap<Integer, List<String>> keyPressEvents;
@@ -39,7 +40,7 @@ public class KeyPressListener implements KeyListener {
 			for (String id : list) {
 				try {
 					board.getGizmoByID(id).action();
-				} catch (Board.NoSuchGizmoException ex) {
+				} catch (NoSuchGizmoException ex) {
 
 				}
 			}
@@ -57,7 +58,7 @@ public class KeyPressListener implements KeyListener {
 			for (String id : list) {
 				try {
 					board.getGizmoByID(id).action();
-				} catch (Board.NoSuchGizmoException ex) {
+				} catch (NoSuchGizmoException ex) {
 
 				}
 			}

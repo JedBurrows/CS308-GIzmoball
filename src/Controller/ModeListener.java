@@ -1,8 +1,8 @@
 package Controller;
 
+import Model.IBoard;
 import View.BuildGUI;
 import View.RunGUI;
-import Model.Model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 
 public class ModeListener implements ActionListener {
 
-    private Model model;
     private BuildGUI build;
     private RunGUI run;
+    private IBoard board;
 
-    public ModeListener(Model m, BuildGUI b, RunGUI r){
-        model = m;
-        build = b;
-        run = r;
+    public ModeListener(BuildGUI bG, RunGUI rG, IBoard b){
+        build = bG;
+        run = rG;
+        board = b;
     }
 
 
@@ -28,11 +28,11 @@ public class ModeListener implements ActionListener {
         System.out.println(arg);
         if (arg.equals("Run")) {
             build.close();
-            RunGUI run = new RunGUI(model);
+            RunGUI run = new RunGUI(board);
 
         } else if (arg.equals("Build")) {
             run.close();
-            BuildGUI run = new BuildGUI(model);
+            BuildGUI run = new BuildGUI(board);
         }
 
 

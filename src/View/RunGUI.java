@@ -3,8 +3,7 @@ package View;
 
 import Controller.ModeListener;
 import Controller.RunListener;
-import Model.Model;
-
+import Model.IBoard;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,14 +12,15 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 public class RunGUI {
 
     JFrame runFrame;
-    private Model model;
-    private Board board;
+    private BoardPanel boardPanel;
+    private IBoard board;
 
-    public RunGUI(Model m) {
-        model = m;
+    public RunGUI(IBoard b) {
+        board = b;
+        boardPanel = new BoardPanel(board);
+
         runFrame = new JFrame("Run Mode!");
         runFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        board = new Board(500, 500, model);
         JMenuBar menuBar = new JMenuBar();
         runFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
@@ -35,9 +35,7 @@ public class RunGUI {
         fileMenu.add(exitMenuItem);
 
         //runFrame.add(menuBar);
-        board.setPreferredSize(new Dimension(600, 600));
 
-        board.setVisible(true);
 //        JPanel gizmoBoard = new JPanel(new GridLayout(20, 20));
 //        gizmoBoard.setPreferredSize(new Dimension(600, 600));
 //        gizmoBoard.setBackground(Color.GREEN);
@@ -45,23 +43,23 @@ public class RunGUI {
 
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
-        btnStart.addActionListener(new RunListener(model));
+        btnStart.addActionListener(new RunListener(board));
 
         JButton btnStop = new JButton("Stop");
         btnStop.setPreferredSize(new Dimension(75, 75));
-        btnStop.addActionListener(new RunListener(model));
+        btnStop.addActionListener(new RunListener(board));
 
 
         JButton btnTick = new JButton("Tick");
         btnTick.setPreferredSize(new Dimension(75, 75));
-        btnTick.addActionListener(new RunListener(model));
+        btnTick.addActionListener(new RunListener(board));
 
 
         JButton btnBuildMode = new JButton("Build");
         btnBuildMode.setPreferredSize(new Dimension(75, 75));
 
 
-        btnBuildMode.addActionListener(new ModeListener(model, null, this));
+        btnBuildMode.addActionListener(new ModeListener(null, this, board));
 
 
         JPanel panelBtn = new JPanel();
@@ -80,7 +78,7 @@ public class RunGUI {
         runFrame.add(menuBar);
         JPanel panel = new JPanel();
         panel.add(panelBtn);
-        panel.add(board);
+        panel.add(boardPanel);
         runFrame.add(panel);
         runFrame.pack();
         runFrame.setResizable(false);

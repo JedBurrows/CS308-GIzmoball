@@ -1,25 +1,34 @@
 package Model;
 
+import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
+import physics.Circle;
+import physics.Geometry;
+import physics.LineSegment;
+import physics.Vect;
 
 import java.util.*;
 
-public class Board extends Observable {
+public class Board extends Observable implements IBoard{
 
 	private static final float DEFAULT_GRAVITY = 25f;
 	private static final float DEFAULT_MU = 0.025f;
 	private static final float DEFAULT_MU2 = 0.025f;
 
 	private boolean playMode;
-	private Ball gizmoBall;
 	private boolean[][] grid;
-	private Walls walls;
 	private float gravity, mu, mu2;
 	private ArrayList<Connector> connectors;
 	private HashMap<String, IGizmo> gizmoHashMap;
 	private Absorber absorber;
 	private Observer observer;
-
+	
+	//---------------------------------------------
+	private ArrayList<LineSegment> lines;
+	private ArrayList<Circle> circles;
+	private Ball ball;
+	private Walls walls;
+	private int L;
 
 	/*
 		Creates a default build Board
@@ -41,11 +50,21 @@ public class Board extends Observable {
 
 		playMode = false;
 
+		//--------------------------------------------------
 
+		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
+		ball = new Ball("1",25, 25, 1000, 1000);
+
+		// Wall size 500 x 500 pixels
+		walls = new Walls(0, 0, 500, 500);
+
+		// Lines added in Proto3Main
+		lines = new ArrayList<LineSegment>();
+		circles = new ArrayList<Circle>();
 	}
 
 	public void addGizmoBall(Ball ball) {
-		this.gizmoBall = ball;
+		this.ball = ball;
 
 	}
 
@@ -66,7 +85,7 @@ public class Board extends Observable {
 	}
 
 	public boolean hasGizmoBall() {
-		return gizmoBall != null;
+		return ball != null;
 	}
 
 	public void setFriction(float mu, float mu2) {
@@ -79,7 +98,7 @@ public class Board extends Observable {
 	}
 
 	public Ball getGizmoBall() {
-		return gizmoBall;
+		return ball;
 	}
 
 	public Absorber getAbsorber() {
@@ -129,7 +148,7 @@ public class Board extends Observable {
 					grid[x + 1][y + 1] = true;
 					gizmoHashMap.put(gizmo.getID(), gizmo);
 
-
+					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
@@ -138,6 +157,7 @@ public class Board extends Observable {
 			} else if (grid[x][y] == false) {
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
+				gizmoAddLinesAndCicles(gizmo);
 				return true;
 			} else {
 				//Grid loc already occupied
@@ -146,6 +166,15 @@ public class Board extends Observable {
 		} else {
 			//Cords out of range
 			return false;
+		}
+	}
+
+	private void gizmoAddLinesAndCicles(IGizmo g){
+		for (LineSegment l : g.getLines()) {
+			lines.add(l);
+		}
+		for (Circle c : g.getCircles()) {
+			circles.add(c);
 		}
 	}
 
@@ -223,8 +252,8 @@ public class Board extends Observable {
 	public boolean moveGizmoBall(String name, float x, float y) {
 
 		if ((x >= 0.5 && x <= 19.5) && (y >= 0.5 && y <= 19.5)) {
-			gizmoBall.setXPos(x);
-			gizmoBall.setYPos(y);
+			ball.setXPos(x);
+			ball.setYPos(y);
 			return true;
 
 		} else {
@@ -244,24 +273,6 @@ public class Board extends Observable {
 
 	}
 
-	public class NoSuchGizmoException extends Exception {
-		public NoSuchGizmoException() {
-			super();
-		}
-
-		public NoSuchGizmoException(String message) {
-			super(message);
-		}
-
-		public NoSuchGizmoException(String message, Throwable cause) {
-			super(message, cause);
-		}
-
-		public NoSuchGizmoException(Throwable cause) {
-			super(cause);
-		}
-	}
-
 	public boolean isPlayMode() {
 		return playMode;
 	}
@@ -273,6 +284,173 @@ public class Board extends Observable {
 	public ArrayList<Connector> getConnectors() {
 		return new ArrayList<>(connectors);
 	}
+	
+	
+	//-------------------------------------------------------------------------------------------
+
+
+	public void moveBall() {
+
+		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
+
+		if (ball != null && !ball.stopped()) {
+
+			CollisionDetails cd = timeUntilCollision();
+			double tuc = cd.getTuc();
+			if (tuc > moveTime) {
+				// No collision ...
+				ball = movelBallForTime(ball, moveTime);
+			} else {
+				// We've got a collision in tuc
+				ball = movelBallForTime(ball, tuc);
+				// Post collision velocity ...
+				ball.setVelo(cd.getVelo());
+			}
+
+			// Notify observers ... redraw updated view
+			this.setChanged();
+			this.notifyObservers();
+		}
+
+	}
+
+	private Ball movelBallForTime(Ball ball, double time) {
+
+		float newX = 0.0f;
+		float newY = 0.0f;
+		float xVel = (float) ball.getVelo().x();
+		float yVel = (float) ball.getVelo().y();
+		newX = ball.getXPos() + (xVel * (float) time);
+		newY = ball.getYPos() + (yVel * (float) time);
+		ball.setXPos(newX);
+		ball.setYPos(newY);
+
+		applyGravity(time);
+		applyFriction(time);
+		System.out.println(ball.getXPos());
+		return ball;
+	}
+
+	private void applyGravity(double time){
+		double oldSpeed = ball.getVelo().y();
+		double newSpeed = oldSpeed + (DEFAULT_GRAVITY * time * L);
+
+		ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
+	}
+
+	private void applyFriction(double time){
+		double mu = 0.025 / 20; //0.025 per second
+		double mu2 = 0.025 / L; //0.025 per L
+
+		double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time) ;
+		double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
+
+		ball.setVelo(new Vect(newSpeedX,newSpeedY));
+	}
+
+	private CollisionDetails timeUntilCollision() {
+		// Find Time Until Collision and also, if there is a collision, the new speed vector.
+		// Create a physics.Circle from Ball
+		Circle ballCircle = ball.getCircle();
+		Vect ballVelocity = ball.getVelo();
+		Vect newVelo = new Vect(0, 0);
+
+		// Now find shortest time to hit a vertical line or a wall line
+		double shortestTime = Double.MAX_VALUE;
+		double time = 0.0;
+
+		// Time to collide with 4 walls
+		ArrayList<LineSegment> lss = walls.getLineSegments();
+		for (LineSegment line : lss) {
+			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
+				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+			}
+		}
+
+//		ArrayList<LineSegment> gizmoLines = new ArrayList<LineSegment>();
+//		ArrayList<Circle> gizmoCircle = new ArrayList<Circle>();
+//
+//		for (IGizmo g: gizmos){
+//			for (g1 )
+//			gizmoLines.add(g.getLines());
+//			g.getCircles();
+//		}
+
+//		for (LineSegment gc : gizmoLines) {
+//			time = Geometry.timeUntilWallCollision(gc, ballCircle, ballVelocity);
+//			if (time < shortestTime) {
+//				shortestTime = time;
+//				newVelo = Geometry.reflectWall(gc, ball.getVelo(), 1.0);
+//			}
+//		}
+
+
+		for (LineSegment line : lss) {
+			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
+				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+			}
+		}
+
+		// Time to collide with any vertical lines
+		for (LineSegment ls : lines) {
+			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
+				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+			}
+		}
+
+		// Time to collide with circles
+		for (Circle c : circles) {
+			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
+				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
+			}
+		}
+
+
+		return new CollisionDetails(shortestTime, newVelo);
+	}
+
+	public Ball getBall() {
+		return ball;
+	}
+
+	public ArrayList<LineSegment> getLines() {
+		return lines;
+	}
+
+	public ArrayList<Circle> getCircles() {
+		return circles;
+	}
+
+	public void addLine(LineSegment l) {
+		lines.add(l);
+	}
+
+	public void addCircle(Circle c) {
+		circles.add(c);
+	}
+
+	@Override
+	public void addGizmo(IGizmo g) {
+
+	}
+
+	public void setL(double width){
+		L = (int) width/20;
+	}
+
+	public void setBallSpeed(int x, int y) {
+		ball.setVelo(new Vect(x, y));
+	}
+
+
 
 
 }

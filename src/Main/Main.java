@@ -1,15 +1,13 @@
 package Main;
 
-import View.BuildGUI;
-import Model.Model;
 import Model.*;
 import View.RunGUI;
 
 public class Main {
     public static void main(String args[]){
-        Model model = new Model();
+        Board board = new Board();
 //        BuildGUI b = new BuildGUI(model);
-        RunGUI g = new RunGUI((model));
+        RunGUI g = new RunGUI(board);
 
 //        model.addGizmoball();
     }

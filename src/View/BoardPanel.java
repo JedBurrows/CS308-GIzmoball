@@ -1,9 +1,6 @@
 package View;
 
-import Model.Absorber;
-import Model.Ball;
-import Model.Board;
-import Model.Connector;
+import Model.*;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
 
@@ -18,9 +15,9 @@ public class BoardPanel extends JPanel implements Observer {
 	private Board board;
 
 
-	public BoardPanel(Board board) {
-		this.setPreferredSize(new Dimension(800, 800));
-		this.board = board;
+	public BoardPanel(IBoard b) {
+		setPreferredSize(new Dimension(800, 800));
+		board = (Board) b;
 		board.addObserver(this);
 
 	}
@@ -179,7 +176,7 @@ public class BoardPanel extends JPanel implements Observer {
 		this.repaint();
 	}
 
-	public Board getBoard() {
+	public IBoard getBoard() {
 		return board;
 	}
 

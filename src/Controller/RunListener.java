@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Model;
+import Model.IBoard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
 public class RunListener implements ActionListener {
 
 	private Timer timer;
-	private Model model;
+	private IBoard board;
 
-	public RunListener(Model m) {
-		model = m;
+	public RunListener(IBoard b) {
+		board = b;
 		timer = new Timer(50, this);
 	}
 
@@ -24,18 +24,17 @@ public class RunListener implements ActionListener {
 	public final void actionPerformed(final ActionEvent e) {
 
 		if (e.getSource() == timer) {
-			model.moveBall();
+			board.moveBall();
 		} else
 			switch (e.getActionCommand()) {
 				case "Start":
-					System.out.println("hello");
 					timer.start();
 					break;
 				case "Stop":
 					timer.stop();
 					break;
 				case "Tick":
-					model.moveBall();
+					board.moveBall();
 					break;
 				case "Quit":
 					System.exit(0);

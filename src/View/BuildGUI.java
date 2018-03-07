@@ -6,9 +6,8 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import Model.Model;
+
+import Model.IBoard;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -19,23 +18,19 @@ public class BuildGUI{
 
 	private JFrame buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
-	private Board board;
 	private BoardPanel boardPanel;
-	private Model model;
+	private IBoard board;
 
 
 
-
-	public BuildGUI(Model m) {
+	public BuildGUI(IBoard b) {
 
 		buildFrame = new JFrame("Build Mode!");
 		buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		model = m;
+		board = b;
 
-
-		board = new Board(20,20, model);
-//		boardPanel = new BoardPanel();
+		boardPanel = new BoardPanel(board);
 		createMenuBar();
 		createGameBoard();
 		initialiseButtons();
@@ -132,7 +127,7 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(model, this, null));
+		btnRunMode.addActionListener(new ModeListener(this, null, board));
 	}
 
 	private void initialiseSliders() {
