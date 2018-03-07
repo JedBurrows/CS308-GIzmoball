@@ -137,28 +137,34 @@ public class Board extends Observable implements IBoard{
 	 */
 	public boolean addGizmo(IGizmo gizmo, int x, int y) {
 
+        GizmoCreator gizmoCreator = new GizmoCreator();
 		//TODO Clean these if statements works well for now
+
+        String gizmoClass = gizmo.getClass().getSimpleName();
+        System.out.println(gizmoClass);
 		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
-			String gizmoClass = gizmo.getClass().getSimpleName();
+
 			if (gizmoClass.equals("Flipper") && (x < 19 && y < 19)) {
 				if ((grid[x][y] == false) && (grid[x][y + 1] == false) && (grid[x + 1][y] == false) && (grid[x + 1][y + 1] == false)) {
 					grid[x][y] = true;
 					grid[x][y + 1] = true;
 					grid[x + 1][y] = true;
 					grid[x + 1][y + 1] = true;
-					gizmoHashMap.put(gizmo.getID(), gizmo);
+					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
 
-//					gizmoAddLinesAndCicles(gizmo);
+					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
 					return false;
 				}
 			} else if (grid[x][y] == false) {
+
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-//				gizmoAddLinesAndCicles(gizmo);
-				return true;
+				gizmoAddLinesAndCicles(gizmo);
+                System.out.println(gizmoClass + " gizmo added");
+                return true;
 			} else {
 				//Grid loc already occupied
 				return false;
