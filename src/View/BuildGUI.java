@@ -74,19 +74,24 @@ public class BuildGUI{
 
 		boardPanel.setVisible(true);
 
+
 	}
 
 	private void initialiseButtons() {
 		btnGizmo = new JButton("Add Gizmo");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo = new JComboBox<>();
+
 		boxGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo.addItem("Square");
-		boxGizmo.addItem("ComponentCircle");
+		boxGizmo.addItem("Circle");
 		boxGizmo.addItem("Triangle");
 		boxGizmo.addItem("Left Flipper");
 		boxGizmo.addItem("Right Flipper");
 		boxGizmo.addItem("Absorber");
+
+        boardPanel.addMouseListener(new GameBoardListener(boardPanel, board, boxGizmo));
+		btnGizmo.addActionListener(new AddGizmoPressListener());
 		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
 		btnBall = new JButton("Add Ball");
@@ -196,6 +201,7 @@ public class BuildGUI{
 		buildFrame.setVisible(false);
 		buildFrame.dispose();
 	}
+
 
 
     /*@Override
