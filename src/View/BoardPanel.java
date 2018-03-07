@@ -91,33 +91,21 @@ public class BoardPanel extends JPanel implements Observer {
 					int rotation = flipper.getRotation();
 					int xPos = flipper.getxPos(), yPos = flipper.getyPos();
 
-//					if ((orientation == Flipper.FLIPPER_LEFT && rotation == 0) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 2)) {
-//						g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth / 2, 2 * Lheight, Lwidth / 2, Lheight / 2);
-//					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 1) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 3)) {
-//
-//						g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
-//
-//
-//					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 2) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 0)) {
-//						g.fillRoundRect(((xPos + 1) * Lwidth) + Lwidth / 2, yPos * Lheight, Lwidth / 2, Lheight * 2, Lwidth / 2, Lheight / 2);
-//
-//
-//					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 3) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 1)) {
-//						g.fillRoundRect(xPos * Lwidth, ((yPos + 1) * Lheight) + Lheight / 2, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
-//
-//					}
+					if ((orientation == Flipper.FLIPPER_LEFT && rotation == 0) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 2)) {
+						g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth / 2, 2 * Lheight, Lwidth / 2, Lheight / 2);
+					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 1) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 3)) {
+
+						g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
 
 
-					Graphics2D g2 = (Graphics2D) g;
-//            transform.rotate(Math.toRadians(90-rf.getAngle()), points[0].x+6, points[0].y+6);
-//            g2.transform(transform);
-//            g2.fillRoundRect(points[0].x, points[0].y, 12, 50, 20,10);
-//					g.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
-
-					g2.setColor(Color.blue);
-					g.drawLine(gizmo.getxPos(), gizmo.getyPos(), gizmo.getx2Pos(), gizmo.gety2Pos());
+					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 2) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 0)) {
+						g.fillRoundRect(((xPos + 1) * Lwidth) + Lwidth / 2, yPos * Lheight, Lwidth / 2, Lheight * 2, Lwidth / 2, Lheight / 2);
 
 
+					} else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 3) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 1)) {
+						g.fillRoundRect(xPos * Lwidth, ((yPos + 1) * Lheight) + Lheight / 2, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
+
+					}
 
 					break;
 			}

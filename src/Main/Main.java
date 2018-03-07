@@ -1,14 +1,28 @@
 package Main;
 
 import Model.*;
+import View.BuildGUI;
+import View.GBallFrame;
 import View.RunGUI;
 
-public class Main {
-    public static void main(String args[]){
-        Board board = new Board();
-//        BuildGUI b = new BuildGUI(model);
-        RunGUI g = new RunGUI(board);
+import javax.swing.*;
 
-//        model.addGizmoball();
+public class Main {
+
+    public static void main(String args[]){
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Board board = new Board();
+                GBallFrame frame = new GBallFrame(board);
+
+            }
+        });
+
+
+
+
+
+
     }
 }
