@@ -16,7 +16,7 @@ public class BuildGUI{
 	private JComboBox<String> boxGizmo;
 
 
-	private JFrame buildFrame;
+	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
 	private IBoard board;
@@ -25,8 +25,7 @@ public class BuildGUI{
 
 	public BuildGUI(IBoard b) {
 
-		buildFrame = new JFrame("Build Mode!");
-		buildFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		buildFrame = new JPanel();
 
 		board = b;
 
@@ -40,34 +39,12 @@ public class BuildGUI{
 		panel.add(panelBtn);
 		panel.add(boardPanel);
 		buildFrame.add(panel);
-		buildFrame.pack();
-		buildFrame.setResizable(false);
-		buildFrame.setLocationRelativeTo(null);
-		buildFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		buildFrame.setVisible(true);
 
 	}
 
 	private void createMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		buildFrame.setJMenuBar(menuBar);
-		JMenu fileMenu = new JMenu("File");
-		menuBar.add(fileMenu);
 
-		JMenuItem menuItemLoad = new JMenuItem("Load");
-		menuItemLoad.addActionListener(new LoadSaveController(boardPanel));
-
-		JMenuItem menuItemSave = new JMenuItem("Save");
-		menuItemSave.addActionListener(new LoadSaveController(boardPanel));
-
-		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		exitMenuItem.addActionListener(e -> System.exit(0));
-
-
-		fileMenu.add(menuItemLoad);
-		fileMenu.add(menuItemSave);
-		fileMenu.add(exitMenuItem);
-		buildFrame.add(menuBar);
 	}
 
 	private void createGameBoard() {
@@ -178,6 +155,8 @@ public class BuildGUI{
 	}
 
 
+
+
 	public void actionPerformed(ActionEvent e) {
 		String arg = e.getActionCommand();
 		if (arg.equals("Add Ball")) {
@@ -188,13 +167,16 @@ public class BuildGUI{
 	}
 
 
-	public JFrame getFrame() {
+	public JPanel getFrame() {
 		return buildFrame;
+	}
+
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
 	}
 
 	public void close(){
 		buildFrame.setVisible(false);
-		buildFrame.dispose();
 	}
 
 
