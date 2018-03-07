@@ -1,6 +1,8 @@
 package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
+import Model.Gizmos.Flipper;
+import Model.Gizmos.GizmoCircle;
 import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.Geometry;
@@ -11,9 +13,11 @@ import java.util.*;
 
 public class Board extends Observable implements IBoard{
 
-	private static final float DEFAULT_GRAVITY = 25f;
+	private static final float DEFAULT_GRAVITY = 0.025f;
 	private static final float DEFAULT_MU = 0.025f;
 	private static final float DEFAULT_MU2 = 0.025f;
+
+	double moveTime;
 
 	private boolean playMode;
 	private boolean[][] grid;
@@ -30,6 +34,7 @@ public class Board extends Observable implements IBoard{
 	private Walls walls;
 	private int L;
 
+
 	/*
 		Creates a default build Board
 	 */
@@ -37,6 +42,8 @@ public class Board extends Observable implements IBoard{
 		gravity = DEFAULT_GRAVITY;
 		mu = DEFAULT_MU;
 		mu2 = DEFAULT_MU2;
+
+		moveTime = 0.05;
 
 		grid = new boolean[20][20];
 		for (boolean[] row : grid) {
@@ -46,6 +53,12 @@ public class Board extends Observable implements IBoard{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
+
+
+		addGizmo(new Flipper("3", 10, 10, 0), 10, 10);
+
+		addGizmo(new GizmoCircle("1", 10, 10), 10, 10);
+
 		walls = new Walls(0, 0, 20, 20);
 
 		playMode = false;
@@ -53,10 +66,10 @@ public class Board extends Observable implements IBoard{
 		//--------------------------------------------------
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball("1",25, 25, 1000, 1000);
+		ball = new Ball("1",10, 10, 0.01f, 0.01f);
 
 		// Wall size 500 x 500 pixels
-		walls = new Walls(0, 0, 500, 500);
+		walls = new Walls(0, 0, 20, 20);
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();
@@ -93,8 +106,8 @@ public class Board extends Observable implements IBoard{
 		this.mu2 = mu2;
 	}
 
-	public void setGravity(float gravity) {
-		this.gravity = gravity;
+	public void setGravity(float g) {
+		this.gravity = g;
 	}
 
 	public Ball getGizmoBall() {
@@ -291,7 +304,8 @@ public class Board extends Observable implements IBoard{
 
 	public void moveBall() {
 
-		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
+		 // 0.05 = 20 times per second as per Gizmoball
+		double moveTime = 0.05;
 
 		if (ball != null && !ball.stopped()) {
 
@@ -307,12 +321,22 @@ public class Board extends Observable implements IBoard{
 				ball.setVelo(cd.getVelo());
 			}
 
+
 			// Notify observers ... redraw updated view
+			gizmoAction(moveTime);
 			this.setChanged();
 			this.notifyObservers();
 		}
 
 	}
+
+	public void gizmoAction(double tickTimer) {
+
+		for (IGizmo g : getGizmos()) {
+			g.action(tickTimer);
+		}
+	}
+
 
 	private Ball movelBallForTime(Ball ball, double time) {
 
@@ -437,10 +461,6 @@ public class Board extends Observable implements IBoard{
 		circles.add(c);
 	}
 
-	@Override
-	public void addGizmo(IGizmo g) {
-
-	}
 
 	public void setL(double width){
 		L = (int) width/20;

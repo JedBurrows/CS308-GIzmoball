@@ -58,8 +58,6 @@ public interface IBoard  {
 
         public void addCircle(Circle c);
 
-        public void addGizmo(IGizmo g);
-
         public void setL(double width);
 
         public void setBallSpeed(int x, int y);
