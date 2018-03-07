@@ -11,7 +11,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class RunGUI {
 
-    JFrame runFrame;
+    private JPanel runFrame;
     private BoardPanel boardPanel;
     private IBoard board;
 
@@ -19,10 +19,8 @@ public class RunGUI {
         board = b;
         boardPanel = new BoardPanel(board);
 
-        runFrame = new JFrame("Run Mode!");
-        runFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        runFrame = new JPanel();
         JMenuBar menuBar = new JMenuBar();
-        runFrame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("File");
         menuBar.add(fileMenu);
 
@@ -73,22 +71,17 @@ public class RunGUI {
         panel.add(panelBtn);
         panel.add(boardPanel);
         runFrame.add(panel);
-        runFrame.pack();
-        runFrame.setResizable(false);
-        runFrame.setLocationRelativeTo(null);
-        runFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         runFrame.setVisible(true);
 
 
     }
 
-    public JFrame getFrame() {
+    public JPanel getFrame() {
         return runFrame;
     }
 
     public void close() {
         runFrame.setVisible(false);
-        runFrame.dispose();
     }
 
 
