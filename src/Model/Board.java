@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Board extends Observable implements IBoard{
 
-	private static final float DEFAULT_GRAVITY = 0.025f;
+	private static final float DEFAULT_GRAVITY = 25f;
 	private static final float DEFAULT_MU = 0.025f;
 	private static final float DEFAULT_MU2 = 0.025f;
 
@@ -32,7 +32,6 @@ public class Board extends Observable implements IBoard{
 	private ArrayList<Circle> circles;
 	private Ball ball;
 	private Walls walls;
-	private int L;
 
 
 	/*
@@ -59,21 +58,24 @@ public class Board extends Observable implements IBoard{
 
 		addGizmo(new GizmoCircle("1", 10, 10), 10, 10);
 
-		walls = new Walls(0, 0, 20, 20);
 
 		playMode = false;
 
 		//--------------------------------------------------
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball("1",10, 10, 0.01f, 0.01f);
+		ball = new Ball("1",10, 10, -1, -1);
 
 		// Wall size 500 x 500 pixels
-		walls = new Walls(0, 0, 20, 20);
+		walls = new Walls(0, 0, 100, 100);
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();
 		circles = new ArrayList<Circle>();
+
+		for (LineSegment l : walls.getLineSegments()) {
+			lines.add(l);
+		}
 	}
 
 	public void addGizmoBall(Ball ball) {
@@ -165,7 +167,7 @@ public class Board extends Observable implements IBoard{
 					grid[x + 1][y + 1] = true;
 					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
 
-					gizmoAddLinesAndCicles(gizmo);
+//					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
@@ -175,7 +177,7 @@ public class Board extends Observable implements IBoard{
 
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-				gizmoAddLinesAndCicles(gizmo);
+//				gizmoAddLinesAndCicles(gizmo);
                 System.out.println(gizmoClass + " gizmo added");
                 return true;
 			} else {
@@ -268,18 +270,18 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	public boolean moveGizmoBall(String name, float x, float y) {
-
-		if ((x >= 0.5 && x <= 19.5) && (y >= 0.5 && y <= 19.5)) {
-			ball.setXPos(x);
-			ball.setYPos(y);
-			return true;
-
-		} else {
-			return false;
-		}
-
-	}
+//	public boolean moveGizmoBall(String name, float x, float y) {
+//
+//		if ((x >= 0.5 && x <= 19.5) && (y >= 0.5 && y <= 19.5)) {
+//			ball.setXPos(x);
+//			ball.setYPos(y);
+//			return true;
+//
+//		} else {
+//			return false;
+//		}
+//
+//	}
 
 	public IGizmo getGizmoByID(String id) throws NoSuchGizmoException {
 
@@ -288,8 +290,6 @@ public class Board extends Observable implements IBoard{
 		} else {
 			throw new NoSuchGizmoException("Gizmo with specified ID does not exist.");
 		}
-
-
 	}
 
 	public boolean isPlayMode() {
@@ -319,9 +319,11 @@ public class Board extends Observable implements IBoard{
 			double tuc = cd.getTuc();
 			if (tuc > moveTime) {
 				// No collision ...
+
 				ball = movelBallForTime(ball, moveTime);
 			} else {
 				// We've got a collision in tuc
+
 				ball = movelBallForTime(ball, tuc);
 				// Post collision velocity ...
 				ball.setVelo(cd.getVelo());
@@ -363,14 +365,15 @@ public class Board extends Observable implements IBoard{
 
 	private void applyGravity(double time){
 		double oldSpeed = ball.getVelo().y();
-		double newSpeed = oldSpeed + (DEFAULT_GRAVITY * time * L);
+		System.out.println("oldSpeed:" + oldSpeed);
+		double newSpeed = oldSpeed + (gravity * time);
 
 		ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
 	}
 
 	private void applyFriction(double time){
-		double mu = 0.025 / 20; //0.025 per second
-		double mu2 = 0.025 / L; //0.025 per L
+		double mu = 0.025; //0.025 per second
+		double mu2 = 0.025; //0.025 per L
 
 		double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time) ;
 		double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
@@ -467,10 +470,6 @@ public class Board extends Observable implements IBoard{
 		circles.add(c);
 	}
 
-
-	public void setL(double width){
-		L = (int) width/20;
-	}
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));

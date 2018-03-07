@@ -36,7 +36,7 @@ public interface IBoard  {
 
         public boolean moveGizmo(String id, int newX, int newY);
 
-        public boolean moveGizmoBall(String name, float x, float y);
+//        public boolean moveGizmoBall(String name, float x, float y);
 
         public IGizmo getGizmoByID(String id) throws NoSuchGizmoException;
 
@@ -57,8 +57,6 @@ public interface IBoard  {
         public void addLine(LineSegment l);
 
         public void addCircle(Circle c);
-
-        public void setL(double width);
 
         public void setBallSpeed(int x, int y);
 

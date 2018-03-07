@@ -160,7 +160,7 @@ public class LoadSaveController implements ActionListener {
                                             x = scanner.nextFloat();
                                             if (scanner.hasNextFloat()) {
                                                 y = scanner.nextFloat();
-                                                board.moveGizmoBall(name, x, y);
+                                                board.moveBall();
                                             }
 
                                         } else if (scanner.hasNextInt()) {
