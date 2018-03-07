@@ -23,7 +23,7 @@ public class BuildGUI{
 
 
 
-	public BuildGUI(IBoard b) {
+	public BuildGUI(GBallFrame parent, IBoard b) {
 
 		buildFrame = new JPanel();
 
@@ -32,7 +32,7 @@ public class BuildGUI{
 		boardPanel = new BoardPanel(board);
 		createMenuBar();
 		createGameBoard();
-		initialiseButtons();
+		initialiseButtons(parent);
 		initialiseSliders();
 		arrangeButtons();
 		JPanel panel = new JPanel();
@@ -53,7 +53,7 @@ public class BuildGUI{
 
 	}
 
-	private void initialiseButtons() {
+	private void initialiseButtons(GBallFrame parent) {
 		btnGizmo = new JButton("Add Gizmo");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo = new JComboBox<>();
@@ -90,7 +90,7 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(this, null, board));
+		btnRunMode.addActionListener(new ModeListener(parent, board));
 	}
 
 	private void initialiseSliders() {
@@ -177,6 +177,10 @@ public class BuildGUI{
 
 	public void close(){
 		buildFrame.setVisible(false);
+	}
+
+	public void open(){
+		buildFrame.setVisible(true);
 	}
 
 

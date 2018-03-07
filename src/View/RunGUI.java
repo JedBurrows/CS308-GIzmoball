@@ -15,23 +15,22 @@ public class RunGUI {
     private BoardPanel boardPanel;
     private IBoard board;
 
-    public RunGUI(IBoard b) {
+    public RunGUI(GBallFrame parent, IBoard b) {
         board = b;
         boardPanel = new BoardPanel(board);
 
         runFrame = new JPanel();
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        menuBar.add(fileMenu);
 
-        JMenuItem menuItemLoad = new JMenuItem("Load");
-        JMenuItem menuItemSave = new JMenuItem("Save");
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
-        exitMenuItem.addActionListener(e -> System.exit(0));
-        fileMenu.add(menuItemLoad);
-        fileMenu.add(menuItemSave);
-        fileMenu.add(exitMenuItem);
 
+        JPanel panel = new JPanel();
+        panel.add(initialiseButtons(parent));
+        panel.add(boardPanel);
+        runFrame.add(panel);
+        runFrame.setVisible(true);
+
+
+    }
+    private JPanel initialiseButtons(GBallFrame parent) {
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
         btnStart.addActionListener(new RunListener(board));
@@ -50,8 +49,7 @@ public class RunGUI {
         btnBuildMode.setPreferredSize(new Dimension(75, 75));
 
 
-        btnBuildMode.addActionListener(new ModeListener(null, this, board));
-
+        btnBuildMode.addActionListener(new ModeListener(parent,board));
 
         JPanel panelBtn = new JPanel();
         panelBtn.setSize(150, 300);
@@ -65,23 +63,23 @@ public class RunGUI {
         panelBtn.add(btnTick, c);
         panelBtn.add(btnBuildMode, c);
 
-
-        runFrame.add(menuBar);
-        JPanel panel = new JPanel();
-        panel.add(panelBtn);
-        panel.add(boardPanel);
-        runFrame.add(panel);
-        runFrame.setVisible(true);
+        return panelBtn;
 
 
     }
 
-    public JPanel getFrame() {
+
+        public JPanel getFrame() {
         return runFrame;
     }
 
     public void close() {
         runFrame.setVisible(false);
+    }
+
+    public void open(){
+        runFrame.setVisible(true);
+
     }
 
 
