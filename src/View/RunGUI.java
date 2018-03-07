@@ -34,13 +34,6 @@ public class RunGUI {
         fileMenu.add(menuItemSave);
         fileMenu.add(exitMenuItem);
 
-        //runFrame.add(menuBar);
-
-//        JPanel gizmoBoard = new JPanel(new GridLayout(20, 20));
-//        gizmoBoard.setPreferredSize(new Dimension(600, 600));
-//        gizmoBoard.setBackground(Color.GREEN);
-//        gizmoBoard.setVisible(true);
-
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
         btnStart.addActionListener(new RunListener(board));

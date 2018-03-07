@@ -20,8 +20,8 @@ import java.util.Scanner;
 public class LoadSaveController implements ActionListener {
     private BoardPanel panel;
 
-    public LoadSaveController(BoardPanel panel) {
-        this.panel = panel;
+    public LoadSaveController(BoardPanel p) {
+        panel = p;
     }
 
     public void save() {
@@ -282,18 +282,21 @@ public class LoadSaveController implements ActionListener {
             }
         }
 
-        panel.repaint();
+
+        board.notifyObservers();
         return board;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         String command = e.getActionCommand();
         System.out.println(command);
         if (command == "save") {
             save();
         } else if (command == "Load") {
             panel.setBoard(load());
+
 
         }
 

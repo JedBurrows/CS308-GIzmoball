@@ -83,6 +83,7 @@ public class BoardPanel extends JPanel implements Observer {
 					}
 					g.fillPolygon(xPoints, yPoints, 3);
 					break;
+					//TODO BElow is breaking MVC because creating Flipper - FIX ME
 				case "Flipper":
 					g.setColor(Color.YELLOW);
 					Flipper flipper = (Flipper) gizmo;
@@ -171,8 +172,8 @@ public class BoardPanel extends JPanel implements Observer {
 		}
 	}
 
-	public void setBoard(Board board) {
-		this.board = board;
+	public void setBoard(IBoard b) {
+		board = (Board) b;
 		this.repaint();
 	}
 

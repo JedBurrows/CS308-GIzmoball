@@ -17,7 +17,7 @@ public class BuildGUI{
 
 
 	private JFrame buildFrame;
-	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn, gizmoBoard;
+	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
 	private IBoard board;
 
@@ -38,7 +38,7 @@ public class BuildGUI{
 		arrangeButtons();
 		JPanel panel = new JPanel();
 		panel.add(panelBtn);
-		panel.add(gizmoBoard);
+		panel.add(boardPanel);
 		buildFrame.add(panel);
 		buildFrame.pack();
 		buildFrame.setResizable(false);
@@ -72,21 +72,7 @@ public class BuildGUI{
 
 	private void createGameBoard() {
 
-		gizmoBoard = new JPanel(new GridLayout(20, 20));
-//        gizmoBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-		for (int i = 0; i < (20 * 20); i++) {
-			final JLabel label = new JLabel();
-			label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-			gizmoBoard.add(label);
-		}
-
-
-		gizmoBoard.setPreferredSize(new Dimension(600, 600));
-		gizmoBoard.setBackground(Color.black);
-		gizmoBoard.setVisible(true);
-//        gizmoBoard.addMouseListener(new GameBoardListener(this));
-//		gizmoBoard.addKeyListener(new KeyPressListener());
+		boardPanel.setVisible(true);
 
 	}
 

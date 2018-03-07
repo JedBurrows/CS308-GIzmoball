@@ -148,7 +148,7 @@ public class Board extends Observable implements IBoard{
 					grid[x + 1][y + 1] = true;
 					gizmoHashMap.put(gizmo.getID(), gizmo);
 
-					gizmoAddLinesAndCicles(gizmo);
+//					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
@@ -157,7 +157,7 @@ public class Board extends Observable implements IBoard{
 			} else if (grid[x][y] == false) {
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-				gizmoAddLinesAndCicles(gizmo);
+//				gizmoAddLinesAndCicles(gizmo);
 				return true;
 			} else {
 				//Grid loc already occupied
