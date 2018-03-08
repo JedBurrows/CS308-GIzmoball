@@ -2,7 +2,7 @@ package View;
 
 import Model.*;
 import Model.Gizmos.Flipper;
-import Model.Gizmos.IGizmo;
+import Model.IGizmo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -130,7 +130,7 @@ public class BoardPanel extends JPanel implements Observer {
 		g.setColor(Color.BLUE);
 
 		if (board.hasGizmoBall()) {
-			Ball ball = board.getGizmoBall();
+			IBall ball = board.getGizmoBall();
 
 			float x = ball.getXPos(), y = ball.getYPos();
 
@@ -142,10 +142,10 @@ public class BoardPanel extends JPanel implements Observer {
 
 			System.out.println("X: " + x + "	Y:" + y);
 
-			int r = Lwidth / 4;
+			int r = (int) (ball.getRadius() * (double)Lwidth);
 
-
-			g.fillOval((int) x - r, (int) y - r, Lwidth / 2, Lheight / 2);
+			System.out.println(r);
+			g.fillOval((int) x - r, (int) y - r, 2*r, 2*r);
 		}
 
 
