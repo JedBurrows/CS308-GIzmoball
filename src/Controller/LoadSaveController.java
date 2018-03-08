@@ -222,6 +222,8 @@ public class LoadSaveController implements ActionListener {
 								<gizmoOp> (IDENTIFIER name) (INTEGER x) (INTEGER y)
 								Creates the given gizmo with its upper left-corner at (x,y), in the default orientation.
 							 */
+
+							//TODO Change to used gizmo creator
                                 case "Square":
                                 case "Circle":
                                 case "Triangle":

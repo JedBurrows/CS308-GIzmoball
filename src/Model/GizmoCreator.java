@@ -11,8 +11,8 @@ public class GizmoCreator {
 
 	public IGizmo createGizmo(String type, int x, int y) {
 		String id = String.valueOf(type);
-		id.concat(String.valueOf(x));
-		id.concat(String.valueOf(y));
+		id = id.concat(String.valueOf(x));
+		id = id.concat(String.valueOf(y));
 
 		switch (type) {
 			case "Square":

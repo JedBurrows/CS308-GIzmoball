@@ -137,6 +137,7 @@ public class Board extends Observable implements IBoard{
 	 */
 	public boolean addGizmo(IGizmo gizmo, int x, int y) {
 
+		//TODO Not used
         GizmoCreator gizmoCreator = new GizmoCreator();
 		//TODO Clean these if statements works well for now
 
