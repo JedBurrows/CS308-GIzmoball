@@ -21,7 +21,7 @@ public class Ball {
         x = x1;
         y = y1;
         velocity = new Vect(vx, vy);
-        radius = 10;
+        radius = 0.05;
         stopped = false;
 
     }

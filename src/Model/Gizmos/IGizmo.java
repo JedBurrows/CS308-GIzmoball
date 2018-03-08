@@ -9,11 +9,11 @@ public interface IGizmo {
 
 
 //	  Action performed by gizmo when struck by ball
-	public void action(double tickTime);
+	void action(double tickTime);
 
 //	  Rotate gizmo 90 deg
-	public void rotate();
-	public int getRotation();
+	void rotate();
+	int getRotation();
 
 	/**
 	 * Returns ID of GIZMO
@@ -25,7 +25,7 @@ public interface IGizmo {
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number
 	 */
-	public String getID();
+	String getID();
 
 	void createLineSegments();
 

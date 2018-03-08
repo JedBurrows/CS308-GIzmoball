@@ -67,7 +67,7 @@ public class Board extends Observable implements IBoard{
 		ball = new Ball("1",10, 10, -1, -1);
 
 		// Wall size 500 x 500 pixels
-		walls = new Walls(0, 0, 100, 100);
+		walls = new Walls();
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();

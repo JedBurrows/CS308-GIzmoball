@@ -11,7 +11,7 @@ public class GizmoCircle implements IGizmo {
     private String id;
     private int xPos, yPos;
     private Circle circle;
-    private static final int radius = 10;
+    private static final double radius = 0.5;
 
     public GizmoCircle(String id, int x, int y) {
         this.id = id;
