@@ -12,7 +12,7 @@ public class Square implements IGizmo {
     private int xPos, yPos;
     private ArrayList<LineSegment> lines;
     private ArrayList<Circle> circles;
-    private static final int size = 20;
+    private static final int size = 1;
 
 
     public Square(String id, int x, int y) {

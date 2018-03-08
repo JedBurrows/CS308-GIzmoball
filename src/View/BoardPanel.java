@@ -2,7 +2,7 @@ package View;
 
 import Model.*;
 import Model.Gizmos.Flipper;
-import Model.IGizmo;
+import Model.Gizmos.IGizmo;
 
 import javax.swing.*;
 import java.awt.*;

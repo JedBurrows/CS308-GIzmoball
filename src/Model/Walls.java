@@ -10,18 +10,15 @@ import java.util.ArrayList;
 
 public class Walls {
 
-	private int xpos1;
-	private int ypos1;
-	private int ypos2;
-	private int xpos2;
+	private int xpos1 = 0;
+	private int ypos1 = 0;
+	private int ypos2 = 20;
+	private int xpos2 = 20;
 
 	// Walls are the enclosing Rectangle - defined by top left corner and bottom
 	// right
-	public Walls(int x1, int y1, int x2, int y2) {
-		xpos1 = x1;
-		ypos1 = y1;
-		xpos2 = x2;
-		ypos2 = y2;
+	public Walls() {
+
 	}
 
 	public ArrayList<LineSegment> getLineSegments() {
