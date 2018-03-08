@@ -146,17 +146,19 @@ public class Board extends Observable implements IBoard{
 
 	/**
 	 * @param gizmo
-	 * @param x     coordinate left to right on grid from 0 to 19
-	 * @param y     coordinate top to bottom on grid from 0 to 19
 	 * @return
 	 */
-	public boolean addGizmo(IGizmo gizmo, int x, int y) {
+	public boolean addGizmo(IGizmo gizmo) {
 
         GizmoCreator gizmoCreator = new GizmoCreator();
 		//TODO Clean these if statements works well for now
+		int x = gizmo.getxPos();
+		int y = gizmo.getyPos();
+		String gizmoClass = gizmo.getClass().getSimpleName();
+        System.out.println("gizmoClass: " + gizmoClass);
+		System.out.println("x: " + x);
+		System.out.println("y: " + y);
 
-        String gizmoClass = gizmo.getClass().getSimpleName();
-        System.out.println(gizmoClass);
 		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
 
 			if (gizmoClass.equals("Flipper") && (x < 19 && y < 19)) {
@@ -173,8 +175,7 @@ public class Board extends Observable implements IBoard{
 					//One of 4 grid locs required for flipper is occupied
 					return false;
 				}
-			} else if (grid[x][y] == false) {
-
+			} else if (!grid[x][y]) {
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
 //				gizmoAddLinesAndCicles(gizmo);
@@ -240,7 +241,7 @@ public class Board extends Observable implements IBoard{
 						gizmo.setxPos(newX);
 						gizmo.setyPos(newY);
 
-						addGizmo(gizmo, newX, newY);
+						addGizmo(gizmo);
 
 						return true;
 					} else {
@@ -255,7 +256,7 @@ public class Board extends Observable implements IBoard{
 					gizmo.setxPos(newX);
 					gizmo.setyPos(newY);
 
-					addGizmo(gizmo, newX, newY);
+					addGizmo(gizmo);
 					return true;
 				} else {
 					//Grid loc already occupied
@@ -424,6 +425,7 @@ public class Board extends Observable implements IBoard{
 	public ArrayList<Circle> getCircles() {
 		return circles;
 	}
+
 
 	public void addLine(LineSegment l) {
 		lines.add(l);

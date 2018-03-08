@@ -13,7 +13,6 @@ public class GizmoCreator {
 		String id = String.valueOf(type);
 		id.concat(String.valueOf(x));
 		id.concat(String.valueOf(y));
-
 		switch (type) {
 			case "Square":
 				System.out.println("GizmoCreator");

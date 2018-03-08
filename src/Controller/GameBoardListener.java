@@ -20,8 +20,8 @@ public class GameBoardListener implements MouseListener {
     private int l;
     private GizmoCreator gizmoCreator;
 
-    public GameBoardListener(BoardPanel boardPanel, IBoard b,JComboBox<String> gizmo) {
-        this.boardPanel = boardPanel;
+    public GameBoardListener(BoardPanel bP, IBoard b,JComboBox<String> gizmo) {
+        this.boardPanel = bP;
         board = b;
         this.gizmo = gizmo;
         l=boardPanel.getDimension()/20;
@@ -46,6 +46,10 @@ public class GameBoardListener implements MouseListener {
             System.out.println(g);
             int x = e.getX()/l;
             int y = e.getY()/l;
+
+            System.out.println("this x = " + x);
+            System.out.println("this y = " + y);
+
             board.addGizmo(gizmoCreator.createGizmo(g,x,y));
             boardPanel.repaint();
         }
