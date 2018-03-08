@@ -29,7 +29,7 @@ public interface IBoard  {
 
         public void removeConnector(IGizmo gizmo);
 
-        public boolean addGizmo(IGizmo gizmo, int x, int y);
+        public boolean addGizmo(IGizmo gizmo);
 
         public boolean deleteGizmo(String id);
 

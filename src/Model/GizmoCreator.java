@@ -16,6 +16,7 @@ public class GizmoCreator {
 
 		switch (type) {
 			case "Square":
+				System.out.println("GizmoCreator");
 				return new Square(id,x, y);
 			case "Circle":
 				return new GizmoCircle(id,x, y);

@@ -51,6 +51,9 @@ public class Flipper implements IGizmo {
 		angle = 90;
 		angVel = 1080;
 		keyPress = false;
+
+		lines = new ArrayList<>();
+		circles = new ArrayList<>();
 	}
 
 
