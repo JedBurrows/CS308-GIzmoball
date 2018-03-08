@@ -52,6 +52,7 @@ public class Board extends Observable implements IBoard{
 
 		//--------------------------------------------------
 
+		//TODO Change from pixels to float in terms of L grid ie (x = 10.5,y = 5.5) is in centre of 11,6
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
 		ball = new Ball("1",25, 25, 1000, 1000);
 

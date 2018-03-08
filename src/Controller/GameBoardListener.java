@@ -44,7 +44,7 @@ public class GameBoardListener implements MouseListener {
             int y = e.getY()/40;
             System.out.println(x);
             System.out.println(y);
-            board.addGizmo(gizmoCreator.createGizmo(g,x,y),x,y);
+            System.out.println("Add was: " +board.addGizmo(gizmoCreator.createGizmo(g,x,y),x,y));
             boardPanel.repaint();
         }
 
