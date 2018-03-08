@@ -35,9 +35,6 @@ public class LoadSaveController implements ActionListener {
         }
     }
 
-    /*
-        TODO Key Connect + Painting flippers on top bottom and right delete and move;
-     */
     private Board load() {
         Board board = new Board();
         JFileChooser fc = new JFileChooser();

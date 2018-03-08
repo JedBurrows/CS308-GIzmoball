@@ -1,0 +1,22 @@
+Features
+    Add Ball
+    Add Absorber
+    Add Connect
+    Rotate Gizmo
+    Delete Gizmo
+    Add Keybinds to gizmos
+    Saving
+    Change Load to use GizmoCreator
+    Stop run Mode + Stop run mode after switching
+    Sliders working
+    Clear Board
+
+
+Tests
+
+Bugs + Cleanup
+    Cleanup instances of bad code + MVC breaks
+    See todos in intellij
+    Collision not working
+    Board only painting gizmos at last y along x, ie try placing gizmo at {0,0} then {0,19}
+

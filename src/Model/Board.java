@@ -313,6 +313,8 @@ public class Board extends Observable implements IBoard{
 
 	public void moveBall() {
 
+
+		//TODO Check for if in playMode then can move ball.
 		 // 0.05 = 20 times per second as per Gizmoball
 		double moveTime = 0.05;
 
