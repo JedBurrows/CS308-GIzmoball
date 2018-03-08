@@ -4,6 +4,7 @@ import Model.*;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,14 +14,17 @@ import java.util.Observer;
 public class BoardPanel extends JPanel implements Observer {
 
 	private Board board;
+	private int dimension = 800;
 
 
 	public BoardPanel(IBoard b) {
-		setPreferredSize(new Dimension(800, 800));
+		setPreferredSize(new Dimension(dimension, dimension));
 		board = (Board) b;
 		board.addObserver(this);
 
 	}
+
+	public int getDimension(){return dimension;}
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -171,6 +175,8 @@ public class BoardPanel extends JPanel implements Observer {
 			}
 		}
 	}
+
+
 
 	public void setBoard(IBoard b) {
 		board = (Board) b;

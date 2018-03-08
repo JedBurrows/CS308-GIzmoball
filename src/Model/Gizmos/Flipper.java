@@ -1,6 +1,5 @@
 package Model.Gizmos;
 
-import Model.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -52,6 +51,9 @@ public class Flipper implements IGizmo {
 		angle = 90;
 		angVel = 1080;
 		keyPress = false;
+
+		lines = new ArrayList<>();
+		circles = new ArrayList<>();
 	}
 
 

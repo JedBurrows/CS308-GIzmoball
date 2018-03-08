@@ -3,6 +3,7 @@ package Model;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.GizmoCircle;
+import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
@@ -30,7 +31,6 @@ public class Board extends Observable implements IBoard{
 	private ArrayList<LineSegment> lines;
 	private ArrayList<Circle> circles;
 	private Ball ball;
-	private Walls walls;
 
 
 	/*
@@ -53,9 +53,9 @@ public class Board extends Observable implements IBoard{
 
 
 
-		addGizmo(new Flipper("3", 10, 10, 0), 10, 10);
+		addGizmo(new Flipper("3", 10, 10, 0));
 
-		addGizmo(new GizmoCircle("1", 10, 10), 10, 10);
+//		addGizmo(new GizmoCircle("1", 10, 10));
 
 
 		playMode = false;
@@ -66,7 +66,7 @@ public class Board extends Observable implements IBoard{
 		ball = new Ball("1",10, 10, -1, -1);
 
 		// Wall size 500 x 500 pixels
-		walls = new Walls(0, 0, 20, 20);
+		Walls walls = new Walls();
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();
@@ -144,27 +144,24 @@ public class Board extends Observable implements IBoard{
 	}
 
 	/**
-	 * @param gizmo
-	 * @param x     coordinate left to right on grid from 0 to 19
-	 * @param y     coordinate top to bottom on grid from 0 to 19
+	 * @param gizmo gizmo to be added
 	 * @return
 	 */
-	public boolean addGizmo(IGizmo gizmo, int x, int y) {
+	public boolean addGizmo(IGizmo gizmo) {
 
-        GizmoCreator gizmoCreator = new GizmoCreator();
-		//TODO Clean these if statements works well for now
-
+        int x = gizmo.getxPos();
+        int y = gizmo.getyPos();
+		//TODO Clean these if statements works well for now (by moving flipper to gizmoCreator)
         String gizmoClass = gizmo.getClass().getSimpleName();
-        System.out.println(gizmoClass);
-		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
 
+		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) { //if within range
 			if (gizmoClass.equals("Flipper") && (x < 19 && y < 19)) {
 				if ((grid[x][y] == false) && (grid[x][y + 1] == false) && (grid[x + 1][y] == false) && (grid[x + 1][y + 1] == false)) {
 					grid[x][y] = true;
 					grid[x][y + 1] = true;
 					grid[x + 1][y] = true;
 					grid[x + 1][y + 1] = true;
-					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
+					gizmoHashMap.put(gizmo.getID(), gizmo);
 
 //					gizmoAddLinesAndCicles(gizmo);
 					return true;
@@ -173,10 +170,9 @@ public class Board extends Observable implements IBoard{
 					return false;
 				}
 			} else if (grid[x][y] == false) {
-
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-//				gizmoAddLinesAndCicles(gizmo);
+				gizmoAddLinesAndCicles(gizmo);
                 System.out.println(gizmoClass + " gizmo added");
                 return true;
 			} else {
@@ -239,7 +235,7 @@ public class Board extends Observable implements IBoard{
 						gizmo.setxPos(newX);
 						gizmo.setyPos(newY);
 
-						addGizmo(gizmo, newX, newY);
+						addGizmo(gizmo);
 
 						return true;
 					} else {
@@ -254,7 +250,7 @@ public class Board extends Observable implements IBoard{
 					gizmo.setxPos(newX);
 					gizmo.setyPos(newY);
 
-					addGizmo(gizmo, newX, newY);
+					addGizmo(gizmo);
 					return true;
 				} else {
 					//Grid loc already occupied
@@ -269,19 +265,6 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-//	public boolean moveGizmoBall(String name, float x, float y) {
-//
-//		if ((x >= 0.5 && x <= 19.5) && (y >= 0.5 && y <= 19.5)) {
-//			ball.setXPos(x);
-//			ball.setYPos(y);
-//			return true;
-//
-//		} else {
-//			return false;
-//		}
-//
-//	}
-
 	public IGizmo getGizmoByID(String id) throws NoSuchGizmoException {
 
 		if (gizmoHashMap.containsKey(id)) {
@@ -289,6 +272,11 @@ public class Board extends Observable implements IBoard{
 		} else {
 			throw new NoSuchGizmoException("Gizmo with specified ID does not exist.");
 		}
+	}
+
+	@Override
+	public boolean isPlayMode() {
+		return false;
 	}
 
 	public boolean isRunMode() {
@@ -390,27 +378,7 @@ public class Board extends Observable implements IBoard{
 		double shortestTime = Double.MAX_VALUE;
 		double time = 0.0;
 
-		// Time to collide with 4 walls
-		ArrayList<LineSegment> lss = walls.getLineSegments();
-		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				System.out.println("collision!!!!");
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-			}
-		}
-
-		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				System.out.println("collision!!!!");
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-			}
-		}
-
-		// Time to collide with any vertical lines
+		// Time to collide with any lines (including walls)
 		for (LineSegment ls : lines) {
 			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
