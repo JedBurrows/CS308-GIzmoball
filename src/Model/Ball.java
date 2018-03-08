@@ -6,7 +6,7 @@ import physics.Vect;
 import java.awt.*;
 
 
-public class Ball {
+public class Ball implements IBall{
 
     private String name;
     private float x;
@@ -21,7 +21,7 @@ public class Ball {
         x = x1;
         y = y1;
         velocity = new Vect(vx, vy);
-        radius = 10;
+        radius = 0.25;
         stopped = false;
 
     }

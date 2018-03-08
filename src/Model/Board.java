@@ -3,7 +3,6 @@ package Model;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.GizmoCircle;
-import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
@@ -67,7 +66,7 @@ public class Board extends Observable implements IBoard{
 		ball = new Ball("1",10, 10, -1, -1);
 
 		// Wall size 500 x 500 pixels
-		walls = new Walls(0, 0, 100, 100);
+		walls = new Walls(0, 0, 20, 20);
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();
@@ -292,7 +291,7 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	public boolean isPlayMode() {
+	public boolean isRunMode() {
 		return playMode;
 	}
 
@@ -328,7 +327,6 @@ public class Board extends Observable implements IBoard{
 				// Post collision velocity ...
 				ball.setVelo(cd.getVelo());
 			}
-
 
 			// Notify observers ... redraw updated view
 			gizmoAction(moveTime);
@@ -397,32 +395,16 @@ public class Board extends Observable implements IBoard{
 		for (LineSegment line : lss) {
 			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {
+				System.out.println("collision!!!!");
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
 			}
 		}
 
-//		ArrayList<LineSegment> gizmoLines = new ArrayList<LineSegment>();
-//		ArrayList<Circle> gizmoCircle = new ArrayList<Circle>();
-//
-//		for (IGizmo g: gizmos){
-//			for (g1 )
-//			gizmoLines.add(g.getLines());
-//			g.getCircles();
-//		}
-
-//		for (LineSegment gc : gizmoLines) {
-//			time = Geometry.timeUntilWallCollision(gc, ballCircle, ballVelocity);
-//			if (time < shortestTime) {
-//				shortestTime = time;
-//				newVelo = Geometry.reflectWall(gc, ball.getVelo(), 1.0);
-//			}
-//		}
-
-
 		for (LineSegment line : lss) {
 			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {
+				System.out.println("collision!!!!");
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
 			}
@@ -432,6 +414,7 @@ public class Board extends Observable implements IBoard{
 		for (LineSegment ls : lines) {
 			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 			if (time < shortestTime) {
+				System.out.println("collision!!!!");
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}

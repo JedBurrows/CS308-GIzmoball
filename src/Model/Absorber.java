@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Gizmos.IGizmo;
-
 public class Absorber{
     private int xPos1, yPos1, xPos2, yPos2;
     private String id;

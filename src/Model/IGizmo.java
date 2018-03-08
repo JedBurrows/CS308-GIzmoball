@@ -1,4 +1,4 @@
-package Model.Gizmos;
+package Model;
 
 import physics.Circle;
 import physics.LineSegment;

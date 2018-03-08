@@ -7,7 +7,7 @@ import Model.Exceptions.NoSuchGizmoException;
 import Model.GizmoCreator;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.GizmoCircle;
-import Model.Gizmos.IGizmo;
+import Model.IGizmo;
 import Model.Gizmos.Square;
 import View.BoardPanel;
 

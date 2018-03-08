@@ -2,7 +2,6 @@ package Model;
 
 
 import Model.Gizmos.GizmoCircle;
-import Model.Gizmos.IGizmo;
 import Model.Gizmos.Square;
 import Model.Gizmos.Triangle;
 
