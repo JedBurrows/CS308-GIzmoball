@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Gizmos.IGizmo;
+
 public class Connector {
 	private IGizmo source, target;
 

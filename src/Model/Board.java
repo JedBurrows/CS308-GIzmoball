@@ -3,6 +3,7 @@ package Model;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.GizmoCircle;
+import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
@@ -18,7 +19,7 @@ public class Board extends Observable implements IBoard{
 
 	double moveTime;
 
-	private boolean playMode;
+	private boolean runMode;
 	private boolean[][] grid;
 	private float gravity, mu, mu2;
 	private ArrayList<Connector> connectors;
@@ -53,20 +54,16 @@ public class Board extends Observable implements IBoard{
 
 
 
-		addGizmo(new Flipper("3", 10, 10, 0), 10, 10);
 
-		addGizmo(new GizmoCircle("1", 10, 10), 10, 10);
-
-
-		playMode = false;
+        runMode = false;
 
 		//--------------------------------------------------
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball("1",10, 10, -1, -1);
+		ball = new Ball("1",10, 10, 5, 5);
 
 		// Wall size 500 x 500 pixels
-		walls = new Walls(0, 0, 20, 20);
+		walls = new Walls();
 
 		// Lines added in Proto3Main
 		lines = new ArrayList<LineSegment>();
@@ -81,6 +78,10 @@ public class Board extends Observable implements IBoard{
 		this.ball = ball;
 
 	}
+
+	public void setRunMode(){
+	    runMode = !runMode;
+    }
 
 	public boolean setAbsorber(Absorber absorber) {
 		int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
@@ -292,7 +293,7 @@ public class Board extends Observable implements IBoard{
 	}
 
 	public boolean isRunMode() {
-		return playMode;
+		return runMode;
 	}
 
 	public ArrayList<IGizmo> getGizmos() {
@@ -322,7 +323,6 @@ public class Board extends Observable implements IBoard{
 				ball = movelBallForTime(ball, moveTime);
 			} else {
 				// We've got a collision in tuc
-
 				ball = movelBallForTime(ball, tuc);
 				// Post collision velocity ...
 				ball.setVelo(cd.getVelo());
@@ -357,7 +357,7 @@ public class Board extends Observable implements IBoard{
 
 		applyGravity(time);
 		applyFriction(time);
-		System.out.println(ball.getXPos());
+		System.out.println("gravity:" + gravity);
 		return ball;
 	}
 
@@ -370,11 +370,11 @@ public class Board extends Observable implements IBoard{
 	}
 
 	private void applyFriction(double time){
-		double mu = 0.025; //0.025 per second
-		double mu2 = 0.025; //0.025 per L
+		double mu = DEFAULT_MU; //0.025 per second
+		double mu2 = DEFAULT_MU2; //0.025 per L
 
-		double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time) ;
-		double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
+		double newSpeedX = ball.getVelo().x() * (1 - (mu *time) - (mu2 * Math.abs(ball.getVelo().x())) * time) ;
+		double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time) ;
 
 		ball.setVelo(new Vect(newSpeedX,newSpeedY));
 	}
@@ -395,28 +395,8 @@ public class Board extends Observable implements IBoard{
 		for (LineSegment line : lss) {
 			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {
-				System.out.println("collision!!!!");
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-			}
-		}
-
-		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				System.out.println("collision!!!!");
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-			}
-		}
-
-		// Time to collide with any vertical lines
-		for (LineSegment ls : lines) {
-			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				System.out.println("collision!!!!");
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}
 		}
 

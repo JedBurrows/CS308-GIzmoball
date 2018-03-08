@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Model.Exceptions.NoSuchGizmoException;
-import Model.IGizmo;
+import Model.Gizmos.IGizmo;
 
 public class KeyPressListener implements KeyListener {
     private HashMap<Integer, List<String>> keyPressEvents;

@@ -149,7 +149,7 @@ public class BoardPanel extends JPanel implements Observer {
 		}
 
 
-		if (!board.isPlayMode()) {
+		if (!board.isRunMode()) {
 			//Draw Grid Lines
 			g.setColor(Color.GRAY);
 			for (int x = Lwidth; x < width; x += Lwidth) {
