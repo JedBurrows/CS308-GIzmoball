@@ -7,22 +7,16 @@ import java.util.ArrayList;
 
 public interface IGizmo {
 
-	/**
-	 * Action performed by gizmo when struck by ball
-	 */
-	public void action();
 
+//	  Action performed by gizmo when struck by ball
+	void action(double tickTime);
 
-	/**
-	 * Rotate gizmo 90 deg
-	 */
-	public void rotate();
-
-	public int getRotation();
-
+//	  Rotate gizmo 90 deg
+	void rotate();
+	int getRotation();
 
 	/**
-	 * Retruns ID of GIZMO
+	 * Returns ID of GIZMO
 	 * <p>
 	 * ID's:
 	 * Triangle 'T'+ number
@@ -31,7 +25,7 @@ public interface IGizmo {
 	 * Flippers 'RF' /'LF' + number
 	 * Balls 'B' + number
 	 */
-	public String getID();
+	String getID();
 
 	void createLineSegments();
 
@@ -45,9 +39,14 @@ public interface IGizmo {
 
 	int getyPos();
 
+	int getx2Pos();
+
+	int gety2Pos();
+
 	void setxPos(int x);
 
 	void setyPos(int y);
 
+	void setKeyPress();
 
 }

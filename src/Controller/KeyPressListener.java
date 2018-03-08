@@ -7,89 +7,90 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import Model.Exceptions.NoSuchGizmoException;
+import Model.Gizmos.IGizmo;
 
 public class KeyPressListener implements KeyListener {
-	private HashMap<Integer, List<String>> keyPressEvents;
-	private HashMap<Integer, List<String>> keyReleaseEvents;
+    private HashMap<Integer, List<String>> keyPressEvents;
+    private HashMap<Integer, List<String>> keyReleaseEvents;
 
-	private Board board;
-
-
-	public KeyPressListener(Board board) {
-		this.board = board;
-		keyPressEvents = new HashMap<>();
-		keyReleaseEvents = new HashMap<>();
-	}
+    private Board board;
 
 
-	@Override
-	public void keyTyped(KeyEvent e) {
+    public KeyPressListener(Board board) {
+        this.board = board;
+        keyPressEvents = new HashMap<>();
+        keyReleaseEvents = new HashMap<>();
+    }
 
-	}
 
-	//TODO Dup code, cleanup?
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
+    @Override
+    public void keyTyped(KeyEvent e) {
 
-		if (keyPressEvents.containsKey(keyCode)) {
+    }
 
-			List<String> list = keyPressEvents.get(keyCode);
+    //TODO Dup code, cleanup?
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
 
-			for (String id : list) {
-				try {
-					board.getGizmoByID(id).action();
-				} catch (NoSuchGizmoException ex) {
+//		if (keyPressEvents.containsKey(keyCode)) {
 
-				}
-			}
-		}
-	}
+//			List<String> list = keyPressEvents.get(keyCode);
+        if (keyCode == KeyEvent.VK_LEFT) {
+            for (IGizmo g : board.getGizmos()) {
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int keyCode = e.getKeyCode();
+                    g.setKeyPress();
 
-		if (keyReleaseEvents.containsKey(keyCode)) {
+            }
+//			}
+        }
+    }
 
-			List<String> list = keyReleaseEvents.get(keyCode);
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
 
-			for (String id : list) {
-				try {
-					board.getGizmoByID(id).action();
-				} catch (NoSuchGizmoException ex) {
+        if (keyReleaseEvents.containsKey(keyCode)) {
 
-				}
-			}
-		}
+            List<String> list = keyReleaseEvents.get(keyCode);
 
-	}
+            for (String id : list) {
+                try {
+                    board.getGizmoByID(id).setKeyPress();
+                } catch (NoSuchGizmoException ex) {
 
-	public boolean addKeyPressEvent(int event, String id) {
-		if (keyPressEvents.containsKey(event)) {
-			keyPressEvents.get(event).add(id);
-		} else {
-			List<String> list = new ArrayList<>();
-			list.add(id);
-			keyPressEvents.put(event, list);
-		}
-		return true;
+                }
+            }
+        }
 
-	}
+    }
 
-	public boolean addKeyReleaseEvent(int event, String id) {
+    public boolean addKeyPressEvent(int event, String id) {
+        if (keyPressEvents.containsKey(event)) {
+            keyPressEvents.get(event).add(id);
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyPressEvents.put(event, list);
+        }
+        return true;
 
-		if (keyReleaseEvents.containsKey(event)) {
-			keyReleaseEvents.get(event).add(id);
+    }
 
-		} else {
-			List<String> list = new ArrayList<>();
-			list.add(id);
-			keyReleaseEvents.put(event, list);
-		}
-		return true;
+    public boolean addKeyReleaseEvent(int event, String id) {
 
-	}
+        if (keyReleaseEvents.containsKey(event)) {
+            keyReleaseEvents.get(event).add(id);
+
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyReleaseEvents.put(event, list);
+        }
+        return true;
+
+    }
 }
 

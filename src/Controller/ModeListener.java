@@ -27,9 +27,11 @@ public class ModeListener implements ActionListener {
         System.out.println(arg);
         if (arg.equals("Run")) {
             frame.switchToRun();
+            board.setRunMode();
 
         } else if (arg.equals("Build")) {
             frame.switchToBuild();
+            board.setRunMode();
         }
 
 

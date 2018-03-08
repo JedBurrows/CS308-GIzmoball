@@ -17,11 +17,15 @@ public class GameBoardListener implements MouseListener {
     private JComboBox<String> gizmo;
     private String mode;
     private BoardPanel boardPanel;
+    private int l;
+    private GizmoCreator gizmoCreator;
 
-    public GameBoardListener(BoardPanel boardPanel, IBoard b,JComboBox<String> gizmo) {
-        this.boardPanel = boardPanel;
+    public GameBoardListener(BoardPanel bP, IBoard b,JComboBox<String> gizmo) {
+        this.boardPanel = bP;
         board = b;
         this.gizmo = gizmo;
+        l=boardPanel.getDimension()/20;
+        gizmoCreator = new GizmoCreator();
     }
 
     @Override
@@ -37,14 +41,16 @@ public class GameBoardListener implements MouseListener {
             gizmoMenu.show(e.getComponent(), e.getX(), e.getY());
         } else if (SwingUtilities.isLeftMouseButton(e)) {
 
-            GizmoCreator gizmoCreator = new GizmoCreator();
+
             String g = gizmo.getSelectedItem().toString();
             System.out.println(g);
-            int x = e.getX()/40;
-            int y = e.getY()/40;
-            System.out.println(x);
-            System.out.println(y);
-            System.out.println("Add was: " +board.addGizmo(gizmoCreator.createGizmo(g,x,y),x,y));
+            int x = e.getX()/l;
+            int y = e.getY()/l;
+
+            System.out.println("this x = " + x);
+            System.out.println("this y = " + y);
+
+            board.addGizmo(gizmoCreator.createGizmo(g,x,y));
             boardPanel.repaint();
         }
 

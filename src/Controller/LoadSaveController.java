@@ -160,7 +160,7 @@ public class LoadSaveController implements ActionListener {
                                             x = scanner.nextFloat();
                                             if (scanner.hasNextFloat()) {
                                                 y = scanner.nextFloat();
-                                                board.moveGizmoBall(name, x, y);
+                                                board.moveBall();
                                             }
 
                                         } else if (scanner.hasNextInt()) {
@@ -239,11 +239,11 @@ public class LoadSaveController implements ActionListener {
 //                                                board.addGizmo(gizmoCreator.createGizmo(name, x1, y1), x1, y1);
 												switch (element) {
 													case "Square":
-														board.addGizmo(new Square(name, x1, y1), x1, y1);
+														board.addGizmo(new Square(name, x1, y1));
 														System.out.println("Created new " + element);
 														break;
 													case "Circle":
-														board.addGizmo(new GizmoCircle(name, x1, y1), x1, y1);
+														board.addGizmo(new GizmoCircle(name, x1, y1));
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
@@ -251,11 +251,11 @@ public class LoadSaveController implements ActionListener {
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_RIGHT), x1, y1);
+														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_RIGHT));
 														System.out.println("Created new " + element);
 														break;
 													case "LeftFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_LEFT), x1, y1);
+														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_LEFT));
 														System.out.println("Created new " + element);
 														break;
 												}

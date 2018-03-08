@@ -6,7 +6,6 @@ import physics.Circle;
 import physics.LineSegment;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 public interface IBoard  {
 
@@ -30,17 +29,19 @@ public interface IBoard  {
 
         public void removeConnector(IGizmo gizmo);
 
-        public boolean addGizmo(IGizmo gizmo, int x, int y);
+        public boolean addGizmo(IGizmo gizmo);
 
         public boolean deleteGizmo(String id);
 
         public boolean moveGizmo(String id, int newX, int newY);
 
-        public boolean moveGizmoBall(String name, float x, float y);
+//        public boolean moveGizmoBall(String name, float x, float y);
 
         public IGizmo getGizmoByID(String id) throws NoSuchGizmoException;
 
-        public boolean isPlayMode();
+        public void setRunMode();
+
+        public boolean isRunMode();
 
         public ArrayList<IGizmo> getGizmos();
 
@@ -57,10 +58,6 @@ public interface IBoard  {
         public void addLine(LineSegment l);
 
         public void addCircle(Circle c);
-
-        public void addGizmo(IGizmo g);
-
-        public void setL(double width);
 
         public void setBallSpeed(int x, int y);
 
