@@ -119,7 +119,7 @@ public class BoardPanel extends JPanel implements Observer {
 
                         Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(20, BasicStroke.CAP_ROUND, 1));
-                        g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight+ (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight* yDivider)));
+                        g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
                     }
                     if (direction && rotation == 0) {
                         xPos++;
@@ -128,11 +128,10 @@ public class BoardPanel extends JPanel implements Observer {
                         System.out.println("right flipper");
                         Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth / 2, BasicStroke.CAP_ROUND, 1));
-                        g2.drawLine((int) (xPos * Lwidth - (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth - (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight* yDivider)));
+                        g2.drawLine((int) (xPos * Lwidth - (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth - (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
                     }
 
             }
-
 
             //Draw Absorber
             g.setColor(Color.MAGENTA);
@@ -144,9 +143,7 @@ public class BoardPanel extends JPanel implements Observer {
                     for (int yPos = y1; yPos <= y2; yPos++) {
                         g.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
                     }
-
                 }
-
             }
 
             g.setColor(Color.BLUE);
@@ -171,29 +168,32 @@ public class BoardPanel extends JPanel implements Observer {
             }
 
 
-            if (!board.isRunMode()) {
-                //Draw Grid Lines
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setStroke(new BasicStroke(1));
-                g2.setColor(Color.GRAY);
-                for (int x = Lwidth; x < width; x += Lwidth) {
-                    g2.drawLine(x, 0, x, height);
-                }
-                for (int y = Lheight; y < height; y += Lheight) {
-                    g2.drawLine(0, y, height, y);
-                }
+//                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
+//                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
+        }
 
 
-                g.setColor(Color.BLUE);
-                ArrayList<Connector> connectors = board.getConnectors();
+        if (!board.isRunMode()) {
+            //Draw Grid Lines
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(1));
+            g2.setColor(Color.GRAY);
+            for (int x = Lwidth; x < width; x += Lwidth) {
+                g2.drawLine(x, 0, x, height);
+            }
+            for (int y = Lheight; y < height; y += Lheight) {
+                g2.drawLine(0, y, height, y);
+            }
+        }
 
-                for (Connector connection : connectors) {
-                    IGizmo source = connection.getSource(), target = connection.getTarget();
+        g.setColor(Color.BLUE);
+        ArrayList<Connector> connectors = board.getConnectors();
+
+        for (Connector connection : connectors) {
+            IGizmo source = connection.getSource(), target = connection.getTarget();
 
 //                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
 //                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
-                }
-            }
         }
     }
 

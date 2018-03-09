@@ -16,9 +16,6 @@ public class GBallFrame{
 	public GBallFrame(Board board){
 		frame = new JFrame("Gizmoball");
 
-
-
-
 		buildPanel = new BuildGUI(this,board);
 
 		runPanel = new RunGUI(this,board);

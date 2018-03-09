@@ -177,8 +177,6 @@ public class Flipper implements IGizmo {
 		this.yPos = y;
 	}
 
-
-
 	public double getAngle(){
 		return angle;
 	}

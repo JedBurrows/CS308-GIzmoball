@@ -15,7 +15,6 @@ public class Main {
             public void run() {
                 Board board = new Board();
                 GBallFrame frame = new GBallFrame(board);
-
             }
         });
 
