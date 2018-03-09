@@ -3,13 +3,12 @@ package View;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-import java.awt.color.*;
-public class ColorChooserExample extends JFrame {
+public class ColorChooserExample extends JFrame implements ActionListener {
     JButton b;
     Container c;
     Color col;
 
-    public void colourPicker() {
+    public void actionPerformed(ActionEvent e) {
         Color initialcolor=Color.RED;
         Color color=JColorChooser.showDialog(this,"Select a color",initialcolor);
         System.out.println("Color is"+ color);
