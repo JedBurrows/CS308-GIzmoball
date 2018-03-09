@@ -445,6 +445,12 @@ public class Board extends Observable implements IBoard{
 	}
 
 
+	public void clearGizmos(){
+		for (boolean[] row : grid) {
+			Arrays.fill(row, false);
+		}
+
+	}
 
 
 }
