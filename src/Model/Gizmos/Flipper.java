@@ -193,18 +193,7 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public boolean getDirection() {
-		return false;
+		return direction;
 	}
-
-
-	public Point[] getPoints() {
-		return new Point[] {
-				new Point(xpos, ypos),
-				new Point(x2pos, y2pos)
-		};
-	}
-
-
-
 
 }
