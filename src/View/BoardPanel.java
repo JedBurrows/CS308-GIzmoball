@@ -14,7 +14,11 @@ import java.util.Observer;
 public class BoardPanel extends JPanel implements Observer {
 
     private Board board;
+    private ColorChooserExample colours;
     private int dimension = 800;
+    private Color col;
+    private Color pls;
+
 
 
     public BoardPanel(IBoard b) {
@@ -46,7 +50,14 @@ public class BoardPanel extends JPanel implements Observer {
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
-            g.setColor(Color.GREEN);
+            pls = colours.getColorGiz();
+            System.out.println("pls is" + pls);
+            g.setColor(pls);
+           //g.setColor(Color.GREEN);
+
+
+
+
 
             String type = gizmo.getClass().getSimpleName();
             switch (type) {
@@ -90,27 +101,20 @@ public class BoardPanel extends JPanel implements Observer {
                     }
                     g.fillPolygon(xPoints, yPoints, 3);
                     break;
-                //TODO BElow is breaking MVC because creating Flipper - FIX ME
                 case "Flipper":
                     g.setColor(Color.YELLOW);
-                    Flipper flipper = (Flipper) gizmo;
-                    int orientation = flipper.getOrientation();
-                    int rotation = flipper.getRotation();
-                    int xPos = flipper.getxPos(), yPos = flipper.getyPos();
+                    int xPos = gizmo.getxPos();
+                    int yPos = gizmo.getyPos();
+                    int x2Pos = gizmo.getx2Pos();
+                    int y2Pos = gizmo.gety2Pos();
+                    int rotation = gizmo.getRotation();
+                    boolean direction = gizmo.getDirection();
 
-                    if ((orientation == Flipper.FLIPPER_LEFT && rotation == 0) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 2)) {
-                        g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth / 2, 2 * Lheight, Lwidth / 2, Lheight / 2);
-                    } else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 1) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 3)) {
-
-                        g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
-
-
-                    } else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 2) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 0)) {
-                        g.fillRoundRect(((xPos + 1) * Lwidth) + Lwidth / 2, yPos * Lheight, Lwidth / 2, Lheight * 2, Lwidth / 2, Lheight / 2);
-
-
-                    } else if ((orientation == Flipper.FLIPPER_LEFT && rotation == 3) || (orientation == Flipper.FLIPPER_RIGHT && rotation == 1)) {
-                        g.fillRoundRect(xPos * Lwidth, ((yPos + 1) * Lheight) + Lheight / 2, Lwidth * 2, Lheight / 2, Lwidth / 2, Lheight / 2);
+                    if (!direction && rotation == 0){
+//                        g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth / 2, 2 * Lheight, Lwidth / 2, Lheight / 2);
+                        Graphics2D g2 = (Graphics2D) g;
+                        g2.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
+                        g2.drawLine(xPos * Lwidth, yPos * Lheight, x2Pos * Lwidth, y2Pos * Lheight);
 
                     }
 

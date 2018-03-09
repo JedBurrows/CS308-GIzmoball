@@ -167,6 +167,11 @@ public class Flipper implements IGizmo {
 		keyPress = !keyPress;
 	}
 
+	@Override
+	public void setColor() {
+
+	}
+
 	public Point[] getPoints() {
 		return new Point[] {
 				new Point(xpos, ypos),
