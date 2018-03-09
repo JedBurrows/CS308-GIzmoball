@@ -66,6 +66,7 @@ public class Flipper implements IGizmo {
 	public void action(double tickTime) {
 		if (!keyPress){
 			if (angle < maxAngle) {
+				System.out.println("here1");
 				angle = angle + (angVel * tickTime);
 				if (angle > 90) {
 					angle = 90;
@@ -82,6 +83,7 @@ public class Flipper implements IGizmo {
 			}
 		}else if(keyPress){
 			if (angle >= minAngle) {
+				System.out.println("here2");
 				angle = angle +(-angVel * tickTime);
 				if (angle < 0){
 					angle = 0;
@@ -181,12 +183,28 @@ public class Flipper implements IGizmo {
 		return angle;
 	}
 
+	public double getY() {
+		return ypos;
+	}
+
 	public void setKeyPress(){
 		keyPress = !keyPress;
 	}
 
 	@Override
 	public boolean getDirection() {
-		return direction;
+		return false;
 	}
+
+
+	public Point[] getPoints() {
+		return new Point[] {
+				new Point(xpos, ypos),
+				new Point(x2pos, y2pos)
+		};
+	}
+
+
+
+
 }

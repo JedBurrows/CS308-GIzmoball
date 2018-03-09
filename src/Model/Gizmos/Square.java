@@ -1,5 +1,6 @@
 package Model.Gizmos;
 
+import View.ColorChooserExample;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -9,9 +10,11 @@ public class Square implements IGizmo {
 
     private String id;
     private int xPos, yPos;
+
     private ArrayList<LineSegment> lines;
     private ArrayList<Circle> circles;
     private static final int size = 1;
+
 
 
     public Square(String id, int x, int y) {

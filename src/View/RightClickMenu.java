@@ -1,6 +1,10 @@
 package View;
 
+import Controller.GameBoardListener;
+
 import javax.swing.*;
+import java.awt.event.ActionListener;
+
 
 public class RightClickMenu extends JPopupMenu {
 
