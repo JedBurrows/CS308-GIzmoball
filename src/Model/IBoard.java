@@ -61,4 +61,6 @@ public interface IBoard  {
 
         public void setBallSpeed(int x, int y);
 
+        public void clearGizmos();
+
 }

@@ -142,6 +142,16 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
+	public int getWidth() {
+		return 0;
+	}
+
+	@Override
+	public int getHeight() {
+		return 0;
+	}
+
+	@Override
 	public void setxPos(int x) {
 		this.xPos = x;
 	}
@@ -168,9 +178,10 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
-	public void setColor() {
-
+	public boolean getDirection() {
+		return false;
 	}
+
 
 	public Point[] getPoints() {
 		return new Point[] {

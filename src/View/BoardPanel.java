@@ -50,10 +50,8 @@ public class BoardPanel extends JPanel implements Observer {
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
-            pls = colours.getColorGiz();
-            System.out.println("pls is" + pls);
-            g.setColor(pls);
-           //g.setColor(Color.GREEN);
+
+           g.setColor(Color.GREEN);
 
 
 

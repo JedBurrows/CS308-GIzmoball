@@ -6,15 +6,17 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import Model.IBoard;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class BuildGUI{
-	private JButton btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
+	private JButton btnGizmo,btnColor, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
 	private JComboBox<String> boxGizmo;
 	private String mode;
+	private Container color;
 
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
@@ -59,6 +61,11 @@ public class BuildGUI{
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo = new JComboBox<>();
 
+
+		btnColor=new JButton("Choose a Colour");
+		btnGizmo.setPreferredSize(new Dimension(150, 50));
+		btnColor.addActionListener(new ColorChooserExample());
+
 		boxGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo.addItem("Square");
 		boxGizmo.addItem("Circle");
@@ -77,6 +84,7 @@ public class BuildGUI{
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
+		btnClear.addActionListener(new ClearBoardPressListener(board, boardPanel));
 
 		btnCon = new JButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
@@ -141,6 +149,7 @@ public class BuildGUI{
 		c2.insets = new Insets(5, 0, 5, 0);
 		c2.gridwidth = 0;
 
+		panelBtn.add(btnColor,c2);
 		panelBtn.add(btnGizmo, c1);
 		panelBtn.add(boxGizmo, c2);
 		panelBtn.add(btnBall, c1);

@@ -88,6 +88,16 @@ public class Triangle implements IGizmo {
     }
 
     @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getHeight() {
+        return 0;
+    }
+
+    @Override
     public void setxPos(int x) {
         this.xPos = x;
     }
@@ -103,9 +113,11 @@ public class Triangle implements IGizmo {
     }
 
     @Override
-    public void setColor() {
-
+    public boolean getDirection() {
+        return false;
     }
+
+
 
     public int getRotation() {
         return rotation;
