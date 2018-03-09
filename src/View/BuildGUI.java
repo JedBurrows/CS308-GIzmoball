@@ -73,9 +73,7 @@ public class BuildGUI{
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
 		btnBall = new JButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
-		//btnBall.addMouseListener(new MousePressListener(MousePressListener.Type.ADD_BALL, this));;
-		////text field for ball////
-
+		btnBall.addActionListener(new AddBallPressListener(this));
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));

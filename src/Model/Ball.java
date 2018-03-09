@@ -26,6 +26,16 @@ public class Ball implements IBall{
 
     }
 
+    public Ball(String n, float x1, float y1) {
+        name = n;
+        x = x1;
+        y = y1;
+        velocity = new Vect(0.5,0.5);
+        radius = 0.25;
+        stopped = false;
+
+    }
+
     public Vect getVelo() {
         return velocity;
     }

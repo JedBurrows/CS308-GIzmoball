@@ -75,9 +75,12 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	public void addGizmoBall(Ball ball) {
+	public void addGizmoBall(Ball ball){
 		this.ball = ball;
+	}
 
+	public void addGizmoBall(float x, float y) {
+		this.ball = new Ball("ball",x,y);
 	}
 
 	public void setRunMode(){
