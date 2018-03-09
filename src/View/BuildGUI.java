@@ -6,14 +6,19 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import Model.IBoard;
 
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-
 public class BuildGUI{
-	private JButton btnGizmo,btnColor, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
+	private JToggleButton btnGizmo;
+	private JToggleButton btnColor;
+	private JToggleButton btnBall;
+	private JButton btnClear;
+	private JToggleButton btnCon;
+	private JToggleButton btnDisc;
+	private JToggleButton btnKeyCon;
+	private JToggleButton btnKeyDisc;
+	private JButton btnRunMode;
 	private JComboBox<String> boxGizmo;
 	private String mode;
 	private Container color;
@@ -57,12 +62,12 @@ public class BuildGUI{
 	}
 
 	private void initialiseButtons(GBallFrame parent) {
-		btnGizmo = new JButton("Add Gizmo");
+		btnGizmo = new JToggleButton("Add Gizmo");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo = new JComboBox<>();
 
 
-		btnColor=new JButton("Choose a Colour");
+		btnColor=new JToggleButton("Choose a Colour");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		btnColor.addActionListener(new ColorChooserExample());
 
@@ -78,7 +83,7 @@ public class BuildGUI{
 		btnGizmo.addActionListener(new AddGizmoPressListener(this));
 		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
-		btnBall = new JButton("Add Ball");
+		btnBall = new JToggleButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
 		btnBall.addActionListener(new AddBallPressListener(this));
 
@@ -86,16 +91,16 @@ public class BuildGUI{
 		btnClear.setPreferredSize(new Dimension(150, 50));
 		btnClear.addActionListener(new ClearBoardPressListener(board, boardPanel));
 
-		btnCon = new JButton("Connect");
+		btnCon = new JToggleButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
 
-		btnDisc = new JButton("Disconnect");
+		btnDisc = new JToggleButton("Disconnect");
 		btnDisc.setPreferredSize(new Dimension(150, 50));
 
-		btnKeyCon = new JButton("Key Connect");
+		btnKeyCon = new JToggleButton("Key Connect");
 		btnKeyCon.setPreferredSize(new Dimension(150, 50));
 
-		btnKeyDisc = new JButton("Key Disconnect");
+		btnKeyDisc = new JToggleButton("Key Disconnect");
 		btnKeyDisc.setPreferredSize(new Dimension(150, 50));
 
 
@@ -201,7 +206,31 @@ public class BuildGUI{
 
 	public void setMode(String mode) {
 		this.mode = mode;
+		clearSelected();
+
+		switch (this.mode){
+			case "AddGizmo":
+				btnGizmo.setSelected(true);
+				break;
+			case "AddBall":
+				btnBall.setSelected(true);
+		}
+
+
 	}
+
+	private void clearSelected() {
+
+		btnGizmo.setSelected(false);
+		btnColor.setSelected(false);
+		btnBall.setSelected(false);
+		btnCon.setSelected(false);
+		btnDisc.setSelected(false);
+		btnKeyCon.setSelected(false);
+		btnKeyDisc.setSelected(false);
+
+	}
+
 
 
 
