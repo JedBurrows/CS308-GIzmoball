@@ -9,19 +9,19 @@ import java.util.ArrayList;
 
 public interface IBoard  {
 
-        public void addGizmoBall(Ball ball);
+        void addGizmoBall(float x, float y);
 
-        public boolean setAbsorber(Absorber absorber);
+        boolean setAbsorber(Absorber absorber);
 
-        public boolean hasAbsorber();
+        boolean hasAbsorber();
 
-        public boolean hasGizmoBall();
+        boolean hasGizmoBall();
 
-        public void setFriction(float mu, float mu2);
+        void setFriction(float mu, float mu2);
 
-        public void setGravity(float gravity);
+        void setGravity(float gravity);
 
-        public Ball getGizmoBall();
+        Ball getGizmoBall();
 
         public Absorber getAbsorber();
 

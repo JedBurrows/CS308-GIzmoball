@@ -2,20 +2,21 @@ package Controller;
 
 import View.BuildGUI;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class AddBallPressListener implements ActionListener {
 
+    BuildGUI gui;
 
-    public AddBallPressListener(){
+    public AddBallPressListener(BuildGUI gui){
+        this.gui = gui;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        gui.setMode("AddBall");
+        System.out.println(gui.getMode());
     }
 }
+
