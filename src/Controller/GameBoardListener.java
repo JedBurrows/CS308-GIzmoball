@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.GizmoCreator;
+import Model.IBall;
 import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
@@ -17,7 +18,7 @@ public class GameBoardListener implements MouseListener {
     private JComboBox<String> gizmo;
     private String mode;
     private BoardPanel boardPanel;
-    private int l;
+    private float l;
     private GizmoCreator gizmoCreator;
     private BuildGUI gui;
 
@@ -41,20 +42,42 @@ public class GameBoardListener implements MouseListener {
         if (SwingUtilities.isRightMouseButton(e)) {
             RightClickMenu gizmoMenu = new RightClickMenu();
             gizmoMenu.show(e.getComponent(), e.getX(), e.getY());
+            switch(gui.getMode()){
+                case("Delete Gizmo"):
+                    String d = gizmo.getSelectedItem().toString();
+                    System.out.println(d);
+                    System.out.println("Delete gizmo");
+
+                    board.deleteGizmo(d);
+                    boardPanel.repaint();
+            }
         } else if (SwingUtilities.isLeftMouseButton(e)) {
+            System.out.println(gui.getMode());
             switch (gui.getMode()){
                 case("AddGizmo"):
 
                     String g = gizmo.getSelectedItem().toString();
-                    System.out.println(g);
-                    int x = e.getX()/l;
-                    int y = e.getY()/l;
+                    int x = (int) (e.getX()/l);
+                    int y = (int) (e.getY()/l);
 
                     board.addGizmo(gizmoCreator.createGizmo(g,x,y));
                     boardPanel.repaint();
                     break;
+                case("AddBall"):
+                    float x1 = e.getX()/l;
+                    float y1 = e.getY()/l;
+                    System.out.println(e.getX());
+                    System.out.println(e.getY());
+                    System.out.println(x1);
+                    System.out.println(y1);
+                    board.addGizmoBall(x1,y1);
+                    boardPanel.repaint();
+                    break;
                 default:
                     break;
+
+
+
             }
 
 
