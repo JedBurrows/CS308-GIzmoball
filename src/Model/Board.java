@@ -157,9 +157,6 @@ public class Board extends Observable implements IBoard{
 		int x = gizmo.getxPos();
 		int y = gizmo.getyPos();
 		String gizmoClass = gizmo.getClass().getSimpleName();
-        System.out.println("gizmoClass: " + gizmoClass);
-		System.out.println("x: " + x);
-		System.out.println("y: " + y);
 
 		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
 

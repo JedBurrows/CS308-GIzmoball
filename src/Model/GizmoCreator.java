@@ -15,7 +15,7 @@ public class GizmoCreator {
 		id = id.replaceAll("[a-z]","");
 
 		id = id.concat(String.format("%02d",x));
-		id = id.concat(String.format("%02d",x));
+		id = id.concat(String.format("%02d",y));
 
 		switch (type) {
 			case "Square":

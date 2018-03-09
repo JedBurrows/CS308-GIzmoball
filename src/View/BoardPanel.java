@@ -30,6 +30,7 @@ public class BoardPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
 
         final int width = this.getWidth();
@@ -43,16 +44,13 @@ public class BoardPanel extends JPanel implements Observer {
         g.fillRect(0, 0, width, height);
 
         ArrayList<IGizmo> gizmos = board.getGizmos();
-        System.out.println("1!");
 
         for (IGizmo gizmo : gizmos) {
             g.setColor(Color.GREEN);
-            System.out.println("2!");
 
             String type = gizmo.getClass().getSimpleName();
             switch (type) {
                 case "Square":
-                    System.out.println("3!");
                     g.fillRect(gizmo.getxPos() * Lwidth, gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "GizmoCircle":
