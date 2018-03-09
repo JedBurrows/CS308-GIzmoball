@@ -102,6 +102,11 @@ public class Triangle implements IGizmo {
 
     }
 
+    @Override
+    public void setColor() {
+
+    }
+
     public int getRotation() {
         return rotation;
     }

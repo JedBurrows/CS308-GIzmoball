@@ -14,7 +14,11 @@ import java.util.Observer;
 public class BoardPanel extends JPanel implements Observer {
 
     private Board board;
+    private ColorChooserExample colours;
     private int dimension = 800;
+    private Color col;
+    private Color pls;
+
 
 
     public BoardPanel(IBoard b) {
@@ -46,7 +50,14 @@ public class BoardPanel extends JPanel implements Observer {
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
-            g.setColor(Color.GREEN);
+            pls = colours.getColorGiz();
+            System.out.println("pls is" + pls);
+            g.setColor(pls);
+           //g.setColor(Color.GREEN);
+
+
+
+
 
             String type = gizmo.getClass().getSimpleName();
             switch (type) {

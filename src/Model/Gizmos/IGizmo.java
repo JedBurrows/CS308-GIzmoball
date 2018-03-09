@@ -49,4 +49,6 @@ public interface IGizmo {
 
 	void setKeyPress();
 
+	void setColor();
+
 }

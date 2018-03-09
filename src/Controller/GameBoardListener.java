@@ -41,6 +41,15 @@ public class GameBoardListener implements MouseListener {
         if (SwingUtilities.isRightMouseButton(e)) {
             RightClickMenu gizmoMenu = new RightClickMenu();
             gizmoMenu.show(e.getComponent(), e.getX(), e.getY());
+            switch(gui.getMode()){
+                case("Delete Gizmo"):
+                    String d = gizmo.getSelectedItem().toString();
+                    System.out.println(d);
+                    System.out.println("Delete gizmo");
+
+                    board.deleteGizmo(d);
+                    boardPanel.repaint();
+            }
         } else if (SwingUtilities.isLeftMouseButton(e)) {
             switch (gui.getMode()){
                 case("AddGizmo"):
@@ -55,6 +64,9 @@ public class GameBoardListener implements MouseListener {
                     break;
                 default:
                     break;
+
+
+
             }
 
 

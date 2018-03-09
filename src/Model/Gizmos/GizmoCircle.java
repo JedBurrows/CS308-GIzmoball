@@ -99,4 +99,9 @@ public class GizmoCircle implements IGizmo {
     public void setKeyPress() {
 
     }
+
+    @Override
+    public void setColor() {
+
+    }
 }
