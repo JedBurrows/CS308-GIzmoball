@@ -1,7 +1,6 @@
 package View;
 
 import Model.*;
-import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
 
 
@@ -50,22 +49,18 @@ public class BoardPanel extends JPanel implements Observer {
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
-            pls = colours.getColorGiz();
-            System.out.println("pls is" + pls);
+//            pls = colours.getColorGiz();
+//            System.out.println("pls is" + pls);
             g.setColor(pls);
            //g.setColor(Color.GREEN);
-
-
-
-
 
             String type = gizmo.getClass().getSimpleName();
             switch (type) {
                 case "Square":
-                    g.fillRect(gizmo.getxPos() * Lwidth, gizmo.getyPos() * Lheight, Lwidth, Lheight);
+                    g.fillRect((int)gizmo.getxPos() * Lwidth, (int)gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "GizmoCircle":
-                    g.fillOval(gizmo.getxPos() * Lwidth, gizmo.getyPos() * Lheight, Lwidth, Lheight);
+                    g.fillOval((int)gizmo.getxPos() * Lwidth, (int)gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":
                     int rotationTriangle;
@@ -74,10 +69,10 @@ public class BoardPanel extends JPanel implements Observer {
 
                     Point LTopLeft, LTopRight, LBottomLeft, LBottomRight;
 
-                    LTopLeft = new Point(gizmo.getxPos() * Lwidth, gizmo.getyPos() * Lheight);
-                    LTopRight = new Point(gizmo.getxPos() * Lwidth + (Lwidth), gizmo.getyPos() * Lheight);
-                    LBottomLeft = new Point(gizmo.getxPos() * Lwidth, gizmo.getyPos() * Lheight + (Lheight));
-                    LBottomRight = new Point(gizmo.getxPos() * Lwidth + (Lwidth), gizmo.getyPos() * Lheight + (Lheight));
+                    LTopLeft = new Point((int)gizmo.getxPos() * Lwidth, (int)gizmo.getyPos() * Lheight);
+                    LTopRight = new Point((int)gizmo.getxPos() * Lwidth + (Lwidth), (int)gizmo.getyPos() * Lheight);
+                    LBottomLeft = new Point((int)gizmo.getxPos() * Lwidth, (int)gizmo.getyPos() * Lheight + (Lheight));
+                    LBottomRight = new Point((int)gizmo.getxPos() * Lwidth + (Lwidth), (int)gizmo.getyPos() * Lheight + (Lheight));
 
                     int xPoints[] = new int[4], yPoints[] = new int[4];
                     switch (rotationTriangle) {
@@ -103,19 +98,35 @@ public class BoardPanel extends JPanel implements Observer {
                     break;
                 case "Flipper":
                     g.setColor(Color.YELLOW);
-                    int xPos = gizmo.getxPos();
-                    int yPos = gizmo.getyPos();
-                    int x2Pos = gizmo.getx2Pos();
-                    int y2Pos = gizmo.gety2Pos();
+                    double xPos = gizmo.getxPos();
+                    double yPos = gizmo.getyPos();
+                    double x2Pos = gizmo.getx2Pos();
+                    double y2Pos = gizmo.gety2Pos();
                     int rotation = gizmo.getRotation();
                     boolean direction = gizmo.getDirection();
+                    double angle = gizmo.getAngle();
+
+                    angle = angle / 90.0;
+
+
+                    double xDivider = (angle * 0.5) - 0.25;
+                    double yDivider = 0.25 - (angle * 0.5);
+
 
                     if (!direction && rotation == 0){
-//                        g.fillRoundRect(xPos * Lwidth, yPos * Lheight, Lwidth / 2, 2 * Lheight, Lwidth / 2, Lheight / 2);
                         Graphics2D g2 = (Graphics2D) g;
-                        g2.setStroke(new BasicStroke(20,BasicStroke.CAP_ROUND,1));
-                        g2.drawLine(xPos * Lwidth, yPos * Lheight, x2Pos * Lwidth, y2Pos * Lheight);
+                        g2.setStroke(new BasicStroke(Lwidth/2,BasicStroke.CAP_ROUND,1));
+                        g2.drawLine((int)(xPos * Lwidth + (Lwidth/4)), (int)(yPos * Lheight + (Lwidth/4)), (int)(x2Pos * Lwidth + (Lwidth*xDivider)), (int)(y2Pos * Lheight + (Lwidth*yDivider)));
+                    }
 
+                    if (direction && rotation == 0){
+                        xPos++;
+                        x2Pos++;
+
+                        System.out.println("right flipper");
+                        Graphics2D g2 = (Graphics2D) g;
+                        g2.setStroke(new BasicStroke(Lwidth/2,BasicStroke.CAP_ROUND,1));
+                        g2.drawLine((int)(xPos * Lwidth - (Lwidth/4)), (int)(yPos * Lheight + (Lwidth/4)), (int)(x2Pos * Lwidth - (Lwidth*xDivider)), (int)(y2Pos * Lheight + (Lwidth*yDivider)));
                     }
 
                     break;
@@ -162,12 +173,14 @@ public class BoardPanel extends JPanel implements Observer {
 
         if (!board.isRunMode()) {
             //Draw Grid Lines
-            g.setColor(Color.GRAY);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(1));
+            g2.setColor(Color.GRAY);
             for (int x = Lwidth; x < width; x += Lwidth) {
-                g.drawLine(x, 0, x, height);
+                g2.drawLine(x, 0, x, height);
             }
             for (int y = Lheight; y < height; y += Lheight) {
-                g.drawLine(0, y, height, y);
+                g2.drawLine(0, y, height, y);
             }
 
 
@@ -177,8 +190,8 @@ public class BoardPanel extends JPanel implements Observer {
             for (Connector connection : connectors) {
                 IGizmo source = connection.getSource(), target = connection.getTarget();
 
-                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
-                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
+//                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
+//                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
             }
         }
     }

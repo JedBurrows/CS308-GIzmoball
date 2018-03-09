@@ -64,25 +64,35 @@ public class GizmoCircle implements IGizmo {
     }
 
     @Override
-    public int getxPos() {
+    public double getxPos() {
         return xPos;
     }
 
     @Override
-    public int getyPos() {
+    public double getyPos() {
         return yPos;
     }
 
     @Override
-    public int getx2Pos() {
+    public double getx2Pos() {
         //No x2pos
         return -1;
     }
 
     @Override
-    public int gety2Pos() {
+    public double gety2Pos() {
         //No y2pos
         return -1;
+    }
+
+    @Override
+    public int getWidth() {
+        return 1;
+    }
+
+    @Override
+    public int getHeight() {
+        return 1;
     }
 
     @Override
@@ -101,7 +111,12 @@ public class GizmoCircle implements IGizmo {
     }
 
     @Override
-    public void setColor() {
+    public boolean getDirection() {
+        return false;
+    }
 
+    @Override
+    public double getAngle() {
+        return 0;
     }
 }

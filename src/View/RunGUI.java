@@ -1,6 +1,8 @@
 package View;
 
 
+import Controller.KeyPressListener;
+import Controller.MagicKeyListener;
 import Controller.ModeListener;
 import Controller.RunListener;
 import Model.IBoard;
@@ -34,6 +36,7 @@ public class RunGUI {
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
         btnStart.addActionListener(new RunListener(board));
+        btnStart.addKeyListener(new MagicKeyListener(new KeyPressListener(board)));
 
         JButton btnStop = new JButton("Stop");
         btnStop.setPreferredSize(new Dimension(75, 75));

@@ -35,13 +35,13 @@ public interface IGizmo {
 
 	ArrayList<LineSegment> getLines();
 
-	int getxPos();
+	double getxPos();
 
-	int getyPos();
+	double getyPos();
 
-	int getx2Pos();
+	double getx2Pos();
 
-	int gety2Pos();
+	double gety2Pos();
 
 	int getWidth();
 
@@ -54,5 +54,7 @@ public interface IGizmo {
 	void setKeyPress();
 
 	boolean getDirection();
+
+	double getAngle();
 
 }

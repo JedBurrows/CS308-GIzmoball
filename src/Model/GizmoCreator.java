@@ -1,7 +1,11 @@
 package Model;
 
+import Model.Gizmos.IGizmo;
+import Model.Gizmos.Square;
+import Model.Gizmos.GizmoCircle;
+import Model.Gizmos.Triangle;
+import Model.Gizmos.Flipper;
 
-import Model.Gizmos.*;
 
 public class GizmoCreator {
 
@@ -21,8 +25,12 @@ public class GizmoCreator {
 				return new GizmoCircle(id,x, y);
 			case "Triangle":
 				return new Triangle(id,x, y);
-            case "Flipper":
-                return new Flipper(id,x,y,0);
+            case "Left Flipper":
+				System.out.println("here");
+				return new Flipper(id,x,y,false);
+			case "Right Flipper":
+				return new Flipper(id,x,y,true);
+
 		}
 		return null;
 	}

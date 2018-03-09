@@ -7,24 +7,21 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Flipper implements IGizmo {
-	private int xpos;
-	private int ypos;
-	private int x2pos;
-	private int y2pos;
-
-	private int length;
+	private double xpos;
+	private double ypos;
+	private double x2pos;
+	private double y2pos;
 
 	private double maxAngle;
 	private double minAngle;
 	private double angle ;
 	private double angVel;
 
+	//left = false //right = true
+	private boolean direction;
 	private boolean keyPress;
 	//status of activated or not
 	//left and right flipper class
-
-	public static final int FLIPPER_LEFT = 0;
-	public static final int FLIPPER_RIGHT = 1;
 
 	private String id;
 	private ArrayList<LineSegment> lines;
@@ -34,14 +31,16 @@ public class Flipper implements IGizmo {
 	private int xPos, yPos, rotation, orientation;
 
 
-	public Flipper(String id, int x, int y, int orientation) {
-		id = id;
+	public Flipper(String i, int x, int y, boolean d) {
+		id = i;
 
 		rotation = 0;
 
-		orientation = orientation;
 
-		//---------------------------
+		direction = d;
+
+		orientation = 0;
+
 		xpos = x;
 		ypos = y;
 		x2pos = xpos;
@@ -54,6 +53,12 @@ public class Flipper implements IGizmo {
 
 		lines = new ArrayList<>();
 		circles = new ArrayList<>();
+
+		System.out.println("xpos: " + xpos);
+		System.out.println("ypos: " + ypos);
+		System.out.println("x2pos: " + x2pos);
+		System.out.println("y2pos: " + y2pos);
+
 	}
 
 
@@ -61,27 +66,36 @@ public class Flipper implements IGizmo {
 	public void action(double tickTime) {
 		if (!keyPress){
 			if (angle < maxAngle) {
-				System.out.println("here1");
 				angle = angle + (angVel * tickTime);
 				if (angle > 90) {
 					angle = 90;
 				}
-				x2pos = xpos + (int) Math.round(length * Math.cos(Math.toRadians(angle)));
-				y2pos = ypos + (int) Math.round(length * Math.sin(Math.toRadians(angle)));
+				if (!direction) {
+					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
+				}else{
+					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
+				}
+				y2pos = ypos +  (2.0 * Math.sin(Math.toRadians(angle)));
+				System.out.println("lets do an action in loop 1");
 				System.out.println("(x2pos, y2pos) (" + x2pos + ", " + y2pos + ")");
 				System.out.println("angle: " + angle);
 			}
 		}else if(keyPress){
 			if (angle >= minAngle) {
-				System.out.println("here2");
 				angle = angle +(-angVel * tickTime);
 				if (angle < 0){
 					angle = 0;
 				}
-				x2pos = xpos + (int) Math.round(length * Math.cos(Math.toRadians(angle)));
-				y2pos = ypos + (int) Math.round(length * Math.sin(Math.toRadians(angle)));
+				if (!direction) {
+					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
+				}else{
+					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
+				}
+				y2pos = ypos +  (2.0 * Math.sin(Math.toRadians(angle)));
+				System.out.println("lets do an action in loop 2");
 				System.out.println("(x2pos, y2pos) (" + x2pos + ", " + y2pos + ")");
-				System.out.println("angle: " + angle);            }
+				System.out.println("angle: " + angle);
+			}
 		}
 	}
 
@@ -122,23 +136,33 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
-	public int getxPos() {
-		return xPos;
+	public double getxPos() {
+		return xpos;
 	}
 
 	@Override
-	public int getyPos() {
-		return yPos;
+	public double getyPos() {
+		return ypos;
 	}
 
 	@Override
-	public int getx2Pos() {
+	public double getx2Pos() {
 		return x2pos;
 	}
 
 	@Override
-	public int gety2Pos() {
+	public double gety2Pos() {
 		return y2pos;
+	}
+
+	@Override
+	public int getWidth() {
+		return 2;
+	}
+
+	@Override
+	public int getHeight() {
+		return 2;
 	}
 
 	@Override
@@ -151,16 +175,10 @@ public class Flipper implements IGizmo {
 		this.yPos = y;
 	}
 
-	public double getX() {
-		return xpos;
-	}
+
 
 	public double getAngle(){
 		return angle;
-	}
-
-	public double getY() {
-		return ypos;
 	}
 
 	public void setKeyPress(){
@@ -168,18 +186,7 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
-	public void setColor() {
-
+	public boolean getDirection() {
+		return direction;
 	}
-
-	public Point[] getPoints() {
-		return new Point[] {
-				new Point(xpos, ypos),
-				new Point(x2pos, y2pos)
-		};
-	}
-
-
-
-
 }

@@ -187,6 +187,7 @@ public class BuildGUI{
 	}
 
 	public String getMode() {
+		System.out.println("mode: " + mode);
 		return mode;
 	}
 

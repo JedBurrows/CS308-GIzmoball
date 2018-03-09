@@ -1,6 +1,5 @@
 package Model.Gizmos;
 
-import View.ColorChooserExample;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -10,11 +9,9 @@ public class Square implements IGizmo {
 
     private String id;
     private int xPos, yPos;
-
     private ArrayList<LineSegment> lines;
     private ArrayList<Circle> circles;
     private static final int size = 1;
-
 
 
     public Square(String id, int x, int y) {
@@ -76,25 +73,35 @@ public class Square implements IGizmo {
     }
 
     @Override
-    public int getxPos() {
+    public double getxPos() {
         return xPos;
     }
 
     @Override
-    public int getyPos() {
+    public double getyPos() {
         return yPos;
     }
 
     @Override
-    public int getx2Pos() {
+    public double getx2Pos() {
         //No x2pos
         return -1;
     }
 
     @Override
-    public int gety2Pos() {
+    public double gety2Pos() {
         //No y2pos
         return -1;
+    }
+
+    @Override
+    public int getWidth() {
+        return 1;
+    }
+
+    @Override
+    public int getHeight() {
+        return 1;
     }
 
     @Override
@@ -113,7 +120,12 @@ public class Square implements IGizmo {
     }
 
     @Override
-    public void setColor() {
+    public boolean getDirection() {
+        return false;
+    }
 
+    @Override
+    public double getAngle() {
+        return 0;
     }
 }

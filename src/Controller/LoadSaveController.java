@@ -248,11 +248,11 @@ public class LoadSaveController implements ActionListener {
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_RIGHT));
+														board.addGizmo(new Flipper(name, x1, y1, true));
 														System.out.println("Created new " + element);
 														break;
 													case "LeftFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, Flipper.FLIPPER_LEFT));
+														board.addGizmo(new Flipper(name, x1, y1, false));
 														System.out.println("Created new " + element);
 														break;
 												}

@@ -10,16 +10,17 @@ import java.util.List;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
+import Model.IBoard;
 
 public class KeyPressListener implements KeyListener {
     private HashMap<Integer, List<String>> keyPressEvents;
     private HashMap<Integer, List<String>> keyReleaseEvents;
 
-    private Board board;
+    private IBoard board;
 
 
-    public KeyPressListener(Board board) {
-        this.board = board;
+    public KeyPressListener(IBoard b) {
+        board = b;
         keyPressEvents = new HashMap<>();
         keyReleaseEvents = new HashMap<>();
     }
@@ -34,7 +35,6 @@ public class KeyPressListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-
 //		if (keyPressEvents.containsKey(keyCode)) {
 
 //			List<String> list = keyPressEvents.get(keyCode);
@@ -51,19 +51,26 @@ public class KeyPressListener implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_LEFT) {
+            for (IGizmo g : board.getGizmos()) {
 
-        if (keyReleaseEvents.containsKey(keyCode)) {
+                g.setKeyPress();
 
-            List<String> list = keyReleaseEvents.get(keyCode);
-
-            for (String id : list) {
-                try {
-                    board.getGizmoByID(id).setKeyPress();
-                } catch (NoSuchGizmoException ex) {
-
-                }
             }
+//			}
         }
+//        if (keyReleaseEvents.containsKey(keyCode)) {
+
+//            List<String> list = keyReleaseEvents.get(keyCode);
+
+//            for (String id : list) {
+//                try {
+//                    board.getGizmoByID(id).setKeyPress();
+//                } catch (NoSuchGizmoException ex) {
+//
+//                }
+////            }
+//        }
 
     }
 
