@@ -8,16 +8,14 @@ import java.awt.event.ActionListener;
 
 public class AddGizmoPressListener implements ActionListener {
 
+    BuildGUI gui;
 
-
-    public AddGizmoPressListener(){
-
-
+    public AddGizmoPressListener(BuildGUI gui){
+        this.gui = gui;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
+        gui.setMode("AddGizmo");
     }
 }

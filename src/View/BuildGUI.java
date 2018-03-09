@@ -14,7 +14,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 public class BuildGUI{
 	private JButton btnGizmo, btnBall, btnClear, btnCon, btnDisc, btnKeyCon, btnKeyDisc, btnRunMode;
 	private JComboBox<String> boxGizmo;
-
+	private String mode;
 
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
@@ -67,8 +67,8 @@ public class BuildGUI{
 		boxGizmo.addItem("Right Flipper");
 		boxGizmo.addItem("Absorber");
 
-        boardPanel.addMouseListener(new GameBoardListener(boardPanel, board, boxGizmo));
-		btnGizmo.addActionListener(new AddGizmoPressListener());
+        boardPanel.addMouseListener(new GameBoardListener(boardPanel, board, boxGizmo,this));
+		btnGizmo.addActionListener(new AddGizmoPressListener(this));
 		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
 		btnBall = new JButton("Add Ball");
@@ -186,6 +186,14 @@ public class BuildGUI{
 
 	public void open(){
 		buildFrame.setVisible(true);
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 
 

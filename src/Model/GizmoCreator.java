@@ -1,10 +1,7 @@
 package Model;
 
 
-import Model.Gizmos.GizmoCircle;
-import Model.Gizmos.IGizmo;
-import Model.Gizmos.Square;
-import Model.Gizmos.Triangle;
+import Model.Gizmos.*;
 
 public class GizmoCreator {
 
@@ -24,6 +21,8 @@ public class GizmoCreator {
 				return new GizmoCircle(id,x, y);
 			case "Triangle":
 				return new Triangle(id,x, y);
+            case "Flipper":
+                return new Flipper(id,x,y,0);
 		}
 		return null;
 	}
