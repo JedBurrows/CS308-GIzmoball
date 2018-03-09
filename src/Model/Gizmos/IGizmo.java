@@ -43,10 +43,16 @@ public interface IGizmo {
 
 	int gety2Pos();
 
+	int getWidth();
+
+	int getHeight();
+
 	void setxPos(int x);
 
 	void setyPos(int y);
 
 	void setKeyPress();
+
+	boolean getDirection();
 
 }
