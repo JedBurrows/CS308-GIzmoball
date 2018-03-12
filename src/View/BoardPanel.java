@@ -15,7 +15,7 @@ public class BoardPanel extends JPanel implements Observer {
 
     private Board board;
     private ColorChooserExample colours;
-    private int dimension = 800;
+    private int dimension = 600;
     private Color col;
     private Color pls;
 
@@ -118,7 +118,7 @@ public class BoardPanel extends JPanel implements Observer {
                         System.out.println("left flipper");
 
                         Graphics2D g2 = (Graphics2D) g;
-                        g2.setStroke(new BasicStroke(20, BasicStroke.CAP_ROUND, 1));
+                        g2.setStroke(new BasicStroke(Lwidth/2, BasicStroke.CAP_ROUND, 1));
                         g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
                     }
                     if (direction && rotation == 0) {
