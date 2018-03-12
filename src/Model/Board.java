@@ -28,8 +28,7 @@ public class Board extends Observable implements IBoard{
 	private Observer observer;
 	
 	//---------------------------------------------
-	private ArrayList<LineSegment> lines;
-	private ArrayList<Circle> circles;
+
 	private Ball ball;
 	private Walls walls;
 
@@ -65,13 +64,6 @@ public class Board extends Observable implements IBoard{
 		// Wall size 500 x 500 pixels
 		walls = new Walls();
 
-		// Lines added in Proto3Main
-		lines = new ArrayList<LineSegment>();
-		circles = new ArrayList<Circle>();
-
-		for (LineSegment l : walls.getLineSegments()) {
-			lines.add(l);
-		}
 	}
 
 
@@ -167,7 +159,7 @@ public class Board extends Observable implements IBoard{
 					grid[x + 1][y + 1] = true;
 					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
 
-					gizmoAddLinesAndCicles(gizmo);
+//					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
@@ -176,8 +168,7 @@ public class Board extends Observable implements IBoard{
 			} else if (!grid[x][y]) {
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-				gizmoAddLinesAndCicles(gizmo);
-                System.out.println(gizmoClass + " gizmo added");
+
                 return true;
 			} else {
 				//Grid loc already occupied
@@ -186,20 +177,6 @@ public class Board extends Observable implements IBoard{
 		} else {
 			//Cords out of range
 			return false;
-		}
-	}
-
-	private void gizmoAddLinesAndCicles(IGizmo g){
-		int i = 1;
-		for (LineSegment l : g.getLines()) {
-			System.out.println(i);
-			lines.add(l);
-		}
-		i =1;
-		for (Circle c : g.getCircles()) {
-			System.out.println(i);
-
-			circles.add(c);
 		}
 	}
 
@@ -349,13 +326,11 @@ public class Board extends Observable implements IBoard{
 
 		applyGravity(time);
 		applyFriction(time);
-		System.out.println("gravity:" + gravity);
 		return ball;
 	}
 
 	private void applyGravity(double time){
 		double oldSpeed = ball.getVelo().y();
-		System.out.println("oldSpeed:" + oldSpeed);
 		double newSpeed = oldSpeed + (gravity * time);
 
 		ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
@@ -383,8 +358,7 @@ public class Board extends Observable implements IBoard{
 		double time = 0.0;
 
 		// Time to collide with 4 walls
-		ArrayList<LineSegment> lss = walls.getLineSegments();
-		for (LineSegment line : lss) {
+		for (LineSegment line : walls.getLineSegments()) {
 			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
@@ -392,24 +366,23 @@ public class Board extends Observable implements IBoard{
 			}
 		}
 
-		for (LineSegment line : lines) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+		for(IGizmo g:gizmoHashMap.values()){
+			for (LineSegment line:g.getLines()){
+				time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+				if (time < shortestTime) {
+					shortestTime = time;
+					newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+				}
+			}
+
+			for (Circle c : g.getCircles()) {
+				time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+				if (time < shortestTime) {
+					shortestTime = time;
+					newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
+				}
 			}
 		}
-
-		// Time to collide with circles
-		for (Circle c : circles) {
-			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
-			}
-		}
-
-
 		return new CollisionDetails(shortestTime, newVelo);
 	}
 
@@ -417,22 +390,6 @@ public class Board extends Observable implements IBoard{
 		return ball;
 	}
 
-	public ArrayList<LineSegment> getLines() {
-		return lines;
-	}
-
-	public ArrayList<Circle> getCircles() {
-		return circles;
-	}
-
-
-	public void addLine(LineSegment l) {
-		lines.add(l);
-	}
-
-	public void addCircle(Circle c) {
-		circles.add(c);
-	}
 
 
 	public void setBallSpeed(int x, int y) {

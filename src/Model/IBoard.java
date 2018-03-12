@@ -51,13 +51,13 @@ public interface IBoard  {
 
         public Ball getBall();
 
-        public ArrayList<LineSegment> getLines();
-
-        public ArrayList<Circle> getCircles();
-
-        public void addLine(LineSegment l);
-
-        public void addCircle(Circle c);
+//        public ArrayList<LineSegment> getLines();
+//
+//        public ArrayList<Circle> getCircles();
+//
+//        public void addLine(LineSegment l);
+//
+//        public void addCircle(Circle c);
 
         public void setBallSpeed(int x, int y);
 

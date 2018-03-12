@@ -40,7 +40,6 @@ public class KeyPressListener implements KeyListener {
 //			List<String> list = keyPressEvents.get(keyCode);
         if (keyCode == KeyEvent.VK_LEFT) {
             for (IGizmo g : board.getGizmos()) {
-
                     g.setKeyPress();
 
             }

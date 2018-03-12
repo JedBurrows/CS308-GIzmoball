@@ -3,6 +3,7 @@ package View;
 import Model.*;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
+import physics.LineSegment;
 
 
 import javax.swing.*;
@@ -120,6 +121,12 @@ public class BoardPanel extends JPanel implements Observer {
                         Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth/2, BasicStroke.CAP_ROUND, 1));
                         g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
+//                        for (LineSegment vl:gizmo.getLines()){
+//                            System.out.println((int) (vl.p1().x()));
+//                            System.out.println((int) (vl.p1().y()));
+//                            System.out.println((int) (vl.p2().x()));
+//                            System.out.println((int) (vl.p2().y()));
+//                        }
                     }
                     if (direction && rotation == 0) {
                         xPos++;
@@ -129,7 +136,13 @@ public class BoardPanel extends JPanel implements Observer {
                         Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth / 2, BasicStroke.CAP_ROUND, 1));
                         g2.drawLine((int) (xPos * Lwidth - (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth - (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
+//                        System.out.println("x1: "+ (int) (xPos * Lwidth - (Lwidth / 4)) );
+//                        System.out.println("y1: "+ (int) (yPos * Lheight + (Lwidth / 4)) );
+//                        System.out.println("x2: "+(int) (x2Pos * Lwidth - (Lwidth * xDivider))  );
+//                        System.out.println("y2: "+ (int) (y2Pos * Lheight + (Lheight * yDivider)) );
+
                     }
+
 
             }
 

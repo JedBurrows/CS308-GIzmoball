@@ -36,7 +36,6 @@ public class Flipper implements IGizmo {
 
 		rotation = 0;
 
-
 		direction = d;
 
 		orientation = 0;
@@ -54,36 +53,31 @@ public class Flipper implements IGizmo {
 		lines = new ArrayList<>();
 		circles = new ArrayList<>();
 
-		System.out.println("xpos: " + xpos);
-		System.out.println("ypos: " + ypos);
-		System.out.println("x2pos: " + x2pos);
-		System.out.println("y2pos: " + y2pos);
+		createLineSegments();
+
 
 	}
 
 
 	@Override
 	public void action(double tickTime) {
-		if (!keyPress){
+		if (!keyPress){ //if flipper is going down
 			if (angle < maxAngle) {
-				System.out.println("here1");
 				angle = angle + (angVel * tickTime);
 				if (angle > 90) {
 					angle = 90;
 				}
 				if (!direction) {
 					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
+					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! Angle: "+angle);
 				}else{
 					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
 				}
 				y2pos = ypos +  (2.0 * Math.sin(Math.toRadians(angle)));
-				System.out.println("lets do an action in loop 1");
-				System.out.println("(x2pos, y2pos) (" + x2pos + ", " + y2pos + ")");
-				System.out.println("angle: " + angle);
+
 			}
 		}else if(keyPress){
 			if (angle >= minAngle) {
-				System.out.println("here2");
 				angle = angle +(-angVel * tickTime);
 				if (angle < 0){
 					angle = 0;
@@ -94,11 +88,10 @@ public class Flipper implements IGizmo {
 					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
 				}
 				y2pos = ypos +  (2.0 * Math.sin(Math.toRadians(angle)));
-				System.out.println("lets do an action in loop 2");
-				System.out.println("(x2pos, y2pos) (" + x2pos + ", " + y2pos + ")");
-				System.out.println("angle: " + angle);
+
 			}
 		}
+		updateLineSegments();
 	}
 
 	@Override
@@ -122,7 +115,15 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
-	public void createLineSegments() {}
+	public void createLineSegments() {
+		lines.add(new LineSegment(xpos,ypos , x2pos , y2pos ));
+
+	}
+
+	public void updateLineSegments(){
+		lines.clear();
+		createLineSegments();
+	}
 
 	@Override
 	public void createCircles() {}
@@ -185,9 +186,7 @@ public class Flipper implements IGizmo {
 		return ypos;
 	}
 
-	public void setKeyPress(){
-		keyPress = !keyPress;
-	}
+	public void setKeyPress(){keyPress = !keyPress;	}
 
 	@Override
 	public boolean getDirection() {
