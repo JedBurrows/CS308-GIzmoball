@@ -17,7 +17,7 @@ public class GizmoCircle implements IGizmo {
         this.id = id;
         this.xPos = x;
         this.yPos = y;
-        circle = new Circle(xPos, yPos, radius);
+        circle = new Circle(xPos + 0.5, yPos + 0.5, radius);
 
     }
 

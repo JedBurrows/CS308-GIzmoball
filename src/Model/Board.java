@@ -190,10 +190,15 @@ public class Board extends Observable implements IBoard{
 	}
 
 	private void gizmoAddLinesAndCicles(IGizmo g){
+		int i = 1;
 		for (LineSegment l : g.getLines()) {
+			System.out.println(i);
 			lines.add(l);
 		}
+		i =1;
 		for (Circle c : g.getCircles()) {
+			System.out.println(i);
+
 			circles.add(c);
 		}
 	}
@@ -268,19 +273,6 @@ public class Board extends Observable implements IBoard{
 			return false;
 		}
 	}
-
-//	public boolean moveGizmoBall(String name, float x, float y) {
-//
-//		if ((x >= 0.5 && x <= 19.5) && (y >= 0.5 && y <= 19.5)) {
-//			ball.setXPos(x);
-//			ball.setYPos(y);
-//			return true;
-//
-//		} else {
-//			return false;
-//		}
-//
-//	}
 
 	public IGizmo getGizmoByID(String id) throws NoSuchGizmoException {
 
@@ -400,7 +392,13 @@ public class Board extends Observable implements IBoard{
 			}
 		}
 
-
+		for (LineSegment line : lines) {
+			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+			if (time < shortestTime) {
+				shortestTime = time;
+				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+			}
+		}
 
 		// Time to collide with circles
 		for (Circle c : circles) {

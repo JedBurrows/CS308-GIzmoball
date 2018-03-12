@@ -15,16 +15,12 @@ public class Square implements IGizmo {
     private ArrayList<Circle> circles;
     private static final int size = 1;
 
-
-
     public Square(String id, int x, int y) {
         this.id = id;
         this.xPos = x;
         this.yPos = y;
-
         lines = new ArrayList<LineSegment>();
         circles = new ArrayList<Circle>();
-
         createCircles();
         createLineSegments();
     }
@@ -52,17 +48,18 @@ public class Square implements IGizmo {
     @Override
     public void createLineSegments() {
         lines.add(new LineSegment(xPos, yPos, xPos + size, yPos));
-        lines.add(new LineSegment(xPos + size, yPos - size, xPos + size, yPos));
-        lines.add(new LineSegment(xPos, yPos, (xPos), yPos - size));
-        lines.add(new LineSegment(xPos, yPos - size, xPos + size, yPos - size));
+        lines.add(new LineSegment(xPos + size, yPos, xPos + size, yPos + size));
+        lines.add(new LineSegment(xPos + size, yPos + size, xPos, yPos + size));
+        lines.add(new LineSegment(xPos, yPos + size, xPos, yPos));
+
     }
 
     @Override
     public void createCircles() {
         circles.add(new Circle(xPos, yPos, 0));
         circles.add(new Circle(xPos + size, yPos, 0));
-        circles.add(new Circle(xPos + size, yPos - size, 0));
-        circles.add(new Circle(xPos, yPos - size, 0));
+        circles.add(new Circle(xPos + size, yPos + size, 0));
+        circles.add(new Circle(xPos, yPos + size, 0));
     }
 
     @Override
