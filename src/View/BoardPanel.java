@@ -3,6 +3,8 @@ package View;
 import Model.*;
 import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
+import physics.Circle;
+import physics.LineSegment;
 import physics.LineSegment;
 
 
@@ -16,7 +18,7 @@ public class BoardPanel extends JPanel implements Observer {
 
     private Board board;
     private ColorChooserExample colours;
-    private int dimension = 600;
+    private int dimension = 800;
     private Color col;
     private Color pls;
 
@@ -114,9 +116,17 @@ public class BoardPanel extends JPanel implements Observer {
                     double xDivider = (angle * 0.5) - 0.25;
                     double yDivider = 0.25 - (angle * 0.5);
 
+                    for (LineSegment l : gizmo.getLines()) {
+                        g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
+                    }
 
-                    if (!direction && rotation == 0) {
-                        System.out.println("left flipper");
+//                    if (!direction && rotation == 0) {
+//                        System.out.println("left flipper");
+//
+//                        Graphics2D g2 = (Graphics2D) g;
+//                        g2.setStroke(new BasicStroke(Lwidth/2, BasicStroke.CAP_ROUND, 1));
+//                        g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
+//                    }
 
                         Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth/2, BasicStroke.CAP_ROUND, 1));
@@ -132,6 +142,10 @@ public class BoardPanel extends JPanel implements Observer {
                         xPos++;
                         x2Pos++;
 
+                        for (Circle c : gizmo.getCircles()) {
+                            System.out.println((int) (c.getCenter().x() * Lwidth));
+                            g.fillOval((int) (c.getCenter().x() * Lwidth - (0.25 * Lwidth)), (int) (c.getCenter().y() * Lheight - (0.25 * Lheight)), (int) (Lwidth * c.getRadius() * 2), (int) (Lheight * c.getRadius() * 2));
+                        }
                         System.out.println("right flipper");
                         Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth / 2, BasicStroke.CAP_ROUND, 1));
@@ -144,71 +158,87 @@ public class BoardPanel extends JPanel implements Observer {
                     }
 
 
+
+//                    if (!direction && rotation == 0) {
+//
+//                        Graphics2D g2 = (Graphics2D) g;
+//                        g2.setStroke(new BasicStroke(20, BasicStroke.CAP_ROUND, 1));
+//                        g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
+//                    }
+//                    if (direction && rotation == 0) {
+//                        xPos++;
+//                        x2Pos++;
+//
+//                        Graphics2D g2 = (Graphics2D) g;
+//                        g2.setStroke(new BasicStroke(Lwidth / 2, BasicStroke.CAP_ROUND, 1));
+//                        g2.drawLine((int) (xPos * Lwidth - (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth - (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
+//                    }
+
+
+                    //Draw Absorber
+                    g.setColor(Color.MAGENTA);
+
+//            if (board.hasAbsorber()) {
+//                Absorber absober = board.getAbsorber();
+//                int x1 = absober.getxPos1(), y1 = absober.getyPos1(), x2 = absober.getxPos2(), y2 = absober.getyPos2();
+//                for (int xPos = x1; xPos <= x2; xPos++) {
+//                    for (int yPos = y1; yPos <= y2; yPos++) {
+//                        g.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
+//                    }
+//                }
+//            }
+
+                    g.setColor(Color.BLUE);
+
+                    if (board.hasGizmoBall()) {
+                        IBall ball = board.getGizmoBall();
+
+                        float x = ball.getXPos(), y = ball.getYPos();
+
+                        System.out.println("X: " + x + "	Y:" + y);
+
+
+                        x = (float) Lwidth * x;
+                        y = (float) Lheight * y;
+
+                        System.out.println("X: " + x + "	Y:" + y);
+
+                        int r = (int) (ball.getRadius() * (double) Lwidth);
+
+                        System.out.println(r);
+                        g.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+                    }
+
+
+//                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
+//                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
             }
 
-            //Draw Absorber
-            g.setColor(Color.MAGENTA);
-
-            if (board.hasAbsorber()) {
-                Absorber absober = board.getAbsorber();
-                int x1 = absober.getxPos1(), y1 = absober.getyPos1(), x2 = absober.getxPos2(), y2 = absober.getyPos2();
-                for (int xPos = x1; xPos <= x2; xPos++) {
-                    for (int yPos = y1; yPos <= y2; yPos++) {
-                        g.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
-                    }
+        }
+            if (!board.isRunMode()) {
+                //Draw Grid Lines
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setStroke(new BasicStroke(1));
+                g2.setColor(Color.GRAY);
+                for (int x = Lwidth; x < width; x += Lwidth) {
+                    g2.drawLine(x, 0, x, height);
+                }
+                for (int y = Lheight; y < height; y += Lheight) {
+                    g2.drawLine(0, y, height, y);
                 }
             }
 
             g.setColor(Color.BLUE);
+            ArrayList<Connector> connectors = board.getConnectors();
 
-            if (board.hasGizmoBall()) {
-                IBall ball = board.getGizmoBall();
-
-                float x = ball.getXPos(), y = ball.getYPos();
-
-                System.out.println("X: " + x + "	Y:" + y);
-
-
-                x = (float) Lwidth * x;
-                y = (float) Lheight * y;
-
-                System.out.println("X: " + x + "	Y:" + y);
-
-                int r = (int) (ball.getRadius() * (double) Lwidth);
-
-                System.out.println(r);
-                g.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
-            }
-
+            for (Connector connection : connectors) {
+                IGizmo source = connection.getSource(), target = connection.getTarget();
 
 //                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
 //                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
-        }
-
-
-        if (!board.isRunMode()) {
-            //Draw Grid Lines
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(1));
-            g2.setColor(Color.GRAY);
-            for (int x = Lwidth; x < width; x += Lwidth) {
-                g2.drawLine(x, 0, x, height);
-            }
-            for (int y = Lheight; y < height; y += Lheight) {
-                g2.drawLine(0, y, height, y);
             }
         }
 
-        g.setColor(Color.BLUE);
-        ArrayList<Connector> connectors = board.getConnectors();
-
-        for (Connector connection : connectors) {
-            IGizmo source = connection.getSource(), target = connection.getTarget();
-
-//                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
-//                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
-        }
-    }
 
 
     public void setBoard(IBoard b) {
