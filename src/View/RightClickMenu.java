@@ -14,6 +14,7 @@ public class RightClickMenu extends JPopupMenu {
 		delete = new JMenuItem("Delete Gizmo");
 		add(delete);
 
+
 		move = new JMenuItem("Move Gizmo");
 		add(move);
 

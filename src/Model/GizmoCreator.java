@@ -26,7 +26,6 @@ public class GizmoCreator {
 			case "Triangle":
 				return new Triangle(id,x, y);
             case "Left Flipper":
-				System.out.println("here");
 				return new Flipper(id,x,y,false);
 			case "Right Flipper":
 				return new Flipper(id,x,y,true);

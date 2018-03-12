@@ -74,12 +74,9 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	public void addGizmoBall(Ball ball){
-		this.ball = ball;
-	}
 
 	public void addGizmoBall(float x, float y) {
-		this.ball = new Ball("ball",x,y);
+		this.ball = new Ball("ball",x,y, 0.1f, 0.1f);
 	}
 
 	public void setRunMode(){
@@ -170,7 +167,7 @@ public class Board extends Observable implements IBoard{
 					grid[x + 1][y + 1] = true;
 					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
 
-//					gizmoAddLinesAndCicles(gizmo);
+					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
@@ -179,7 +176,7 @@ public class Board extends Observable implements IBoard{
 			} else if (!grid[x][y]) {
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-//				gizmoAddLinesAndCicles(gizmo);
+				gizmoAddLinesAndCicles(gizmo);
                 System.out.println(gizmoClass + " gizmo added");
                 return true;
 			} else {
@@ -312,7 +309,6 @@ public class Board extends Observable implements IBoard{
 
 	public void moveBall() {
 
-
 		//TODO Check for if in playMode then can move ball.
 		 // 0.05 = 20 times per second as per Gizmoball
 		double moveTime = 0.05;
@@ -403,6 +399,8 @@ public class Board extends Observable implements IBoard{
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
 			}
 		}
+
+
 
 		// Time to collide with circles
 		for (Circle c : circles) {
