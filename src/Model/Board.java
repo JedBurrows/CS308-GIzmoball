@@ -9,6 +9,7 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
+import javax.sound.sampled.Line;
 import java.util.*;
 
 public class Board extends Observable implements IBoard{
@@ -69,9 +70,6 @@ public class Board extends Observable implements IBoard{
 		lines = new ArrayList<LineSegment>();
 		circles = new ArrayList<Circle>();
 
-		for (LineSegment l : walls.getLineSegments()) {
-			lines.add(l);
-		}
 	}
 
 
@@ -144,6 +142,26 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
+	public void removeCircle(Vect v){
+		List<Circle> toRemove = new ArrayList<>();
+
+		System.out.println(v);
+		for (Circle c: circles) {
+			if (c.getCenter().equals(v)) {
+				toRemove.add(c);
+			}
+		}
+//		System.out.println("toRemove before = " +  toRemove);
+//		System.out.println("circles before = " + circles);
+		circles.removeAll(toRemove);
+//		System.out.println("circles after = " + circles);
+
+	}
+
+	public void removeLineSegement(){
+
+	}
+
 	/**
 	 * @param gizmo
 	 * @return
@@ -190,14 +208,10 @@ public class Board extends Observable implements IBoard{
 	}
 
 	private void gizmoAddLinesAndCicles(IGizmo g){
-		int i = 1;
 		for (LineSegment l : g.getLines()) {
-			System.out.println(i);
 			lines.add(l);
 		}
-		i =1;
 		for (Circle c : g.getCircles()) {
-			System.out.println(i);
 
 			circles.add(c);
 		}
@@ -303,8 +317,10 @@ public class Board extends Observable implements IBoard{
 
 		//TODO Check for if in playMode then can move ball.
 		 // 0.05 = 20 times per second as per Gizmoball
-		double moveTime = 0.05;
-
+		double moveTime = 0.01;
+		gizmoAction(moveTime);
+		this.setChanged();
+		this.notifyObservers();
 		if (ball != null && !ball.stopped()) {
 
 			CollisionDetails cd = timeUntilCollision();
@@ -321,20 +337,43 @@ public class Board extends Observable implements IBoard{
 			}
 
 			// Notify observers ... redraw updated view
-			gizmoAction(moveTime);
-			this.setChanged();
-			this.notifyObservers();
+
 		}
+		this.setChanged();
+		this.notifyObservers();
 
 	}
 
 	public void gizmoAction(double tickTimer) {
+		System.out.println("lines size: " + lines.size());
+
+		List<Circle> toRemoveCircles = new ArrayList<>();
+		List<LineSegment> toRemoveLines = new ArrayList<>();
 
 		for (IGizmo g : getGizmos()) {
 			g.action(tickTimer);
+			for (Circle c : g.circleToRemove()) {
+				for (Circle c1: circles) {
+					if (c1.getCenter().equals(c.getCenter())) {
+						toRemoveCircles.add(c1);
+					}
+				}
+			}
+			circles.removeAll(toRemoveCircles);
+			circles.addAll(g.getCircles());
+
+			for (LineSegment l : g.linesToRemove()) {
+				for (LineSegment l1: lines) {
+					if (l1.equals(l)) {
+						toRemoveLines.add(l1);
+					}
+				}
+			}
+			lines.removeAll(toRemoveLines);
+			lines.addAll(g.getLines());
+
 		}
 	}
-
 
 	private Ball movelBallForTime(Ball ball, double time) {
 
@@ -349,13 +388,11 @@ public class Board extends Observable implements IBoard{
 
 		applyGravity(time);
 		applyFriction(time);
-		System.out.println("gravity:" + gravity);
 		return ball;
 	}
 
 	private void applyGravity(double time){
 		double oldSpeed = ball.getVelo().y();
-		System.out.println("oldSpeed:" + oldSpeed);
 		double newSpeed = oldSpeed + (gravity * time);
 
 		ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
@@ -404,6 +441,7 @@ public class Board extends Observable implements IBoard{
 		for (Circle c : circles) {
 			time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
 			if (time < shortestTime) {
+				System.out.println("collision!");
 				shortestTime = time;
 				newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
 			}
