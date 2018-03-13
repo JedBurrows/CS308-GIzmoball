@@ -35,13 +35,13 @@ public interface IGizmo {
 
 	ArrayList<LineSegment> getLines();
 
-	double getxPos();
+	int getxPos();
 
-	double getyPos();
+	int getyPos();
 
-	double getx2Pos();
+	int getx2Pos();
 
-	double gety2Pos();
+	int gety2Pos();
 
 	int getWidth();
 

@@ -36,14 +36,14 @@ public class BuildGUI{
 
 		board = b;
 
-		boardPanel = new BoardPanel(board);
+		setBoardPanel(new BoardPanel(board));
 		createGameBoard();
 		initialiseButtons(parent);
 		initialiseSliders();
 		arrangeButtons();
 		JPanel panel = new JPanel();
 		panel.add(panelBtn);
-		panel.add(boardPanel);
+		panel.add(getBoardPanel());
 		buildFrame.add(panel);
 		buildFrame.setVisible(true);
 
@@ -51,7 +51,7 @@ public class BuildGUI{
 
 	private void createGameBoard() {
 
-		boardPanel.setVisible(true);
+		getBoardPanel().setVisible(true);
 
 
 	}
@@ -70,11 +70,11 @@ public class BuildGUI{
 		boxGizmo.addItem("Square");
 		boxGizmo.addItem("Circle");
 		boxGizmo.addItem("Triangle");
-		boxGizmo.addItem("Left Flipper");
-		boxGizmo.addItem("Right Flipper");
+		boxGizmo.addItem("LeftFlipper");
+		boxGizmo.addItem("RightFlipper");
 		boxGizmo.addItem("Absorber");
 
-        boardPanel.addMouseListener(new GameBoardListener(boardPanel, boxGizmo,this));
+        getBoardPanel().addMouseListener(new GameBoardListener(getBoardPanel(), boxGizmo,this));
 		btnGizmo.addActionListener(new AddGizmoPressListener(this));
 		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
@@ -84,7 +84,7 @@ public class BuildGUI{
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
-		btnClear.addActionListener(new ClearBoardPressListener(board, boardPanel));
+		btnClear.addActionListener(new ClearBoardPressListener(board, getBoardPanel()));
 
 		btnCon = new JToggleButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
@@ -101,7 +101,7 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(parent, board));
+		btnRunMode.addActionListener(new ModeListener(parent, getBoardPanel()));
 	}
 
 	private void initialiseSliders() {
@@ -224,6 +224,10 @@ public class BuildGUI{
 		btnKeyCon.setSelected(false);
 		btnKeyDisc.setSelected(false);
 
+	}
+
+	public void setBoardPanel(BoardPanel boardPanel) {
+		this.boardPanel = boardPanel;
 	}
 
 

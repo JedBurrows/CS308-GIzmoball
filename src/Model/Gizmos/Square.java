@@ -73,23 +73,23 @@ public class Square implements IGizmo {
     }
 
     @Override
-    public double getxPos() {
+    public int getxPos() {
         return xPos;
     }
 
     @Override
-    public double getyPos() {
+    public int getyPos() {
         return yPos;
     }
 
     @Override
-    public double getx2Pos() {
+    public int getx2Pos() {
         //No x2pos
         return -1;
     }
 
     @Override
-    public double gety2Pos() {
+    public int gety2Pos() {
         //No y2pos
         return -1;
     }

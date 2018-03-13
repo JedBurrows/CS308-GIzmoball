@@ -9,8 +9,6 @@ import Model.IBoard;
 import javax.swing.*;
 import java.awt.*;
 
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-
 public class RunGUI {
 
     private JPanel runFrame;
@@ -20,14 +18,14 @@ public class RunGUI {
 
     public RunGUI(GBallFrame parent, IBoard b) {
         board = b;
-        boardPanel = new BoardPanel(board);
+        setBoardPanel(new BoardPanel(board));
 
         runFrame = new JPanel();
 
 
         JPanel panel = new JPanel();
         panel.add(initialiseButtons(parent));
-        panel.add(boardPanel);
+        panel.add(getBoardPanel());
         runFrame.add(panel);
         runFrame.setVisible(true);
 
@@ -53,7 +51,7 @@ public class RunGUI {
         btnBuildMode.setPreferredSize(new Dimension(75, 75));
 
 
-        btnBuildMode.addActionListener(new ModeListener(parent,board));
+        btnBuildMode.addActionListener(new ModeListener(parent, getBoardPanel()));
 
         JPanel panelBtn = new JPanel();
         panelBtn.setSize(150, 300);
@@ -77,6 +75,7 @@ public class RunGUI {
         return runFrame;
     }
 
+
     public void close() {
         runFrame.setVisible(false);
     }
@@ -87,4 +86,11 @@ public class RunGUI {
     }
 
 
+    public BoardPanel getBoardPanel() {
+        return boardPanel;
+    }
+
+    public void setBoardPanel(BoardPanel boardPanel) {
+        this.boardPanel = boardPanel;
+    }
 }
