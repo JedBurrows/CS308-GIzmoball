@@ -2,10 +2,11 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
+import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-import physics.Circle;
+
 import java.util.*;
 
 public class Board extends Observable implements IBoard{

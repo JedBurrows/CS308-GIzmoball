@@ -123,7 +123,7 @@ public class LoadSaveController implements ActionListener {
                                                     vx = scanner.nextFloat();
                                                     if (scanner.hasNextFloat()) {
                                                         vy = scanner.nextFloat();
-//                                                        board.addGizmoBall(new Ball(name, x, y, 0.1f,0.1f));
+                                                        //board.addGizmoBall(new Ball(name, x, y, 0.1f,0.1f));
                                                     } else {
                                                         System.out.println("Ball command missing vy velocity or velocity is not of type float.");
                                                     }

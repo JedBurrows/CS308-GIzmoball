@@ -5,7 +5,7 @@ import Controller.KeyPressListener;
 import Controller.MagicKeyListener;
 import Controller.ModeListener;
 import Controller.RunListener;
-import Model.IBoard;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -2,6 +2,7 @@ package Model;
 
 import physics.Circle;
 import physics.Vect;
+
 import java.awt.*;
 
 public interface IBall {

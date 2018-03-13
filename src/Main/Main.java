@@ -1,11 +1,7 @@
 package Main;
 
-import Model.*;
-import View.BuildGUI;
+import Model.Board;
 import View.GBallFrame;
-import View.RunGUI;
-
-import javax.swing.*;
 
 public class Main {
 

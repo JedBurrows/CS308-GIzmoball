@@ -1,16 +1,13 @@
 package Controller;
 
-import Model.Board;
+import Model.Gizmos.IGizmo;
+import Model.IBoard;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import Model.Exceptions.NoSuchGizmoException;
-import Model.Gizmos.IGizmo;
-import Model.IBoard;
 
 public class KeyPressListener implements KeyListener {
     private HashMap<Integer, List<String>> keyPressEvents;

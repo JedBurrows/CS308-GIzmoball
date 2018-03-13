@@ -1,10 +1,6 @@
 package Model;
 
-import Model.Gizmos.IGizmo;
-import Model.Gizmos.Square;
-import Model.Gizmos.Circle;
-import Model.Gizmos.Triangle;
-import Model.Gizmos.Flipper;
+import Model.Gizmos.*;
 
 
 public class GizmoCreator {

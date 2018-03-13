@@ -218,6 +218,10 @@ public class BuildGUI{
 				break;
 			case "AddBall":
 				btnBall.setSelected(true);
+				break;
+			case "Delete":
+				btnDelete.setSelected(true);
+				break;
 		}
 
 
@@ -231,6 +235,8 @@ public class BuildGUI{
 		btnDisc.setSelected(false);
 		btnKeyCon.setSelected(false);
 		btnKeyDisc.setSelected(false);
+		btnDelete.setSelected(false);
+		btnRotate.setSelected(false);
 
 	}
 
