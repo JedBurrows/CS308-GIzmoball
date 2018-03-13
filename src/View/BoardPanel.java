@@ -34,7 +34,9 @@ public class BoardPanel extends JPanel implements Observer {
     @Override
     protected void paintComponent(Graphics g) {
 
-        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        super.paintComponent(g2);
 
         final int width = this.getWidth();
         final int height = this.getHeight();
@@ -43,25 +45,28 @@ public class BoardPanel extends JPanel implements Observer {
         final int Lheight = height / 20;
 
 
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, width, height);
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, width, height);
 
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
-//            pls = colours.getColorGiz();
-//            System.out.println("pls is" + pls);
-            g.setColor(pls);
-            //g.setColor(Color.GREEN);
+
+            //Todo fix to use colour from picker, Beware passing null to setColor will just end up drawing the last color set ie colour of board
+            //pls = colours.getColorGiz();
+            //System.out.println("pls is" + pls);
+            //g2.setColor(pls);
+            //System.out.println(g2.getColor().toString());
+            g.setColor(Color.GREEN);
 
 
             String type = gizmo.getClass().getSimpleName();
             switch (type) {
                 case "Square":
-                    g.fillRect((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
+                    g2.fillRect((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "GizmoCircle":
-                    g.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
+                    g2.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":
                     int rotationTriangle;
@@ -95,10 +100,10 @@ public class BoardPanel extends JPanel implements Observer {
                             break;
 
                     }
-                    g.fillPolygon(xPoints, yPoints, 3);
+                    g2.fillPolygon(xPoints, yPoints, 3);
                     break;
                 case "Flipper":
-                    g.setColor(Color.YELLOW);
+                    g2.setColor(Color.YELLOW);
                     double xPos = gizmo.getxPos();
                     double yPos = gizmo.getyPos();
                     double x2Pos = gizmo.getx2Pos();
@@ -117,7 +122,6 @@ public class BoardPanel extends JPanel implements Observer {
                     if (!direction && rotation == 0) {
                         System.out.println("left flipper");
 
-                        Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth/2, BasicStroke.CAP_ROUND, 1));
                         g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
                     }
@@ -126,7 +130,6 @@ public class BoardPanel extends JPanel implements Observer {
                         x2Pos++;
 
                         System.out.println("right flipper");
-                        Graphics2D g2 = (Graphics2D) g;
                         g2.setStroke(new BasicStroke(Lwidth / 2, BasicStroke.CAP_ROUND, 1));
                         g2.drawLine((int) (xPos * Lwidth - (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth - (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
                     }
@@ -134,21 +137,21 @@ public class BoardPanel extends JPanel implements Observer {
             }
 
             //Draw Absorber
-            g.setColor(Color.MAGENTA);
 
             if (board.hasAbsorber()) {
+                g2.setColor(Color.MAGENTA);
                 Absorber absober = board.getAbsorber();
                 int x1 = absober.getxPos1(), y1 = absober.getyPos1(), x2 = absober.getxPos2(), y2 = absober.getyPos2();
                 for (int xPos = x1; xPos <= x2; xPos++) {
                     for (int yPos = y1; yPos <= y2; yPos++) {
-                        g.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
+                        g2.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
                     }
                 }
             }
 
-            g.setColor(Color.BLUE);
 
             if (board.hasGizmoBall()) {
+                g2.setColor(Color.BLUE);
                 IBall ball = board.getGizmoBall();
 
                 float x = ball.getXPos(), y = ball.getYPos();
@@ -164,7 +167,7 @@ public class BoardPanel extends JPanel implements Observer {
                 int r = (int) (ball.getRadius() * (double) Lwidth);
 
                 System.out.println(r);
-                g.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+                g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
             }
 
 
@@ -175,7 +178,6 @@ public class BoardPanel extends JPanel implements Observer {
 
         if (!board.isRunMode()) {
             //Draw Grid Lines
-            Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(1));
             g2.setColor(Color.GRAY);
             for (int x = Lwidth; x < width; x += Lwidth) {
@@ -186,7 +188,7 @@ public class BoardPanel extends JPanel implements Observer {
             }
         }
 
-        g.setColor(Color.BLUE);
+        g2.setColor(Color.BLUE);
         ArrayList<Connector> connectors = board.getConnectors();
 
         for (Connector connection : connectors) {

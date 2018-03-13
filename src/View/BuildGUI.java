@@ -11,7 +11,7 @@ import Model.IBoard;
 
 public class BuildGUI{
 	private JToggleButton btnGizmo;
-	private JToggleButton btnColor;
+	private JButton btnColor;
 	private JToggleButton btnBall;
 	private JButton btnClear;
 	private JToggleButton btnCon;
@@ -37,7 +37,6 @@ public class BuildGUI{
 		board = b;
 
 		boardPanel = new BoardPanel(board);
-		createMenuBar();
 		createGameBoard();
 		initialiseButtons(parent);
 		initialiseSliders();
@@ -47,10 +46,6 @@ public class BuildGUI{
 		panel.add(boardPanel);
 		buildFrame.add(panel);
 		buildFrame.setVisible(true);
-
-	}
-
-	private void createMenuBar() {
 
 	}
 
@@ -67,7 +62,7 @@ public class BuildGUI{
 		boxGizmo = new JComboBox<>();
 
 
-		btnColor=new JToggleButton("Choose a Colour");
+		btnColor=new JButton("Choose a Colour");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		btnColor.addActionListener(new ColorChooserExample());
 
@@ -79,7 +74,7 @@ public class BuildGUI{
 		boxGizmo.addItem("Right Flipper");
 		boxGizmo.addItem("Absorber");
 
-        boardPanel.addMouseListener(new GameBoardListener(boardPanel, board, boxGizmo,this));
+        boardPanel.addMouseListener(new GameBoardListener(boardPanel, boxGizmo,this));
 		btnGizmo.addActionListener(new AddGizmoPressListener(this));
 		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
 		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
@@ -223,7 +218,6 @@ public class BuildGUI{
 	private void clearSelected() {
 
 		btnGizmo.setSelected(false);
-		btnColor.setSelected(false);
 		btnBall.setSelected(false);
 		btnCon.setSelected(false);
 		btnDisc.setSelected(false);

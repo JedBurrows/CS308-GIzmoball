@@ -22,9 +22,9 @@ public class GameBoardListener implements MouseListener {
     private GizmoCreator gizmoCreator;
     private BuildGUI gui;
 
-    public GameBoardListener(BoardPanel bP, IBoard b,JComboBox<String> gizmo, BuildGUI gui) {
+    public GameBoardListener(BoardPanel bP,JComboBox<String> gizmo, BuildGUI gui) {
         this.boardPanel = bP;
-        board = b;
+        this.board = boardPanel.getBoard();
         this.gizmo = gizmo;
         l=boardPanel.getDimension()/20;
         gizmoCreator = new GizmoCreator();
