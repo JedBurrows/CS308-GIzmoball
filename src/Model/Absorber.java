@@ -1,8 +1,11 @@
 package Model;
 
+import physics.LineSegment;
+
 public class Absorber{
     private int xPos1, yPos1, xPos2, yPos2;
     private String id;
+    private LineSegment ls;
 
     public Absorber(String id, int x1, int y1, int x2, int y2) {
         this.id = id;
@@ -10,6 +13,7 @@ public class Absorber{
         this.xPos2 = x2;
         this.yPos1 = y1;
         this.yPos2 = y2;
+        ls = new LineSegment(x1,y1,x2,y2);
     }
 
     public int getxPos1() {
@@ -26,5 +30,9 @@ public class Absorber{
 
     public int getyPos2() {
         return yPos2;
+    }
+
+    public LineSegment getLineSegment(){
+        return ls;
     }
 }

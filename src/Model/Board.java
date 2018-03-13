@@ -177,7 +177,7 @@ public class Board extends Observable implements IBoard{
 		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
 
 			if (gizmoClass.equals("Flipper") && (x < 19 && y < 19)) {
-				if ((grid[x][y] == false) && (grid[x][y + 1] == false) && (grid[x + 1][y] == false) && (grid[x + 1][y + 1] == false)) {
+				if ((!grid[x][y]) && (!grid[x][y+1]) && (!grid[x+1][y]) && (!grid[x+1][y+1])) {
 					grid[x][y] = true;
 					grid[x][y + 1] = true;
 					grid[x + 1][y] = true;
