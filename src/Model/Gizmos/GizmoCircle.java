@@ -119,4 +119,14 @@ public class GizmoCircle implements IGizmo {
     public double getAngle() {
         return 0;
     }
+
+    @Override
+    public void removeCircle(Circle c) {
+        circle = null;
+    }
+
+    @Override
+    public void removeLine(LineSegment l) {
+
+    }
 }

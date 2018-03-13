@@ -128,4 +128,14 @@ public class Square implements IGizmo {
     public double getAngle() {
         return 0;
     }
+
+    @Override
+    public void removeCircle(Circle c) {
+        circles.remove(c);
+    }
+
+    @Override
+    public void removeLine(LineSegment l) {
+        lines.remove(l);
+    }
 }

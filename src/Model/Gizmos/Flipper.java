@@ -182,6 +182,16 @@ public class Flipper implements IGizmo {
 		return angle;
 	}
 
+	@Override
+	public void removeCircle(Circle c) {
+		circles.remove(c);
+	}
+
+	@Override
+	public void removeLine(LineSegment l) {
+		lines.remove(l);
+	}
+
 	public double getY() {
 		return ypos;
 	}
