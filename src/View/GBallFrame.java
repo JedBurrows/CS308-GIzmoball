@@ -1,24 +1,32 @@
 package View;
 
 import Controller.LoadSaveController;
-import Model.Board;
+import Model.IBoard;
 
 import javax.swing.*;
 
 public class GBallFrame{
 	private JFrame frame;
-	private static RunGUI runPanel;
-	private static BuildGUI buildPanel;
+	private  RunGUI runPanel;
+	private  BuildGUI buildPanel;
 
-	private static JMenuBar buildBar,runBar;
+	private BoardPanel boardPanel;
+
+	private JMenuBar buildBar,runBar;
 
 
-	public GBallFrame(Board board){
+	public GBallFrame(IBoard board){
 		frame = new JFrame("Gizmoball");
 
-		buildPanel = new BuildGUI(this,board);
+		boardPanel = new BoardPanel(board);
 
-		runPanel = new RunGUI(this,board);
+		buildPanel = new BuildGUI(this,boardPanel);
+		runPanel = new RunGUI(this,boardPanel);
+
+		buildPanel.getFrame().add(boardPanel);
+
+
+
 
 		buildBar = createBuildBar();
 		runBar = createRunBar();
@@ -26,7 +34,7 @@ public class GBallFrame{
 		frame.setJMenuBar(createBuildBar());
 		frame.add(buildPanel.getFrame());
 		frame.pack();
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
@@ -38,22 +46,20 @@ public class GBallFrame{
 		buildPanel.close();
 		frame.remove(buildPanel.getFrame());
 		frame.setJMenuBar(runBar);
-		runPanel.setBoardPanel(buildPanel.getBoardPanel());
+		runPanel.getFrame().add(boardPanel);
 		runPanel.open();
 		frame.add(runPanel.getFrame());
 		frame.pack();
-		runPanel.getBoardPanel().repaint();
 	}
 
 	public void switchToBuild(){
 		runPanel.close();
 		frame.remove(runPanel.getFrame());
 		frame.setJMenuBar(buildBar);
-		buildPanel.setBoardPanel(runPanel.getBoardPanel());
+		buildPanel.getFrame().add(boardPanel);
 		buildPanel.open();
 		frame.add(buildPanel.getFrame());
 		frame.pack();
-		buildPanel.getBoardPanel().repaint();
 	}
 
 	private JMenuBar createBuildBar(){

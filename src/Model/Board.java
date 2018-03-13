@@ -68,7 +68,7 @@ public class Board extends Observable implements IBoard{
 		this.ball = new Ball("ball", x, y, 0.1f, 0.1f);
 	}
 
-	public void setRunMode(){
+	public void switchMode(){
 		runMode = !runMode;
 	}
 

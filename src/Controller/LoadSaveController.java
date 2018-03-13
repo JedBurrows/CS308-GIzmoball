@@ -4,10 +4,7 @@ import Model.Absorber;
 import Model.Board;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.GizmoCreator;
-import Model.Gizmos.Flipper;
-import Model.Gizmos.Circle;
-import Model.Gizmos.IGizmo;
-import Model.Gizmos.Square;
+import Model.Gizmos.*;
 import View.BoardPanel;
 
 import javax.swing.*;
@@ -268,7 +265,7 @@ public class LoadSaveController implements ActionListener {
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
-														//board.addGizmo(new Triangle(name, x1, y1), x1, y1);
+														board.addGizmo(new Triangle(name, x1, y1));
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":

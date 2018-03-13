@@ -27,17 +27,13 @@ public class BuildGUI{
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
-	private IBoard board;
 
 
 
-	public BuildGUI(GBallFrame parent, IBoard b) {
+	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {
 
 		buildFrame = new JPanel();
-
-		board = b;
-
-		setBoardPanel(new BoardPanel(board));
+		setBoardPanel(boardPanel);
 		createGameBoard();
 		initialiseButtons(parent);
 		initialiseSliders();
@@ -85,7 +81,7 @@ public class BuildGUI{
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
-		btnClear.addActionListener(new ClearBoardPressListener(board, getBoardPanel()));
+		btnClear.addActionListener(new ClearBoardPressListener(getBoardPanel()));
 
 		btnDelete= new JToggleButton("Delete");
 		btnDelete.setPreferredSize(new Dimension(150, 50));
@@ -106,7 +102,7 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(parent, board));
+		btnRunMode.addActionListener(new ModeListener(parent, boardPanel));
 	}
 
 	private void initialiseSliders() {

@@ -15,7 +15,7 @@ public class ClearBoardPressListener implements ActionListener {
     private BoardPanel panel;
 
 
-    public ClearBoardPressListener(IBoard board, BoardPanel panel){
+    public ClearBoardPressListener(BoardPanel panel){
         this.panel = panel;
     }
 

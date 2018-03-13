@@ -13,12 +13,10 @@ public class RunGUI {
 
     private JPanel runFrame;
     private BoardPanel boardPanel;
-    private IBoard board;
     private RunListener runListener;
 
-    public RunGUI(GBallFrame parent, IBoard b) {
-        board = b;
-        setBoardPanel(new BoardPanel(board));
+    public RunGUI(GBallFrame parent, BoardPanel boardPanel) {
+        setBoardPanel(boardPanel);
 
         runFrame = new JPanel();
 
@@ -32,11 +30,11 @@ public class RunGUI {
 
     }
     private JPanel initialiseButtons(GBallFrame parent) {
-        runListener = new RunListener(board);
+        runListener = new RunListener(boardPanel.getBoard());
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
         btnStart.addActionListener(runListener);
-        btnStart.addKeyListener(new MagicKeyListener(new KeyPressListener(board)));
+        btnStart.addKeyListener(new MagicKeyListener(new KeyPressListener(boardPanel.getBoard())));
 
         JButton btnStop = new JButton("Stop");
         btnStop.setPreferredSize(new Dimension(75, 75));
@@ -51,7 +49,7 @@ public class RunGUI {
         btnBuildMode.setPreferredSize(new Dimension(75, 75));
 
 
-        btnBuildMode.addActionListener(new ModeListener(parent, board));
+        btnBuildMode.addActionListener(new ModeListener(parent, boardPanel));
 
         JPanel panelBtn = new JPanel();
         panelBtn.setSize(150, 300);

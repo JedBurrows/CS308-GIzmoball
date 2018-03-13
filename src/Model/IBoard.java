@@ -39,7 +39,7 @@ public interface IBoard  {
 
         public IGizmo getGizmoByID(String id) throws NoSuchGizmoException;
 
-        public void setRunMode();
+        public void switchMode();
 
         public boolean isRunMode();
 
