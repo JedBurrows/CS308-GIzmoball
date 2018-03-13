@@ -266,6 +266,15 @@ public class Board extends Observable implements IBoard{
         return null;
     }
 
+	@Override
+	public void deleteBall() {
+		ball = null;
+	}
+
+	public boolean isInsideBall(float x, float y){
+		return (x >= ball.getXPos() - ball.getRadius() && x <= ball.getXPos() + ball.getRadius() && y >= ball.getYPos() - ball.getRadius() && y <= ball.getYPos() + ball.getRadius());
+	}
+
 	//-------------------------------------------------------------------------------------------
 	public void gizmoAction(double moveTime){
     	for (IGizmo g: gizmoHashMap.values()){

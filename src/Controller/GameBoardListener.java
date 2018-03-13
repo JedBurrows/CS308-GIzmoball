@@ -50,6 +50,7 @@ public class GameBoardListener implements MouseListener {
 
                     board.deleteGizmo(d);
                     boardPanel.repaint();
+
             }
         } else if (SwingUtilities.isLeftMouseButton(e)) {
             System.out.println(gui.getMode());
@@ -75,11 +76,21 @@ public class GameBoardListener implements MouseListener {
                     boardPanel.repaint();
                     break;
                 case("Delete"):
-                    float x2 = e.getX()/l;
-                    float y2 = e.getY()/l;
-                    System.out.println("Gizmo Delete");
-                    board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
-                    boardPanel.repaint();
+                    float x2 = e.getX() / l;
+                    float y2 = e.getY() / l;
+                    if(board.isInsideBall(x2,y2)){
+                        System.out.println("deleting ball");
+                        board.deleteBall();
+                        boardPanel.repaint();
+                    }
+                    else {
+                        System.out.println("Gizmo Delete");
+                        System.out.println();
+                        System.out.println("Ball X "+ board.getBall().getXPos() + "Ball Y " + board.getBall().getYPos());
+                        System.out.println("EX: " +  x2+ "EY: " + y2);
+                        board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
+                        boardPanel.repaint();
+                    }
                     break;
                 default:
                     break;

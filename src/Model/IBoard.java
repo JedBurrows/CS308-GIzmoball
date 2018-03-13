@@ -65,6 +65,9 @@ public interface IBoard  {
 
         public IGizmo getGizmoByPosition(double x, double y);
 
+        public void deleteBall();
+        public boolean isInsideBall(float x, float y);
+
 //        public void removeCircle(Vect v);
 
 }
