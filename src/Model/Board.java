@@ -133,30 +133,6 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	public void removeCircle(Vect v){
-
-		System.out.println(v);
-		for(IGizmo g : gizmoHashMap.values()) {
-			for (Circle c : g.getCircles()) {
-				if (c.getCenter().equals(v)) {
-					g.removeCircle(c);
-				}
-			}
-		}
-
-
-	}
-
-	public void removeLineSegement(Vect v1, Vect v2){
-		for(IGizmo g : gizmoHashMap.values()) {
-			for (LineSegment l : g.getLines()) {
-				if (l.p1().equals(v1)&&l.p2().equals(v2)) {
-					g.removeLine(l);
-				}
-			}
-		}
-	}
-
     /**
      * @param gizmo
      * @return
@@ -438,15 +414,6 @@ public class Board extends Observable implements IBoard{
 
 	}
 
-	@Override
-	public IGizmo getGizmoByPosition(float x, float y) {
-		for (IGizmo g: gizmoHashMap.values()){
-			if (x > g.getxPos() && x < (g.getxPos() + g.getWidth()) && y > g.getyPos() && y < (g.getyPos() + g.getHeight())){
-				return g;
-			}
-		}
-		return null;
-	}
 
 
 }
