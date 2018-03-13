@@ -15,6 +15,7 @@ public class BuildGUI{
 	private JToggleButton btnBall;
 	private JToggleButton btnDelete;
 	private JButton btnClear;
+	private JToggleButton btnRotate;
 	private JToggleButton btnCon;
 	private JToggleButton btnDisc;
 	private JToggleButton btnKeyCon;
@@ -78,6 +79,9 @@ public class BuildGUI{
 		btnBall = new JToggleButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
 		btnBall.addActionListener(new AddBallPressListener(this));
+
+		btnRotate = new JToggleButton("Rotate");
+		btnRotate.setPreferredSize(new Dimension(150, 50));
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
@@ -156,6 +160,7 @@ public class BuildGUI{
 		panelBtn.add(btnBall, c1);
 		panelBtn.add(btnClear, c2);
 		panelBtn.add(btnDelete, c1);
+		panelBtn.add(btnRotate, c2);
 		panelBtn.add(btnCon, c1);
 		panelBtn.add(btnDisc, c2);
 		panelBtn.add(btnKeyCon, c1);
