@@ -119,8 +119,9 @@ public class Circle implements IGizmo {
         return 0;
     }
 
+
     @Override
-    public void removeCircle(Circle c) {
+    public void removeCircle(physics.Circle c) {
         circle = null;
     }
 
