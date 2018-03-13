@@ -17,7 +17,7 @@ public class RunListener implements ActionListener {
 
 	public RunListener(IBoard b) {
 		board = b;
-		timer = new Timer(50, this);
+		timer = new Timer(10, this);
 	}
 
 	@Override

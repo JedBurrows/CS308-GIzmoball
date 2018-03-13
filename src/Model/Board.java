@@ -23,10 +23,9 @@ public class Board extends Observable implements IBoard{
 	private HashMap<String, IGizmo> gizmoHashMap;
 	private Absorber absorber;
 	private Observer observer;
-	
+
 	//---------------------------------------------
-	private ArrayList<LineSegment> lines;
-	private ArrayList<Circle> circles;
+
 	private Ball ball;
 	private Walls walls;
 
@@ -49,7 +48,7 @@ public class Board extends Observable implements IBoard{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
-        runMode = false;
+		runMode = false;
 
 		//--------------------------------------------------
 
@@ -60,19 +59,18 @@ public class Board extends Observable implements IBoard{
 		walls = new Walls();
 
 		// Lines added in Proto3Main
-		lines = new ArrayList<LineSegment>();
-		circles = new ArrayList<Circle>();
+
 
 	}
 
 
 	public void addGizmoBall(float x, float y) {
-		this.ball = new Ball("ball",x,y, 0.1f, 0.1f);
+		this.ball = new Ball("ball", x, y, 0.1f, 0.1f);
 	}
 
 	public void setRunMode(){
-	    runMode = !runMode;
-    }
+		runMode = !runMode;
+	}
 
 	public boolean setAbsorber(Absorber absorber) {
 		int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
@@ -136,21 +134,27 @@ public class Board extends Observable implements IBoard{
 	}
 
 	public void removeCircle(Vect v){
-		List<Circle> toRemove = new ArrayList<>();
 
 		System.out.println(v);
-		for (Circle c: circles) {
-			if (c.getCenter().equals(v)) {
-				toRemove.add(c);
+		for(IGizmo g : gizmoHashMap.values()) {
+			for (Circle c : g.getCircles()) {
+				if (c.getCenter().equals(v)) {
+					g.removeCircle(c);
+				}
 			}
 		}
 
-		circles.removeAll(toRemove);
 
 	}
 
-	public void removeLineSegement(){
-
+	public void removeLineSegement(Vect v1, Vect v2){
+		for(IGizmo g : gizmoHashMap.values()) {
+			for (LineSegment l : g.getLines()) {
+				if (l.p1().equals(v1)&&l.p2().equals(v2)) {
+					g.removeLine(l);
+				}
+			}
+		}
 	}
 
 	/**
@@ -160,7 +164,7 @@ public class Board extends Observable implements IBoard{
 	public boolean addGizmo(IGizmo gizmo) {
 
 		//TODO Not used
-        GizmoCreator gizmoCreator = new GizmoCreator();
+		GizmoCreator gizmoCreator = new GizmoCreator();
 		//TODO Clean these if statements works well for now
 		int x = (int)gizmo.getxPos();
 		int y = (int)gizmo.getyPos();
@@ -176,7 +180,7 @@ public class Board extends Observable implements IBoard{
 					grid[x + 1][y + 1] = true;
 					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
 
-					gizmoAddLinesAndCicles(gizmo);
+//					gizmoAddLinesAndCicles(gizmo);
 					return true;
 				} else {
 					//One of 4 grid locs required for flipper is occupied
@@ -185,9 +189,9 @@ public class Board extends Observable implements IBoard{
 			} else if (!grid[x][y]) {
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
-				gizmoAddLinesAndCicles(gizmo);
-                System.out.println(gizmoClass + " gizmo added");
-                return true;
+//				gizmoAddLinesAndCicles(gizmo);
+				System.out.println(gizmoClass + " gizmo added");
+				return true;
 			} else {
 				//Grid loc already occupied
 				return false;
@@ -198,15 +202,15 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	private void gizmoAddLinesAndCicles(IGizmo g){
-		for (LineSegment l : g.getLines()) {
-			lines.add(l);
-		}
-		for (Circle c : g.getCircles()) {
-
-			circles.add(c);
-		}
-	}
+//	private void gizmoAddLinesAndCicles(IGizmo g){
+//		for (LineSegment l : g.getLines()) {
+//			lines.add(l);
+//		}
+//		for (Circle c : g.getCircles()) {
+//
+//			circles.add(c);
+//		}
+//	}
 
 
 	public boolean deleteGizmo(String id) {
@@ -299,15 +303,15 @@ public class Board extends Observable implements IBoard{
 	public ArrayList<Connector> getConnectors() {
 		return new ArrayList<>(connectors);
 	}
-	
-	
+
+
 	//-------------------------------------------------------------------------------------------
 
 
 	public void moveBall() {
 
 		//TODO Check for if in playMode then can move ball.
-		 // 0.05 = 20 times per second as per Gizmoball
+		// 0.05 = 20 times per second as per Gizmoball
 		double moveTime = 0.01;
 		//gizmoAction(moveTime);
 		this.setChanged();
@@ -416,22 +420,22 @@ public class Board extends Observable implements IBoard{
 		return ball;
 	}
 
-	public ArrayList<LineSegment> getLines() {
-		return lines;
-	}
-
-	public ArrayList<Circle> getCircles() {
-		return circles;
-	}
-
-
-	public void addLine(LineSegment l) {
-		lines.add(l);
-	}
-
-	public void addCircle(Circle c) {
-		circles.add(c);
-	}
+//	public ArrayList<LineSegment> getLines() {
+//		return lines;
+//	}
+//
+//	public ArrayList<Circle> getCircles() {
+//		return circles;
+//	}
+//
+//
+//	public void addLine(LineSegment l) {
+//		lines.add(l);
+//	}
+//
+//	public void addCircle(Circle c) {
+//		circles.add(c);
+//	}
 
 
 	public void setBallSpeed(int x, int y) {

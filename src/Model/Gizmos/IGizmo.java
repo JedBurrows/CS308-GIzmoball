@@ -57,4 +57,7 @@ public interface IGizmo {
 
 	double getAngle();
 
+    void removeCircle(Circle c);
+
+	void removeLine(LineSegment l);
 }
