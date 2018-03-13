@@ -27,7 +27,7 @@ public class Board extends Observable implements IBoard{
 	private HashMap<String, IGizmo> gizmoHashMap;
 	private Absorber absorber;
 	private Observer observer;
-	
+
 	//---------------------------------------------
 
 	private Ball ball;
@@ -52,7 +52,7 @@ public class Board extends Observable implements IBoard{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
-        runMode = false;
+		runMode = false;
 
 		//--------------------------------------------------
 
@@ -69,12 +69,12 @@ public class Board extends Observable implements IBoard{
 
 
 	public void addGizmoBall(float x, float y) {
-		this.ball = new Ball("ball",x,y, 0.1f, 0.1f);
+		this.ball = new Ball("ball", x, y, 0.1f, 0.1f);
 	}
 
 	public void setRunMode(){
-	    runMode = !runMode;
-    }
+		runMode = !runMode;
+	}
 
 	public boolean setAbsorber(Absorber absorber) {
 		int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
@@ -168,7 +168,7 @@ public class Board extends Observable implements IBoard{
 	public boolean addGizmo(IGizmo gizmo) {
 
 		//TODO Not used
-        GizmoCreator gizmoCreator = new GizmoCreator();
+		GizmoCreator gizmoCreator = new GizmoCreator();
 		//TODO Clean these if statements works well for now
 		int x = (int)gizmo.getxPos();
 		int y = (int)gizmo.getyPos();
@@ -194,8 +194,8 @@ public class Board extends Observable implements IBoard{
 				grid[x][y] = true;
 				gizmoHashMap.put(gizmo.getID(), gizmo);
 //				gizmoAddLinesAndCicles(gizmo);
-                System.out.println(gizmoClass + " gizmo added");
-                return true;
+				System.out.println(gizmoClass + " gizmo added");
+				return true;
 			} else {
 				//Grid loc already occupied
 				return false;
@@ -307,15 +307,15 @@ public class Board extends Observable implements IBoard{
 	public ArrayList<Connector> getConnectors() {
 		return new ArrayList<>(connectors);
 	}
-	
-	
+
+
 	//-------------------------------------------------------------------------------------------
 
 
 	public void moveBall() {
 
 		//TODO Check for if in playMode then can move ball.
-		 // 0.05 = 20 times per second as per Gizmoball
+		// 0.05 = 20 times per second as per Gizmoball
 		double moveTime = 0.01;
 		//gizmoAction(moveTime);
 		this.setChanged();
