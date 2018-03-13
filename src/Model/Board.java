@@ -267,6 +267,11 @@ public class Board extends Observable implements IBoard{
     }
 
 	//-------------------------------------------------------------------------------------------
+	public void gizmoAction(double moveTime){
+    	for (IGizmo g: gizmoHashMap.values()){
+    		g.action(moveTime);
+		}
+	}
 
 
 	public void moveBall() {
@@ -274,7 +279,7 @@ public class Board extends Observable implements IBoard{
 		//TODO Check for if in playMode then can move ball.
 		// 0.05 = 20 times per second as per Gizmoball
 		double moveTime = 0.01;
-		//gizmoAction(moveTime);
+		gizmoAction(moveTime);
 		this.setChanged();
 		this.notifyObservers();
 		if (ball != null && !ball.stopped()) {
