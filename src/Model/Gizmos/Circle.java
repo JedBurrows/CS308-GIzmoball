@@ -1,23 +1,22 @@
 package Model.Gizmos;
 
 
-import physics.Circle;
 import physics.LineSegment;
 
 import java.util.ArrayList;
 
-public class GizmoCircle implements IGizmo {
+public class Circle implements IGizmo {
 
     private String id;
     private int xPos, yPos;
-    private Circle circle;
+    private physics.Circle circle;
     private static final double radius = 0.5;
 
-    public GizmoCircle(String id, int x, int y) {
+    public Circle(String id, int x, int y) {
         this.id = id;
         this.xPos = x;
         this.yPos = y;
-        circle = new Circle(xPos + 0.5, yPos + 0.5, radius);
+        circle = new physics.Circle(xPos + 0.5, yPos + 0.5, radius);
 
     }
 
@@ -52,8 +51,8 @@ public class GizmoCircle implements IGizmo {
     }
 
     @Override
-    public ArrayList<Circle> getCircles() {
-        ArrayList<Circle> c = new ArrayList<Circle>();
+    public ArrayList<physics.Circle> getCircles() {
+        ArrayList<physics.Circle> c = new ArrayList<physics.Circle>();
         c.add(circle);
         return c;
     }
@@ -64,23 +63,23 @@ public class GizmoCircle implements IGizmo {
     }
 
     @Override
-    public double getxPos() {
+    public int getxPos() {
         return xPos;
     }
 
     @Override
-    public double getyPos() {
+    public int getyPos() {
         return yPos;
     }
 
     @Override
-    public double getx2Pos() {
+    public int getx2Pos() {
         //No x2pos
         return -1;
     }
 
     @Override
-    public double gety2Pos() {
+    public int gety2Pos() {
         //No y2pos
         return -1;
     }
@@ -120,8 +119,9 @@ public class GizmoCircle implements IGizmo {
         return 0;
     }
 
+
     @Override
-    public void removeCircle(Circle c) {
+    public void removeCircle(physics.Circle c) {
         circle = null;
     }
 

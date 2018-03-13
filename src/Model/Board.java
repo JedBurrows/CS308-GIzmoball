@@ -1,15 +1,11 @@
 package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
-import Model.Gizmos.Flipper;
-import Model.Gizmos.GizmoCircle;
 import Model.Gizmos.IGizmo;
-import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-
-import javax.sound.sampled.Line;
+import physics.Circle;
 import java.util.*;
 
 public class Board extends Observable implements IBoard{
@@ -379,7 +375,7 @@ public class Board extends Observable implements IBoard{
 
 	private CollisionDetails timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
-		// Create a physics.Circle from Ball
+		// Create a Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
 		Vect newVelo = new Vect(0, 0);

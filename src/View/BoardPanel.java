@@ -63,7 +63,7 @@ public class BoardPanel extends JPanel implements Observer {
                 case "Square":
                     g2.fillRect((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
-                case "GizmoCircle":
+                case "Circle":
                     g2.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":

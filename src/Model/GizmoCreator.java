@@ -2,7 +2,7 @@ package Model;
 
 import Model.Gizmos.IGizmo;
 import Model.Gizmos.Square;
-import Model.Gizmos.GizmoCircle;
+import Model.Gizmos.Circle;
 import Model.Gizmos.Triangle;
 import Model.Gizmos.Flipper;
 
@@ -22,12 +22,12 @@ public class GizmoCreator {
 			case "Square":
 				return new Square(id,x, y);
 			case "Circle":
-				return new GizmoCircle(id,x, y);
+				return new Circle(id,x, y);
 			case "Triangle":
 				return new Triangle(id,x, y);
-            case "Left Flipper":
+            case "LeftFlipper":
 				return new Flipper(id,x,y,false);
-			case "Right Flipper":
+			case "RightFlipper":
 				return new Flipper(id,x,y,true);
 
 		}

@@ -34,6 +34,10 @@ public class Flipper implements IGizmo {
 	public Flipper(String i, int x, int y, boolean d) {
 		id = i;
 
+		xPos = x;
+		yPos = y;
+
+
 		rotation = 0;
 
 		direction = d;
@@ -139,23 +143,23 @@ public class Flipper implements IGizmo {
 	}
 
 	@Override
-	public double getxPos() {
-		return xpos;
+	public int getxPos() {
+		return xPos;
 	}
 
 	@Override
-	public double getyPos() {
-		return ypos;
+	public int getyPos() {
+		return yPos;
 	}
 
 	@Override
-	public double getx2Pos() {
-		return x2pos;
+	public int getx2Pos() {
+		return (int)x2pos;
 	}
 
 	@Override
-	public double gety2Pos() {
-		return y2pos;
+	public int gety2Pos() {
+		return(int)y2pos;
 	}
 
 	@Override

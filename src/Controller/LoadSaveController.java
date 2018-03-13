@@ -1,12 +1,11 @@
 package Controller;
 
 import Model.Absorber;
-import Model.Ball;
 import Model.Board;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.GizmoCreator;
 import Model.Gizmos.Flipper;
-import Model.Gizmos.GizmoCircle;
+import Model.Gizmos.Circle;
 import Model.Gizmos.IGizmo;
 import Model.Gizmos.Square;
 import View.BoardPanel;
@@ -29,9 +28,34 @@ public class LoadSaveController implements ActionListener {
         fc.setDialogTitle("Save");
         int returnVal = fc.showSaveDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            if (fc.getSelectedFile().isDirectory()) {
                 //TODO SAVING
-            }
+            System.out.println(fc.getSelectedFile().getName());
+                try{
+                    File saveFile = fc.getSelectedFile();
+                    FileWriter fileWriter = new FileWriter(saveFile);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                    //Write gizmos to file
+					//TODO not writing Flippers since class name is just "Flipper" not "LeftFlipper" or "RightFlipper"
+                    for (IGizmo gizmo: panel.getBoard().getGizmos()){
+                        bufferedWriter.write(gizmo.getClass().getSimpleName() + " " + gizmo.getID() + " " + gizmo.getxPos() + " " + gizmo.getyPos());
+                        int rotations = gizmo.getRotation();
+                        if (rotations > 0){
+                            for (int x =0; x<rotations;x++) {
+                                bufferedWriter.newLine();
+                                bufferedWriter.write("Rotate" + " " + gizmo.getID());
+                            }
+                        }
+                        bufferedWriter.newLine();
+                    }
+
+
+                    bufferedWriter.close();
+                    fileWriter.close();
+                }catch (IOException e){
+
+                }
+
         }
     }
 
@@ -240,7 +264,7 @@ public class LoadSaveController implements ActionListener {
 														System.out.println("Created new " + element);
 														break;
 													case "Circle":
-														board.addGizmo(new GizmoCircle(name, x1, y1));
+														board.addGizmo(new Circle(name, x1, y1));
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
@@ -291,7 +315,7 @@ public class LoadSaveController implements ActionListener {
 
         String command = e.getActionCommand();
         System.out.println(command);
-        if (command == "save") {
+        if (command == "Save") {
             save();
         } else if (command == "Load") {
             panel.setBoard(load());
