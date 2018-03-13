@@ -53,9 +53,6 @@ public class Board extends Observable implements IBoard{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
-
-
-
         runMode = false;
 
 		//--------------------------------------------------
@@ -151,10 +148,8 @@ public class Board extends Observable implements IBoard{
 				toRemove.add(c);
 			}
 		}
-//		System.out.println("toRemove before = " +  toRemove);
-//		System.out.println("circles before = " + circles);
+
 		circles.removeAll(toRemove);
-//		System.out.println("circles after = " + circles);
 
 	}
 
@@ -344,36 +339,6 @@ public class Board extends Observable implements IBoard{
 
 	}
 
-//	public void gizmoAction(double tickTimer) {
-//		System.out.println("lines size: " + lines.size());
-//
-//		List<Circle> toRemoveCircles = new ArrayList<>();
-//		List<LineSegment> toRemoveLines = new ArrayList<>();
-//
-//		for (IGizmo g : getGizmos()) {
-//			g.action(tickTimer);
-//			for (Circle c : g.circleToRemove()) {
-//				for (Circle c1: circles) {
-//					if (c1.getCenter().equals(c.getCenter())) {
-//						toRemoveCircles.add(c1);
-//					}
-//				}
-//			}
-//			circles.removeAll(toRemoveCircles);
-//			circles.addAll(g.getCircles());
-//
-//			for (LineSegment l : g.linesToRemove()) {
-//				for (LineSegment l1: lines) {
-//					if (l1.equals(l)) {
-//						toRemoveLines.add(l1);
-//					}
-//				}
-//			}
-//			lines.removeAll(toRemoveLines);
-//			lines.addAll(g.getLines());
-//
-//		}
-//	}
 
 	private Ball movelBallForTime(Ball ball, double time) {
 
