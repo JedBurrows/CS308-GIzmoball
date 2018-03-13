@@ -1,8 +1,9 @@
 package View;
 
 import Model.*;
-import Model.Gizmos.Flipper;
 import Model.Gizmos.IGizmo;
+import physics.LineSegment;
+import physics.Circle;
 
 
 import javax.swing.*;
@@ -33,9 +34,9 @@ public class BoardPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
 
-        super.paintComponent(g2);
+        Graphics2D g2 = (Graphics2D) g;
+        super.paintComponent(g);
 
         final int width = this.getWidth();
         final int height = this.getHeight();
@@ -50,6 +51,7 @@ public class BoardPanel extends JPanel implements Observer {
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
+
             //Todo fix to use colour from picker, Beware passing null to setColor will just end up drawing the last color set ie colour of board
             //pls = colours.getColorGiz();
             //System.out.println("pls is" + pls);
@@ -63,7 +65,7 @@ public class BoardPanel extends JPanel implements Observer {
                 case "Square":
                     g2.fillRect((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
-                case "Circle":
+                case "GizmoCircle":
                     g2.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":
@@ -102,73 +104,49 @@ public class BoardPanel extends JPanel implements Observer {
                     break;
                 case "Flipper":
                     g2.setColor(Color.YELLOW);
-                    double xPos = gizmo.getxPos();
-                    double yPos = gizmo.getyPos();
-                    double x2Pos = gizmo.getx2Pos();
-                    double y2Pos = gizmo.gety2Pos();
-                    int rotation = gizmo.getRotation();
-                    boolean direction = gizmo.getDirection();
-                    double angle = gizmo.getAngle();
 
-                    angle = angle / 90.0;
-
-
-                    double xDivider = (angle * 0.5) - 0.25;
-                    double yDivider = 0.25 - (angle * 0.5);
-
-
-                    if (!direction && rotation == 0) {
-                        System.out.println("left flipper");
-
-                        g2.setStroke(new BasicStroke(Lwidth/2, BasicStroke.CAP_ROUND, 1));
-                        g2.drawLine((int) (xPos * Lwidth + (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth + (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
-                    }
-                    if (direction && rotation == 0) {
-                        xPos++;
-                        x2Pos++;
-
-                        System.out.println("right flipper");
-                        g2.setStroke(new BasicStroke(Lwidth / 2, BasicStroke.CAP_ROUND, 1));
-                        g2.drawLine((int) (xPos * Lwidth - (Lwidth / 4)), (int) (yPos * Lheight + (Lwidth / 4)), (int) (x2Pos * Lwidth - (Lwidth * xDivider)), (int) (y2Pos * Lheight + (Lheight * yDivider)));
+                    for (LineSegment l : gizmo.getLines()) {
+                        g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
                     }
 
+                    for (Circle c : gizmo.getCircles()) {
+                        g.fillOval((int)(c.getCenter().x() * Lwidth - (0.25 * Lwidth)),(int)(c.getCenter().y() * Lheight - (0.25 * Lheight)), (int)(c.getRadius()* 2 * Lwidth), (int)(c.getRadius()* 2 * Lwidth));
+                    }
+
+
+                    //Draw Absorber
+                    if (board.hasAbsorber()) {
+                        g2.setColor(Color.MAGENTA);
+                        Absorber absober = board.getAbsorber();
+                        int x1 = absober.getxPos1(), y1 = absober.getyPos1(), x2 = absober.getxPos2(), y2 = absober.getyPos2();
+                        for (int xPos = x1; xPos <= x2; xPos++) {
+                            for (int yPos = y1; yPos <= y2; yPos++) {
+                                g2.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
+                            }
+                        }
+                    }
+
+
+                    if (board.hasGizmoBall()) {
+                        g2.setColor(Color.BLUE);
+                        IBall ball = board.getGizmoBall();
+
+                        float x = ball.getXPos(), y = ball.getYPos();
+
+                        System.out.println("X: " + x + "	Y:" + y);
+
+
+                        x = (float) Lwidth * x;
+                        y = (float) Lheight * y;
+
+                        System.out.println("X: " + x + "	Y:" + y);
+
+                        int r = (int) (ball.getRadius() * (double) Lwidth);
+
+                        System.out.println(r);
+                        g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+                    }
             }
-
-            //Draw Absorber
-
-            if (board.hasAbsorber()) {
-                g2.setColor(Color.MAGENTA);
-                Absorber absober = board.getAbsorber();
-                int x1 = absober.getxPos1(), y1 = absober.getyPos1(), x2 = absober.getxPos2(), y2 = absober.getyPos2();
-                for (int xPos = x1; xPos <= x2; xPos++) {
-                    for (int yPos = y1; yPos <= y2; yPos++) {
-                        g2.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
-                    }
-                }
-            }
-
-//                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
-//                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
-        }
-
-        if (board.hasGizmoBall()) {
-            g2.setColor(Color.BLUE);
-            IBall ball = board.getGizmoBall();
-
-            float x = ball.getXPos(), y = ball.getYPos();
-
-            System.out.println("X: " + x + "	Y:" + y);
-
-
-            x = (float) Lwidth * x;
-            y = (float) Lheight * y;
-
-            System.out.println("X: " + x + "	Y:" + y);
-
-            int r = (int) (ball.getRadius() * (double) Lwidth);
-
-            System.out.println(r);
-            g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
         }
 
         if (!board.isRunMode()) {
