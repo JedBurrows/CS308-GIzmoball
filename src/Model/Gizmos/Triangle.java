@@ -23,7 +23,7 @@ public class Triangle implements IGizmo {
         lines = new ArrayList<LineSegment>();
         circles = new ArrayList<Circle>();
 
-        createLineSegments();
+        createLines();
         createCircles();
     }
 
@@ -45,7 +45,7 @@ public class Triangle implements IGizmo {
     }
 
     @Override
-    public void createLineSegments() {
+    public void createLines() {
         lines.add(new LineSegment(xPos, yPos, xPos + 1, yPos));
         lines.add(new LineSegment(xPos + 1, yPos, xPos, yPos + size));
         lines.add(new LineSegment(xPos, yPos + size, xPos , yPos));
@@ -125,15 +125,6 @@ public class Triangle implements IGizmo {
         return 0;
     }
 
-    @Override
-    public void removeCircle(Circle c) {
-        circles.remove(c);
-    }
-
-    @Override
-    public void removeLine(LineSegment l) {
-        lines.remove(l);
-    }
 
     public int getRotation() {
         return rotation;

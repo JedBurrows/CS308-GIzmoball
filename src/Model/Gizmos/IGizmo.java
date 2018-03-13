@@ -27,9 +27,10 @@ public interface IGizmo {
 	 */
 	String getID();
 
-	void createLineSegments();
-
 	void createCircles();
+
+	void createLines();
+
 
 	ArrayList<Circle> getCircles();
 
@@ -56,8 +57,4 @@ public interface IGizmo {
 	boolean getDirection();
 
 	double getAngle();
-
-    void removeCircle(Circle c);
-
-	void removeLine(LineSegment l);
 }

@@ -13,11 +13,11 @@ import java.awt.event.ActionListener;
 public class ModeListener implements ActionListener {
 
     private GBallFrame frame;
-    private BoardPanel panel;
+    private IBoard board;
 
-    public ModeListener(GBallFrame frame, BoardPanel panel){
+    public ModeListener(GBallFrame frame, IBoard b){
         this.frame =frame;
-        this.panel = panel;
+        board = b;
     }
 
 
@@ -28,11 +28,10 @@ public class ModeListener implements ActionListener {
         System.out.println(arg);
         if (arg.equals("Run")) {
             frame.switchToRun();
-            //panel.getBoard().setRunMode();
-
+            board.setRunMode();
         } else if (arg.equals("Build")) {
             frame.switchToBuild();
-            //panel.getBoard();
+            board.setRunMode();
         }
 
 

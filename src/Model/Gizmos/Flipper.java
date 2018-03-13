@@ -23,20 +23,16 @@ public class Flipper implements IGizmo {
 	//status of activated or not
 	//left and right flipper class
 
-	private String id;
-	private ArrayList<LineSegment> lines;
-	private ArrayList<Circle> circles;
+    private String id;
+    private ArrayList<LineSegment> lines;
+    private ArrayList<Circle> circles;
 
 	//In reference to the flipper this is the Northwest corner pos on grid
-	private int xPos, yPos, rotation, orientation;
+	private int rotation, orientation;
 
 
 	public Flipper(String i, int x, int y, boolean d) {
 		id = i;
-
-		xPos = x;
-		yPos = y;
-
 
 		rotation = 0;
 
@@ -54,49 +50,56 @@ public class Flipper implements IGizmo {
 		angVel = 1080;
 		keyPress = false;
 
-		lines = new ArrayList<>();
-		circles = new ArrayList<>();
+        System.out.println("xpos: " + xpos);
+        System.out.println("ypos: " + ypos);
+        System.out.println("x2pos: " + x2pos);
+        System.out.println("y2pos: " + y2pos);
+        circles = new ArrayList<>();
+        lines = new ArrayList<>();
+        circles.add(new Circle(xpos+ 0.125, ypos + 0.125, 0.25));
+        circles.add(new Circle(x2pos+ 0.125, y2pos -0.125, 0.25));
+        lines.add(new LineSegment(xpos + 0.5, ypos + 0.25, x2pos + 0.5, y2pos -0.25));
+        lines.add(new LineSegment(x2pos, y2pos + 0.25, x2pos, y2pos -0.25));
 
-		createLineSegments();
 
+        createCircles();
+        createLines();
 
 	}
 
 
-	@Override
-	public void action(double tickTime) {
-		if (!keyPress){ //if flipper is going down
-			if (angle < maxAngle) {
-				angle = angle + (angVel * tickTime);
-				if (angle > 90) {
-					angle = 90;
-				}
-				if (!direction) {
-					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! Angle: "+angle);
-				}else{
-					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
-				}
-				y2pos = ypos +  (2.0 * Math.sin(Math.toRadians(angle)));
-
-			}
-		}else if(keyPress){
-			if (angle >= minAngle) {
-				angle = angle +(-angVel * tickTime);
-				if (angle < 0){
-					angle = 0;
-				}
-				if (!direction) {
-					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-				}else{
-					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
-				}
-				y2pos = ypos +  (2.0 * Math.sin(Math.toRadians(angle)));
-
-			}
-		}
-		updateLineSegments();
-	}
+    @Override
+    public void action(double tickTime) {
+        if (!keyPress) {
+            if (angle < maxAngle) {
+                angle = angle + (angVel * tickTime);
+                if (angle > 90) {
+                    angle = 90;
+                }
+                if (!direction) {
+                    x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
+                } else {
+                    x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
+                }
+                y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
+            }
+        } else if (keyPress) {
+            if (angle >= minAngle) {
+                angle = angle + (-angVel * tickTime);
+                if (angle < 0) {
+                    angle = 0;
+                }
+                if (!direction) {
+                    x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
+                } else {
+                    x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
+                }
+                y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
+            }
+        }
+        createCircles();
+        createLines();
+    }
 
 	@Override
 	public void rotate() {
@@ -118,19 +121,38 @@ public class Flipper implements IGizmo {
 		return id;
 	}
 
-	@Override
-	public void createLineSegments() {
-		lines.add(new LineSegment(xpos,ypos , x2pos , y2pos ));
+    @Override
+    public void createCircles() {
+        circles.removeAll(circles);
+        double angleDivider = angle / 90.0;
+        double xDivider = (angleDivider * 0.5) - 0.25;
+        double yDivider = 0.25 - (angleDivider * 0.5);
+        if (!direction) {
+            circles.add(new Circle(xpos+ 0.25, ypos + 0.25, 0.25));
+            circles.add(new Circle(x2pos+ xDivider, y2pos + yDivider, 0.25));
+        }
+    }
 
-	}
+    @Override
+    public void createLines() {
+        lines.removeAll(lines);
 
-	public void updateLineSegments(){
-		lines.clear();
-		createLineSegments();
-	}
+        double angleDivider = angle / 90.0;
+        double l1x1Divider = 0.25 - (angleDivider * 0.25);
+        double l1y1Divider = 0.5 - (angleDivider * 0.25);
+        double l1x2Divider = (angleDivider * 0.25) - 0.25;
+        double l1y2Divider = 0.5 - (angleDivider * 0.75);
+        double l2x1Divider = (angleDivider * 0.25) + 0.25 ;
+        double l2y1Divider = (angleDivider * 0.25);
+        double l2x2Divider = (angleDivider * 0.75) - 0.25;
+        double l2y2Divider = -(angleDivider * 0.25);
 
-	@Override
-	public void createCircles() {}
+        if (!direction) {
+           lines.add(new LineSegment(xpos + l1x1Divider, ypos + l1y1Divider, x2pos + l1x2Divider, y2pos + l1y2Divider));
+           lines.add(new LineSegment(xpos + l2x1Divider, ypos + l2y1Divider, x2pos + l2x2Divider, y2pos + l2y2Divider));
+        }
+
+    }
 
 	@Override
 	public ArrayList<Circle> getCircles() {
@@ -144,12 +166,12 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public int getxPos() {
-		return xPos;
+		return (int)xpos;
 	}
 
 	@Override
 	public int getyPos() {
-		return yPos;
+		return (int)ypos;
 	}
 
 	@Override
@@ -174,37 +196,29 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public void setxPos(int x) {
-		this.xPos = x;
+		this.xpos = x;
 	}
 
 	@Override
 	public void setyPos(int y) {
-		this.yPos = y;
+		this.ypos = y;
 	}
 
 	public double getAngle(){
 		return angle;
 	}
 
-	@Override
-	public void removeCircle(Circle c) {
-		circles.remove(c);
+    public double getY() {
+        return ypos;
+    }
+
+	public void setKeyPress(){
+		keyPress = !keyPress;
 	}
 
-	@Override
-	public void removeLine(LineSegment l) {
-		lines.remove(l);
-	}
-
-	public double getY() {
-		return ypos;
-	}
-
-	public void setKeyPress(){keyPress = !keyPress;	}
-
-	@Override
-	public boolean getDirection() {
-		return direction;
-	}
+    @Override
+    public boolean getDirection() {
+        return direction;
+    }
 
 }

@@ -22,7 +22,7 @@ public class Square implements IGizmo {
         lines = new ArrayList<LineSegment>();
         circles = new ArrayList<Circle>();
         createCircles();
-        createLineSegments();
+        createLines();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Square implements IGizmo {
     }
 
     @Override
-    public void createLineSegments() {
+    public void createLines() {
         lines.add(new LineSegment(xPos, yPos, xPos + size, yPos));
         lines.add(new LineSegment(xPos + size, yPos, xPos + size, yPos + size));
         lines.add(new LineSegment(xPos + size, yPos + size, xPos, yPos + size));
@@ -127,15 +127,5 @@ public class Square implements IGizmo {
     @Override
     public double getAngle() {
         return 0;
-    }
-
-    @Override
-    public void removeCircle(Circle c) {
-        circles.remove(c);
-    }
-
-    @Override
-    public void removeLine(LineSegment l) {
-        lines.remove(l);
     }
 }

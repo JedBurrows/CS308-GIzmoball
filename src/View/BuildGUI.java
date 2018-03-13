@@ -13,6 +13,7 @@ public class BuildGUI{
 	private JToggleButton btnGizmo;
 	private JButton btnColor;
 	private JToggleButton btnBall;
+	private JToggleButton btnDelete;
 	private JButton btnClear;
 	private JToggleButton btnCon;
 	private JToggleButton btnDisc;
@@ -86,6 +87,10 @@ public class BuildGUI{
 		btnClear.setPreferredSize(new Dimension(150, 50));
 		btnClear.addActionListener(new ClearBoardPressListener(board, getBoardPanel()));
 
+		btnDelete= new JToggleButton("Delete");
+		btnDelete.setPreferredSize(new Dimension(150, 50));
+		btnDelete.addActionListener(new DeletePressListener(this));
+
 		btnCon = new JToggleButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
 
@@ -101,7 +106,7 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(parent, getBoardPanel()));
+		btnRunMode.addActionListener(new ModeListener(parent, board));
 	}
 
 	private void initialiseSliders() {
@@ -154,6 +159,7 @@ public class BuildGUI{
 		panelBtn.add(boxGizmo, c2);
 		panelBtn.add(btnBall, c1);
 		panelBtn.add(btnClear, c2);
+		panelBtn.add(btnDelete, c1);
 		panelBtn.add(btnCon, c1);
 		panelBtn.add(btnDisc, c2);
 		panelBtn.add(btnKeyCon, c1);

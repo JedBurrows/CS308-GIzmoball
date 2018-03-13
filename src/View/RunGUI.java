@@ -51,7 +51,7 @@ public class RunGUI {
         btnBuildMode.setPreferredSize(new Dimension(75, 75));
 
 
-        btnBuildMode.addActionListener(new ModeListener(parent, getBoardPanel()));
+        btnBuildMode.addActionListener(new ModeListener(parent, board));
 
         JPanel panelBtn = new JPanel();
         panelBtn.setSize(150, 300);

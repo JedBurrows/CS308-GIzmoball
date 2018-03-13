@@ -2,10 +2,12 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
+import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-import physics.Circle;
+
+import javax.sound.sampled.Line;
 import java.util.*;
 
 public class Board extends Observable implements IBoard{
@@ -23,7 +25,7 @@ public class Board extends Observable implements IBoard{
 	private HashMap<String, IGizmo> gizmoHashMap;
 	private Absorber absorber;
 	private Observer observer;
-
+	
 	//---------------------------------------------
 
 	private Ball ball;
@@ -48,7 +50,7 @@ public class Board extends Observable implements IBoard{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
-		runMode = false;
+        runMode = false;
 
 		//--------------------------------------------------
 
@@ -65,12 +67,12 @@ public class Board extends Observable implements IBoard{
 
 
 	public void addGizmoBall(float x, float y) {
-		this.ball = new Ball("ball", x, y, 0.1f, 0.1f);
+		this.ball = new Ball("ball",x,y, 0.1f, 0.1f);
 	}
 
 	public void setRunMode(){
-		runMode = !runMode;
-	}
+	    runMode = !runMode;
+    }
 
 	public boolean setAbsorber(Absorber absorber) {
 		int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
@@ -133,91 +135,51 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-	public void removeCircle(Vect v){
-
-		System.out.println(v);
-		for(IGizmo g : gizmoHashMap.values()) {
-			for (Circle c : g.getCircles()) {
-				if (c.getCenter().equals(v)) {
-					g.removeCircle(c);
-				}
-			}
-		}
+    public void gizmoAction(double tickTimer) {
+        for (IGizmo g : getGizmos()) {
+            g.action(tickTimer);
+        }
+    }
 
 
-	}
+    /**
+     * @param gizmo
+     * @return
+     */
+    public boolean addGizmo(IGizmo gizmo) {
 
-	public void removeLineSegement(Vect v1, Vect v2){
-		for(IGizmo g : gizmoHashMap.values()) {
-			for (LineSegment l : g.getLines()) {
-				if (l.p1().equals(v1)&&l.p2().equals(v2)) {
-					g.removeLine(l);
-				}
-			}
-		}
-	}
+        int x = (int) gizmo.getxPos();
+        int y = (int) gizmo.getyPos();
+        String gizmoClass = gizmo.getClass().getSimpleName();
 
-	/**
-	 * @param gizmo
-	 * @return
-	 */
-	public boolean addGizmo(IGizmo gizmo) {
+        if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
+            for (int w = 0; w < gizmo.getWidth(); w++) {
+                for (int h = 0; h < gizmo.getWidth(); h++) {
+                    if (grid[x + w][y + h]) {
+                        //something already in space
+                        return false;
+                    }
+                }
+            }
+            for (int w = 0; w < gizmo.getWidth(); w++) {
+                for (int h = 0; h < gizmo.getWidth(); h++) {
+                    grid[x + w][y + h] = true;
+                }
+            }
+            gizmoHashMap.put(gizmo.getID(), gizmo);
+            System.out.println(gizmoClass + " gizmo added");
+            return true;
+        } else {
+            //Cords out of range
+            return false;
+        }
+    }
 
-		//TODO Not used
-		GizmoCreator gizmoCreator = new GizmoCreator();
-		//TODO Clean these if statements works well for now
-		int x = (int)gizmo.getxPos();
-		int y = (int)gizmo.getyPos();
-		String gizmoClass = gizmo.getClass().getSimpleName();
-
-		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
-
-			if (gizmoClass.equals("Flipper") && (x < 19 && y < 19)) {
-				if ((grid[x][y] == false) && (grid[x][y + 1] == false) && (grid[x + 1][y] == false) && (grid[x + 1][y + 1] == false)) {
-					grid[x][y] = true;
-					grid[x][y + 1] = true;
-					grid[x + 1][y] = true;
-					grid[x + 1][y + 1] = true;
-					gizmoHashMap.put(gizmo.getID(), gizmo);  //ToDo add back in after flipper class fixed
-
-//					gizmoAddLinesAndCicles(gizmo);
-					return true;
-				} else {
-					//One of 4 grid locs required for flipper is occupied
-					return false;
-				}
-			} else if (!grid[x][y]) {
-				grid[x][y] = true;
-				gizmoHashMap.put(gizmo.getID(), gizmo);
-//				gizmoAddLinesAndCicles(gizmo);
-				System.out.println(gizmoClass + " gizmo added");
-				return true;
-			} else {
-				//Grid loc already occupied
-				return false;
-			}
-		} else {
-			//Cords out of range
-			return false;
-		}
-	}
-
-//	private void gizmoAddLinesAndCicles(IGizmo g){
-//		for (LineSegment l : g.getLines()) {
-//			lines.add(l);
-//		}
-//		for (Circle c : g.getCircles()) {
-//
-//			circles.add(c);
-//		}
-//	}
-
-
-	public boolean deleteGizmo(String id) {
-		if (gizmoHashMap.containsKey(id)) {
-			IGizmo deletedGizmo = gizmoHashMap.remove(id);
-
-			String type = deletedGizmo.getClass().getSimpleName();
+    public boolean deleteGizmo(String id) {
+        if (gizmoHashMap.containsKey(id)) {
+            IGizmo deletedGizmo = gizmoHashMap.remove(id);
+            System.out.println("hereeeeeeee");
+            String type = deletedGizmo.getClass().getSimpleName();
 
 			int x = (int)deletedGizmo.getxPos(), y = (int)deletedGizmo.getyPos();
 			grid[x][y] = false;
@@ -300,23 +262,31 @@ public class Board extends Observable implements IBoard{
 		return new ArrayList<>(gizmoHashMap.values());
 	}
 
-	public ArrayList<Connector> getConnectors() {
-		return new ArrayList<>(connectors);
-	}
+    public ArrayList<Connector> getConnectors() {
+        return new ArrayList<>(connectors);
+    }
 
+    public IGizmo getGizmoByPosition(double x, double y) {
+        for (IGizmo g: gizmoHashMap.values()){
+            if (x > g.getxPos() && x < (g.getxPos() + g.getWidth()) && y > g.getyPos() && y < (g.getyPos() + g.getHeight())){
+                return g;
+            }
+        }
+        return null;
+    }
 
-	//-------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------
 
 
 	public void moveBall() {
 
-		//TODO Check for if in playMode then can move ball.
-		// 0.05 = 20 times per second as per Gizmoball
-		double moveTime = 0.01;
-		//gizmoAction(moveTime);
-		this.setChanged();
-		this.notifyObservers();
-		if (ball != null && !ball.stopped()) {
+        //TODO Check for if in playMode then can move ball.
+        // 0.05 = 20 times per second as per Gizmoball
+        double moveTime = 0.01;
+        gizmoAction(moveTime);
+        this.setChanged();
+        this.notifyObservers();
+        if (ball != null && !ball.stopped()) {
 
 			CollisionDetails cd = timeUntilCollision();
 			double tuc = cd.getTuc();
@@ -375,7 +345,7 @@ public class Board extends Observable implements IBoard{
 
 	private CollisionDetails timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
-		// Create a Circle from Ball
+		// Create a physics.Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
 		Vect newVelo = new Vect(0, 0);

@@ -40,13 +40,13 @@ public class Circle implements IGizmo {
         return id;
     }
 
-    @Override
-    public void createLineSegments() {
+      @Override
+    public void createCircles() {
 
     }
 
     @Override
-    public void createCircles() {
+    public void createLines() {
 
     }
 
@@ -119,14 +119,4 @@ public class Circle implements IGizmo {
         return 0;
     }
 
-
-    @Override
-    public void removeCircle(physics.Circle c) {
-        circle = null;
-    }
-
-    @Override
-    public void removeLine(LineSegment l) {
-
-    }
 }
