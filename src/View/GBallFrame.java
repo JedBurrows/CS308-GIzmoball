@@ -38,20 +38,22 @@ public class GBallFrame{
 		buildPanel.close();
 		frame.remove(buildPanel.getFrame());
 		frame.setJMenuBar(runBar);
+		runPanel.setBoardPanel(buildPanel.getBoardPanel());
 		runPanel.open();
 		frame.add(runPanel.getFrame());
 		frame.pack();
-		//frame.repaint();
+		runPanel.getBoardPanel().repaint();
 	}
 
 	public void switchToBuild(){
 		runPanel.close();
 		frame.remove(runPanel.getFrame());
 		frame.setJMenuBar(buildBar);
+		buildPanel.setBoardPanel(runPanel.getBoardPanel());
 		buildPanel.open();
 		frame.add(buildPanel.getFrame());
 		frame.pack();
-		//frame.repaint();
+		buildPanel.getBoardPanel().repaint();
 	}
 
 	private JMenuBar createBuildBar(){

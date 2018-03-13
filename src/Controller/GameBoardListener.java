@@ -24,7 +24,6 @@ public class GameBoardListener implements MouseListener {
 
     public GameBoardListener(BoardPanel bP,JComboBox<String> gizmo, BuildGUI gui) {
         this.boardPanel = bP;
-        this.board = boardPanel.getBoard();
         this.gizmo = gizmo;
         l=boardPanel.getDimension()/20;
         gizmoCreator = new GizmoCreator();
@@ -39,6 +38,7 @@ public class GameBoardListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        IBoard board = boardPanel.getBoard();
         if (SwingUtilities.isRightMouseButton(e)) {
             RightClickMenu gizmoMenu = new RightClickMenu();
             gizmoMenu.show(e.getComponent(), e.getX(), e.getY());

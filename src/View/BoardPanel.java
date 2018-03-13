@@ -33,7 +33,6 @@ public class BoardPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
-
         Graphics2D g2 = (Graphics2D) g;
 
         super.paintComponent(g2);
@@ -51,7 +50,6 @@ public class BoardPanel extends JPanel implements Observer {
         ArrayList<IGizmo> gizmos = board.getGizmos();
 
         for (IGizmo gizmo : gizmos) {
-
             //Todo fix to use colour from picker, Beware passing null to setColor will just end up drawing the last color set ie colour of board
             //pls = colours.getColorGiz();
             //System.out.println("pls is" + pls);
@@ -65,7 +63,7 @@ public class BoardPanel extends JPanel implements Observer {
                 case "Square":
                     g2.fillRect((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
-                case "GizmoCircle":
+                case "Circle":
                     g2.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":
@@ -149,32 +147,29 @@ public class BoardPanel extends JPanel implements Observer {
                 }
             }
 
-
-            if (board.hasGizmoBall()) {
-                g2.setColor(Color.BLUE);
-                IBall ball = board.getGizmoBall();
-
-                float x = ball.getXPos(), y = ball.getYPos();
-
-                System.out.println("X: " + x + "	Y:" + y);
-
-
-                x = (float) Lwidth * x;
-                y = (float) Lheight * y;
-
-                System.out.println("X: " + x + "	Y:" + y);
-
-                int r = (int) (ball.getRadius() * (double) Lwidth);
-
-                System.out.println(r);
-                g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
-            }
-
-
 //                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
 //                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
         }
 
+        if (board.hasGizmoBall()) {
+            g2.setColor(Color.BLUE);
+            IBall ball = board.getGizmoBall();
+
+            float x = ball.getXPos(), y = ball.getYPos();
+
+            System.out.println("X: " + x + "	Y:" + y);
+
+
+            x = (float) Lwidth * x;
+            y = (float) Lheight * y;
+
+            System.out.println("X: " + x + "	Y:" + y);
+
+            int r = (int) (ball.getRadius() * (double) Lwidth);
+
+            System.out.println(r);
+            g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+        }
 
         if (!board.isRunMode()) {
             //Draw Grid Lines
