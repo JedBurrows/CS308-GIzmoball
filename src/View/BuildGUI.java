@@ -213,6 +213,7 @@ public class BuildGUI{
 		switch (this.mode){
 			case "AddGizmo":
 				btnGizmo.setSelected(true);
+
 				break;
 			case "AddBall":
 				btnBall.setSelected(true);

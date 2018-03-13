@@ -22,23 +22,24 @@ public class RunListener implements ActionListener {
 
 	@Override
 	public final void actionPerformed(final ActionEvent e) {
-
-		if (e.getSource() == timer) {
-			board.moveBall();
-		} else
-			switch (e.getActionCommand()) {
-				case "Start":
-					timer.start();
-					break;
-				case "Stop":
-					timer.stop();
-					break;
-				case "Tick":
-					board.moveBall();
-					break;
-				case "Quit":
-					System.exit(0);
-					break;
-			}
+		if (board.isRunMode()) {
+			if (e.getSource() == timer) {
+				board.moveBall();
+			} else
+				switch (e.getActionCommand()) {
+					case "Start":
+						timer.start();
+						break;
+					case "Stop":
+						timer.stop();
+						break;
+					case "Tick":
+						board.moveBall();
+						break;
+					case "Quit":
+						System.exit(0);
+						break;
+				}
+		}
 	}
 }

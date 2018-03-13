@@ -127,27 +127,26 @@ public class BoardPanel extends JPanel implements Observer {
                     }
 
 
+                    if (board.hasGizmoBall()) {
+                        g2.setColor(Color.BLUE);
+                        IBall ball = board.getGizmoBall();
 
+                        float x = ball.getXPos(), y = ball.getYPos();
+
+                        System.out.println("X: " + x + "	Y:" + y);
+
+
+                        x = (float) Lwidth * x;
+                        y = (float) Lheight * y;
+
+                        System.out.println("X: " + x + "	Y:" + y);
+
+                        int r = (int) (ball.getRadius() * (double) Lwidth);
+
+                        System.out.println(r);
+                        g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+                    }
             }
-        }
-        if (board.hasGizmoBall()) {
-            g2.setColor(Color.BLUE);
-            IBall ball = board.getGizmoBall();
-
-            float x = ball.getXPos(), y = ball.getYPos();
-
-            System.out.println("X: " + x + "	Y:" + y);
-
-
-            x = (float) Lwidth * x;
-            y = (float) Lheight * y;
-
-            System.out.println("X: " + x + "	Y:" + y);
-
-            int r = (int) (ball.getRadius() * (double) Lwidth);
-
-            System.out.println(r);
-            g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
         }
 
         if (!board.isRunMode()) {

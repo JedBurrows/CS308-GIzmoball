@@ -2,12 +2,10 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
-import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-
-import javax.sound.sampled.Line;
+import physics.Circle;
 import java.util.*;
 
 public class Board extends Observable implements IBoard{
@@ -25,7 +23,7 @@ public class Board extends Observable implements IBoard{
 	private HashMap<String, IGizmo> gizmoHashMap;
 	private Absorber absorber;
 	private Observer observer;
-	
+
 	//---------------------------------------------
 
 	private Ball ball;
@@ -50,7 +48,7 @@ public class Board extends Observable implements IBoard{
 		connectors = new ArrayList<>();
 		gizmoHashMap = new HashMap<>();
 
-        runMode = false;
+		runMode = false;
 
 		//--------------------------------------------------
 
@@ -67,12 +65,12 @@ public class Board extends Observable implements IBoard{
 
 
 	public void addGizmoBall(float x, float y) {
-		this.ball = new Ball("ball",x,y, 0.1f, 0.1f);
+		this.ball = new Ball("ball", x, y, 0.1f, 0.1f);
 	}
 
 	public void setRunMode(){
-	    runMode = !runMode;
-    }
+		runMode = !runMode;
+	}
 
 	public boolean setAbsorber(Absorber absorber) {
 		int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
@@ -135,12 +133,29 @@ public class Board extends Observable implements IBoard{
 		}
 	}
 
-    public void gizmoAction(double tickTimer) {
-        for (IGizmo g : getGizmos()) {
-            g.action(tickTimer);
-        }
-    }
+	public void removeCircle(Vect v){
 
+		System.out.println(v);
+		for(IGizmo g : gizmoHashMap.values()) {
+			for (Circle c : g.getCircles()) {
+				if (c.getCenter().equals(v)) {
+					g.removeCircle(c);
+				}
+			}
+		}
+
+
+	}
+
+	public void removeLineSegement(Vect v1, Vect v2){
+		for(IGizmo g : gizmoHashMap.values()) {
+			for (LineSegment l : g.getLines()) {
+				if (l.p1().equals(v1)&&l.p2().equals(v2)) {
+					g.removeLine(l);
+				}
+			}
+		}
+	}
 
     /**
      * @param gizmo
@@ -262,9 +277,9 @@ public class Board extends Observable implements IBoard{
 		return new ArrayList<>(gizmoHashMap.values());
 	}
 
-    public ArrayList<Connector> getConnectors() {
-        return new ArrayList<>(connectors);
-    }
+	public ArrayList<Connector> getConnectors() {
+		return new ArrayList<>(connectors);
+	}
 
     public IGizmo getGizmoByPosition(double x, double y) {
         for (IGizmo g: gizmoHashMap.values()){
@@ -275,18 +290,18 @@ public class Board extends Observable implements IBoard{
         return null;
     }
 
-    //-------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------
 
 
 	public void moveBall() {
 
-        //TODO Check for if in playMode then can move ball.
-        // 0.05 = 20 times per second as per Gizmoball
-        double moveTime = 0.01;
-        gizmoAction(moveTime);
-        this.setChanged();
-        this.notifyObservers();
-        if (ball != null && !ball.stopped()) {
+		//TODO Check for if in playMode then can move ball.
+		// 0.05 = 20 times per second as per Gizmoball
+		double moveTime = 0.01;
+		//gizmoAction(moveTime);
+		this.setChanged();
+		this.notifyObservers();
+		if (ball != null && !ball.stopped()) {
 
 			CollisionDetails cd = timeUntilCollision();
 			double tuc = cd.getTuc();
@@ -345,7 +360,7 @@ public class Board extends Observable implements IBoard{
 
 	private CollisionDetails timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
-		// Create a physics.Circle from Ball
+		// Create a Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
 		Vect newVelo = new Vect(0, 0);
@@ -421,6 +436,16 @@ public class Board extends Observable implements IBoard{
 			Arrays.fill(row, false);
 		}
 
+	}
+
+	@Override
+	public IGizmo getGizmoByPosition(float x, float y) {
+		for (IGizmo g: gizmoHashMap.values()){
+			if (x > g.getxPos() && x < (g.getxPos() + g.getWidth()) && y > g.getyPos() && y < (g.getyPos() + g.getHeight())){
+				return g;
+			}
+		}
+		return null;
 	}
 
 

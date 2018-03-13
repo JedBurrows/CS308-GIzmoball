@@ -4,7 +4,6 @@ import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
 import physics.Circle;
 import physics.LineSegment;
-import physics.Vect;
 
 import java.util.ArrayList;
 
@@ -53,11 +52,11 @@ public interface IBoard  {
         public Ball getBall();
 
 //        public ArrayList<LineSegment> getLines();
-////
+//
 //        public ArrayList<Circle> getCircles();
-////
+//
 //        public void addLine(LineSegment l);
-////
+//
 //        public void addCircle(Circle c);
 
         public void setBallSpeed(int x, int y);

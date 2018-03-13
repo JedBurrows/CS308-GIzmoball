@@ -53,6 +53,7 @@ public class GameBoardListener implements MouseListener {
             }
         } else if (SwingUtilities.isLeftMouseButton(e)) {
             System.out.println(gui.getMode());
+            System.out.println("Left clicked");
             switch (gui.getMode()){
                 case("AddGizmo"):
 
