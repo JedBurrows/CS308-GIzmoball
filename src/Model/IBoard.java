@@ -63,4 +63,6 @@ public interface IBoard  {
 
         public void clearGizmos();
 
+        public IGizmo getGizmoByPosition(float x, float y);
+
 }

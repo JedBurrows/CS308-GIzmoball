@@ -453,5 +453,15 @@ public class Board extends Observable implements IBoard{
 
 	}
 
+	@Override
+	public IGizmo getGizmoByPosition(float x, float y) {
+		for (IGizmo g: gizmoHashMap.values()){
+			if (x > g.getxPos() && x < (g.getxPos() + g.getWidth()) && y > g.getyPos() && y < (g.getyPos() + g.getHeight())){
+				return g;
+			}
+		}
+		return null;
+	}
+
 
 }
