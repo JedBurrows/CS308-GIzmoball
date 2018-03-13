@@ -1,9 +1,7 @@
 package Controller;
 
-import Model.Absorber;
-import Model.Board;
+import Model.*;
 import Model.Exceptions.NoSuchGizmoException;
-import Model.GizmoCreator;
 import Model.Gizmos.*;
 import View.BoardPanel;
 
@@ -34,7 +32,9 @@ public class LoadSaveController implements ActionListener {
 
                     //Write gizmos to file
 					//TODO not writing Flippers since class name is just "Flipper" not "LeftFlipper" or "RightFlipper"
-                    for (IGizmo gizmo: panel.getBoard().getGizmos()){
+
+                    IBoard board = panel.getBoard();
+                    for (IGizmo gizmo: board.getGizmos()){
                         bufferedWriter.write(gizmo.getClass().getSimpleName() + " " + gizmo.getID() + " " + gizmo.getxPos() + " " + gizmo.getyPos());
                         int rotations = gizmo.getRotation();
                         if (rotations > 0){
@@ -43,6 +43,18 @@ public class LoadSaveController implements ActionListener {
                                 bufferedWriter.write("Rotate" + " " + gizmo.getID());
                             }
                         }
+                        bufferedWriter.newLine();
+                    }
+
+                    for (Connector connection: board.getConnectors()){
+                        bufferedWriter.write("Connect" + " " + connection.getSource().getID() + " " + connection.getTarget().getID());
+                        bufferedWriter.newLine();
+                    }
+
+                    if (panel.getBoard().hasGizmoBall()){
+                        Ball ball = board.getBall();
+
+                        bufferedWriter.write("Ball"+ " " + ball.getName() + " " + ball.getXPos() + " " +ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
                         bufferedWriter.newLine();
                     }
 
