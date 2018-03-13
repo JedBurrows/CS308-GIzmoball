@@ -6,21 +6,13 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Hashtable;
 
 import Model.IBoard;
 
 public class BuildGUI{
-	private JToggleButton btnGizmo;
-	private JButton btnColor;
-	private JToggleButton btnBall;
-	private JToggleButton btnDelete;
-	private JButton btnClear;
-	private JToggleButton btnRotate;
-	private JToggleButton btnCon;
-	private JToggleButton btnDisc;
-	private JToggleButton btnKeyCon;
-	private JToggleButton btnKeyDisc;
-	private JButton btnRunMode;
+	private JToggleButton btnGizmo, btnBall, btnDelete, btnRotate, btnCon, btnDisc, btnKeyCon, btnKeyDisc;
+	private JButton btnRunMode, btnColor, btnClear;
 	private JComboBox<String> boxGizmo;
 	private String mode;
 	private Container color;
@@ -112,7 +104,7 @@ public class BuildGUI{
 	private void initialiseSliders() {
 		JSlider frictionSlider1 = new JSlider();
 		frictionSlider1.addChangeListener(new SliderChangeListener());
-		JLabel frictionLabel1 = new JLabel("Friction");
+		JLabel frictionLabel1 = new JLabel("Friction mu");
 		frictionPanel1 = new JPanel();
 		frictionPanel1.setLayout(new GridLayout(1, 2));
 		frictionPanel1.add(frictionSlider1);
@@ -120,13 +112,24 @@ public class BuildGUI{
 
 		JSlider frictionSlider2 = new JSlider();
 		frictionSlider2.addChangeListener(new SliderChangeListener());
-		JLabel frictionLabel2 = new JLabel("Friction");
+		JLabel frictionLabel2 = new JLabel("Friction mu\u2082");
 		frictionPanel2 = new JPanel();
 		frictionPanel2.setLayout(new GridLayout(1, 2));
 		frictionPanel2.add(frictionSlider2);
 		frictionPanel2.add(frictionLabel2, 0);
 
 		JSlider gravitySlider = new JSlider();
+		gravitySlider.setMinimum(0);
+		gravitySlider.setMajorTickSpacing(25);
+		gravitySlider.setPaintTicks(true);
+		gravitySlider.setMaximum(50);
+		gravitySlider.setValue(25);
+		Hashtable<Integer,JLabel> table = new Hashtable<>();
+		table.put(0,new JLabel("0 L/sec\u00b2"));
+		table.put(25,new JLabel("25 L/sec\u00b2"));
+		table.put(50,new JLabel("50 L/sec\u00b2"));
+		gravitySlider.setLabelTable(table);
+		gravitySlider.setPaintLabels(true);
 		gravitySlider.addChangeListener(new SliderChangeListener());
 		JLabel gravityLabel = new JLabel("Gravity");
 		gravityPanel = new JPanel();
@@ -136,8 +139,8 @@ public class BuildGUI{
 
 		JPanel slidersPanel = new JPanel();
 		slidersPanel.setLayout(new GridLayout(3, 1));
-		slidersPanel.add(frictionPanel1);
-		slidersPanel.add(frictionPanel2);
+		slidersPanel.add(frictionPanel1 );
+		slidersPanel.add(frictionPanel2 );
 		slidersPanel.add(gravityPanel);
 
 	}
@@ -244,16 +247,6 @@ public class BuildGUI{
 		this.boardPanel = boardPanel;
 	}
 
-
-
-
-    /*@Override
-	public void actionPerformed(ActionEvent e) {
-        String arg = e.getActionCommand();
-        if(arg.equals("Run")) {
-            IModeGUI run = new RunGUI();
-
-    }*/
 
 }
 
