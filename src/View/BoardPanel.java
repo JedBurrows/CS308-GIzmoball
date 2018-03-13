@@ -2,9 +2,8 @@ package View;
 
 import Model.*;
 import Model.Gizmos.IGizmo;
-import physics.LineSegment;
 import physics.Circle;
-
+import physics.LineSegment;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,5 @@
 package Model.Gizmos;
 
-import View.ColorChooserExample;
 import physics.Circle;
 import physics.LineSegment;
 

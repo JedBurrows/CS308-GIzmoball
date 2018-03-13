@@ -2,10 +2,11 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
+import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-import physics.Circle;
+
 import java.util.*;
 
 public class Board extends Observable implements IBoard{
@@ -68,7 +69,7 @@ public class Board extends Observable implements IBoard{
 		this.ball = new Ball("ball", x, y, 0.1f, 0.1f);
 	}
 
-	public void setRunMode(){
+	public void switchMode(){
 		runMode = !runMode;
 	}
 

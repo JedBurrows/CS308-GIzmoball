@@ -1,17 +1,19 @@
 package View;
 
-import Controller.GameBoardListener;
+import Controller.DeletePressListener;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 
 public class RightClickMenu extends JPopupMenu {
 
-	JMenuItem delete, move, rotate;
+	private JMenuItem delete, move, rotate;
 
 	public RightClickMenu() {
+
 		delete = new JMenuItem("Delete Gizmo");
+
+
 		add(delete);
 
 

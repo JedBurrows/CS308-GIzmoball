@@ -2,8 +2,6 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
-import physics.Circle;
-import physics.LineSegment;
 
 import java.util.ArrayList;
 
@@ -39,7 +37,7 @@ public interface IBoard  {
 
         public IGizmo getGizmoByID(String id) throws NoSuchGizmoException;
 
-        public void setRunMode();
+        public void switchMode();
 
         public boolean isRunMode();
 

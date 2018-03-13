@@ -2,7 +2,6 @@ package Controller;
 
 
 import Model.GizmoCreator;
-import Model.IBall;
 import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
@@ -14,13 +13,13 @@ import java.awt.event.MouseListener;
 
 public class GameBoardListener implements MouseListener {
 
-    private IBoard board;
     private JComboBox<String> gizmo;
     private String mode;
     private BoardPanel boardPanel;
     private float l;
     private GizmoCreator gizmoCreator;
     private BuildGUI gui;
+    private DeletePressListener deletePressListener;
 
     public GameBoardListener(BoardPanel bP,JComboBox<String> gizmo, BuildGUI gui) {
         this.boardPanel = bP;
@@ -41,9 +40,10 @@ public class GameBoardListener implements MouseListener {
         IBoard board = boardPanel.getBoard();
         if (SwingUtilities.isRightMouseButton(e)) {
             RightClickMenu gizmoMenu = new RightClickMenu();
+
             gizmoMenu.show(e.getComponent(), e.getX(), e.getY());
             switch(gui.getMode()){
-                case("Delete Gizmo"):
+                case("Delete"):
                     String d = gizmo.getSelectedItem().toString();
                     System.out.println(d);
                     System.out.println("Delete gizmo");

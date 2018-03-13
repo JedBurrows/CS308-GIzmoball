@@ -3,7 +3,6 @@ package Model.Gizmos;
 import physics.Circle;
 import physics.LineSegment;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Flipper implements IGizmo {

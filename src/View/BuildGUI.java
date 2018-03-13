@@ -15,6 +15,7 @@ public class BuildGUI{
 	private JToggleButton btnBall;
 	private JToggleButton btnDelete;
 	private JButton btnClear;
+	private JToggleButton btnRotate;
 	private JToggleButton btnCon;
 	private JToggleButton btnDisc;
 	private JToggleButton btnKeyCon;
@@ -27,17 +28,13 @@ public class BuildGUI{
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
-	private IBoard board;
 
 
 
-	public BuildGUI(GBallFrame parent, IBoard b) {
+	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {
 
 		buildFrame = new JPanel();
-
-		board = b;
-
-		setBoardPanel(new BoardPanel(board));
+		setBoardPanel(boardPanel);
 		createGameBoard();
 		initialiseButtons(parent);
 		initialiseSliders();
@@ -83,9 +80,12 @@ public class BuildGUI{
 		btnBall.setPreferredSize(new Dimension(150, 50));
 		btnBall.addActionListener(new AddBallPressListener(this));
 
+		btnRotate = new JToggleButton("Rotate");
+		btnRotate.setPreferredSize(new Dimension(150, 50));
+
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
-		btnClear.addActionListener(new ClearBoardPressListener(board, getBoardPanel()));
+		btnClear.addActionListener(new ClearBoardPressListener(getBoardPanel()));
 
 		btnDelete= new JToggleButton("Delete");
 		btnDelete.setPreferredSize(new Dimension(150, 50));
@@ -106,7 +106,7 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(parent, board));
+		btnRunMode.addActionListener(new ModeListener(parent, boardPanel));
 	}
 
 	private void initialiseSliders() {
@@ -160,6 +160,7 @@ public class BuildGUI{
 		panelBtn.add(btnBall, c1);
 		panelBtn.add(btnClear, c2);
 		panelBtn.add(btnDelete, c1);
+		panelBtn.add(btnRotate, c2);
 		panelBtn.add(btnCon, c1);
 		panelBtn.add(btnDisc, c2);
 		panelBtn.add(btnKeyCon, c1);
@@ -217,6 +218,10 @@ public class BuildGUI{
 				break;
 			case "AddBall":
 				btnBall.setSelected(true);
+				break;
+			case "Delete":
+				btnDelete.setSelected(true);
+				break;
 		}
 
 
@@ -230,6 +235,8 @@ public class BuildGUI{
 		btnDisc.setSelected(false);
 		btnKeyCon.setSelected(false);
 		btnKeyDisc.setSelected(false);
+		btnDelete.setSelected(false);
+		btnRotate.setSelected(false);
 
 	}
 

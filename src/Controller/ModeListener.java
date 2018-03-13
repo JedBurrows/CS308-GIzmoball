@@ -1,10 +1,7 @@
 package Controller;
 
-import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
 import View.GBallFrame;
-import View.RunGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +10,11 @@ import java.awt.event.ActionListener;
 public class ModeListener implements ActionListener {
 
     private GBallFrame frame;
-    private IBoard board;
+    private BoardPanel boardPanel;
 
-    public ModeListener(GBallFrame frame, IBoard b){
+    public ModeListener(GBallFrame frame, BoardPanel boardPanel){
         this.frame =frame;
-        board = b;
+        this.boardPanel = boardPanel;
     }
 
 
@@ -28,10 +25,10 @@ public class ModeListener implements ActionListener {
         System.out.println(arg);
         if (arg.equals("Run")) {
             frame.switchToRun();
-            board.setRunMode();
+            boardPanel.getBoard().switchMode();
         } else if (arg.equals("Build")) {
             frame.switchToBuild();
-            board.setRunMode();
+            boardPanel.getBoard().switchMode();
         }
 
 

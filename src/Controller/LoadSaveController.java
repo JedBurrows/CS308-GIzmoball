@@ -1,13 +1,8 @@
 package Controller;
 
-import Model.Absorber;
-import Model.Board;
+import Model.*;
 import Model.Exceptions.NoSuchGizmoException;
-import Model.GizmoCreator;
-import Model.Gizmos.Flipper;
-import Model.Gizmos.Circle;
-import Model.Gizmos.IGizmo;
-import Model.Gizmos.Square;
+import Model.Gizmos.*;
 import View.BoardPanel;
 
 import javax.swing.*;
@@ -37,7 +32,9 @@ public class LoadSaveController implements ActionListener {
 
                     //Write gizmos to file
 					//TODO not writing Flippers since class name is just "Flipper" not "LeftFlipper" or "RightFlipper"
-                    for (IGizmo gizmo: panel.getBoard().getGizmos()){
+
+                    IBoard board = panel.getBoard();
+                    for (IGizmo gizmo: board.getGizmos()){
                         bufferedWriter.write(gizmo.getClass().getSimpleName() + " " + gizmo.getID() + " " + gizmo.getxPos() + " " + gizmo.getyPos());
                         int rotations = gizmo.getRotation();
                         if (rotations > 0){
@@ -46,6 +43,18 @@ public class LoadSaveController implements ActionListener {
                                 bufferedWriter.write("Rotate" + " " + gizmo.getID());
                             }
                         }
+                        bufferedWriter.newLine();
+                    }
+
+                    for (Connector connection: board.getConnectors()){
+                        bufferedWriter.write("Connect" + " " + connection.getSource().getID() + " " + connection.getTarget().getID());
+                        bufferedWriter.newLine();
+                    }
+
+                    if (panel.getBoard().hasGizmoBall()){
+                        Ball ball = board.getBall();
+
+                        bufferedWriter.write("Ball"+ " " + ball.getName() + " " + ball.getXPos() + " " +ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
                         bufferedWriter.newLine();
                     }
 
@@ -126,7 +135,7 @@ public class LoadSaveController implements ActionListener {
                                                     vx = scanner.nextFloat();
                                                     if (scanner.hasNextFloat()) {
                                                         vy = scanner.nextFloat();
-//                                                        board.addGizmoBall(new Ball(name, x, y, 0.1f,0.1f));
+                                                        //board.addGizmoBall(new Ball(name, x, y, 0.1f,0.1f));
                                                     } else {
                                                         System.out.println("Ball command missing vy velocity or velocity is not of type float.");
                                                     }
@@ -268,7 +277,7 @@ public class LoadSaveController implements ActionListener {
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
-														//board.addGizmo(new Triangle(name, x1, y1), x1, y1);
+														board.addGizmo(new Triangle(name, x1, y1));
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":
