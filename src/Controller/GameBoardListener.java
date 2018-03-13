@@ -73,13 +73,16 @@ public class GameBoardListener implements MouseListener {
                     board.addGizmoBall(x1,y1);
                     boardPanel.repaint();
                     break;
+                case("Delete"):
+                    float x2 = e.getX()/l;
+                    float y2 = e.getY()/l;
+                    System.out.println("Gizmo Delete");
+                    board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
+                    boardPanel.repaint();
+                    break;
                 default:
                     break;
-
-
-
             }
-
 
         }
 
