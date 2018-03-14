@@ -14,6 +14,8 @@ public class BuildGUI {
 	private JComboBox<String> boxGizmo;
 	private String mode;
 	private Container color;
+	private Color colour;
+	private ColorChooserExample colourChoser;
 
 	private BuildModeListener buildModeListener;
 
@@ -48,6 +50,18 @@ public class BuildGUI {
 
 	private void initialiseButtons(GBallFrame parent) {
 		boxGizmo = new JComboBox<>();
+
+        colourChoser = new ColorChooserExample();
+        btnColor=new JButton("Choose a Colour");
+        btnColor.addActionListener(buildModeListener);
+        btnColor.setActionCommand("Choose Colour");
+
+        boxGizmo.setPreferredSize(new Dimension(150, 50));
+
+
+//        colour = colourChoser.getColorGiz();
+//        System.out.println("COLOUR: "+colour);
+
 		boxGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo.addItem("Square");
 		boxGizmo.addItem("Circle");
@@ -268,5 +282,18 @@ public class BuildGUI {
 	public JComboBox<String> getBoxGizmo() {
 		return boxGizmo;
 	}
+   public ColorChooserExample getColours(){
+	    return colourChoser;
+   }
+
+
+    /*@Override
+	public void actionPerformed(ActionEvent e) {
+        String arg = e.getActionCommand();
+        if(arg.equals("Run")) {
+            IModeGUI run = new RunGUI();
+
+    }*/
+
 }
 

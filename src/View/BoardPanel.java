@@ -27,12 +27,18 @@ public class BoardPanel extends JPanel implements Observer {
 
     }
 
+    public void setColours(ColorChooserExample cce){
+        colours = cce;
+    }
+
     public int getDimension() {
         return dimension;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+
+
 
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g);
@@ -56,7 +62,7 @@ public class BoardPanel extends JPanel implements Observer {
             //System.out.println("pls is" + pls);
             //g2.setColor(pls);
             //System.out.println(g2.getColor().toString());
-            g.setColor(Color.GREEN);
+            g.setColor(colours.getColorGiz());
 
 
             String type = gizmo.getClass().getSimpleName();
