@@ -2,7 +2,9 @@ package Model;
 
 import Model.Gizmos.IGizmo;
 
-public class Connector {
+import java.util.Objects;
+
+public class Connector  {
 	private IGizmo source, target;
 
 	/**
@@ -26,6 +28,13 @@ public class Connector {
 	public IGizmo getTarget() {
 		return target;
 	}
+
+	@Override
+	public int hashCode(){
+		return Objects.hash(source,target);
+	}
+
+
 
 
 }

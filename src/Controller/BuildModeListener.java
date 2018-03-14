@@ -10,7 +10,7 @@ import java.awt.event.*;
 public class BuildModeListener implements GBallListener {
 
 	private KeyListener keyListener;
-	private MouseInputListener mouseInputListener;
+	private MouseListener mouseInputListener;
 	private  GBallFrame gBallFrame;
 
 	public BuildModeListener(GBallFrame gBallFrame){
@@ -19,7 +19,7 @@ public class BuildModeListener implements GBallListener {
 	}
 
 	@Override
-	public void setMouseListener(MouseInputListener mouseInputListener) {
+	public void setMouseListener(MouseListener mouseInputListener) {
 		BuildGUI buildGUI = gBallFrame.getBuildPanel();
 		buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
 		this.mouseInputListener = mouseInputListener;
@@ -65,7 +65,7 @@ public class BuildModeListener implements GBallListener {
 				this.setMouseListener(new DeletePressListener(buildGUI));
 				break;
 			case "Connect":
-
+				this.setMouseListener(new ConnectPressListener(buildGUI));
 				break;
 			case "Disconnect":
 

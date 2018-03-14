@@ -7,10 +7,7 @@ import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class RunModeListener implements GBallListener {
 
@@ -40,7 +37,6 @@ public class RunModeListener implements GBallListener {
 						timer.stop();
 						break;
 					case "Tick":
-						board.moveBall();
 						break;
 					case "Build":
 						gBallFrame.switchToBuild();
@@ -93,7 +89,7 @@ public class RunModeListener implements GBallListener {
 	}
 
 	@Override
-	public void setMouseListener(MouseInputListener mouseInputListener) {
+	public void setMouseListener(MouseListener mouseListener) {
 
 	}
 
