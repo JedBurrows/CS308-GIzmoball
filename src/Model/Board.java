@@ -74,15 +74,18 @@ public class Board extends Observable implements IBoard{
 	}
 
 	public boolean setAbsorber(Absorber absorber) {
-		int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
-		for (int xPos = x1; xPos < x2; xPos++) {
-			for (int yPos = y1; yPos < y2; yPos++) {
-				grid[xPos][yPos] = true;
-			}
+		if(this.absorber == null && absorber.getyPos1() == absorber.getyPos2()) {
+			int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
+			for (int xPos = x1; xPos < x2; xPos++) {
+				for (int yPos = y1; yPos < y2; yPos++) {
+					grid[xPos][yPos] = true;
+				}
 
+			}
+			this.absorber = absorber;
+			return true;
 		}
-		this.absorber = absorber;
-		return true;
+		return false;
 	}
 
 	public boolean hasAbsorber() {
