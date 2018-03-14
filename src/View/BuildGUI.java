@@ -82,6 +82,7 @@ public class BuildGUI{
 
 		btnRotate = new JToggleButton("Rotate");
 		btnRotate.setPreferredSize(new Dimension(150, 50));
+		btnRotate.addActionListener(new RotateListener(this));
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
