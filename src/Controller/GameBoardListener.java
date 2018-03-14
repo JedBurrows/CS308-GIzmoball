@@ -38,6 +38,7 @@ public class GameBoardListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         IBoard board = boardPanel.getBoard();
+        if(!board.isRunMode()){
         if (SwingUtilities.isRightMouseButton(e)) {
             RightClickMenu gizmoMenu = new RightClickMenu();
 
@@ -47,7 +48,6 @@ public class GameBoardListener implements MouseListener {
                     String d = gizmo.getSelectedItem().toString();
                     System.out.println(d);
                     System.out.println("Delete gizmo");
-
                     board.deleteGizmo(d);
                     boardPanel.repaint();
 
@@ -55,46 +55,51 @@ public class GameBoardListener implements MouseListener {
         } else if (SwingUtilities.isLeftMouseButton(e)) {
             System.out.println(gui.getMode());
             System.out.println("Left clicked");
-            switch (gui.getMode()){
-                case("AddGizmo"):
+            switch (gui.getMode()) {
+                case ("AddGizmo"):
 
                     String g = gizmo.getSelectedItem().toString();
-                    int x = (int) (e.getX()/l);
-                    int y = (int) (e.getY()/l);
+                    int x = (int) (e.getX() / l);
+                    int y = (int) (e.getY() / l);
 
-                    board.addGizmo(gizmoCreator.createGizmo(g,x,y));
+                    board.addGizmo(gizmoCreator.createGizmo(g, x, y));
                     boardPanel.repaint();
                     break;
-                case("AddBall"):
-                    float x1 = e.getX()/l;
-                    float y1 = e.getY()/l;
+                case ("AddBall"):
+                    float x1 = e.getX() / l;
+                    float y1 = e.getY() / l;
                     System.out.println(e.getX());
                     System.out.println(e.getY());
                     System.out.println(x1);
                     System.out.println(y1);
-                    board.addGizmoBall(x1,y1);
+                    board.addGizmoBall(x1, y1);
                     boardPanel.repaint();
                     break;
-                case("Delete"):
+                case ("Delete"):
                     float x2 = e.getX() / l;
                     float y2 = e.getY() / l;
-                    if(board.isInsideBall(x2,y2)){
+                    if (board.isInsideBall(x2, y2)) {
                         System.out.println("deleting ball");
                         board.deleteBall();
                         boardPanel.repaint();
-                    }
-                    else {
+                    } else {
                         System.out.println("Gizmo Delete");
                         System.out.println();
-                        System.out.println("Ball X "+ board.getBall().getXPos() + "Ball Y " + board.getBall().getYPos());
-                        System.out.println("EX: " +  x2+ "EY: " + y2);
+                        System.out.println("Ball X " + board.getBall().getXPos() + "Ball Y " + board.getBall().getYPos());
+                        System.out.println("EX: " + x2 + "EY: " + y2);
                         board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
                         boardPanel.repaint();
                     }
                     break;
+
+                case ("Move"):
+                    board.deleteGizmo(gizmo.getSelectedItem().toString());
+
+
                 default:
                     break;
             }
+        }
 
         }
 

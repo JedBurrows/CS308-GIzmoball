@@ -222,6 +222,10 @@ public class BuildGUI{
 			case "Delete":
 				btnDelete.setSelected(true);
 				break;
+
+			case "Move":
+				btnRotate.setSelected(true);
+				break;
 		}
 
 
