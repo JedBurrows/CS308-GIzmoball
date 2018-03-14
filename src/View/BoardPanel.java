@@ -62,14 +62,16 @@ public class BoardPanel extends JPanel implements Observer {
             //System.out.println("pls is" + pls);
             //g2.setColor(pls);
             //System.out.println(g2.getColor().toString());
-            if(colours.getColorGiz()!= null){
-                g.setColor(colours.getColorGiz());
-            }
-            else{
-                g.setColor(Color.MAGENTA);
-            }
 
+//            if(colours.getColorGiz()!= null){
+//                g.setColor(colours.getColorGiz());
+//            }
+//            else{
+//                g.setColor(Color.MAGENTA);
+//            }
 
+            g.setColor(gizmo.getColour());
+            System.out.println("COLOUR OF NEW GIZMO: "+gizmo.getColour());
             String type = gizmo.getClass().getSimpleName();
             switch (type) {
                 case "Square":
@@ -113,7 +115,7 @@ public class BoardPanel extends JPanel implements Observer {
                     g2.fillPolygon(xPoints, yPoints, 3);
                     break;
                 case "Flipper":
-                    g2.setColor(Color.YELLOW);
+                    //g2.setColor(Color.YELLOW);
 
                     for (LineSegment l : gizmo.getLines()) {
                         g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));

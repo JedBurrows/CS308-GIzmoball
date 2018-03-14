@@ -8,6 +8,7 @@ import View.BuildGUI;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -24,15 +25,17 @@ public class AddGizmoPressListener implements MouseInputListener {
     private IBoard board;
     private MouseEvent pressed;
     private MouseEvent released;
+    private Color colour;
 
-    public AddGizmoPressListener(BuildGUI gui  ){
+    public AddGizmoPressListener(BuildGUI gui, Color colour){
         this.buildGUI = gui;
         this.gizmo = buildGUI.getBoxGizmo();
         this.boardPanel = buildGUI.getBoardPanel();
         this.gizmoCreator = new GizmoCreator();
         this.board = boardPanel.getBoard();
         this.L = boardPanel.getDimension()/20;
-
+        this.colour = colour;
+        System.out.println(this.colour);
     }
 
     @Override
@@ -49,7 +52,7 @@ public class AddGizmoPressListener implements MouseInputListener {
                 int x = (int) (e.getX()/L);
                 int y = (int) (e.getY()/L);
 
-                board.addGizmo(gizmoCreator.createGizmo(g,x,y));
+                board.addGizmo(gizmoCreator.createGizmo(g,x,y,colour));
                 boardPanel.repaint();
             }
 
