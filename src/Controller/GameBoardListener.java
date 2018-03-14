@@ -89,14 +89,10 @@ public class GameBoardListener implements MouseListener {
                         float x2 = mousePressed.getX() / l;
                         float y2 = mousePressed.getY() / l;
                         if (board.isInsideBall(x2, y2)) {
-                            System.out.println("deleting ball");
                             board.deleteBall();
                             boardPanel.repaint();
                         } else {
                             System.out.println("Gizmo Delete");
-                            System.out.println();
-                            System.out.println("Ball X " + board.getBall().getXPos() + "Ball Y " + board.getBall().getYPos());
-                            System.out.println("EX: " + x2 + "EY: " + y2);
                             board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
                             boardPanel.repaint();
                         }

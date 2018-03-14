@@ -305,7 +305,11 @@ public class Board extends Observable implements IBoard {
     }
 
     public boolean isInsideBall(float x, float y) {
-        return (x >= ball.getXPos() - ball.getRadius() && x <= ball.getXPos() + ball.getRadius() && y >= ball.getYPos() - ball.getRadius() && y <= ball.getYPos() + ball.getRadius());
+        if (hasGizmoBall()) {
+            return (x >= ball.getXPos() - ball.getRadius() && x <= ball.getXPos() + ball.getRadius() && y >= ball.getYPos() - ball.getRadius() && y <= ball.getYPos() + ball.getRadius());
+        }else{
+            return false;
+        }
     }
 
     //-------------------------------------------------------------------------------------------
