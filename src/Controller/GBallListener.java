@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
 public interface GBallListener extends ActionListener,KeyListener,MouseListener {
-	void setMouseListener(MouseInputListener mouseInputListener);
+	void setMouseListener(MouseListener mouseInputListener);
 
 	void setKeyBoardListener(KeyListener keyListener);
 

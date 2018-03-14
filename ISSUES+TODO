@@ -21,6 +21,6 @@ Tests
 Bugs + Cleanup
     Cleanup instances of bad code + MVC breaks
     See todos in intellij
-    Collision not working
+    Collisions with rotated triangle not correct
     Split Flipper to right and left flipper for saving.
 

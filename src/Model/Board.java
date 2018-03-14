@@ -20,10 +20,9 @@ public class Board extends Observable implements IBoard {
     private boolean runMode;
     private boolean[][] grid;
     private float gravity, mu, mu2;
-    private ArrayList<Connector> connectors;
+    private HashSet<Connector> connectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private Absorber absorber;
-    private Observer observer;
 
     //---------------------------------------------
 
@@ -46,7 +45,7 @@ public class Board extends Observable implements IBoard {
             Arrays.fill(row, false);
         }
 
-        connectors = new ArrayList<>();
+        connectors = new HashSet<>();
         gizmoHashMap = new HashMap<>();
 
         runMode = false;
@@ -115,14 +114,15 @@ public class Board extends Observable implements IBoard {
 
 
     public boolean addConnector(String name1, String name2) {
-        IGizmo gizmoSource, gizmoTarget;
-
         try {
-            gizmoSource = getGizmoByID(name1);
-            gizmoTarget = getGizmoByID(name2);
+            Connector connection = new Connector(getGizmoByID(name1),getGizmoByID(name2));
 
-            connectors.add(new Connector(gizmoSource, gizmoTarget));
-            return true;
+            if (connectors.contains(connection)){
+                return false;
+            }else{
+                connectors.add(connection);
+                return true;
+            }
 
         } catch (NoSuchGizmoException e) {
             return false;

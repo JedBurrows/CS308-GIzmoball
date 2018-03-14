@@ -48,6 +48,7 @@ public class GBallFrame{
 		buildPanel.close();
 		frame.remove(buildPanel.getFrame());
 		frame.setJMenuBar(runBar);
+		runPanel.setBoardPanel(boardPanel);
 		runPanel.getFrame().add(boardPanel);
 		runPanel.open();
 		frame.add(runPanel.getFrame());
@@ -59,6 +60,7 @@ public class GBallFrame{
 		runPanel.close();
 		frame.remove(runPanel.getFrame());
 		frame.setJMenuBar(buildBar);
+		buildPanel.setBoardPanel(boardPanel);
 		buildPanel.getFrame().add(boardPanel);
 		buildPanel.open();
 		frame.add(buildPanel.getFrame());
@@ -73,10 +75,10 @@ public class GBallFrame{
 		menuBar.add(fileMenu);
 
 		JMenuItem menuItemLoad = new JMenuItem("Load");
-		menuItemLoad.addActionListener(new LoadSaveController(buildPanel.getBoardPanel()));
+		menuItemLoad.addActionListener(new LoadSaveController(boardPanel));
 
 		JMenuItem menuItemSave = new JMenuItem("Save");
-		menuItemSave.addActionListener(new LoadSaveController(buildPanel.getBoardPanel()));
+		menuItemSave.addActionListener(new LoadSaveController(boardPanel));
 
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.addActionListener(e -> System.exit(0));
