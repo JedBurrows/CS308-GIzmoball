@@ -411,22 +411,41 @@ public class Board extends Observable implements IBoard {
 
         for (IGizmo g : gizmoHashMap.values()) {
             for (LineSegment line : g.getLines()) {
-                time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-                if (time < shortestTime) {
-                    shortestTime = time;
-                    newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+                if (g.getMoving()) {
+                    time = Geometry.timeUntilRotatingWallCollision(line, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+                } else {
+                    time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
                 }
-            }
-
-            for (Circle c : g.getCircles()) {
-                time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
                 if (time < shortestTime) {
                     shortestTime = time;
-                    newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
+
+                    if (g.getMoving()) {
+                        newVelo = Geometry.reflectRotatingWall(line, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+                    }else{
+                        newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+
+                    }
+                }
+
+                for (Circle c : g.getCircles()) {
+                    if (g.getMoving()) {
+                        time = Geometry.timeUntilRotatingCircleCollision(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+                    } else {
+                        time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+                    }
+                    if (time < shortestTime) {
+
+                        shortestTime = time;
+
+                        if (g.getMoving()) {
+                            newVelo = Geometry.reflectRotatingCircle(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+                        } else {
+                            newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
+                        }
+                    }
                 }
             }
         }
-
 
         return new CollisionDetails(shortestTime, newVelo);
     }
