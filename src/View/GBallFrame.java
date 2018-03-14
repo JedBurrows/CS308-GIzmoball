@@ -50,6 +50,7 @@ public class GBallFrame{
 		runPanel.open();
 		frame.add(runPanel.getFrame());
 		frame.pack();
+		boardPanel.getBoard().switchMode();
 	}
 
 	public void switchToBuild(){
@@ -60,6 +61,8 @@ public class GBallFrame{
 		buildPanel.open();
 		frame.add(buildPanel.getFrame());
 		frame.pack();
+		boardPanel.getBoard().switchMode();
+
 	}
 
 	private JMenuBar createBuildBar(){

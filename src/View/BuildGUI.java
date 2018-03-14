@@ -23,7 +23,7 @@ public class BuildGUI {
 
 
 	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {
-		buildModeListener = new BuildModeListener(this);
+		buildModeListener = new BuildModeListener(parent);
 
 		buildFrame = new JPanel();
 		setBoardPanel(boardPanel);
@@ -67,7 +67,6 @@ public class BuildGUI {
 
 		btnRotate = new JToggleButton("Rotate");
 		btnRotate.setPreferredSize(new Dimension(150, 50));
-		btnRotate.addActionListener(new RotateListener(this));
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
@@ -246,6 +245,8 @@ public class BuildGUI {
 
 
 	}
+
+
 
 	private void clearSelected() {
 

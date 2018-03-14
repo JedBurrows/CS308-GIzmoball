@@ -1,10 +1,8 @@
 package View;
 
 
-import Controller.KeyPressListener;
-import Controller.MagicKeyListener;
-import Controller.ModeListener;
 import Controller.RunListener;
+import Controller.RunModeListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +11,10 @@ public class RunGUI {
 
     private JPanel runFrame;
     private BoardPanel boardPanel;
-    private RunListener runListener;
+    private RunModeListener runModeListener;
 
     public RunGUI(GBallFrame parent, BoardPanel boardPanel) {
+        runModeListener = new RunModeListener(parent);
         setBoardPanel(boardPanel);
 
         runFrame = new JPanel();
@@ -30,27 +29,29 @@ public class RunGUI {
 
     }
     private JPanel initialiseButtons(GBallFrame parent) {
-        runListener = new RunListener(boardPanel);
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
-        btnStart.addActionListener(runListener);
+        btnStart.addActionListener(runModeListener);
         btnStart.setActionCommand("Start");
         //btnStart.addKeyListener(new MagicKeyListener(new KeyPressListener(boardPanel.getBoard())));
 
         JButton btnStop = new JButton("Stop");
         btnStop.setPreferredSize(new Dimension(75, 75));
-        btnStop.addActionListener(runListener);
+        btnStop.addActionListener(runModeListener);
+        btnStop.setActionCommand("Stop");
 
         JButton btnTick = new JButton("Tick");
         btnTick.setPreferredSize(new Dimension(75, 75));
-        btnTick.addActionListener(runListener);
+        btnTick.addActionListener(runModeListener);
+        btnTick.setActionCommand("Tick");
 
 
         JButton btnBuildMode = new JButton("Build");
         btnBuildMode.setPreferredSize(new Dimension(75, 75));
+        btnBuildMode.setActionCommand("Build");
 
 
-        btnBuildMode.addActionListener(new ModeListener(parent, boardPanel));
+        btnBuildMode.addActionListener(runModeListener);
 
         JPanel panelBtn = new JPanel();
         panelBtn.setSize(150, 300);

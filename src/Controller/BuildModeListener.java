@@ -2,6 +2,7 @@ package Controller;
 
 import View.BoardPanel;
 import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.*;
@@ -11,9 +12,10 @@ public class BuildModeListener implements GBallListener {
 	private BuildGUI buildGUI;
 	private KeyListener keyListener;
 	private MouseInputListener mouseInputListener;
+	private  GBallFrame gBallFrame;
 
-	public BuildModeListener(BuildGUI buildGUI){
-		this.buildGUI = buildGUI;
+	public BuildModeListener(GBallFrame gBallFrame){
+		this.gBallFrame = gBallFrame;
 	}
 
 	@Override
@@ -73,7 +75,7 @@ public class BuildModeListener implements GBallListener {
 
 				break;
 			case  "Run":
-
+				gBallFrame.switchToRun();
 				break;
 
 

@@ -1,5 +1,7 @@
 package Controller;
 
+import View.GBallFrame;
+
 import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -8,12 +10,32 @@ import java.awt.event.MouseEvent;
 
 public class RunModeListener implements GBallListener {
 
-	public RunModeListener(){
+	private GBallFrame gBallFrame;
 
+	public RunModeListener(GBallFrame gBallFrame){
+		this.gBallFrame = gBallFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()){
+			case "Start":
+
+				break;
+
+			case "Stop":
+
+				break;
+
+			case "Tick":
+				break;
+
+			case "Build":
+				gBallFrame.switchToBuild();
+				break;
+
+
+		}
 
 	}
 
