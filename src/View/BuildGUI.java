@@ -100,6 +100,7 @@ public class BuildGUI{
 
 		btnKeyCon = new JToggleButton("Key Connect");
 		btnKeyCon.setPreferredSize(new Dimension(150, 50));
+		//btnKeyCon.addActionListener(new InputKeyEvents());
 
 		btnKeyDisc = new JToggleButton("Key Disconnect");
 		btnKeyDisc.setPreferredSize(new Dimension(150, 50));
