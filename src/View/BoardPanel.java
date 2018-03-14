@@ -184,7 +184,9 @@ public class BoardPanel extends JPanel implements Observer {
 
 
     public void setBoard(IBoard b) {
+
         board = (Board) b;
+        board.addObserver(this);
         this.repaint();
     }
 

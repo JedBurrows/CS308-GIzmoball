@@ -23,7 +23,6 @@ public class Board extends Observable implements IBoard {
     private HashSet<Connector> connectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private Absorber absorber;
-    private Observer observer;
 
     //---------------------------------------------
 
