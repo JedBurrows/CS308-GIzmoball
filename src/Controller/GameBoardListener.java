@@ -93,9 +93,6 @@ public class GameBoardListener implements MouseListener {
                     break;
 
                 case ("Move"):
-                    board.deleteGizmo(gizmo.getSelectedItem().toString());
-
-
                 default:
                     break;
             }
