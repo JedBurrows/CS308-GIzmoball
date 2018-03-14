@@ -90,11 +90,12 @@ public class Flipper implements IGizmo {
                 }
                 if (!direction) {
                     x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-                } else {
+				} else {
                     x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
-                }
+				}
                 y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
-            }
+
+			}
         }
         createCircles();
         createLines();
@@ -124,12 +125,20 @@ public class Flipper implements IGizmo {
     public void createCircles() {
         circles.removeAll(circles);
         double angleDivider = angle / 90.0;
-        double xDivider = (angleDivider * 0.5) - 0.25;
-        double yDivider = 0.25 - (angleDivider * 0.5);
-        if (!direction) {
-            circles.add(new Circle(xpos+ 0.25, ypos + 0.25, 0.25));
-            circles.add(new Circle(x2pos+ xDivider, y2pos + yDivider, 0.25));
-        }
+
+
+		if (!direction) {
+			double xDivider = (angleDivider * 0.5) - 0.25;
+			double yDivider = 0.25 - (angleDivider * 0.5);
+			circles.add(new Circle(xpos+ 0.25, ypos + 0.25, 0.25));
+			circles.add(new Circle(x2pos+ xDivider, y2pos + yDivider, 0.25));
+        }else{
+			double xDivider = 1.25-(angleDivider * 0.5);
+			double yDivider = 0.25 - (angleDivider * 0.5);
+			circles.add(new Circle(xpos+ 0.75, ypos + 0.25, 0.25));
+			circles.add(new Circle(x2pos+ xDivider, y2pos + yDivider, 0.25));
+
+		}
     }
 
     @Override
@@ -137,19 +146,35 @@ public class Flipper implements IGizmo {
         lines.removeAll(lines);
 
         double angleDivider = angle / 90.0;
-        double l1x1Divider = 0.25 - (angleDivider * 0.25);
-        double l1y1Divider = 0.5 - (angleDivider * 0.25);
-        double l1x2Divider = (angleDivider * 0.25) - 0.25;
-        double l1y2Divider = 0.5 - (angleDivider * 0.75);
-        double l2x1Divider = (angleDivider * 0.25) + 0.25 ;
-        double l2y1Divider = (angleDivider * 0.25);
-        double l2x2Divider = (angleDivider * 0.75) - 0.25;
-        double l2y2Divider = -(angleDivider * 0.25);
 
         if (!direction) {
+        	double l1x1Divider = 0.25 - (angleDivider * 0.25);
+			double l1y1Divider = 0.5 - (angleDivider * 0.25);
+			double l1x2Divider = (angleDivider * 0.25) - 0.25;
+			double l1y2Divider = 0.5 - (angleDivider * 0.75);
+
+			double l2x1Divider = (angleDivider * 0.25) + 0.25 ;
+			double l2y1Divider = (angleDivider * 0.25);
+			double l2x2Divider = (angleDivider * 0.75) - 0.25;
+			double l2y2Divider = -(angleDivider * 0.25);
+
            lines.add(new LineSegment(xpos + l1x1Divider, ypos + l1y1Divider, x2pos + l1x2Divider, y2pos + l1y2Divider));
            lines.add(new LineSegment(xpos + l2x1Divider, ypos + l2y1Divider, x2pos + l2x2Divider, y2pos + l2y2Divider));
-        }
+        }else{
+			double l1x1Divider = 0.75 - (angleDivider * 0.25);
+			double l1y1Divider = (angleDivider * 0.25);
+			double l1x2Divider = 1.25 - (angleDivider * 0.75);
+			double l1y2Divider = -(angleDivider * 0.25);
+
+			double l2x1Divider = (angleDivider * 0.25) + 0.75 ;
+			double l2y1Divider = 0.5- (angleDivider * 0.25);
+			double l2x2Divider = 1.25 - (angleDivider * 0.25);
+			double l2y2Divider = 0.5 -(angleDivider * 0.75);
+
+			lines.add(new LineSegment(xpos + l1x1Divider, ypos + l1y1Divider, x2pos + l1x2Divider, y2pos + l1y2Divider));
+			lines.add(new LineSegment(xpos + l2x1Divider, ypos + l2y1Divider, x2pos + l2x2Divider, y2pos + l2y2Divider));
+
+		}
 
     }
 
@@ -185,11 +210,15 @@ public class Flipper implements IGizmo {
 
 	@Override
 	public int getWidth() {
+		if (direction){
+			return -2;
+		}
 		return 2;
 	}
 
 	@Override
 	public int getHeight() {
+
 		return 2;
 	}
 
