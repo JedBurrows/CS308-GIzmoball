@@ -16,6 +16,8 @@ public class Flipper implements IGizmo {
 	private double angle ;
 	private double angVel;
 
+	private boolean moving;
+
 	//left = false //right = true
 	private boolean direction;
 	private boolean keyPress;
@@ -38,7 +40,7 @@ public class Flipper implements IGizmo {
 		direction = d;
 
 		orientation = 0;
-
+		moving = false;
 		xpos = x;
 		ypos = y;
 		x2pos = xpos;
@@ -69,12 +71,18 @@ public class Flipper implements IGizmo {
 
     @Override
     public void action(double tickTime) {
-        if (!keyPress) {
+		moving = false;
+		if (!keyPress) {
             if (angle < maxAngle) {
+				if (angVel < 0){
+					angVel = - angVel;
+				}
                 angle = angle + (angVel * tickTime);
-                if (angle > 90) {
+                if (angle >= 90) {
                     angle = 90;
-                }
+                }else{
+                	moving = true;
+				}
                 if (!direction) {
                     x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
                 } else {
@@ -83,17 +91,24 @@ public class Flipper implements IGizmo {
                 y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
             }
         } else if (keyPress) {
-            if (angle >= minAngle) {
-                angle = angle + (-angVel * tickTime);
+			if (angle >= minAngle) {
+				if (angVel > 0){
+					angVel = - angVel;
+				}
+				angle = angle + (angVel * tickTime);
                 if (angle < 0) {
                     angle = 0;
-                }
+                }else{
+                	moving = true;
+				}
                 if (!direction) {
                     x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
 				} else {
                     x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
 				}
-                y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
+				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
+
+
 
 			}
         }
@@ -245,8 +260,19 @@ public class Flipper implements IGizmo {
 	}
 
     @Override
-    public boolean getDirection() {
-        return direction;
-    }
+	public boolean getDirection() {
+		return direction;
+	}
+
+	@Override
+	public double getAngVel() {
+		return angVel;
+	}
+
+	@Override
+	public boolean getMoving() {
+		return moving;
+	}
+
 
 }

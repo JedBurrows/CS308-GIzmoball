@@ -57,4 +57,9 @@ public interface IGizmo {
 	boolean getDirection();
 
 	double getAngle();
+
+	double getAngVel();
+
+	boolean getMoving();
+
 }

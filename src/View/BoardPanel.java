@@ -13,7 +13,7 @@ import java.util.Observer;
 
 public class BoardPanel extends JPanel implements Observer {
 
-    private Board board;
+    private IBoard board;
     private ColorChooserExample colours;
     private int dimension = 600;
     private Color col;
@@ -22,9 +22,13 @@ public class BoardPanel extends JPanel implements Observer {
 
     public BoardPanel(IBoard b) {
         setPreferredSize(new Dimension(dimension, dimension));
-        board = (Board) b;
+        board = b;
         board.addObserver(this);
 
+    }
+
+    public void setColours(ColorChooserExample cce){
+        colours = cce;
     }
 
     public int getDimension() {
@@ -33,6 +37,8 @@ public class BoardPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
+
+
 
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g);
@@ -56,7 +62,12 @@ public class BoardPanel extends JPanel implements Observer {
             //System.out.println("pls is" + pls);
             //g2.setColor(pls);
             //System.out.println(g2.getColor().toString());
-            g.setColor(Color.GREEN);
+            if(colours.getColorGiz()!= null){
+                g.setColor(colours.getColorGiz());
+            }
+            else{
+                g.setColor(Color.MAGENTA);
+            }
 
 
             String type = gizmo.getClass().getSimpleName();

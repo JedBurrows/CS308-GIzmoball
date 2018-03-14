@@ -125,6 +125,14 @@ public class Triangle implements IGizmo {
         return 0;
     }
 
+    @Override
+    public double getAngVel() {
+        return 0;
+    }
+    @Override
+    public boolean getMoving() {
+        return false;
+    }
 
     public int getRotation() {
         return rotation;

@@ -1,10 +1,14 @@
 package Controller;
 
+import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
+import View.ColorChooserExample;
 import View.GBallFrame;
 
+import javax.swing.*;
 import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.*;
 
 public class BuildModeListener implements GBallListener {
@@ -12,6 +16,8 @@ public class BuildModeListener implements GBallListener {
 	private KeyListener keyListener;
 	private MouseListener mouseInputListener;
 	private  GBallFrame gBallFrame;
+	private Color col;
+	private ColorChooserExample colourChooser;
 
 	public BuildModeListener(GBallFrame gBallFrame){
 		this.gBallFrame = gBallFrame;
@@ -47,6 +53,11 @@ public class BuildModeListener implements GBallListener {
 				this.setMouseListener(new AddGizmoPressListener(buildGUI));
 				break;
 			case "Choose Colour":
+			//	this.setMouseListener(new ColorChooserExample());
+				Color initialcolor=Color.RED;
+				Color color= JColorChooser.showDialog(gBallFrame.getBuildPanel().getFrame(),"Select a color",initialcolor);
+				System.out.println("Color is"+ color);
+				col = color;
 
 				break;
 			case "Add Ball":

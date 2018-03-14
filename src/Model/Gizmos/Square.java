@@ -127,4 +127,14 @@ public class Square implements IGizmo {
     public double getAngle() {
         return 0;
     }
+
+    @Override
+    public double getAngVel() {
+        return 0;
+    }
+    @Override
+    public boolean getMoving() {
+        return false;
+    }
+
 }

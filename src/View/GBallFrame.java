@@ -23,6 +23,8 @@ public class GBallFrame{
 		buildPanel = new BuildGUI(this,boardPanel);
 		runPanel = new RunGUI(this,boardPanel);
 
+		boardPanel.setColours(buildPanel.getColours());
+
 		buildPanel.getFrame().add(boardPanel);
 
 
