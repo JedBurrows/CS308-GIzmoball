@@ -2,7 +2,7 @@ package Model;
 
 import physics.LineSegment;
 
-public class Absorber{
+public class Absorber implements IAbsorber{
     private int xPos1, yPos1, xPos2, yPos2;
     private String id;
     private LineSegment ls;

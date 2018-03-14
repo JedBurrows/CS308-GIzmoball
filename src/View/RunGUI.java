@@ -15,21 +15,22 @@ public class RunGUI {
     private RunModeListener runModeListener;
 
     public RunGUI(GBallFrame parent, BoardPanel boardPanel) {
-        runModeListener = new RunModeListener(parent);
         setBoardPanel(boardPanel);
+
+        runModeListener = new RunModeListener(parent);
 
         runFrame = new JPanel();
 
 
         JPanel panel = new JPanel();
-        panel.add(initialiseButtons(parent));
+        panel.add(initialiseButtons());
         panel.add(getBoardPanel());
         runFrame.add(panel);
         runFrame.setVisible(true);
 
 
     }
-    private JPanel initialiseButtons(GBallFrame parent) {
+    private JPanel initialiseButtons() {
         JButton btnStart = new JButton("Start");
         btnStart.setPreferredSize(new Dimension(75, 75));
         btnStart.addActionListener(runModeListener);

@@ -324,6 +324,8 @@ public class Board extends Observable implements IBoard {
 
         //TODO Check for if in playMode then can move ball.
         // 0.05 = 20 times per second as per Gizmoball
+        System.out.println("ball: " + ball);
+        System.out.println("runMode: " + runMode);
 
         if (runMode) {
             double moveTime = 0.01;
@@ -453,24 +455,6 @@ public class Board extends Observable implements IBoard {
     public Ball getBall() {
         return ball;
     }
-
-//	public ArrayList<LineSegment> getLines() {
-//		return lines;
-//	}
-//
-//	public ArrayList<Circle> getCircles() {
-//		return circles;
-//	}
-//
-//
-//	public void addLine(LineSegment l) {
-//		lines.add(l);
-//	}
-//
-//	public void addCircle(Circle c) {
-//		circles.add(c);
-//	}
-
 
     public void setBallSpeed(int x, int y) {
         ball.setVelo(new Vect(x, y));
