@@ -4,6 +4,8 @@ import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 public interface IBoard  {
 
@@ -67,5 +69,6 @@ public interface IBoard  {
         public boolean isInsideBall(float x, float y);
 
 //        public void removeCircle(Vect v);
+        void addObserver(Observer o);
 
 }

@@ -39,6 +39,7 @@ public class BuildGUI {
 		buildFrame.add(panel);
 		buildFrame.setVisible(true);
 
+
 	}
 
 	private void createGameBoard() {

@@ -13,7 +13,7 @@ import java.util.Observer;
 
 public class BoardPanel extends JPanel implements Observer {
 
-    private Board board;
+    private IBoard board;
     private ColorChooserExample colours;
     private int dimension = 600;
     private Color col;
@@ -22,7 +22,7 @@ public class BoardPanel extends JPanel implements Observer {
 
     public BoardPanel(IBoard b) {
         setPreferredSize(new Dimension(dimension, dimension));
-        board = (Board) b;
+        board = b;
         board.addObserver(this);
 
     }
