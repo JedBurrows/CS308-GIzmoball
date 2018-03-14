@@ -69,6 +69,7 @@ public interface IBoard  {
         public boolean isInsideBall(float x, float y);
 
 //        public void removeCircle(Vect v);
+
         void addObserver(Observer o);
 
 }
