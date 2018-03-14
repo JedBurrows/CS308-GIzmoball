@@ -6,32 +6,24 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Hashtable;
 
-import Model.IBoard;
-
-public class BuildGUI{
-	private JToggleButton btnGizmo;
-	private JButton btnColor;
-	private JToggleButton btnBall;
-	private JToggleButton btnDelete;
-	private JButton btnClear;
-	private JToggleButton btnRotate;
-	private JToggleButton btnCon;
-	private JToggleButton btnDisc;
-	private JToggleButton btnKeyCon;
-	private JToggleButton btnKeyDisc;
-	private JButton btnRunMode;
+public class BuildGUI {
+	private JToggleButton btnGizmo, btnBall, btnDelete, btnRotate, btnCon, btnDisc, btnKeyCon, btnKeyDisc;
+	private JButton btnRunMode, btnColor, btnClear;
 	private JComboBox<String> boxGizmo;
 	private String mode;
 	private Container color;
+
+	private BuildModeListener buildModeListener;
 
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
 
 
-
 	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {
+		buildModeListener = new BuildModeListener(this);
 
 		buildFrame = new JPanel();
 		setBoardPanel(boardPanel);
@@ -55,15 +47,7 @@ public class BuildGUI{
 	}
 
 	private void initialiseButtons(GBallFrame parent) {
-		btnGizmo = new JToggleButton("Add Gizmo");
-		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo = new JComboBox<>();
-
-
-		btnColor=new JButton("Choose a Colour");
-		btnGizmo.setPreferredSize(new Dimension(150, 50));
-		btnColor.addActionListener(new ColorChooserExample());
-
 		boxGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo.addItem("Square");
 		boxGizmo.addItem("Circle");
@@ -72,13 +56,14 @@ public class BuildGUI{
 		boxGizmo.addItem("RightFlipper");
 		boxGizmo.addItem("Absorber");
 
-        getBoardPanel().addMouseListener(new GameBoardListener(getBoardPanel(), boxGizmo,this));
-		btnGizmo.addActionListener(new AddGizmoPressListener(this));
-		//btnGizmo.addMouseListener(new MousePressListener(boxGizmo.getSelectedItem().toString(), this));
-		//final MouseInputListener al = new AddAbsorberListener( model, view, messageBoard);
+		btnGizmo = new JToggleButton("Add Gizmo");
+		btnGizmo.setPreferredSize(new Dimension(150, 50));
+
+		btnColor = new JButton("Choose a Colour");
+		btnColor.setPreferredSize(new Dimension(150, 50));
+
 		btnBall = new JToggleButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
-		btnBall.addActionListener(new AddBallPressListener(this));
 
 		btnRotate = new JToggleButton("Rotate");
 		btnRotate.setPreferredSize(new Dimension(150, 50));
@@ -86,11 +71,9 @@ public class BuildGUI{
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
-		btnClear.addActionListener(new ClearBoardPressListener(getBoardPanel()));
 
-		btnDelete= new JToggleButton("Delete");
+		btnDelete = new JToggleButton("Delete");
 		btnDelete.setPreferredSize(new Dimension(150, 50));
-		btnDelete.addActionListener(new DeletePressListener(this));
 
 		btnCon = new JToggleButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
@@ -108,13 +91,45 @@ public class BuildGUI{
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
-		btnRunMode.addActionListener(new ModeListener(parent, boardPanel));
+
+		btnGizmo.addActionListener(buildModeListener);
+		btnGizmo.setActionCommand("Add Gizmo");
+
+		btnColor.addActionListener(buildModeListener);
+		btnColor.setActionCommand("Choose Colour");
+
+		btnBall.addActionListener(buildModeListener);
+		btnBall.setActionCommand("Add Ball");
+
+		btnRotate.addActionListener(buildModeListener);
+		btnRotate.setActionCommand("Rotate");
+
+		btnClear.addActionListener(buildModeListener);
+		btnClear.setActionCommand("Clear Board");
+
+		btnDelete.addActionListener(buildModeListener);
+		btnDelete.setActionCommand("Delete");
+
+		btnCon.addActionListener(buildModeListener);
+		btnCon.setActionCommand("Connect");
+
+		btnDisc.addActionListener(buildModeListener);
+		btnDisc.setActionCommand("Disconnect");
+
+		btnKeyCon.addActionListener(buildModeListener);
+		btnKeyCon.setActionCommand("Key Connect");
+
+		btnKeyDisc.addActionListener(buildModeListener);
+		btnKeyDisc.setActionCommand("Key Disconnect");
+
+		btnRunMode.addActionListener(buildModeListener);
+		btnRunMode.setActionCommand("Run");
 	}
 
 	private void initialiseSliders() {
 		JSlider frictionSlider1 = new JSlider();
 		frictionSlider1.addChangeListener(new SliderChangeListener());
-		JLabel frictionLabel1 = new JLabel("Friction");
+		JLabel frictionLabel1 = new JLabel("Friction mu");
 		frictionPanel1 = new JPanel();
 		frictionPanel1.setLayout(new GridLayout(1, 2));
 		frictionPanel1.add(frictionSlider1);
@@ -122,13 +137,24 @@ public class BuildGUI{
 
 		JSlider frictionSlider2 = new JSlider();
 		frictionSlider2.addChangeListener(new SliderChangeListener());
-		JLabel frictionLabel2 = new JLabel("Friction");
+		JLabel frictionLabel2 = new JLabel("Friction mu\u2082");
 		frictionPanel2 = new JPanel();
 		frictionPanel2.setLayout(new GridLayout(1, 2));
 		frictionPanel2.add(frictionSlider2);
 		frictionPanel2.add(frictionLabel2, 0);
 
 		JSlider gravitySlider = new JSlider();
+		gravitySlider.setMinimum(0);
+		gravitySlider.setMajorTickSpacing(25);
+		gravitySlider.setPaintTicks(true);
+		gravitySlider.setMaximum(50);
+		gravitySlider.setValue(25);
+		Hashtable<Integer, JLabel> table = new Hashtable<>();
+		table.put(0, new JLabel("0 L/sec\u00b2"));
+		table.put(25, new JLabel("25 L/sec\u00b2"));
+		table.put(50, new JLabel("50 L/sec\u00b2"));
+		gravitySlider.setLabelTable(table);
+		gravitySlider.setPaintLabels(true);
 		gravitySlider.addChangeListener(new SliderChangeListener());
 		JLabel gravityLabel = new JLabel("Gravity");
 		gravityPanel = new JPanel();
@@ -156,7 +182,7 @@ public class BuildGUI{
 		c2.insets = new Insets(5, 0, 5, 0);
 		c2.gridwidth = 0;
 
-		panelBtn.add(btnColor,c2);
+		panelBtn.add(btnColor, c2);
 		panelBtn.add(btnGizmo, c1);
 		panelBtn.add(boxGizmo, c2);
 		panelBtn.add(btnBall, c1);
@@ -176,18 +202,6 @@ public class BuildGUI{
 	}
 
 
-
-
-	public void actionPerformed(ActionEvent e) {
-		String arg = e.getActionCommand();
-		if (arg.equals("Add Ball")) {
-			//Ball paintComponent = new Ball();
-		}
-
-
-	}
-
-
 	public JPanel getFrame() {
 		return buildFrame;
 	}
@@ -196,11 +210,11 @@ public class BuildGUI{
 		return boardPanel;
 	}
 
-	public void close(){
+	public void close() {
 		buildFrame.setVisible(false);
 	}
 
-	public void open(){
+	public void open() {
 		buildFrame.setVisible(true);
 	}
 
@@ -213,7 +227,7 @@ public class BuildGUI{
 		this.mode = mode;
 		clearSelected();
 
-		switch (this.mode){
+		switch (this.mode) {
 			case "AddGizmo":
 				btnGizmo.setSelected(true);
 
@@ -250,16 +264,8 @@ public class BuildGUI{
 		this.boardPanel = boardPanel;
 	}
 
-
-
-
-    /*@Override
-	public void actionPerformed(ActionEvent e) {
-        String arg = e.getActionCommand();
-        if(arg.equals("Run")) {
-            IModeGUI run = new RunGUI();
-
-    }*/
-
+	public JComboBox<String> getBoxGizmo() {
+		return boxGizmo;
+	}
 }
 
