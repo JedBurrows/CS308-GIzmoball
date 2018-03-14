@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.IBoard;
+import View.BoardPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,15 +14,16 @@ import java.awt.event.ActionListener;
 public class RunListener implements ActionListener {
 
 	private Timer timer;
-	private IBoard board;
+	private BoardPanel boardPanel;
 
-	public RunListener(IBoard b) {
-		board = b;
-		timer = new Timer(10, this);
+	public RunListener(BoardPanel boardPanel) {
+		this.boardPanel = boardPanel;
+		this.timer = new Timer(10, this);
 	}
 
 	@Override
 	public final void actionPerformed(final ActionEvent e) {
+		IBoard board = boardPanel.getBoard();
 		if (board.isRunMode()) {
 			if (e.getSource() == timer) {
 				board.moveBall();
