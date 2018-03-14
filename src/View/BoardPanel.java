@@ -62,7 +62,12 @@ public class BoardPanel extends JPanel implements Observer {
             //System.out.println("pls is" + pls);
             //g2.setColor(pls);
             //System.out.println(g2.getColor().toString());
-            g.setColor(colours.getColorGiz());
+            if(colours.getColorGiz()!= null){
+                g.setColor(colours.getColorGiz());
+            }
+            else{
+                g.setColor(Color.MAGENTA);
+            }
 
 
             String type = gizmo.getClass().getSimpleName();

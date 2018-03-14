@@ -10,13 +10,14 @@ public class ColorChooserExample extends JFrame implements ActionListener {
     Color col;
 
     public ColorChooserExample(){
-        this.setSize(400,400);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        col = Color.RED;
+      //  this.setSize(400,400);
+     //   this.setVisible(true);
+     //   this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+       // col = Color.RED;
     }
 
     public void actionPerformed(ActionEvent e) {
+
 
 
     }
