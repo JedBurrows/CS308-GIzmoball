@@ -1,7 +1,11 @@
 package Controller;
 
+import Model.Board;
+import Model.IBoard;
+import View.BoardPanel;
 import View.GBallFrame;
 
+import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -11,28 +15,37 @@ import java.awt.event.MouseEvent;
 public class RunModeListener implements GBallListener {
 
 	private GBallFrame gBallFrame;
+	private Timer timer;
+
+
 
 	public RunModeListener(GBallFrame gBallFrame){
 		this.gBallFrame = gBallFrame;
+		this.timer = new Timer(10, this);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()){
-			case "Start":
-
-				break;
-
-			case "Stop":
-
-				break;
-
-			case "Tick":
-				break;
-
-			case "Build":
-				gBallFrame.switchToBuild();
-				break;
+		IBoard board = gBallFrame.getRunPanel().getBoardPanel().getBoard();
+		if (board.isRunMode()) {
+			if (e.getSource() == timer) {
+				board.moveBall();
+			} else
+				switch (e.getActionCommand()) {
+					case "Start":
+						timer.start();
+						break;
+					case "Stop":
+						timer.stop();
+						break;
+					case "Tick":
+						board.moveBall();
+						break;
+					case "Build":
+						gBallFrame.switchToBuild();
+						break;
+				}
 
 
 		}

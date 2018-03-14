@@ -96,4 +96,12 @@ public class GBallFrame{
 		fileMenu.add(exitMenuItem);
 		return menuBar;
 	}
+
+	public RunGUI getRunPanel() {
+		return runPanel;
+	}
+
+	public BuildGUI getBuildPanel() {
+		return buildPanel;
+	}
 }

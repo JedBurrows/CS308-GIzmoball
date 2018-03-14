@@ -9,17 +9,18 @@ import java.awt.event.*;
 
 public class BuildModeListener implements GBallListener {
 
-	private BuildGUI buildGUI;
 	private KeyListener keyListener;
 	private MouseInputListener mouseInputListener;
 	private  GBallFrame gBallFrame;
 
 	public BuildModeListener(GBallFrame gBallFrame){
 		this.gBallFrame = gBallFrame;
+
 	}
 
 	@Override
 	public void setMouseListener(MouseInputListener mouseInputListener) {
+		BuildGUI buildGUI = gBallFrame.getBuildPanel();
 		buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
 		this.mouseInputListener = mouseInputListener;
 		buildGUI.getBoardPanel().addMouseListener(this.mouseInputListener);
@@ -29,6 +30,7 @@ public class BuildModeListener implements GBallListener {
 
 	@Override
 	public void setKeyBoardListener(KeyListener keyListener) {
+		BuildGUI buildGUI = gBallFrame.getBuildPanel();
 		buildGUI.getBoardPanel().removeKeyListener(this.keyListener);
 		this.keyListener = keyListener;
 		buildGUI.getBoardPanel().addKeyListener(this.keyListener);
@@ -37,6 +39,7 @@ public class BuildModeListener implements GBallListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		BuildGUI buildGUI = gBallFrame.getBuildPanel();
 
 		switch(e.getActionCommand()){
 
