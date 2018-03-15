@@ -360,7 +360,7 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
                     // Post collision velocity ...
                     ball.setVelo(cd.getVelo());
-                    if(absorbCollide){
+                    if(absorbCollide && absorber != null){
                         if(!release) {
                             ball.setVelo(new Vect(0,0));
                             ball.setXPos(absorber.getX2()-1);
