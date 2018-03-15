@@ -73,13 +73,10 @@ public class Board extends Observable implements IBoard {
     }
 
     public boolean setAbsorber(Absorber absorber) {
-        if (this.absorber == null && absorber.getyPos1() == absorber.getyPos2()) {
-            int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
+        if (this.absorber == null) {
+            int x1 = absorber.getX1(), y1 = absorber.getY(), x2 = absorber.getX2();
             for (int xPos = x1; xPos < x2; xPos++) {
-                for (int yPos = y1; yPos < y2; yPos++) {
-                    grid[xPos][yPos] = true;
-                }
-
+                    grid[xPos][y1] = true;
             }
             this.absorber = absorber;
             return true;
@@ -413,11 +410,13 @@ public class Board extends Observable implements IBoard {
 
         //Check if it's the abosrber
         if(hasAbsorber()) {
-            LineSegment absorbLine = absorber.getLineSegment();
-            time = Geometry.timeUntilWallCollision(absorbLine, ballCircle, ballVelocity);
-            if (time < shortestTime) {
-                shortestTime = time;
-                newVelo = Geometry.reflectWall(absorbLine, ball.getVelo(), 1.0);
+            ArrayList<LineSegment> absorbLines = absorber.getLineSegment();
+            for(LineSegment ls : absorbLines) {
+                time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+                }
             }
         }
 

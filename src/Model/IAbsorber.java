@@ -2,15 +2,16 @@ package Model;
 
 import physics.LineSegment;
 
+import javax.sound.sampled.Line;
+import java.util.ArrayList;
+
 public interface IAbsorber {
 
-    public int getxPos1();
+    public int getX1();
 
-    public int getxPos2();
+    public int getX2();
 
-    public int getyPos1();
+    public int getY();
 
-    public int getyPos2();
-
-    public LineSegment getLineSegment();
+    public ArrayList<LineSegment> getLineSegment();
 }
