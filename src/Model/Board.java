@@ -352,11 +352,11 @@ public class Board extends Observable implements IBoard {
                         if(!release) {
                             ball.setVelo(new Vect(0,0));
                             ball.setXPos(absorber.getX2()-1);
-                            ball.setYPos(absorber.getY());
+                            ball.setYPos(absorber.getY() + 0.5f);
                         }
                         else {
                             ball.setXPos(absorber.getX2()-1);
-                            ball.setYPos(absorber.getY());
+                            ball.setYPos(absorber.getY()-3);
                             ball.setVelo(new Vect(-10, -40));
                             absorbCollide = false;
                             release = false;
