@@ -33,14 +33,18 @@ public class AddBallPressListener implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        float x1 = e.getX()/L;
-        float y1 = e.getY()/L;
-        System.out.println(e.getX());
-        System.out.println(e.getY());
-        System.out.println(x1);
-        System.out.println(y1);
-        board.addGizmoBall(x1,y1);
-        boardPanel.repaint();
+        if(!board.isRunMode()) {
+            float x1 = e.getX() / L;
+            float y1 = e.getY() / L;
+            System.out.println(e.getX());
+            System.out.println(e.getY());
+            System.out.println(x1);
+            System.out.println(y1);
+            board.addGizmoBall(x1, y1);
+            boardPanel.repaint();
+            buildGUI.clearSelected();
+            buildGUI.setMode("AddBall");
+        }
 
     }
 

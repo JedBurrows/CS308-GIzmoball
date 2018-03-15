@@ -6,6 +6,7 @@ import Model.Gizmos.*;
 import View.BoardPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -110,7 +111,7 @@ public class LoadSaveController implements ActionListener {
                                                     x2 = scanner.nextInt();
                                                     if (scanner.hasNextInt()) {
                                                         y2 = scanner.nextInt();
-                                                        board.setAbsorber(new Absorber(name, x1, y1, x2, y2));
+                                                        board.setAbsorber(new Absorber(name, x1, x2, y2));
                                                     }
                                                 }
                                             }
@@ -254,6 +255,7 @@ public class LoadSaveController implements ActionListener {
 							 */
 
 							//TODO Change to used gizmo creator
+                                //ToDo Add colours to saved gizmos- all green for now
                                 case "Square":
                                 case "Circle":
                                 case "Triangle":
@@ -269,23 +271,23 @@ public class LoadSaveController implements ActionListener {
 //                                                board.addGizmo(gizmoCreator.createGizmo(name, x1, y1), x1, y1);
 												switch (element) {
 													case "Square":
-														board.addGizmo(new Square(name, x1, y1));
+														board.addGizmo(new Square(name, x1, y1, Color.GREEN));
 														System.out.println("Created new " + element);
 														break;
 													case "Circle":
-														board.addGizmo(new Circle(name, x1, y1));
+														board.addGizmo(new Circle(name, x1, y1, Color.GREEN));
 														System.out.println("Created new " + element);
 														break;
 													case "Triangle":
-														board.addGizmo(new Triangle(name, x1, y1));
+														board.addGizmo(new Triangle(name, x1, y1, Color.GREEN));
 														System.out.println("Created new " + element);
 														break;
 													case "RightFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, true));
+														board.addGizmo(new Flipper(name, x1, y1, Color.GREEN, true));
 														System.out.println("Created new " + element);
 														break;
 													case "LeftFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, false));
+														board.addGizmo(new Flipper(name, x1, y1, Color.GREEN, false));
 														System.out.println("Created new " + element);
 														break;
 												}

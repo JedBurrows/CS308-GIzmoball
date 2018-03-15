@@ -23,6 +23,8 @@ public class Board extends Observable implements IBoard {
     private Set<Connector> connectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private Absorber absorber;
+    private boolean absorbCollide;
+    private boolean release;
 
     //---------------------------------------------
 
@@ -50,6 +52,9 @@ public class Board extends Observable implements IBoard {
 
         runMode = false;
 
+        absorbCollide = false;
+        release = false;
+
         //--------------------------------------------------
 
         //TODO Change from pixels to float in terms of L grid ie (x = 10.5,y = 5.5) is in centre of 11,6
@@ -73,13 +78,11 @@ public class Board extends Observable implements IBoard {
     }
 
     public boolean setAbsorber(Absorber absorber) {
-        if (this.absorber == null && absorber.getyPos1() == absorber.getyPos2()) {
-            int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
+        if (this.absorber == null) {
+            absorber.setX2(absorber.getX2() + 1);
+            int x1 = absorber.getX1(), y1 = absorber.getY(), x2 = absorber.getX2();
             for (int xPos = x1; xPos < x2; xPos++) {
-                for (int yPos = y1; yPos < y2; yPos++) {
-                    grid[xPos][yPos] = true;
-                }
-
+                    grid[xPos][y1] = true;
             }
             this.absorber = absorber;
             return true;
@@ -354,6 +357,20 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
                     // Post collision velocity ...
                     ball.setVelo(cd.getVelo());
+                    if(absorbCollide){
+                        if(!release) {
+                            ball.setVelo(new Vect(0,0));
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY() + 0.5f);
+                        }
+                        else {
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY()-3);
+                            ball.setVelo(new Vect(-10, -40));
+                            absorbCollide = false;
+                            release = false;
+                        }
+                    }
                 }
 
                 // Notify observers ... redraw updated view
@@ -379,6 +396,7 @@ public class Board extends Observable implements IBoard {
 
         applyGravity(time);
         applyFriction(time);
+
         return ball;
     }
 
@@ -417,6 +435,19 @@ public class Board extends Observable implements IBoard {
             if (time < shortestTime) {
                 shortestTime = time;
                 newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+            }
+        }
+
+        //Check if it's the abosrber
+        if(hasAbsorber()) {
+            ArrayList<LineSegment> absorbLines = absorber.getLineSegment();
+            for(LineSegment ls : absorbLines) {
+                time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    absorbCollide = true;
+                    newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+                }
             }
         }
 
@@ -474,11 +505,19 @@ public class Board extends Observable implements IBoard {
         ball = null;
         connectors.clear();
         gizmoHashMap.clear();
+        absorber = null;
         for (boolean[] row : grid) {
             Arrays.fill(row, false);
         }
 
     }
 
+    public boolean getAbsorbCollide(){
+        return absorbCollide;
+    }
+    public void setRelease(boolean r){}
 
+    public void release() {
+        release = true;
+    }
 }

@@ -40,6 +40,8 @@ public class DeletePressListener implements MouseInputListener {
             board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
             boardPanel.repaint();
         }
+        buildGUI.clearSelected();
+        buildGUI.setMode("Delete");
     }
 
     @Override
