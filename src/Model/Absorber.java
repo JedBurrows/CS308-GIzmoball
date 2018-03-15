@@ -31,11 +31,30 @@ public class Absorber implements IAbsorber{
         return y;
     }
 
+    @Override
+    public void setX1(int x1) {
+        this.x1 = x1;
+        createLines();
+    }
+
+    @Override
+    public void setX2(int x2) {
+        this.x2 = x2;
+        createLines();
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
+        createLines();
+    }
+
     public ArrayList<LineSegment> getLineSegment(){
         return lines;
     }
 
     private void createLines(){
+        lines.clear();
         lines.add(new LineSegment(x1,y,x2,y));
         lines.add(new LineSegment(x1,y,x2,y+1));
         lines.add(new LineSegment(x2,y,x1,y+1));

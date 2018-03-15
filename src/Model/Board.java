@@ -74,7 +74,10 @@ public class Board extends Observable implements IBoard {
 
     public boolean setAbsorber(Absorber absorber) {
         if (this.absorber == null) {
+            absorber.setX2(absorber.getX2() + 1);
             int x1 = absorber.getX1(), y1 = absorber.getY(), x2 = absorber.getX2();
+            System.out.println("x1: " + x1);
+            System.out.println("x2: " + x2);
             for (int xPos = x1; xPos < x2; xPos++) {
                     grid[xPos][y1] = true;
             }
@@ -367,6 +370,15 @@ public class Board extends Observable implements IBoard {
 
         applyGravity(time);
         applyFriction(time);
+
+        System.out.println();
+        System.out.println();
+        System.out.println("BallX: " + ball.getXPos());
+        System.out.println("BallY: " + ball.getYPos());
+        System.out.println("AbsX1: " + absorber.getX1());
+        System.out.println("AbsX2: " + absorber.getX2());
+        System.out.println();
+        System.out.println();
         return ball;
     }
 

@@ -153,10 +153,11 @@ public class BoardPanel extends JPanel implements Observer {
             System.out.println("Drawing Abosrber");
             g2.setColor(Color.MAGENTA);
             Absorber absober = board.getAbsorber();
-            int x1 = absober.getX1(), y1 = absober.getY(), x2 = absober.getX2();
-            for (int xPos = x1; xPos <= x2; xPos++) {
+            int x1 = absober.getX1(), y1 = absober.getY(), x2 = absober.getX2() - 1;
+                for (int xPos = x1; xPos <= x2; xPos++) {
                     g2.fillRect(xPos * Lwidth, y1 * Lheight, Lwidth, Lheight);
-            }
+                }
+
         }
 
         if (!board.isRunMode()) {
