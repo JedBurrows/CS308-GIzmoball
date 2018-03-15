@@ -235,7 +235,6 @@ public class BuildGUI {
 	public void setMode(String mode) {
 		this.mode = mode;
 		clearSelected();
-
 		switch (this.mode) {
 			case "AddGizmo":
 				btnGizmo.setSelected(true);
@@ -258,7 +257,7 @@ public class BuildGUI {
 
 
 
-	private void clearSelected() {
+	public void clearSelected() {
 
 		btnGizmo.setSelected(false);
 		btnBall.setSelected(false);
