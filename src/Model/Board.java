@@ -77,18 +77,21 @@ public class Board extends Observable implements IBoard {
 		runMode = !runMode;
 	}
 
-	public boolean setAbsorber(Absorber absorber) {
-		if (this.absorber == null) {
-			absorber.setX2(absorber.getX2() + 1);
-			int x1 = absorber.getX1(), y1 = absorber.getY(), x2 = absorber.getX2();
-			for (int xPos = x1; xPos < x2; xPos++) {
-				grid[xPos][y1] = true;
-			}
-			this.absorber = absorber;
-			return true;
-		}
-		return false;
-	}
+    public boolean setAbsorber(Absorber absorber) {
+        if (this.absorber == null) {
+            absorber.setX2(absorber.getX2() + 1);
+            int x1 = absorber.getX1(), y1 = absorber.getY1(), x2 = absorber.getX2(), y2 = absorber.getY2();
+            for (int xPos = x1; xPos < x2; xPos++) {
+                for (int yPos = y1; yPos < y2; yPos++) {
+                    grid[xPos][yPos] = true;
+                }
+
+            }
+            this.absorber = absorber;
+            return true;
+        }
+        return false;
+    }
 
 	public boolean hasAbsorber() {
 		return absorber != null;
@@ -351,26 +354,27 @@ public class Board extends Observable implements IBoard {
 				if (tuc > moveTime) {
 					// No collision ...
 
-					ball = movelBallForTime(ball, moveTime);
-				} else {
-					// We've got a collision in tuc
-					ball = movelBallForTime(ball, tuc);
-					// Post collision velocity ...
-					ball.setVelo(cd.getVelo());
-					if (absorbCollide) {
-						if (!release) {
-							ball.setVelo(new Vect(0, 0));
-							ball.setXPos(absorber.getX2() - 1);
-							ball.setYPos(absorber.getY() + 0.5f);
-						} else {
-							ball.setXPos(absorber.getX2() - 1);
-							ball.setYPos(absorber.getY() - 3);
-							ball.setVelo(new Vect(-10, -40));
-							absorbCollide = false;
-							release = false;
-						}
-					}
-				}
+                    ball = movelBallForTime(ball, moveTime);
+                } else {
+                    // We've got a collision in tuc
+                    ball = movelBallForTime(ball, tuc);
+                    // Post collision velocity ...
+                    ball.setVelo(cd.getVelo());
+                    if(absorbCollide){
+                        if(!release) {
+                            ball.setVelo(new Vect(0,0));
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY1() + 0.5f);
+                        }
+                        else {
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY1()-3);
+                            ball.setVelo(new Vect(-10, -40));
+                            absorbCollide = false;
+                            release = false;
+                        }
+                    }
+                }
 
 				// Notify observers ... redraw updated view
 

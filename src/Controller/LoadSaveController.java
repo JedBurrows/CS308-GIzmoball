@@ -100,24 +100,24 @@ public class LoadSaveController implements ActionListener {
 								Creates an absorber with its upper left-hand corner at (x1,y1) and its lower right-hand corner at (x2,y2)
 
 							 */
-								case "Absorber":
-									if (scanner.hasNext()) {
-										name = scanner.next();
-										if (scanner.hasNextInt()) {
-											x1 = scanner.nextInt();
-											if (scanner.hasNextInt()) {
-												y1 = scanner.nextInt();
-												if (scanner.hasNextInt()) {
-													x2 = scanner.nextInt();
-													if (scanner.hasNextInt()) {
-														y2 = scanner.nextInt();
-														board.setAbsorber(new Absorber(name, x1, x2, y2));
-													}
-												}
-											}
-										}
-										break;
-									}
+                                case "Absorber":
+                                    if (scanner.hasNext()) {
+                                        name = scanner.next();
+                                        if (scanner.hasNextInt()) {
+                                            x1 = scanner.nextInt();
+                                            if (scanner.hasNextInt()) {
+                                                y1 = scanner.nextInt();
+                                                if (scanner.hasNextInt()) {
+                                                    x2 = scanner.nextInt();
+                                                    if (scanner.hasNextInt()) {
+                                                        y2 = scanner.nextInt();
+                                                        board.setAbsorber(new Absorber(name, x1, x2, y1,y2));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    }
 
 								/*
 									"Ball" (IDENTIFIER name) (FLOAT x) (FLOAT y) (FLOAT vx) (FLOAT vy)
