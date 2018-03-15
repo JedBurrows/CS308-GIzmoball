@@ -76,8 +76,6 @@ public class Board extends Observable implements IBoard {
         if (this.absorber == null) {
             absorber.setX2(absorber.getX2() + 1);
             int x1 = absorber.getX1(), y1 = absorber.getY(), x2 = absorber.getX2();
-            System.out.println("x1: " + x1);
-            System.out.println("x2: " + x2);
             for (int xPos = x1; xPos < x2; xPos++) {
                     grid[xPos][y1] = true;
             }
