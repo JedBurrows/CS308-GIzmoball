@@ -23,6 +23,8 @@ public class Board extends Observable implements IBoard {
     private HashSet<Connector> connectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private Absorber absorber;
+    private boolean absorbCollide;
+    private boolean release;
 
     //---------------------------------------------
 
@@ -49,6 +51,9 @@ public class Board extends Observable implements IBoard {
         gizmoHashMap = new HashMap<>();
 
         runMode = false;
+
+        absorbCollide = false;
+        release = false;
 
         //--------------------------------------------------
 
@@ -343,6 +348,20 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
                     // Post collision velocity ...
                     ball.setVelo(cd.getVelo());
+                    if(absorbCollide){
+                        if(!release) {
+                            ball.setVelo(new Vect(0,0));
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY());
+                        }
+                        else {
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY());
+                            ball.setVelo(new Vect(-10, -40));
+                            absorbCollide = false;
+                            release = false;
+                        }
+                    }
                 }
 
                 // Notify observers ... redraw updated view
@@ -425,6 +444,7 @@ public class Board extends Observable implements IBoard {
                 time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
                 if (time < shortestTime) {
                     shortestTime = time;
+                    absorbCollide = true;
                     newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
                 }
             }
@@ -491,5 +511,12 @@ public class Board extends Observable implements IBoard {
 
     }
 
+    public boolean getAbsorbCollide(){
+        return absorbCollide;
+    }
+    public void setRelease(boolean r){}
 
+    public void release() {
+        release = true;
+    }
 }

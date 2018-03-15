@@ -128,6 +128,18 @@ public class BoardPanel extends JPanel implements Observer {
 
             }
         }
+
+        //Draw Absorber
+        if (board.hasAbsorber()) {
+            System.out.println("Drawing Abosrber");
+            g2.setColor(Color.MAGENTA);
+            Absorber absober = board.getAbsorber();
+            int x1 = absober.getX1(), y1 = absober.getY(), x2 = absober.getX2() - 1;
+                for (int xPos = x1; xPos <= x2; xPos++) {
+                    g2.fillRect(xPos * Lwidth, y1 * Lheight, Lwidth, Lheight);
+                }
+
+        }
         if (board.hasGizmoBall()) {
             g2.setColor(Color.BLUE);
             IBall ball = board.getGizmoBall();
@@ -146,18 +158,6 @@ public class BoardPanel extends JPanel implements Observer {
 
             System.out.println(r);
             g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
-        }
-
-        //Draw Absorber
-        if (board.hasAbsorber()) {
-            System.out.println("Drawing Abosrber");
-            g2.setColor(Color.MAGENTA);
-            Absorber absober = board.getAbsorber();
-            int x1 = absober.getX1(), y1 = absober.getY(), x2 = absober.getX2() - 1;
-                for (int xPos = x1; xPos <= x2; xPos++) {
-                    g2.fillRect(xPos * Lwidth, y1 * Lheight, Lwidth, Lheight);
-                }
-
         }
 
         if (!board.isRunMode()) {

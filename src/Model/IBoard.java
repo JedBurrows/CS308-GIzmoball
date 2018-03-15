@@ -72,4 +72,8 @@ public interface IBoard  {
 
         void addObserver(Observer o);
 
+        public boolean getAbsorbCollide();
+
+        public void release();
+
 }
