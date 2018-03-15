@@ -388,14 +388,6 @@ public class Board extends Observable implements IBoard {
         applyGravity(time);
         applyFriction(time);
 
-        System.out.println();
-        System.out.println();
-        System.out.println("BallX: " + ball.getXPos());
-        System.out.println("BallY: " + ball.getYPos());
-        System.out.println("AbsX1: " + absorber.getX1());
-        System.out.println("AbsX2: " + absorber.getX2());
-        System.out.println();
-        System.out.println();
         return ball;
     }
 
