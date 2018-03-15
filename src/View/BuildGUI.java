@@ -1,11 +1,11 @@
 package View;
 
 
-import Controller.*;
+import Controller.BuildModeListener;
+import Controller.SliderChangeListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.Hashtable;
 
 public class BuildGUI {
@@ -51,11 +51,11 @@ public class BuildGUI {
 		boxGizmo = new JComboBox<>();
 
 
-        btnColor=new JButton("Choose a Colour");
-        btnColor.addActionListener(buildModeListener);
-        btnColor.setActionCommand("Choose Colour");
+		btnColor = new JButton("Choose a Colour");
+		btnColor.addActionListener(buildModeListener);
+		btnColor.setActionCommand("Choose Colour");
 
-        boxGizmo.setPreferredSize(new Dimension(150, 50));
+		boxGizmo.setPreferredSize(new Dimension(150, 50));
 
 
 		boxGizmo.setPreferredSize(new Dimension(150, 50));
@@ -256,7 +256,6 @@ public class BuildGUI {
 	}
 
 
-
 	public void clearSelected() {
 
 		btnGizmo.setSelected(false);
@@ -277,7 +276,7 @@ public class BuildGUI {
 	public JComboBox<String> getBoxGizmo() {
 		return boxGizmo;
 	}
-  // public ColorChooserExample getColours(){
+	// public ColorChooserExample getColours(){
 //	    return colourChoser;
 //   }
 

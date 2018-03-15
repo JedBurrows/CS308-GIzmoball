@@ -12,12 +12,12 @@ public class BuildModeListener implements GBallListener {
 
     private KeyListener keyListener;
     private MouseListener mouseInputListener;
-    private  GBallFrame gBallFrame;
+    private GBallFrame gBallFrame;
     private Color col;
     private ColorChooserExample colorChooserExample;
 
 
-    public BuildModeListener(GBallFrame gBallFrame){
+    public BuildModeListener(GBallFrame gBallFrame) {
         this.gBallFrame = gBallFrame;
 //        colorChooserExample = new ColorChooserExample();
 
@@ -46,10 +46,10 @@ public class BuildModeListener implements GBallListener {
     public void actionPerformed(ActionEvent e) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
 
-        switch(e.getActionCommand()){
+        switch (e.getActionCommand()) {
 
             case "Add Gizmo":
-                if(colorChooserExample!=null)
+                if (colorChooserExample != null)
                     this.setMouseListener(new AddGizmoPressListener(buildGUI, colorChooserExample.getColorGiz()));
                 else
                     this.setMouseListener(new AddGizmoPressListener(buildGUI, Color.RED));
@@ -86,14 +86,14 @@ public class BuildModeListener implements GBallListener {
 				this.setMouseListener(new DisconnectPressListener(buildGUI));
 
                 break;
-            case "Key Connect" :
+            case "Key Connect":
 
                 break;
 
             case "Key Disconnect":
 
                 break;
-            case  "Run":
+            case "Run":
                 gBallFrame.switchToRun();
                 break;
 

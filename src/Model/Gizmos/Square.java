@@ -4,145 +4,59 @@ import physics.Circle;
 import physics.LineSegment;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-public class Square implements IGizmo {
+public class Square extends AbstractGizmo implements IGizmo {
 
-    private String id;
-    private int xPos, yPos;
+	//Todo remove then use width and height instead
+	private static final int size = 1;
 
-    private ArrayList<LineSegment> lines;
-    private ArrayList<Circle> circles;
-    private static final int size = 1;
-    private Color colour;
+	public Square(String id, int x, int y, Color colour) {
+		super(id, x, y, 1, 1, colour);
+		createCircles();
+		createLines();
+	}
 
-    public Square(String id, int x, int y, Color colour) {
-        this.id = id;
-        this.xPos = x;
-        this.yPos = y;
-        this.colour = colour;
-        lines = new ArrayList<LineSegment>();
-        circles = new ArrayList<Circle>();
-        createCircles();
-        createLines();
-    }
+	@Override
+	public void action(double tickTime) {
 
-    @Override
-    public void action(double tickTime) {
+	}
 
-    }
 
-    @Override
-    public void rotate() {
-        //No point rotating
-    }
+	@Override
+	public void createLines() {
+		lineSegments.clear();
+		lineSegments.add(new LineSegment(xPos, yPos, xPos + size, yPos));
+		lineSegments.add(new LineSegment(xPos + size, yPos, xPos + size, yPos + size));
+		lineSegments.add(new LineSegment(xPos + size, yPos + size, xPos, yPos + size));
+		lineSegments.add(new LineSegment(xPos, yPos + size, xPos, yPos));
 
-    @Override
-    public int getRotation() {
-        return 0;
-    }
+	}
 
-    @Override
-    public String getID() {
-        return id;
-    }
+	@Override
+	public void createCircles() {
+		circles.clear();
+		circles.add(new Circle(xPos, yPos, 0));
+		circles.add(new Circle(xPos + size, yPos, 0));
+		circles.add(new Circle(xPos + size, yPos + size, 0));
+		circles.add(new Circle(xPos, yPos + size, 0));
+	}
 
-    @Override
-    public void createLines() {
-        lines.add(new LineSegment(xPos, yPos, xPos + size, yPos));
-        lines.add(new LineSegment(xPos + size, yPos, xPos + size, yPos + size));
-        lines.add(new LineSegment(xPos + size, yPos + size, xPos, yPos + size));
-        lines.add(new LineSegment(xPos, yPos + size, xPos, yPos));
 
-    }
+	@Override
+	public void setKeyPress() {
 
-    @Override
-    public void createCircles() {
-        circles.add(new Circle(xPos, yPos, 0));
-        circles.add(new Circle(xPos + size, yPos, 0));
-        circles.add(new Circle(xPos + size, yPos + size, 0));
-        circles.add(new Circle(xPos, yPos + size, 0));
-    }
+	}
 
-    @Override
-    public ArrayList<Circle> getCircles() {
-        return circles;
-    }
 
-    @Override
-    public ArrayList<LineSegment> getLines() {
-        return lines;
-    }
+	@Override
+	public double getAngVel() {
+		return 0;
+	}
 
-    @Override
-    public int getxPos() {
-        return xPos;
-    }
+	@Override
+	public boolean getMoving() {
+		return false;
+	}
 
-    @Override
-    public int getyPos() {
-        return yPos;
-    }
-
-    @Override
-    public int getx2Pos() {
-        //No x2pos
-        return -1;
-    }
-
-    @Override
-    public int gety2Pos() {
-        //No y2pos
-        return -1;
-    }
-
-    @Override
-    public int getWidth() {
-        return 1;
-    }
-
-    @Override
-    public int getHeight() {
-        return 1;
-    }
-
-    @Override
-    public void setxPos(int x) {
-        this.xPos = x;
-    }
-
-    @Override
-    public void setyPos(int y) {
-        this.yPos = y;
-    }
-
-    @Override
-    public void setKeyPress() {
-
-    }
-
-    @Override
-    public boolean getDirection() {
-        return false;
-    }
-
-    @Override
-    public double getAngle() {
-        return 0;
-    }
-
-    @Override
-    public double getAngVel() {
-        return 0;
-    }
-    @Override
-    public boolean getMoving() {
-        return false;
-    }
-
-    @Override
-    public Color getColour() {
-        return colour;
-    }
 
 }
