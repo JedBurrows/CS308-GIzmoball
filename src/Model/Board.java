@@ -475,6 +475,7 @@ public class Board extends Observable implements IBoard {
         ball = null;
         connectors.clear();
         gizmoHashMap.clear();
+        absorber = null;
         for (boolean[] row : grid) {
             Arrays.fill(row, false);
         }
