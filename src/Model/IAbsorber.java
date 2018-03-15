@@ -16,8 +16,6 @@ public interface IAbsorber {
 
 	void setX2(int x2);
 
-	int getY();
-
     public void setY1(int y1);
 
     public void setY2(int y2);
