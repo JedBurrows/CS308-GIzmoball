@@ -11,13 +11,17 @@ public interface IAbsorber {
 
     public int getX2();
 
-    public int getY();
+    public int getY1();
+
+    public int getY2();
 
     public void setX1(int x1);
 
     public void setX2(int x2);
 
-    public void setY(int y);
+    public void setY1(int y1);
+
+    public void setY2(int y2);
 
     public ArrayList<LineSegment> getLineSegment();
 }

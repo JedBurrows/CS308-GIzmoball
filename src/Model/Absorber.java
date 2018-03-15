@@ -7,16 +7,17 @@ import javax.sound.sampled.Line;
 import java.util.ArrayList;
 
 public class Absorber implements IAbsorber{
-    private int x1, x2, y;
+    private int x1, x2, y1, y2;
     private String id;
     private ArrayList<LineSegment> lines;
     private ArrayList<Circle> circles;
 
-    public Absorber(String id, int x1, int x2, int y) {
+    public Absorber(String id, int x1, int x2, int y1, int y2) {
         this.id = id;
         this.x1 = x1;
         this.x2 = x2;
-        this.y = y;
+        this.y1 = y1;
+        this.y2 = y2;
         lines = new ArrayList<>();
         circles = new ArrayList<>();
         createLines();
@@ -31,9 +32,11 @@ public class Absorber implements IAbsorber{
         return x2;
     }
 
-    public int getY() {
-        return y;
+    public int getY1() {
+        return y1;
     }
+
+    public int getY2(){return y2;}
 
     @Override
     public void setX1(int x1) {
@@ -50,10 +53,13 @@ public class Absorber implements IAbsorber{
     }
 
     @Override
-    public void setY(int y) {
-        this.y = y;
-        createLines();
-        createCircles();
+    public void setY1(int y1) {
+        this.y1 = y1;
+    }
+
+    @Override
+    public void setY2(int y2) {
+        this.y2 = y2;
     }
 
     public ArrayList<LineSegment> getLineSegment(){
@@ -62,17 +68,17 @@ public class Absorber implements IAbsorber{
 
     private void createLines(){
         lines.clear();
-        lines.add(new LineSegment(x1,y,x2,y));
-        lines.add(new LineSegment(x1,y,x2,y+1));
-        lines.add(new LineSegment(x2,y,x1,y+1));
-        lines.add(new LineSegment(x1,y+1,x2,y+1));
+        lines.add(new LineSegment(x1,y1,x2,y1));
+        lines.add(new LineSegment(x1,y1,x2,y2));
+        lines.add(new LineSegment(x2,y1,x1,y2));
+        lines.add(new LineSegment(x1,y2,x2,y2));
     }
 
     private void createCircles(){
         circles.clear();
-        circles.add(new Circle(x1, y, 0));
-        circles.add(new Circle(x2, y, 0));
-        circles.add(new Circle(x2, y+1, 0));
-        circles.add(new Circle(x1, y+1, 0));
+        circles.add(new Circle(x1, y1, 0));
+        circles.add(new Circle(x2, y1, 0));
+        circles.add(new Circle(x2, y2, 0));
+        circles.add(new Circle(x1, y2, 0));
     }
 }

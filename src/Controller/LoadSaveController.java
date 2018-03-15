@@ -111,7 +111,7 @@ public class LoadSaveController implements ActionListener {
                                                     x2 = scanner.nextInt();
                                                     if (scanner.hasNextInt()) {
                                                         y2 = scanner.nextInt();
-                                                        board.setAbsorber(new Absorber(name, x1, x2, y2));
+                                                        board.setAbsorber(new Absorber(name, x1, x2, y1,y2));
                                                     }
                                                 }
                                             }
