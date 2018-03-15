@@ -20,7 +20,7 @@ public class Board extends Observable implements IBoard {
     private boolean runMode;
     private boolean[][] grid;
     private float gravity, mu, mu2;
-    private HashSet<Connector> connectors;
+    private Set<Connector> connectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private Absorber absorber;
 
@@ -116,6 +116,7 @@ public class Board extends Observable implements IBoard {
     public boolean addConnector(String name1, String name2) {
         try {
             Connector connection = new Connector(getGizmoByID(name1),getGizmoByID(name2));
+            System.out.println("Connection hash code = " + connection.hashCode());
 
             if (connectors.contains(connection)){
                 return false;
@@ -129,12 +130,20 @@ public class Board extends Observable implements IBoard {
         }
     }
 
-    public void removeConnector(IGizmo gizmo) {
-        for (Connector connection : connectors) {
-            if (connection.getSource().equals(gizmo) || connection.getTarget().equals(gizmo)) {
-                connectors.remove(connection);
-            }
+    public boolean removeConnector(String name1, String name2) {
+        System.out.println("Connectors size before removal = " + connectors.size());
+        try {
+            Connector connector = new Connector(getGizmoByID(name1),getGizmoByID(name2));
+
+            return connectors.remove(connector);
+
+        }catch (NoSuchGizmoException e){
+            return false;
+
+        }finally {
+            System.out.println("Connectors size after removal = " + connectors.size());
         }
+
     }
 
     /**

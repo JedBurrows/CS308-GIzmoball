@@ -27,7 +27,7 @@ public interface IBoard  {
 
         public boolean addConnector(String name1, String name2);
 
-        public void removeConnector(IGizmo gizmo);
+        public boolean removeConnector(String name1, String name2);
 
         public boolean addGizmo(IGizmo gizmo);
 

@@ -1,13 +1,11 @@
 package Controller;
 
-import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
 import View.ColorChooserExample;
 import View.GBallFrame;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -79,6 +77,7 @@ public class BuildModeListener implements GBallListener {
 				this.setMouseListener(new ConnectPressListener(buildGUI));
 				break;
 			case "Disconnect":
+				this.setMouseListener(new DisconnectPressListener(buildGUI));
 
 				break;
 			case "Key Connect" :
