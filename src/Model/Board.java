@@ -412,11 +412,13 @@ public class Board extends Observable implements IBoard {
         }
 
         //Check if it's the abosrber
-        LineSegment absorbLine = absorber.getLineSegment();
-        time = Geometry.timeUntilWallCollision(absorbLine, ballCircle, ballVelocity);
-        if (time < shortestTime) {
-            shortestTime = time;
-            newVelo = Geometry.reflectWall(absorbLine, ball.getVelo(), 1.0);
+        if(hasAbsorber()) {
+            LineSegment absorbLine = absorber.getLineSegment();
+            time = Geometry.timeUntilWallCollision(absorbLine, ballCircle, ballVelocity);
+            if (time < shortestTime) {
+                shortestTime = time;
+                newVelo = Geometry.reflectWall(absorbLine, ball.getVelo(), 1.0);
+            }
         }
 
         for (IGizmo g : gizmoHashMap.values()) {
