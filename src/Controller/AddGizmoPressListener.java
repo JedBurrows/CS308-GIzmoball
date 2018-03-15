@@ -68,6 +68,10 @@ public class AddGizmoPressListener implements MouseInputListener {
             int y = (int) (pressed.getY() / L);
             int i = (int) (released.getX() / L);
             int j = (int) (released.getY() / L);
+
+            if (x < j){
+
+            }
             board.setAbsorber(new Absorber("Ab", x, y, i, j));
             boardPanel.repaint();
         }

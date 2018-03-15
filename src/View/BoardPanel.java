@@ -79,36 +79,18 @@ public class BoardPanel extends JPanel implements Observer {
                     g2.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":
-                    int rotationTriangle;
+                    int xPoints[], yPoints[];
 
-                    rotationTriangle = gizmo.getRotation();
+                    xPoints = new int[]{((int)(gizmo.getCircles().get(0).getCenter().x())) * Lwidth, ((int)(gizmo.getCircles().get(1).getCenter().x())) * Lwidth, ((int)(gizmo.getCircles().get(2).getCenter().x())) * Lwidth};
+                    yPoints = new int[]{((int)(gizmo.getCircles().get(0).getCenter().y())) * Lheight, ((int)(gizmo.getCircles().get(1).getCenter().y())) * Lheight, ((int)(gizmo.getCircles().get(2).getCenter().y())) * Lheight};
 
-                    Point LTopLeft, LTopRight, LBottomLeft, LBottomRight;
-
-                    LTopLeft = new Point((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight);
-                    LTopRight = new Point((int) gizmo.getxPos() * Lwidth + (Lwidth), (int) gizmo.getyPos() * Lheight);
-                    LBottomLeft = new Point((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight + (Lheight));
-                    LBottomRight = new Point((int) gizmo.getxPos() * Lwidth + (Lwidth), (int) gizmo.getyPos() * Lheight + (Lheight));
-
-                    int xPoints[] = new int[4], yPoints[] = new int[4];
-                    switch (rotationTriangle) {
-                        case 0:
-                            xPoints = new int[]{LTopLeft.x, LBottomLeft.x, LTopRight.x};
-                            yPoints = new int[]{LTopLeft.y, LBottomLeft.y, LTopRight.y};
-                            break;
-                        case 1:
-                            xPoints = new int[]{LTopLeft.x, LBottomRight.x, LTopRight.x};
-                            yPoints = new int[]{LTopLeft.y, LBottomRight.y, LTopRight.y};
-                            break;
-                        case 2:
-                            xPoints = new int[]{LBottomRight.x, LBottomLeft.x, LTopRight.x};
-                            yPoints = new int[]{LBottomRight.y, LBottomLeft.y, LTopRight.y};
-                            break;
-                        case 3:
-                            xPoints = new int[]{LTopLeft.x, LBottomLeft.x, LBottomRight.x};
-                            yPoints = new int[]{LTopLeft.y, LBottomLeft.y, LBottomRight.y};
-                            break;
-
+                    System.out.println(xPoints.length);
+                    for (int x = 0; x < xPoints.length; x++) {
+                        System.out.println("xpoints: " + xPoints[x]);
+                    }
+                    System.out.println(yPoints.length);
+                    for (int y = 0; y < yPoints.length; y++) {
+                        System.out.println("ypoints: " + yPoints[y]);
                     }
                     g2.fillPolygon(xPoints, yPoints, 3);
                     break;

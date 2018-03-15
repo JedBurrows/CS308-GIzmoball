@@ -9,15 +9,15 @@ public class Circle implements IGizmo {
 
     private String id;
     private int xPos, yPos;
-    private physics.Circle circle;
+    private ArrayList<physics.Circle> circles;
     private static final double radius = 0.5;
 
     public Circle(String id, int x, int y) {
         this.id = id;
         this.xPos = x;
         this.yPos = y;
-        circle = new physics.Circle(xPos + 0.5, yPos + 0.5, radius);
-
+        circles = new ArrayList<>();
+        createCircles();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Circle implements IGizmo {
 
       @Override
     public void createCircles() {
-
+          circles.add(new physics.Circle(xPos + 0.5, yPos + 0.5, 0.5));
     }
 
     @Override
@@ -52,9 +52,7 @@ public class Circle implements IGizmo {
 
     @Override
     public ArrayList<physics.Circle> getCircles() {
-        ArrayList<physics.Circle> c = new ArrayList<physics.Circle>();
-        c.add(circle);
-        return c;
+        return circles;
     }
 
     @Override
