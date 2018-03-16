@@ -199,7 +199,7 @@ public class Board extends Observable implements IBoard {
 			System.out.println("hereeeeeeee");
 			String type = deletedGizmo.getClass().getSimpleName();
 
-			int x = deletedGizmo.getPos1().x, y = deletedGizmo.getPos1().y;
+			int x = deletedGizmo.getxPos(), y = deletedGizmo.getyPos();
 			grid[x][y] = false;
 
 			if (type.equals("Flipper")) {
@@ -222,7 +222,7 @@ public class Board extends Observable implements IBoard {
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
 				String gizmoClass = gizmo.getClass().getSimpleName();
 				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
-					if ((!grid[newX][newY]) && (!grid[newX][newY + 1]) && (!grid[newX + 1][newY]) && (!grid[newX + 1][newY + 1])) {
+					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
 						grid[newX][newY] = true;
 						grid[newX][newY + 1] = true;
 						grid[newX + 1][newY] = true;
@@ -230,7 +230,8 @@ public class Board extends Observable implements IBoard {
 
 						deleteGizmo(id);
 
-						gizmo.getPos1().setLocation(new Point(newX, newY));
+						gizmo.setxPos(newX);
+						gizmo.setyPos(newY);
 
 						addGizmo(gizmo);
 
@@ -239,13 +240,13 @@ public class Board extends Observable implements IBoard {
 						//One of 4 grid locs required for flipper is occupied
 						return false;
 					}
-				} else if (!grid[newX][newY]) {
+				} else if (grid[newX][newY] == false) {
 					grid[newY][newY] = true;
 
 					deleteGizmo(id);
 
-					gizmo.getPos1().setLocation(new Point(newX, newY));
-					gizmo.getPos2().setLocation(new Point(newX + gizmo.getWidth(), newY + gizmo.getHeight()));
+					gizmo.setxPos(newX);
+					gizmo.setyPos(newY);
 
 					addGizmo(gizmo);
 					return true;
@@ -284,7 +285,6 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public IGizmo getGizmoByPosition(double x, double y) {
-
 		for (IGizmo g : gizmoHashMap.values()) {
 			Point pos1 = g.getPos1(), pos2 = g.getPos2();
 			if ((x > pos1.x && x < pos2.x) && (y > pos1.y && y < pos2.y)) {
