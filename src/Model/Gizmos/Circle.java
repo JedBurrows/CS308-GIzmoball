@@ -19,9 +19,9 @@ public class Circle extends AbstractGizmo implements IGizmo {
 
 
 	@Override
-	public void createCircles() {
+	protected void createCircles() {
 		circles.clear();
-		circles.add(new physics.Circle(super.getxPos() + 0.5, super.getyPos() + 0.5, radius));
+		circles.add(new physics.Circle(pos1.x + 0.5, pos1.y + 0.5, radius));
 
 	}
 

@@ -1,26 +1,51 @@
 package Model;
 
+import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public interface IAbsorber {
 
-	int getX1();
+	void action(double tickTime);
 
-	void setX1(int x1);
+	//	  Rotate gizmo 90 deg
+	void rotate();
 
-    public int getY1();
+	int getRotation();
 
-    public int getY2();
+	void createCircles();
 
-	void setX2(int x2);
+	void createLines();
 
-	int getY();
+	ArrayList<Circle> getCircles();
 
-    public void setY1(int y1);
+	ArrayList<LineSegment> getLineSegments();
 
-    public void setY2(int y2);
+	int getWidth();
 
-	ArrayList<LineSegment> getLineSegment();
+	int getHeight();
+
+	void setKeyPress();
+
+	double getAngVel();
+
+	boolean getMoving();
+
+	Color getColor();
+
+	String getID();
+
+/*	int getxPos();
+
+	void setxPos(int xPos);
+
+	int getyPos();
+
+	void setyPos(int yPos);*/
+
+	Point getPos1();
+
+	Point getPos2();
 }

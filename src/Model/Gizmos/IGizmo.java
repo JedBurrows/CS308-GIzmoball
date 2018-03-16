@@ -17,10 +17,6 @@ public interface IGizmo {
 
 	int getRotation();
 
-	void createCircles();
-
-	void createLines();
-
 	ArrayList<Circle> getCircles();
 
 	ArrayList<LineSegment> getLineSegments();
@@ -39,12 +35,16 @@ public interface IGizmo {
 
 	String getID();
 
-	int getxPos();
+/*	int getxPos();
 
 	void setxPos(int xPos);
 
 	int getyPos();
 
-	void setyPos(int yPos);
+	void setyPos(int yPos);*/
+
+	Point getPos1();
+
+	Point getPos2();
 
 }

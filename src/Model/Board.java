@@ -7,6 +7,7 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
+import java.awt.*;
 import java.util.*;
 
 public class Board extends Observable implements IBoard {
@@ -22,7 +23,6 @@ public class Board extends Observable implements IBoard {
 	private float gravity, mu, mu2;
 	private Set<Connector> connectors;
 	private HashMap<String, IGizmo> gizmoHashMap;
-	private Absorber absorber;
 	private boolean absorbCollide;
 	private boolean release;
 
@@ -77,25 +77,7 @@ public class Board extends Observable implements IBoard {
 		runMode = !runMode;
 	}
 
-    public boolean setAbsorber(Absorber absorber) {
-        if (this.absorber == null) {
-            absorber.setX2(absorber.getX2() + 1);
-            int x1 = absorber.getX1(), y1 = absorber.getY1(), x2 = absorber.getX2(), y2 = absorber.getY2();
-            for (int xPos = x1; xPos < x2; xPos++) {
-                for (int yPos = y1; yPos < y2; yPos++) {
-                    grid[xPos][yPos] = true;
-                }
 
-            }
-            this.absorber = absorber;
-            return true;
-        }
-        return false;
-    }
-
-	public boolean hasAbsorber() {
-		return absorber != null;
-	}
 
 	public boolean hasGizmoBall() {
 		return ball != null;
@@ -114,9 +96,6 @@ public class Board extends Observable implements IBoard {
 		return ball;
 	}
 
-	public Absorber getAbsorber() {
-		return absorber;
-	}
 
 
 	public boolean addConnector(String name1, String name2) {
@@ -158,8 +137,8 @@ public class Board extends Observable implements IBoard {
 	 */
 	public boolean addGizmo(IGizmo gizmo) {
 
-		int x = gizmo.getxPos();
-		int y = gizmo.getyPos();
+		int x = gizmo.getPos1().x;
+		int y = gizmo.getPos1().y;
 		String gizmoClass = gizmo.getClass().getSimpleName();
 
 		if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
@@ -220,7 +199,7 @@ public class Board extends Observable implements IBoard {
 			System.out.println("hereeeeeeee");
 			String type = deletedGizmo.getClass().getSimpleName();
 
-			int x = deletedGizmo.getxPos(), y = deletedGizmo.getyPos();
+			int x = deletedGizmo.getPos1().x, y = deletedGizmo.getPos1().y;
 			grid[x][y] = false;
 
 			if (type.equals("Flipper")) {
@@ -243,7 +222,7 @@ public class Board extends Observable implements IBoard {
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
 				String gizmoClass = gizmo.getClass().getSimpleName();
 				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
-					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
+					if ((!grid[newX][newY]) && (!grid[newX][newY + 1]) && (!grid[newX + 1][newY]) && (!grid[newX + 1][newY + 1])) {
 						grid[newX][newY] = true;
 						grid[newX][newY + 1] = true;
 						grid[newX + 1][newY] = true;
@@ -251,8 +230,7 @@ public class Board extends Observable implements IBoard {
 
 						deleteGizmo(id);
 
-						gizmo.setxPos(newX);
-						gizmo.setyPos(newY);
+						gizmo.getPos1().setLocation(new Point(newX, newY));
 
 						addGizmo(gizmo);
 
@@ -261,13 +239,13 @@ public class Board extends Observable implements IBoard {
 						//One of 4 grid locs required for flipper is occupied
 						return false;
 					}
-				} else if (grid[newX][newY] == false) {
+				} else if (!grid[newX][newY]) {
 					grid[newY][newY] = true;
 
 					deleteGizmo(id);
 
-					gizmo.setxPos(newX);
-					gizmo.setyPos(newY);
+					gizmo.getPos1().setLocation(new Point(newX, newY));
+					gizmo.getPos2().setLocation(new Point(newX + gizmo.getWidth(), newY + gizmo.getHeight()));
 
 					addGizmo(gizmo);
 					return true;
@@ -306,8 +284,10 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public IGizmo getGizmoByPosition(double x, double y) {
+
 		for (IGizmo g : gizmoHashMap.values()) {
-			if (x > g.getxPos() && x < (g.getxPos() + g.getWidth()) && y > g.getyPos() && y < (g.getyPos() + g.getHeight())) {
+			Point pos1 = g.getPos1(), pos2 = g.getPos2();
+			if ((x > pos1.x && x < pos2.x) && (y > pos1.y && y < pos2.y)) {
 				return g;
 			}
 		}
@@ -354,27 +334,26 @@ public class Board extends Observable implements IBoard {
 				if (tuc > moveTime) {
 					// No collision ...
 
-                    ball = movelBallForTime(ball, moveTime);
-                } else {
-                    // We've got a collision in tuc
-                    ball = movelBallForTime(ball, tuc);
-                    // Post collision velocity ...
-                    ball.setVelo(cd.getVelo());
-                    if(absorbCollide){
-                        if(!release) {
-                            ball.setVelo(new Vect(0,0));
-                            ball.setXPos(absorber.getX2()-1);
-                            ball.setYPos(absorber.getY1() + 0.5f);
-                        }
-                        else {
-                            ball.setXPos(absorber.getX2()-1);
-                            ball.setYPos(absorber.getY1()-3);
-                            ball.setVelo(new Vect(-10, -40));
-                            absorbCollide = false;
-                            release = false;
-                        }
-                    }
-                }
+					ball = movelBallForTime(ball, moveTime);
+				} else {
+					// We've got a collision in tuc
+					ball = movelBallForTime(ball, tuc);
+					// Post collision velocity ...
+					ball.setVelo(cd.getVelo());
+					/*if (absorbCollide) {
+						if (!release) {
+							ball.setVelo(new Vect(0, 0));
+							ball.setXPos(absorber.getPos2().x - 1);
+							ball.setYPos(absorber.getPos1().y + 0.5f);
+						} else {
+							ball.setXPos(absorber.getPos2().x - 1);
+							ball.setYPos(absorber.getPos1().y - 3);
+							ball.setVelo(new Vect(-10, -40));
+							absorbCollide = false;
+							release = false;
+						}
+					}*/
+				}
 
 				// Notify observers ... redraw updated view
 
@@ -442,8 +421,8 @@ public class Board extends Observable implements IBoard {
 		}
 
 		//Check if it's the abosrber
-		if (hasAbsorber()) {
-			ArrayList<LineSegment> absorbLines = absorber.getLineSegment();
+	/*	if (hasAbsorber()) {
+			ArrayList<LineSegment> absorbLines = absorber.getLineSegments();
 			for (LineSegment ls : absorbLines) {
 				time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 				if (time < shortestTime) {
@@ -452,7 +431,7 @@ public class Board extends Observable implements IBoard {
 					newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 				}
 			}
-		}
+		}*/
 
 		for (IGizmo g : gizmoHashMap.values()) {
 			for (LineSegment line : g.getLineSegments()) {
@@ -471,22 +450,21 @@ public class Board extends Observable implements IBoard {
 
 					}
 				}
+			}
+			for (Circle c : g.getCircles()) {
+				if (g.getMoving()) {
+					time = Geometry.timeUntilRotatingCircleCollision(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+				} else {
+					time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+				}
+				if (time < shortestTime) {
 
-				for (Circle c : g.getCircles()) {
+					shortestTime = time;
+
 					if (g.getMoving()) {
-						time = Geometry.timeUntilRotatingCircleCollision(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+						newVelo = Geometry.reflectRotatingCircle(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
 					} else {
-						time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
-					}
-					if (time < shortestTime) {
-
-						shortestTime = time;
-
-						if (g.getMoving()) {
-							newVelo = Geometry.reflectRotatingCircle(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
-						} else {
-							newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
-						}
+						newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
 					}
 				}
 			}
@@ -508,7 +486,6 @@ public class Board extends Observable implements IBoard {
 		ball = null;
 		connectors.clear();
 		gizmoHashMap.clear();
-		absorber = null;
 		for (boolean[] row : grid) {
 			Arrays.fill(row, false);
 		}

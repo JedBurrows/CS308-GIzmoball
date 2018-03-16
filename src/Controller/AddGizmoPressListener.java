@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.Absorber;
 import Model.GizmoCreator;
+import Model.Gizmos.Absorber;
 import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
@@ -60,24 +60,24 @@ public class AddGizmoPressListener implements MouseInputListener {
 
 	}
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if(!board.isRunMode()) {
-            String g = gizmo.getSelectedItem().toString();
-            if (g.equals("Absorber")) {
-                released = e;
-                int x = (int) (pressed.getX() / L);
-                int y = (int) (pressed.getY() / L);
-                int i = (int) (released.getX() / L);
-                int j = (int) (released.getY() / L);
-                if((j-y) <= (i-x)) {
-                    board.setAbsorber(new Absorber("Ab", x, i, y, j));
-                    buildGUI.clearSelected();
-                    buildGUI.setMode("AddGizmo");
-                    boardPanel.repaint();
-                }
-            }
-        }
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (!board.isRunMode()) {
+			String g = gizmo.getSelectedItem().toString();
+			if (g.equals("Absorber")) {
+				released = e;
+				int x = (int) (pressed.getX() / L);
+				int y = (int) (pressed.getY() / L);
+				int i = (int) (released.getX() / L);
+				int j = (int) (released.getY() / L);
+				if ((j - y) <= (i - x)) {
+					board.addGizmo(new Absorber("A", x, i, y, j, Color.GRAY));
+					buildGUI.clearSelected();
+					buildGUI.setMode("AddGizmo");
+					boardPanel.repaint();
+				}
+			}
+		}
 
 	}
 
@@ -93,6 +93,7 @@ public class AddGizmoPressListener implements MouseInputListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+
 
 	}
 

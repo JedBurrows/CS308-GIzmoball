@@ -26,17 +26,17 @@ public class Triangle extends AbstractGizmo implements IGizmo {
 	@Override
 	public void createLines() {
 		lineSegments.clear();
-		lineSegments.add(new LineSegment(xPos, yPos, xPos + 1, yPos));
-		lineSegments.add(new LineSegment(xPos + 1, yPos, xPos, yPos + size));
-		lineSegments.add(new LineSegment(xPos, yPos + size, xPos, yPos));
+		lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + 1, pos1.y));
+		lineSegments.add(new LineSegment(pos1.x + 1, pos1.y, pos1.x, pos1.y + size));
+		lineSegments.add(new LineSegment(pos1.x, pos1.y + size, pos1.x, pos1.y));
 	}
 
 	@Override
 	public void createCircles() {
 		circles.clear();
-		circles.add(new Circle(xPos, yPos, 0));
-		circles.add(new Circle(xPos + size, yPos, 0));
-		circles.add(new Circle(xPos, yPos + size, 0));
+		circles.add(new Circle(pos1.x, pos1.y, 0));
+		circles.add(new Circle(pos1.x + size, pos1.y, 0));
+		circles.add(new Circle(pos1.x, pos1.y + size, 0));
 	}
 
 

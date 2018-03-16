@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractGizmo {
 
-	protected int xPos, yPos;
+	protected Point pos1, pos2;
 	protected ArrayList<LineSegment> lineSegments;
 	protected ArrayList<Circle> circles;
 	private String ID;
@@ -17,8 +17,8 @@ public abstract class AbstractGizmo {
 
 	public AbstractGizmo(String id, int x, int y, int width, int height, Color color) {
 		this.ID = id;
-		this.xPos = x;
-		this.yPos = y;
+		this.pos1 = new Point(x, y);
+		this.pos2 = new Point(x + width, y + width);
 		this.width = width;
 		this.height = height;
 		this.color = color;
@@ -29,28 +29,13 @@ public abstract class AbstractGizmo {
 	}
 
 
+
 	public String getID() {
 		return ID;
 	}
 
-	public int getxPos() {
-		return xPos;
-	}
-
-	public void setxPos(int xPos) {
-		this.xPos = xPos;
-	}
-
-	public int getyPos() {
-		return yPos;
-	}
-
-	public void setyPos(int yPos) {
-		this.yPos = yPos;
-	}
-
 	public void rotate() {
-		rotation = (rotation + 1) % 4;
+		rotation = (++rotation) % 4;
 	}
 
 	public int getRotation() {
@@ -77,7 +62,15 @@ public abstract class AbstractGizmo {
 		return color;
 	}
 
-	public abstract void createCircles();
+	public Point getPos1() {
+		return pos1;
+	}
 
-	public abstract void createLines();
+	public Point getPos2() {
+		return pos2;
+	}
+
+	protected abstract void createCircles();
+
+	protected abstract void createLines();
 }

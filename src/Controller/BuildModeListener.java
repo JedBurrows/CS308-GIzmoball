@@ -19,6 +19,7 @@ public class BuildModeListener implements GBallListener {
 
     public BuildModeListener(GBallFrame gBallFrame) {
         this.gBallFrame = gBallFrame;
+
 //        colorChooserExample = new ColorChooserExample();
 
     }
@@ -109,7 +110,6 @@ public class BuildModeListener implements GBallListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
     @Override

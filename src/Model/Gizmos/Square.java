@@ -25,20 +25,20 @@ public class Square extends AbstractGizmo implements IGizmo {
 	@Override
 	public void createLines() {
 		lineSegments.clear();
-		lineSegments.add(new LineSegment(xPos, yPos, xPos + size, yPos));
-		lineSegments.add(new LineSegment(xPos + size, yPos, xPos + size, yPos + size));
-		lineSegments.add(new LineSegment(xPos + size, yPos + size, xPos, yPos + size));
-		lineSegments.add(new LineSegment(xPos, yPos + size, xPos, yPos));
+		lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + size, pos1.y));
+		lineSegments.add(new LineSegment(pos1.x + size, pos1.y, pos1.x + size, pos1.y + size));
+		lineSegments.add(new LineSegment(pos1.x + size, pos1.y + size, pos1.x, pos1.y + size));
+		lineSegments.add(new LineSegment(pos1.x, pos1.y + size, pos1.x, pos1.y));
 
 	}
 
 	@Override
 	public void createCircles() {
 		circles.clear();
-		circles.add(new Circle(xPos, yPos, 0));
-		circles.add(new Circle(xPos + size, yPos, 0));
-		circles.add(new Circle(xPos + size, yPos + size, 0));
-		circles.add(new Circle(xPos, yPos + size, 0));
+		circles.add(new Circle(pos1.x, pos1.y, 0));
+		circles.add(new Circle(pos1.x + size, pos1.y, 0));
+		circles.add(new Circle(pos1.x + size, pos1.y + size, 0));
+		circles.add(new Circle(pos1.x, pos1.y + size, 0));
 	}
 
 

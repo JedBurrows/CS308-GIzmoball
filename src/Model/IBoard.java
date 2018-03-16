@@ -10,10 +10,6 @@ public interface IBoard {
 
 	void addGizmoBall(float x, float y);
 
-	boolean setAbsorber(Absorber absorber);
-
-	boolean hasAbsorber();
-
 	boolean hasGizmoBall();
 
 	void setFriction(float mu, float mu2);
@@ -22,7 +18,6 @@ public interface IBoard {
 
 	Ball getGizmoBall();
 
-	Absorber getAbsorber();
 
 	boolean addConnector(String name1, String name2);
 

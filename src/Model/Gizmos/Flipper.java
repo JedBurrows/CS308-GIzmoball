@@ -30,6 +30,7 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 
 	public Flipper(String id, int x, int y, Color colour, boolean d) {
 		super(id, x, y, 2, 2, colour);
+
 		direction = d;
 
 		moving = false;
@@ -43,6 +44,10 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 		angVel = 1080;
 		keyPress = false;
 
+		System.out.println("xpos: " + xpos);
+		System.out.println("ypos: " + ypos);
+		System.out.println("x2pos: " + x2pos);
+		System.out.println("y2pos: " + y2pos);
 		circles.add(new Circle(xpos + 0.125, ypos + 0.125, 0.25));
 		circles.add(new Circle(x2pos + 0.125, y2pos - 0.125, 0.25));
 		lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, x2pos + 0.5, y2pos - 0.25));
@@ -95,6 +100,7 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
 
 
+
 			}
 		}
 		createCircles();
@@ -104,7 +110,7 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 
 	@Override
 	public void createCircles() {
-		circles.clear();
+		circles.removeAll(circles);
 		double angleDivider = angle / 90.0;
 
 
@@ -124,7 +130,7 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 
 	@Override
 	public void createLines() {
-		lineSegments.clear();
+		lineSegments.removeAll(lineSegments);
 
 		double angleDivider = angle / 90.0;
 
@@ -159,10 +165,6 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 
 	}
 
-
-	public double getY() {
-		return ypos;
-	}
 
 	public void setKeyPress() {
 		keyPress = !keyPress;
