@@ -135,7 +135,6 @@ public class MagicKeyListener implements KeyListener {
 		SwingUtilities.invokeLater(new KeyReleasedLater(e));
 
 		if (assumeAllReleased) {
-			System.out.println("gethere?");
 			while (!real.isEmpty()) {
 				Integer marker;
 				{

@@ -20,7 +20,7 @@ public class Connector {
 	}
 
 	public void execute() {
-		//target.action();
+		target.setKeyPress();
 
 	}
 

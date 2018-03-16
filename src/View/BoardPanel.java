@@ -121,13 +121,9 @@ public class BoardPanel extends JPanel implements Observer {
 
             float x = ball.getXPos(), y = ball.getYPos();
 
-            System.out.println("X: " + x + "	Y:" + y);
-
-
             x = (float) Lwidth * x;
             y = (float) Lheight * y;
 
-            System.out.println("X: " + x + "	Y:" + y);
 
             int r = (int) (ball.getRadius() * (double) Lwidth);
 
