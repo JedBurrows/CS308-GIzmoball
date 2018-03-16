@@ -5,13 +5,17 @@ import View.BuildGUI;
 import View.ColorChooserExample;
 import View.GBallFrame;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 public class BuildModeListener implements GBallListener {
 
     private KeyListener keyListener;
-    private MouseListener mouseInputListener;
+    private MouseInputListener mouseInputListener;
     private GBallFrame gBallFrame;
     private Color col;
     private ColorChooserExample colorChooserExample;
@@ -25,11 +29,13 @@ public class BuildModeListener implements GBallListener {
     }
 
     @Override
-    public void setMouseListener(MouseListener mouseInputListener) {
+    public void setMouseListener(MouseInputListener mouseInputListener) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
         buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
+        buildGUI.getBoardPanel().removeMouseMotionListener(this.mouseInputListener);
         this.mouseInputListener = mouseInputListener;
         buildGUI.getBoardPanel().addMouseListener(this.mouseInputListener);
+        buildGUI.getBoardPanel().addMouseMotionListener(this.mouseInputListener);
 
 
     }
@@ -139,6 +145,16 @@ public class BuildModeListener implements GBallListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

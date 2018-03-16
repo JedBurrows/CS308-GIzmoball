@@ -6,10 +6,10 @@ import View.BoardPanel;
 import View.BuildGUI;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class ConnectPressListener implements MouseListener {
+public class ConnectPressListener implements MouseInputListener {
 	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
@@ -78,6 +78,16 @@ public class ConnectPressListener implements MouseListener {
 			System.out.println("Not a gizmo.");
 		}
 
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 
 	}
 }

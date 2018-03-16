@@ -4,7 +4,11 @@ import Model.IBoard;
 import View.GBallFrame;
 
 import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 public class RunModeListener implements GBallListener {
 
@@ -85,12 +89,22 @@ public class RunModeListener implements GBallListener {
 	}
 
 	@Override
-	public void setMouseListener(MouseListener mouseListener) {
+	public void setMouseListener(MouseInputListener mouseInputListener) {
 
 	}
 
 	@Override
 	public void setKeyBoardListener(KeyListener keyListener) {
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 
 	}
 }
