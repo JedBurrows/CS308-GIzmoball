@@ -88,14 +88,14 @@ public class AddGizmoPressListener implements MouseInputListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("Entered event");
+		//For when mouse enters panel area
 
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		System.out.println("Exit Event");
+		//For when mouse leaves panel
 
 
 	}

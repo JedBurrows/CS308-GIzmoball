@@ -121,8 +121,8 @@ public class BoardPanel extends JPanel implements Observer {
 
 			float x = ball.getXPos(), y = ball.getYPos();
 
-            x = (float) Lwidth * x;
-            y = (float) Lheight * y;
+			x = (float) Lwidth * x;
+			y = (float) Lheight * y;
 
 
 			int r = (int) (ball.getRadius() * (double) Lwidth);
@@ -166,7 +166,7 @@ public class BoardPanel extends JPanel implements Observer {
 			paintDebug(g2, Lwidth, Lheight);
 		}
 		if (point1 != null && point2 != null) {
-			paintSelectionArea(g2, Lwidth, Lheight);
+			paintSelectionArea(g2);
 		}
 
 
@@ -187,9 +187,10 @@ public class BoardPanel extends JPanel implements Observer {
 		}
 	}
 
-	private void paintSelectionArea(Graphics2D g2, int Lwidth, int Lheight) {
+	private void paintSelectionArea(Graphics2D g2) {
 		Rectangle selection = new Rectangle(point1);
 		selection.add(point2);
+		g2.setColor(Color.orange);
 
 		g2.draw(selection);
 

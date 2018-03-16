@@ -42,7 +42,7 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 		angVel = 1080;
 		keyPress = false;
 
-		if (direction){
+		if (direction) {
 			width = -width;
 		}
 
