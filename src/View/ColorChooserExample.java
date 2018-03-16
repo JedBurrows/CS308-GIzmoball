@@ -16,10 +16,10 @@ public class ColorChooserExample extends JFrame implements MouseListener {
 //        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Color initialcolor = Color.RED;
 		Color color = JColorChooser.showDialog(this, "Select a color", initialcolor);
-		System.out.println("Color is" + color);
+//		System.out.println("Color is" + color);
 		//  c.setBackground(color);
 		col = color;
-		System.out.println("Col is " + col);
+//		System.out.println("Col is " + col);
 	}
 
 //    public void actionPerformed(ActionEvent e) {
@@ -49,10 +49,10 @@ public class ColorChooserExample extends JFrame implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		Color initialcolor = Color.RED;
 		Color color = JColorChooser.showDialog(this, "Select a color", initialcolor);
-		System.out.println("Color is" + color);
+//		System.out.println("Color is" + color);
 		//  c.setBackground(color);
 		col = color;
-		System.out.println("Col is " + col);
+//		System.out.println("Col is " + col);
 	}
 
 	@Override

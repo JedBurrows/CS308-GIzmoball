@@ -69,7 +69,7 @@ public class ConnectPressListener implements MouseInputListener {
 				target = board.getGizmoByPosition(x / L, y / L);
 				System.out.println("Target set as: " + target.getID());
 
-				System.out.println("Add Connection was: " + board.addConnector(target.getID(), source.getID()));
+				System.out.println("Add Connection was: " + board.addConnector(source.getID(), target.getID()));
 				System.out.println("Connection created.");
 				doneFlag = true;
 
