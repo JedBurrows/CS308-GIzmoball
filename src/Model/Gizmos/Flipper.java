@@ -3,6 +3,7 @@ package Model.Gizmos;
 import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Flipper implements IGizmo {
@@ -21,6 +22,7 @@ public class Flipper implements IGizmo {
 	//left = false //right = true
 	private boolean direction;
 	private boolean keyPress;
+	private Color colour;
 	//status of activated or not
 	//left and right flipper class
 
@@ -32,9 +34,9 @@ public class Flipper implements IGizmo {
 	private int rotation, orientation;
 
 
-	public Flipper(String i, int x, int y, boolean d) {
+	public Flipper(String i, int x, int y, Color colour, boolean d) {
 		id = i;
-
+		this.colour = colour;
 		rotation = 0;
 
 		direction = d;
@@ -272,6 +274,11 @@ public class Flipper implements IGizmo {
 	@Override
 	public boolean getMoving() {
 		return moving;
+	}
+
+	@Override
+	public Color getColour() {
+		return colour;
 	}
 
 

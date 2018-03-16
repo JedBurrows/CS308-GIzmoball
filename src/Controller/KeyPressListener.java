@@ -43,6 +43,11 @@ public class KeyPressListener implements KeyListener {
             }
 //			}
         }
+        if(keyCode == KeyEvent.VK_SPACE){
+            if(board.getAbsorbCollide()){
+                board.release();
+            }
+        }
     }
 
     @Override

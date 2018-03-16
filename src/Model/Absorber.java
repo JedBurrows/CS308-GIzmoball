@@ -1,38 +1,78 @@
 package Model;
 
+import physics.Circle;
 import physics.LineSegment;
 
+import javax.sound.sampled.Line;
+import java.util.ArrayList;
+
 public class Absorber implements IAbsorber{
-    private int xPos1, yPos1, xPos2, yPos2;
+    private int x1, x2, y;
     private String id;
-    private LineSegment ls;
+    private ArrayList<LineSegment> lines;
+    private ArrayList<Circle> circles;
 
-    public Absorber(String id, int x1, int y1, int x2, int y2) {
+    public Absorber(String id, int x1, int x2, int y) {
         this.id = id;
-        this.xPos1 = x1;
-        this.xPos2 = x2;
-        this.yPos1 = y1;
-        this.yPos2 = y2;
-        ls = new LineSegment(x1,y1,x2,y2);
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y = y;
+        lines = new ArrayList<>();
+        circles = new ArrayList<>();
+        createLines();
+        createCircles();
     }
 
-    public int getxPos1() {
-        return xPos1;
+    public int getX1() {
+        return x1;
     }
 
-    public int getxPos2() {
-        return xPos2;
+    public int getX2() {
+        return x2;
     }
 
-    public int getyPos1() {
-        return yPos1;
+    public int getY() {
+        return y;
     }
 
-    public int getyPos2() {
-        return yPos2;
+    @Override
+    public void setX1(int x1) {
+        this.x1 = x1;
+        createLines();
+        createCircles();
     }
 
-    public LineSegment getLineSegment(){
-        return ls;
+    @Override
+    public void setX2(int x2) {
+        this.x2 = x2;
+        createLines();
+        createCircles();
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
+        createLines();
+        createCircles();
+    }
+
+    public ArrayList<LineSegment> getLineSegment(){
+        return lines;
+    }
+
+    private void createLines(){
+        lines.clear();
+        lines.add(new LineSegment(x1,y,x2,y));
+        lines.add(new LineSegment(x1,y,x2,y+1));
+        lines.add(new LineSegment(x2,y,x1,y+1));
+        lines.add(new LineSegment(x1,y+1,x2,y+1));
+    }
+
+    private void createCircles(){
+        circles.clear();
+        circles.add(new Circle(x1, y, 0));
+        circles.add(new Circle(x2, y, 0));
+        circles.add(new Circle(x2, y+1, 0));
+        circles.add(new Circle(x1, y+1, 0));
     }
 }

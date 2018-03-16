@@ -13,9 +13,7 @@ public class BuildGUI {
 	private JButton btnRunMode, btnColor, btnClear;
 	private JComboBox<String> boxGizmo;
 	private String mode;
-	private Container color;
-	private Color colour;
-	private ColorChooserExample colourChoser;
+
 
 	private BuildModeListener buildModeListener;
 
@@ -52,16 +50,13 @@ public class BuildGUI {
 	private void initialiseButtons(GBallFrame parent) {
 		boxGizmo = new JComboBox<>();
 
-        colourChoser = new ColorChooserExample();
+
         btnColor=new JButton("Choose a Colour");
         btnColor.addActionListener(buildModeListener);
         btnColor.setActionCommand("Choose Colour");
 
         boxGizmo.setPreferredSize(new Dimension(150, 50));
 
-
-//        colour = colourChoser.getColorGiz();
-//        System.out.println("COLOUR: "+colour);
 
 		boxGizmo.setPreferredSize(new Dimension(150, 50));
 		boxGizmo.addItem("Square");
@@ -240,7 +235,6 @@ public class BuildGUI {
 	public void setMode(String mode) {
 		this.mode = mode;
 		clearSelected();
-
 		switch (this.mode) {
 			case "AddGizmo":
 				btnGizmo.setSelected(true);
@@ -263,7 +257,7 @@ public class BuildGUI {
 
 
 
-	private void clearSelected() {
+	public void clearSelected() {
 
 		btnGizmo.setSelected(false);
 		btnBall.setSelected(false);
@@ -283,9 +277,9 @@ public class BuildGUI {
 	public JComboBox<String> getBoxGizmo() {
 		return boxGizmo;
 	}
-   public ColorChooserExample getColours(){
-	    return colourChoser;
-   }
+  // public ColorChooserExample getColours(){
+//	    return colourChoser;
+//   }
 
 
     /*@Override

@@ -3,6 +3,7 @@ package Model.Gizmos;
 import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Square implements IGizmo {
@@ -13,11 +14,13 @@ public class Square implements IGizmo {
     private ArrayList<LineSegment> lines;
     private ArrayList<Circle> circles;
     private static final int size = 1;
+    private Color colour;
 
-    public Square(String id, int x, int y) {
+    public Square(String id, int x, int y, Color colour) {
         this.id = id;
         this.xPos = x;
         this.yPos = y;
+        this.colour = colour;
         lines = new ArrayList<LineSegment>();
         circles = new ArrayList<Circle>();
         createCircles();
@@ -135,6 +138,11 @@ public class Square implements IGizmo {
     @Override
     public boolean getMoving() {
         return false;
+    }
+
+    @Override
+    public Color getColour() {
+        return colour;
     }
 
 }

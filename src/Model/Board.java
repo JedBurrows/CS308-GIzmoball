@@ -72,6 +72,19 @@ public class Board extends Observable implements IBoard {
         runMode = !runMode;
     }
 
+    public boolean setAbsorber(Absorber absorber) {
+        if (this.absorber == null) {
+            absorber.setX2(absorber.getX2() + 1);
+            int x1 = absorber.getX1(), y1 = absorber.getY(), x2 = absorber.getX2();
+            for (int xPos = x1; xPos < x2; xPos++) {
+                    grid[xPos][y1] = true;
+            }
+            this.absorber = absorber;
+            return true;
+        }
+        return false;
+    }
+
     public boolean hasAbsorber() {
         return absorber != null;
     }
@@ -100,11 +113,12 @@ public class Board extends Observable implements IBoard {
 
     public boolean addConnector(String name1, String name2) {
         try {
-            Connector connection = new Connector(getGizmoByID(name1), getGizmoByID(name2));
+            Connector connection = new Connector(getGizmoByID(name1),getGizmoByID(name2));
+            System.out.println("Connection hash code = " + connection.hashCode());
 
-            if (connectors.contains(connection)) {
+            if (connectors.contains(connection)){
                 return false;
-            } else {
+            }else{
                 connectors.add(connection);
                 return true;
             }
@@ -114,12 +128,20 @@ public class Board extends Observable implements IBoard {
         }
     }
 
-    public void removeConnector(IGizmo gizmo) {
-        for (Connector connection : connectors) {
-            if (connection.getSource().equals(gizmo) || connection.getTarget().equals(gizmo)) {
-                connectors.remove(connection);
-            }
+    public boolean removeConnector(String name1, String name2) {
+        System.out.println("Connectors size before removal = " + connectors.size());
+        try {
+            Connector connector = new Connector(getGizmoByID(name1),getGizmoByID(name2));
+
+            return connectors.remove(connector);
+
+        }catch (NoSuchGizmoException e){
+            return false;
+
+        }finally {
+            System.out.println("Connectors size after removal = " + connectors.size());
         }
+
     }
 
     public boolean setAbsorber(Absorber absorber) {
@@ -306,7 +328,7 @@ public class Board extends Observable implements IBoard {
     public boolean isInsideBall(float x, float y) {
         if (hasGizmoBall()) {
             return (x >= ball.getXPos() - ball.getRadius() && x <= ball.getXPos() + ball.getRadius() && y >= ball.getYPos() - ball.getRadius() && y <= ball.getYPos() + ball.getRadius());
-        } else {
+        }else{
             return false;
         }
     }
@@ -344,6 +366,20 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
                     // Post collision velocity ...
                     ball.setVelo(cd.getVelo());
+                    if(absorbCollide){
+                        if(!release) {
+                            ball.setVelo(new Vect(0,0));
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY() + 0.5f);
+                        }
+                        else {
+                            ball.setXPos(absorber.getX2()-1);
+                            ball.setYPos(absorber.getY()-3);
+                            ball.setVelo(new Vect(-10, -40));
+                            absorbCollide = false;
+                            release = false;
+                        }
+                    }
                 }
 
                 // Notify observers ... redraw updated view
@@ -383,8 +419,8 @@ public class Board extends Observable implements IBoard {
         double mu = DEFAULT_MU; //0.025 per second
         double mu2 = DEFAULT_MU2; //0.025 per L
 
-        double newSpeedX = ball.getVelo().x() * (1000 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time);
-        double newSpeedY = ball.getVelo().y() * (1000 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
+        double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time);
+        double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
 
         ball.setVelo(new Vect(newSpeedX, newSpeedY));
     }
@@ -410,6 +446,19 @@ public class Board extends Observable implements IBoard {
             }
         }
 
+        //Check if it's the abosrber
+        if(hasAbsorber()) {
+            ArrayList<LineSegment> absorbLines = absorber.getLineSegment();
+            for(LineSegment ls : absorbLines) {
+                time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    absorbCollide = true;
+                    newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+                }
+            }
+        }
+
         for (IGizmo g : gizmoHashMap.values()) {
             for (LineSegment line : g.getLines()) {
                 if (g.getMoving()) {
@@ -422,30 +471,30 @@ public class Board extends Observable implements IBoard {
 
                     if (g.getMoving()) {
                         newVelo = Geometry.reflectRotatingWall(line, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
-                    } else {
+                    }else{
                         newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
 
                     }
                 }
-            }
-            for (Circle c : g.getCircles()) {
-                if (g.getMoving()) {
-                    time = Geometry.timeUntilRotatingCircleCollision(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
-                } else {
-                    time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
-                }
-                if (time < shortestTime) {
 
-                    shortestTime = time;
-
+                for (Circle c : g.getCircles()) {
                     if (g.getMoving()) {
-                        newVelo = Geometry.reflectRotatingCircle(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+                        time = Geometry.timeUntilRotatingCircleCollision(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
                     } else {
-                        newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
+                        time = Geometry.timeUntilCircleCollision(c, ballCircle, ballVelocity);
+                    }
+                    if (time < shortestTime) {
+
+                        shortestTime = time;
+
+                        if (g.getMoving()) {
+                            newVelo = Geometry.reflectRotatingCircle(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
+                        } else {
+                            newVelo = Geometry.reflectCircle(c.getCenter(), ballCircle.getCenter(), ballVelocity);
+                        }
                     }
                 }
             }
-
         }
 
         return new CollisionDetails(shortestTime, newVelo);
@@ -464,11 +513,19 @@ public class Board extends Observable implements IBoard {
         ball = null;
         connectors.clear();
         gizmoHashMap.clear();
+        absorber = null;
         for (boolean[] row : grid) {
             Arrays.fill(row, false);
         }
 
     }
 
+    public boolean getAbsorbCollide(){
+        return absorbCollide;
+    }
+    public void setRelease(boolean r){}
 
+    public void release() {
+        release = true;
+    }
 }

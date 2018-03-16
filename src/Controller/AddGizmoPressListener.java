@@ -42,15 +42,19 @@ public class AddGizmoPressListener implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        pressed = e;
-        if (SwingUtilities.isLeftMouseButton(e)){
-            String g = gizmo.getSelectedItem().toString();
-            if(!g.equals("Absorber")){
-                int x = (int) (e.getX()/L);
-                int y = (int) (e.getY()/L);
+        if(!board.isRunMode()) {
+            pressed = e;
+            if (SwingUtilities.isLeftMouseButton(e)) {
+                String g = gizmo.getSelectedItem().toString();
+                if (!g.equals("Absorber")) {
+                    int x = (int) (e.getX() / L);
+                    int y = (int) (e.getY() / L);
 
-                board.addGizmo(gizmoCreator.createGizmo(g,x,y));
-                boardPanel.repaint();
+                    board.addGizmo(gizmoCreator.createGizmo(g, x, y, colour));
+                    boardPanel.repaint();
+                }
+                buildGUI.clearSelected();
+                buildGUI.setMode("AddGizmo");
             }
 
         }
@@ -59,21 +63,18 @@ public class AddGizmoPressListener implements MouseInputListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        String g = gizmo.getSelectedItem().toString();
-        if(g.equals("Absorber")) {
-            released = e;
-            System.out.println("Mouse Released");
-            System.out.println("Abosrber");
-            int x = (int) (pressed.getX() / L);
-            int y = (int) (pressed.getY() / L);
-            int i = (int) (released.getX() / L);
-            int j = (int) (released.getY() / L);
-
-            if (x < j){
-
+        if(!board.isRunMode()) {
+            String g = gizmo.getSelectedItem().toString();
+            if (g.equals("Absorber")) {
+                released = e;
+                int x = (int) (pressed.getX() / L);
+                int y = (int) (pressed.getY() / L);
+                int i = (int) (released.getX() / L);
+                board.setAbsorber(new Absorber("Ab", x, i, y));
+                buildGUI.clearSelected();
+                buildGUI.setMode("AddGizmo");
+                boardPanel.repaint();
             }
-            board.setAbsorber(new Absorber("Ab", x, y, i, j));
-            boardPanel.repaint();
         }
 
     }

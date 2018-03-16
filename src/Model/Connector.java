@@ -12,12 +12,15 @@ public class Connector  {
 	 */
 	public Connector(IGizmo source, IGizmo target) {
 		this.source = source;
+		System.out.println("Source HashCode = "+ this.source.hashCode());
 		this.target = target;
+		System.out.println("Target HashCode = "+ this.target.hashCode());
 
 
 	}
 
 	public void execute() {
+		//target.action();
 
 	}
 
@@ -29,12 +32,18 @@ public class Connector  {
 		return target;
 	}
 
+
 	@Override
-	public int hashCode(){
-		return Objects.hash(source,target);
+	public int hashCode() {
+		return Objects.hash(source.hashCode(),target.hashCode());
 	}
 
-
-
-
+	@Override
+	public boolean equals(Object obj) {
+		if (obj.hashCode() == this.hashCode()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

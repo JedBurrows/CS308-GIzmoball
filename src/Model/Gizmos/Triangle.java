@@ -3,7 +3,7 @@ package Model.Gizmos;
 import physics.Circle;
 import physics.LineSegment;
 
-import javax.sound.sampled.Line;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Triangle implements IGizmo {
@@ -11,16 +11,17 @@ public class Triangle implements IGizmo {
     private String id;
     private int xPos, yPos;
     private int rotation;
+    private Color colour;
     private ArrayList<LineSegment> lines;
     private ArrayList<Circle> circles;
     private static final int size = 1;
 
-    public Triangle(String id, int x, int y) {
+    public Triangle(String id, int x, int y, Color colour) {
         this.id = id;
         this.xPos = x;
         this.yPos = y;
         this.rotation = 0;
-
+        this.colour = colour;
         lines = new ArrayList<LineSegment>();
         circles = new ArrayList<Circle>();
 
@@ -39,6 +40,7 @@ public class Triangle implements IGizmo {
         createLines();
         createCircles();
     }
+
     @Override
     public String getID() {
         return id;
@@ -166,5 +168,10 @@ public class Triangle implements IGizmo {
 
     public int getRotation() {
         return rotation;
+    }
+
+    @Override
+    public Color getColour() {
+        return colour;
     }
 }

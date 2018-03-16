@@ -69,7 +69,15 @@ public class BoardPanel extends JPanel implements Observer {
                 g.setColor(Color.MAGENTA);
             }
 
+//            if(colours.getColorGiz()!= null){
+//                g.setColor(colours.getColorGiz());
+//            }
+//            else{
+//                g.setColor(Color.MAGENTA);
+//            }
 
+            g.setColor(gizmo.getColour());
+            System.out.println("COLOUR OF NEW GIZMO: "+gizmo.getColour());
             String type = gizmo.getClass().getSimpleName();
             switch (type) {
                 case "Square":
@@ -95,7 +103,7 @@ public class BoardPanel extends JPanel implements Observer {
                     g2.fillPolygon(xPoints, yPoints, 3);
                     break;
                 case "Flipper":
-                    g2.setColor(Color.YELLOW);
+                    //g2.setColor(Color.YELLOW);
 
                     for (LineSegment l : gizmo.getLines()) {
                         g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
@@ -107,6 +115,18 @@ public class BoardPanel extends JPanel implements Observer {
 
 
             }
+        }
+
+        //Draw Absorber
+        if (board.hasAbsorber()) {
+            System.out.println("Drawing Abosrber");
+            g2.setColor(Color.MAGENTA);
+            Absorber absober = board.getAbsorber();
+            int x1 = absober.getX1(), y1 = absober.getY(), x2 = absober.getX2() - 1;
+                for (int xPos = x1; xPos <= x2; xPos++) {
+                    g2.fillRect(xPos * Lwidth, y1 * Lheight, Lwidth, Lheight);
+                }
+
         }
         if (board.hasGizmoBall()) {
             g2.setColor(Color.BLUE);
