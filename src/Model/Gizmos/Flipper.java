@@ -99,8 +99,6 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 				}
 				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
 
-
-
 			}
 		}
 		createCircles();
@@ -165,7 +163,7 @@ public class Flipper extends AbstractGizmo implements IGizmo {
 
 	}
 
-
+	@Override
 	public void setKeyPress() {
 		keyPress = !keyPress;
 	}

@@ -12,7 +12,7 @@ public abstract class AbstractGizmo {
 	protected ArrayList<LineSegment> lineSegments;
 	protected ArrayList<Circle> circles;
 	private String ID;
-	private int width, height, rotation;
+	protected int width, height, rotation;
 	private Color color;
 
 	public AbstractGizmo(String id, int x, int y, int width, int height, Color color) {
@@ -28,14 +28,14 @@ public abstract class AbstractGizmo {
 
 	}
 
-
-
 	public String getID() {
 		return ID;
 	}
 
 	public void rotate() {
 		rotation = (++rotation) % 4;
+		createLines();
+		createCircles();
 	}
 
 	public int getRotation() {

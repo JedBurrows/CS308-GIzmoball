@@ -12,7 +12,6 @@ public interface IGizmo {
 	//	  Action performed by gizmo when struck by ball
 	void action(double tickTime);
 
-	//	  Rotate gizmo 90 deg
 	void rotate();
 
 	int getRotation();

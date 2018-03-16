@@ -2,45 +2,66 @@ package Model.Gizmos;
 
 import physics.Circle;
 import physics.LineSegment;
-
 import java.awt.*;
 
 public class Triangle extends AbstractGizmo implements IGizmo {
 
-	//Todo remove then use width and height instead
-
-	private static final int size = 1;
-
 	public Triangle(String id, int x, int y, Color colour) {
 		super(id, x, y, 1, 1, colour);
-		createLines();
+        createLines();
 		createCircles();
 	}
 
 
 	@Override
 	public void action(double tickTime) {
+    }
 
-	}
+    @Override
+    public void createLines() {
+        lineSegments.clear();
+        if (rotation == 0) {
+            lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + width, pos1.y));
+            lineSegments.add(new LineSegment(pos1.x + width, pos1.y, pos1.x, pos1.y + height));
+            lineSegments.add(new LineSegment(pos1.x, pos1.y + height, pos1.x, pos1.y));
+        }else if(rotation == 1){
+            lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + width, pos1.y));
+            lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + width, pos1.y + height));
+            lineSegments.add(new LineSegment(pos1.x + width, pos1.y, pos1.x + width, pos1.y + height));
+        }else if(rotation == 2){
+            lineSegments.add(new LineSegment(pos1.x + width, pos1.y, pos1.x, pos1.y + height));
+            lineSegments.add(new LineSegment(pos1.x + width, pos1.y, pos1.x + width, pos1.y + height));
+            lineSegments.add(new LineSegment(pos1.x, pos1.y +height, pos1.x + width, pos1.y + height));
+        }else if(rotation == 3){
+            lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x, pos1.y + height));
+            lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + width, pos1.y + height));
+            lineSegments.add(new LineSegment(pos1.x, pos1.y + height, pos1.x + width, pos1.y + height));
+        }
+    }
 
-	@Override
-	public void createLines() {
-		lineSegments.clear();
-		lineSegments.add(new LineSegment(pos1.x, pos1.y, pos1.x + 1, pos1.y));
-		lineSegments.add(new LineSegment(pos1.x + 1, pos1.y, pos1.x, pos1.y + size));
-		lineSegments.add(new LineSegment(pos1.x, pos1.y + size, pos1.x, pos1.y));
-	}
+    @Override
+    public void createCircles() {
+        circles.clear();
+        if (rotation == 0) {
+            circles.add(new Circle(pos1.x, pos1.y, 0));
+            circles.add(new Circle(pos1.x + width, pos1.y, 0));
+            circles.add(new Circle(pos1.x, pos1.y + height, 0));
+        }else if (rotation == 1){
+            circles.add(new Circle(pos1.x, pos1.y, 0));
+            circles.add(new Circle(pos1.x + width, pos1.y, 0));
+            circles.add(new Circle(pos1.x + width, pos1.y + height, 0));
+        }else if (rotation == 2){
+            circles.add(new Circle(pos1.x, pos1.y + width, 0));
+            circles.add(new Circle(pos1.x + width, pos1.y, 0));
+            circles.add(new Circle(pos1.x + width, pos1.y + height, 0));
+        }else if (rotation == 3){
+            circles.add(new Circle(pos1.x, pos1.y, 0));
+            circles.add(new Circle(pos1.x, pos1.y + height, 0));
+            circles.add(new Circle(pos1.x + width, pos1.y + height, 0));
+        }
+    }
 
-	@Override
-	public void createCircles() {
-		circles.clear();
-		circles.add(new Circle(pos1.x, pos1.y, 0));
-		circles.add(new Circle(pos1.x + size, pos1.y, 0));
-		circles.add(new Circle(pos1.x, pos1.y + size, 0));
-	}
-
-
-	@Override
+    @Override
 	public void setKeyPress() {
 	}
 
