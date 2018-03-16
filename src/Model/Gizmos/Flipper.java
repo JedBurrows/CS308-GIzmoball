@@ -1,174 +1,215 @@
 package Model.Gizmos;
 
+import physics.*;
 import physics.Circle;
 import physics.LineSegment;
 
+import javax.sound.sampled.Line;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Flipper extends AbstractGizmo implements IGizmo {
-	private double xpos;
-	private double ypos;
-	private double x2pos;
-	private double y2pos;
+    private double xpos;
+    private double ypos;
+    private double x2pos;
+    private double y2pos;
 
-	private double maxAngle;
-	private double minAngle;
-	private double angle;
-	private double angVel;
+    private double maxAngle;
+    private double minAngle;
+    private double angle;
+    private double angVel;
 
-	private boolean moving;
+    private boolean moving;
 
-	//left = false //right = true
-	private boolean direction;
-	private boolean keyPress;
-	//status of activated or not
-	//left and right flipper class
-
-
-	//In reference to the flipper this is the Northwest corner pos on grid
+    //left = false //right = true
+    private boolean direction;
+    private boolean keyPress;
+    //status of activated or not
+    //left and right flipper class
 
 
-	public Flipper(String id, int x, int y, Color colour, boolean d) {
-		super(id, x, y, 2, 2, colour);
-		direction = d;
-		moving = false;
-		xpos = x;
-		ypos = y;
-		x2pos = xpos;
-		y2pos = ypos + 2;
-		maxAngle = 90;
-		minAngle = 0;
-		angle = 90;
-		angVel = 1080;
-		keyPress = false;
-
-		if (direction){
-			width = -width;
-		}
-
-		createCircles();
-		createLines();
-
-	}
+    //In reference to the flipper this is the Northwest corner pos on grid
 
 
-	@Override
-	public void action(double tickTime) {
-		moving = false;
-		if (!keyPress) {
-			if (angle < maxAngle) {
-				if (angVel < 0) {
-					angVel = -angVel;
-				}
-				angle = angle + (angVel * tickTime);
-				if (angle >= 90) {
-					angle = 90;
-				} else {
-					moving = true;
-				}
-				if (!direction) {
-					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-				} else {
-					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
-				}
-				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
-			}
-		} else if (keyPress) {
-			if (angle >= minAngle) {
-				if (angVel > 0) {
-					angVel = -angVel;
-				}
-				angle = angle + (angVel * tickTime);
-				if (angle < 0) {
-					angle = 0;
-				} else {
-					moving = true;
-				}
-				if (!direction) {
-					x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-				} else {
-					x2pos = xpos - (2.0 * Math.cos(Math.toRadians(angle)));
-				}
-				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
+    public Flipper(String id, int x, int y, Color colour, boolean d) {
+        super(id, x, y, 2, 2, colour);
+        direction = d;
+        moving = false;
+        xpos = x;
+        ypos = y;
+        maxAngle = 90;
+        minAngle = 0;
+        angle = 90;
+        angVel = 1080;
+        keyPress = false;
 
-			}
-		}
-		createCircles();
-		createLines();
-	}
+        if (direction) {
+            width = -width;
+        }
 
 
-	@Override
-	public void createCircles() {
-		circles.removeAll(circles);
-		double angleDivider = angle / 90.0;
+        circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
+        circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
+
+        lineSegments.add(new LineSegment(xpos, ypos + 0.25, xpos, ypos + 1.75));
+        lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, xpos + 0.5, ypos + 1.75));
 
 
-		if (!direction) {
-			double xDivider = (angleDivider * 0.5) - 0.25;
-			double yDivider = 0.25 - (angleDivider * 0.5);
-			circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
-			circles.add(new Circle(x2pos + xDivider, y2pos + yDivider, 0.25));
-		} else {
-			double xDivider = 1.25 - (angleDivider * 0.5);
-			double yDivider = 0.25 - (angleDivider * 0.5);
-			circles.add(new Circle(xpos + 0.75, ypos + 0.25, 0.25));
-			circles.add(new Circle(x2pos + xDivider, y2pos + yDivider, 0.25));
-
-		}
-	}
-	@Override
-	public void createLines() {
-		lineSegments.removeAll(lineSegments);
-
-		double angleDivider = angle / 90.0;
-
-		if (!direction) {
-			double l1x1Divider = 0.25 - (angleDivider * 0.25);
-			double l1y1Divider = 0.5 - (angleDivider * 0.25);
-			double l1x2Divider = (angleDivider * 0.25) - 0.25;
-			double l1y2Divider = 0.5 - (angleDivider * 0.75);
-
-			double l2x1Divider = (angleDivider * 0.25) + 0.25;
-			double l2y1Divider = (angleDivider * 0.25);
-			double l2x2Divider = (angleDivider * 0.75) - 0.25;
-			double l2y2Divider = -(angleDivider * 0.25);
-
-			lineSegments.add(new LineSegment(xpos + l1x1Divider, ypos + l1y1Divider, x2pos + l1x2Divider, y2pos + l1y2Divider));
-			lineSegments.add(new LineSegment(xpos + l2x1Divider, ypos + l2y1Divider, x2pos + l2x2Divider, y2pos + l2y2Divider));
-		} else {
-			double l1x1Divider = 0.75 - (angleDivider * 0.25);
-			double l1y1Divider = (angleDivider * 0.25);
-			double l1x2Divider = 1.25 - (angleDivider * 0.75);
-			double l1y2Divider = -(angleDivider * 0.25);
-
-			double l2x1Divider = (angleDivider * 0.25) + 0.75;
-			double l2y1Divider = 0.5 - (angleDivider * 0.25);
-			double l2x2Divider = 1.25 - (angleDivider * 0.25);
-			double l2y2Divider = 0.5 - (angleDivider * 0.75);
-
-			lineSegments.add(new LineSegment(xpos + l1x1Divider, ypos + l1y1Divider, x2pos + l1x2Divider, y2pos + l1y2Divider));
-			lineSegments.add(new LineSegment(xpos + l2x1Divider, ypos + l2y1Divider, x2pos + l2x2Divider, y2pos + l2y2Divider));
-
-		}
-
-	}
-
-	@Override
-	public void setKeyPress() {
-		keyPress = !keyPress;
-	}
+    }
 
 
-	@Override
-	public double getAngVel() {
-		return angVel;
-	}
+    @Override
+    public void action(double tickTime) {
+        moving = false;
+        if (!keyPress) {
+            if (angle < maxAngle) {
+                if (angVel < 0) {
+                    angVel = -angVel;
+                }
+                angle = angle + (angVel * tickTime);
 
-	@Override
-	public boolean getMoving() {
-		return moving;
-	}
+                if (angle > 90) {
+                    angle = 90;
+                } else {
+                    moving = true;
+                }
+                createCircles(tickTime);
+                createLines(tickTime);
+            }
+        } else if (keyPress) {
+            if (angle >= minAngle) {
+                if (angVel > 0) {
+                    angVel = -angVel;
+                }
+                angle = angle + (angVel * tickTime);
+                if (angle < 0) {
+                    angle = 0;
+                } else {
+                    moving = true;
+                }
+                createCircles(tickTime);
+                createLines(tickTime);
+            }
+        }
+    }
 
 
+    public void createCircles(double tickTime) {
+        ArrayList<Circle> tempC = new ArrayList<>();
+        System.out.println(angVel / (1/tickTime));
+        for (physics.Circle c : circles) {
+            c = Geometry.rotateAround(c, circles.get(0).getCenter(), new Angle(Math.toRadians(angVel / (1/tickTime))));
+            if (c.getCenter().y() < ypos + c.getRadius() && rotation == 0){
+                c = new Circle(xpos + 1.75, ypos + 0.25, 0.25);
+            }else if(c.getCenter().x() < xpos + c.getRadius() && rotation == 0){
+                c = new Circle(xpos + 0.25, ypos + 1.75, 0.25);
+            }
+            else  if (c.getCenter().y() < ypos + c.getRadius() && rotation == 1){
+                c = new Circle(xpos + 0.25, ypos + 0.25, 0.25);
+            }else if(c.getCenter().x() > xpos + 1.75 && rotation == 1){
+                c = new Circle(xpos + 1.75, ypos + 1.75, 0.25);
+            }
+
+
+            else  if (c.getCenter().y() < ypos + c.getRadius() && rotation == 2){
+                c = new Circle(xpos + 1.75, ypos + 0.25, 0.25);
+            }else if(c.getCenter().x() < xpos + c.getRadius() && rotation == 2){
+                c = new Circle(xpos + 0.25, ypos + 1.75, 0.25);
+            }
+            else  if (c.getCenter().y() < ypos + c.getRadius() && rotation == 3){
+                c = new Circle(xpos + 1.75, ypos + 0.25, 0.25);
+            }else if(c.getCenter().x() < xpos + c.getRadius() && rotation == 3){
+                c = new Circle(xpos + 0.25, ypos + 1.75, 0.25);
+            }
+            tempC.add(c);
+        }
+        circles = tempC;
+    }
+
+    public void createLines(double tickTime) {
+        ArrayList<LineSegment> tempL = new ArrayList<>();
+
+        for (physics.LineSegment l : lineSegments) {
+            l = Geometry.rotateAround(l, circles.get(0).getCenter(), new Angle(Math.toRadians(angVel / (1/tickTime))));
+            tempL.add(l);
+        }
+        System.out.println("tempL: "  + tempL.get(1).p2().x());
+        System.out.println("xpos + 2"  + xpos + 2);
+        if (tempL.get(0).p2().x() < xpos && rotation == 0){
+            lineSegments.clear();
+            lineSegments.add(new LineSegment(xpos, ypos + 0.25, xpos, ypos + 1.75)); //1
+            lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, xpos + 0.5, ypos + 1.75)); //2
+        }else if(tempL.get(1).p2().y() < ypos && rotation == 0){
+            lineSegments.clear();
+            lineSegments.add(new LineSegment(xpos + 0.25, ypos + 0.5, xpos +1.75, ypos +0.5)); //1
+            lineSegments.add(new LineSegment(xpos + 0.25, ypos, xpos + 1.75, ypos)); //2
+        }
+        //rotation 1
+        else if (tempL.get(0).p2().y() < ypos  && rotation == 1){
+            lineSegments.clear();
+            lineSegments.add(new LineSegment(xpos + 0.25, ypos + 0.5, xpos + 1.75, ypos + 0.5)); //2
+            lineSegments.add(new LineSegment(xpos + 0.25, ypos, xpos+1.75, ypos )); //1
+
+        }else if(tempL.get(1).p2().x() > (xpos + 1.0) && rotation == 1){
+            System.out.println("here");
+
+            lineSegments.clear();
+            lineSegments.add(new LineSegment(xpos + 1.5, ypos +0.25, xpos +1.5, ypos+1.75)); //1
+            lineSegments.add(new LineSegment(xpos + 2, ypos + 0.25, xpos + 2, ypos+1.75)); //2
+
+        }else{
+            lineSegments = tempL;
+        }
+    }
+
+    @Override
+    public void setKeyPress() {
+        keyPress = !keyPress;
+    }
+
+
+    @Override
+    public double getAngVel() {
+        return angVel;
+    }
+
+    @Override
+    public boolean getMoving() {
+        return moving;
+    }
+
+
+    @Override
+    protected void createCircles() {
+
+    }
+
+    @Override
+    public void rotate(){
+        rotation = (++rotation) % 4;
+        circles.clear();
+        lineSegments.clear();
+
+        if (rotation == 0){
+            circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
+            circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
+        }else if(rotation == 1){
+            circles.add(new Circle(xpos + 1.75, ypos + 0.25, 0.25));
+            circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
+            lineSegments.add(new LineSegment(xpos + 0.25, ypos, xpos+1.75, ypos )); //1
+            lineSegments.add(new LineSegment(xpos + 0.25, ypos + 0.5, xpos + 1.75, ypos + 0.5)); //2
+        }else if(rotation == 2){
+            circles.add(new Circle(xpos + 1.75, ypos + 1.75, 0.25));
+            circles.add(new Circle(xpos + 1.75, ypos + 0.25, 0.25));
+        }else if(rotation == 3){
+            circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
+            circles.add(new Circle(xpos + 1.75, ypos + 1.75, 0.25));
+        }
+
+    }
+
+    @Override
+    protected void createLines() {
+
+    }
 }
