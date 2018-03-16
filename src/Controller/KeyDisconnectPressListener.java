@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class KeyDisconnectPressListener implements ActionListener {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
-    }
+	}
 }

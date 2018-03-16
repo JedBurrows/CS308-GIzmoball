@@ -1,12 +1,9 @@
 package Controller;
 
-import Model.Board;
 import Model.IBoard;
-import View.BoardPanel;
 import View.GBallFrame;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import java.awt.event.*;
 
 public class RunModeListener implements GBallListener {
@@ -15,8 +12,7 @@ public class RunModeListener implements GBallListener {
 	private Timer timer;
 
 
-
-	public RunModeListener(GBallFrame gBallFrame){
+	public RunModeListener(GBallFrame gBallFrame) {
 		this.gBallFrame = gBallFrame;
 		this.timer = new Timer(10, this);
 

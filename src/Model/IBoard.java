@@ -4,52 +4,46 @@ import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
 
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Observer;
 
-public interface IBoard  {
+public interface IBoard {
 
-        void addGizmoBall(float x, float y);
+	void addGizmoBall(float x, float y);
 
-        boolean setAbsorber(Absorber absorber);
+	boolean hasGizmoBall();
 
-        boolean hasAbsorber();
+	void setFriction(float mu, float mu2);
 
-        boolean hasGizmoBall();
+	void setGravity(float gravity);
 
-        void setFriction(float mu, float mu2);
+	Ball getGizmoBall();
 
-        void setGravity(float gravity);
 
-        Ball getGizmoBall();
+	boolean addConnector(String name1, String name2);
 
-        public Absorber getAbsorber();
+	boolean removeConnector(String name1, String name2);
 
-        public boolean addConnector(String name1, String name2);
+	boolean addGizmo(IGizmo gizmo);
 
-        public boolean removeConnector(String name1, String name2);
+	boolean deleteGizmo(String id);
 
-        public boolean addGizmo(IGizmo gizmo);
-
-        public boolean deleteGizmo(String id);
-
-        public boolean moveGizmo(String id, int newX, int newY);
+	boolean moveGizmo(String id, int newX, int newY);
 
 //        public boolean moveGizmoBall(String name, float x, float y);
 
-        public IGizmo getGizmoByID(String id) throws NoSuchGizmoException;
+	IGizmo getGizmoByID(String id) throws NoSuchGizmoException;
 
-        public void switchMode();
+	void switchMode();
 
-        public boolean isRunMode();
+	boolean isRunMode();
 
-        public ArrayList<IGizmo> getGizmos();
+	ArrayList<IGizmo> getGizmos();
 
-        public ArrayList<Connector> getConnectors();
+	ArrayList<Connector> getConnectors();
 
-        public void moveBall();
+	void moveBall();
 
-        public Ball getBall();
+	Ball getBall();
 
 //        public ArrayList<LineSegment> getLines();
 //
@@ -59,21 +53,22 @@ public interface IBoard  {
 //
 //        public void addCircle(Circle c);
 
-        public void setBallSpeed(int x, int y);
+	void setBallSpeed(int x, int y);
 
-        public void clearGizmos();
+	void clearGizmos();
 
-        public IGizmo getGizmoByPosition(double x, double y);
+	IGizmo getGizmoByPosition(double x, double y);
 
-        public void deleteBall();
-        public boolean isInsideBall(float x, float y);
+	void deleteBall();
+
+	boolean isInsideBall(float x, float y);
 
 //        public void removeCircle(Vect v);
 
-        void addObserver(Observer o);
+	void addObserver(Observer o);
 
-        public boolean getAbsorbCollide();
+	boolean getAbsorbCollide();
 
-        public void release();
+	void release();
 
 }

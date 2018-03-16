@@ -24,47 +24,47 @@ public class LoadSaveController implements ActionListener {
         fc.setDialogTitle("Save");
         int returnVal = fc.showSaveDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-                //TODO SAVING
+            //TODO SAVING
             System.out.println(fc.getSelectedFile().getName());
-                try{
-                    File saveFile = fc.getSelectedFile();
-                    FileWriter fileWriter = new FileWriter(saveFile);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            try {
+                File saveFile = fc.getSelectedFile();
+                FileWriter fileWriter = new FileWriter(saveFile);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-                    //Write gizmos to file
-					//TODO not writing Flippers since class name is just "Flipper" not "LeftFlipper" or "RightFlipper"
+                //Write gizmos to file
+                //TODO not writing Flippers since class name is just "Flipper" not "LeftFlipper" or "RightFlipper"
 
-                    IBoard board = panel.getBoard();
-                    for (IGizmo gizmo: board.getGizmos()){
-                        bufferedWriter.write(gizmo.getClass().getSimpleName() + " " + gizmo.getID() + " " + gizmo.getxPos() + " " + gizmo.getyPos());
-                        int rotations = gizmo.getRotation();
-                        if (rotations > 0){
-                            for (int x =0; x<rotations;x++) {
-                                bufferedWriter.newLine();
-                                bufferedWriter.write("Rotate" + " " + gizmo.getID());
-                            }
+                IBoard board = panel.getBoard();
+                for (IGizmo gizmo : board.getGizmos()) {
+                    bufferedWriter.write(gizmo.getClass().getSimpleName() + " " + gizmo.getID() + " " + gizmo.getPos1().x + " " + gizmo.getPos1().y);
+                    int rotations = gizmo.getRotation();
+                    if (rotations > 0) {
+                        for (int x = 0; x < rotations; x++) {
+                            bufferedWriter.newLine();
+                            bufferedWriter.write("Rotate" + " " + gizmo.getID());
                         }
-                        bufferedWriter.newLine();
                     }
-
-                    for (Connector connection: board.getConnectors()){
-                        bufferedWriter.write("Connect" + " " + connection.getSource().getID() + " " + connection.getTarget().getID());
-                        bufferedWriter.newLine();
-                    }
-
-                    if (panel.getBoard().hasGizmoBall()){
-                        Ball ball = board.getBall();
-
-                        bufferedWriter.write("Ball"+ " " + ball.getName() + " " + ball.getXPos() + " " +ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
-                        bufferedWriter.newLine();
-                    }
-
-
-                    bufferedWriter.close();
-                    fileWriter.close();
-                }catch (IOException e){
-
+                    bufferedWriter.newLine();
                 }
+
+                for (Connector connection : board.getConnectors()) {
+                    bufferedWriter.write("Connect" + " " + connection.getSource().getID() + " " + connection.getTarget().getID());
+                    bufferedWriter.newLine();
+                }
+
+                if (panel.getBoard().hasGizmoBall()) {
+                    Ball ball = board.getBall();
+
+                    bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
+                    bufferedWriter.newLine();
+                }
+
+
+                bufferedWriter.close();
+                fileWriter.close();
+            } catch (IOException e) {
+
+            }
 
         }
     }
@@ -111,7 +111,7 @@ public class LoadSaveController implements ActionListener {
                                                     x2 = scanner.nextInt();
                                                     if (scanner.hasNextInt()) {
                                                         y2 = scanner.nextInt();
-                                                        board.setAbsorber(new Absorber(name, x1, x2, y2));
+                                                        board.addGizmo(new Absorber(name, x1, x2, y1, y2, Color.GRAY));
                                                     }
                                                 }
                                             }
@@ -254,7 +254,7 @@ public class LoadSaveController implements ActionListener {
 								Creates the given gizmo with its upper left-corner at (x,y), in the default orientation.
 							 */
 
-							//TODO Change to used gizmo creator
+                                //TODO Change to used gizmo creator
                                 //ToDo Add colours to saved gizmos- all green for now
                                 case "Square":
                                 case "Circle":

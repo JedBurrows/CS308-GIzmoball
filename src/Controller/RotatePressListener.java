@@ -13,13 +13,14 @@ public class RotatePressListener implements MouseInputListener {
 	private float L;
 	private IBoard board;
 
-	public RotatePressListener(BuildGUI buildGUI){
+	public RotatePressListener(BuildGUI buildGUI) {
 		this.buildGUI = buildGUI;
 		this.boardPanel = buildGUI.getBoardPanel();
 		this.board = boardPanel.getBoard();
-		this.L = boardPanel.getDimension()/20;
+		this.L = boardPanel.getDimension() / 20;
 
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 

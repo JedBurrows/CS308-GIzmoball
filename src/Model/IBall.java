@@ -7,29 +7,29 @@ import java.awt.*;
 
 public interface IBall {
 
-    public Vect getVelo();
+	Vect getVelo();
 
-    public void setVelo(Vect v);
+	void setVelo(Vect v);
 
-    public double getRadius();
+	double getRadius();
 
-    public Circle getCircle();
+	Circle getCircle();
 
-    public float getXPos();
+	float getXPos();
 
-    public float getYPos();
+	void setXPos(float x1);
 
-    public String getName();
+	float getYPos();
 
-    public void setXPos(float x1);
+	void setYPos(float y1);
 
-    public void setYPos(float y1);
+	String getName();
 
-    public void stop();
+	void stop();
 
-    public void start();
+	void start();
 
-    public boolean stopped();
+	boolean stopped();
 
-    public Color getColour();
+	Color getColour();
 }

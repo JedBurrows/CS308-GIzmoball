@@ -5,29 +5,27 @@ import Model.IBoard;
 
 import javax.swing.*;
 
-public class GBallFrame{
+public class GBallFrame {
 	private JFrame frame;
-	private  RunGUI runPanel;
-	private  BuildGUI buildPanel;
+	private RunGUI runPanel;
+	private BuildGUI buildPanel;
 
 	private BoardPanel boardPanel;
 
-	private JMenuBar buildBar,runBar;
+	private JMenuBar buildBar, runBar;
 
 
-	public GBallFrame(IBoard board){
+	public GBallFrame(IBoard board) {
 		frame = new JFrame("Gizmoball");
 
 		boardPanel = new BoardPanel(board);
 
-		buildPanel = new BuildGUI(this,boardPanel);
-		runPanel = new RunGUI(this,boardPanel);
+		buildPanel = new BuildGUI(this, boardPanel);
+		runPanel = new RunGUI(this, boardPanel);
 
 		//boardPanel.setColours(buildPanel.getColours());
 
 		buildPanel.getFrame().add(boardPanel);
-
-
 
 
 		buildBar = createBuildBar();
@@ -43,8 +41,7 @@ public class GBallFrame{
 	}
 
 
-
-	public void switchToRun(){
+	public void switchToRun() {
 		buildPanel.close();
 		frame.remove(buildPanel.getFrame());
 		frame.setJMenuBar(runBar);
@@ -56,7 +53,7 @@ public class GBallFrame{
 		boardPanel.getBoard().switchMode();
 	}
 
-	public void switchToBuild(){
+	public void switchToBuild() {
 		runPanel.close();
 		frame.remove(runPanel.getFrame());
 		frame.setJMenuBar(buildBar);
@@ -69,7 +66,7 @@ public class GBallFrame{
 
 	}
 
-	private JMenuBar createBuildBar(){
+	private JMenuBar createBuildBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
@@ -90,7 +87,7 @@ public class GBallFrame{
 		return menuBar;
 	}
 
-	private JMenuBar createRunBar(){
+	private JMenuBar createRunBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);

@@ -1,12 +1,15 @@
 package View;
 
-import Model.*;
+import Model.Connector;
 import Model.Gizmos.IGizmo;
+import Model.IBall;
+import Model.IBoard;
 import physics.Circle;
 import physics.LineSegment;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,21 +17,16 @@ import java.util.Observer;
 public class BoardPanel extends JPanel implements Observer {
 
     private IBoard board;
-    private ColorChooserExample colours;
     private int dimension = 600;
-    private Color col;
-    private Color pls;
+    private boolean debugMode;
 
 
     public BoardPanel(IBoard b) {
         setPreferredSize(new Dimension(dimension, dimension));
         board = b;
         board.addObserver(this);
+        debugMode = true;
 
-    }
-
-    public void setColours(ColorChooserExample cce){
-        colours = cce;
     }
 
     public int getDimension() {
@@ -37,7 +35,6 @@ public class BoardPanel extends JPanel implements Observer {
 
     @Override
     protected void paintComponent(Graphics g) {
-
 
 
         Graphics2D g2 = (Graphics2D) g;
@@ -62,12 +59,6 @@ public class BoardPanel extends JPanel implements Observer {
             //System.out.println("pls is" + pls);
             //g2.setColor(pls);
             //System.out.println(g2.getColor().toString());
-            if(colours.getColorGiz()!= null){
-                g.setColor(colours.getColorGiz());
-            }
-            else{
-                g.setColor(Color.MAGENTA);
-            }
 
 //            if(colours.getColorGiz()!= null){
 //                g.setColor(colours.getColorGiz());
@@ -76,21 +67,22 @@ public class BoardPanel extends JPanel implements Observer {
 //                g.setColor(Color.MAGENTA);
 //            }
 
-            g.setColor(gizmo.getColour());
-            System.out.println("COLOUR OF NEW GIZMO: "+gizmo.getColour());
+//            g.setColor(gizmo.getColour());
+//            System.out.println("COLOUR OF NEW GIZMO: " + gizmo.getColour());
             String type = gizmo.getClass().getSimpleName();
+            Point pos1 = gizmo.getPos1();
             switch (type) {
                 case "Square":
-                    g2.fillRect((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
+                    g2.fillRect(pos1.x * Lwidth, pos1.y * Lheight, Lwidth, Lheight);
                     break;
                 case "Circle":
-                    g2.fillOval((int) gizmo.getxPos() * Lwidth, (int) gizmo.getyPos() * Lheight, Lwidth, Lheight);
+                    g2.fillOval(pos1.x * Lwidth, pos1.y * Lheight, Lwidth, Lheight);
                     break;
                 case "Triangle":
                     int xPoints[], yPoints[];
 
-                    xPoints = new int[]{((int)(gizmo.getCircles().get(0).getCenter().x())) * Lwidth, ((int)(gizmo.getCircles().get(1).getCenter().x())) * Lwidth, ((int)(gizmo.getCircles().get(2).getCenter().x())) * Lwidth};
-                    yPoints = new int[]{((int)(gizmo.getCircles().get(0).getCenter().y())) * Lheight, ((int)(gizmo.getCircles().get(1).getCenter().y())) * Lheight, ((int)(gizmo.getCircles().get(2).getCenter().y())) * Lheight};
+                    xPoints = new int[]{((int) (gizmo.getCircles().get(0).getCenter().x())) * Lwidth, ((int) (gizmo.getCircles().get(1).getCenter().x())) * Lwidth, ((int) (gizmo.getCircles().get(2).getCenter().x())) * Lwidth};
+                    yPoints = new int[]{((int) (gizmo.getCircles().get(0).getCenter().y())) * Lheight, ((int) (gizmo.getCircles().get(1).getCenter().y())) * Lheight, ((int) (gizmo.getCircles().get(2).getCenter().y())) * Lheight};
 
                     System.out.println(xPoints.length);
                     for (int x = 0; x < xPoints.length; x++) {
@@ -105,29 +97,24 @@ public class BoardPanel extends JPanel implements Observer {
                 case "Flipper":
                     //g2.setColor(Color.YELLOW);
 
-                    for (LineSegment l : gizmo.getLines()) {
+                    for (LineSegment l : gizmo.getLineSegments()) {
                         g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
                     }
 
                     for (Circle c : gizmo.getCircles()) {
-                        g.fillOval((int)(c.getCenter().x() * Lwidth - (0.25 * Lwidth)),(int)(c.getCenter().y() * Lheight - (0.25 * Lheight)), (int)(c.getRadius()* 2 * Lwidth), (int)(c.getRadius()* 2 * Lwidth));
+                        g.fillOval((int) (c.getCenter().x() * Lwidth - (0.25 * Lwidth)), (int) (c.getCenter().y() * Lheight - (0.25 * Lheight)), (int) (c.getRadius() * 2 * Lwidth), (int) (c.getRadius() * 2 * Lwidth));
                     }
+                    break;
+                case "Absorber":
+                    g2.fillRect(gizmo.getPos1().x, gizmo.getPos1().y, gizmo.getWidth(), gizmo.getHeight());
+                    break;
+                default:
+                    System.out.println("Attempted to paint a gizmo that wasnt really a gizmo... What happened here?");
 
 
             }
         }
 
-        //Draw Absorber
-        if (board.hasAbsorber()) {
-            System.out.println("Drawing Abosrber");
-            g2.setColor(Color.MAGENTA);
-            Absorber absober = board.getAbsorber();
-            int x1 = absober.getX1(), y1 = absober.getY(), x2 = absober.getX2() - 1;
-                for (int xPos = x1; xPos <= x2; xPos++) {
-                    g2.fillRect(xPos * Lwidth, y1 * Lheight, Lwidth, Lheight);
-                }
-
-        }
         if (board.hasGizmoBall()) {
             g2.setColor(Color.BLUE);
             IBall ball = board.getGizmoBall();
@@ -148,18 +135,6 @@ public class BoardPanel extends JPanel implements Observer {
             g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
         }
 
-        //Draw Absorber
-        if (board.hasAbsorber()) {
-            System.out.println("Drawing Abosrber");
-            g2.setColor(Color.MAGENTA);
-            IAbsorber absorber = board.getAbsorber();
-            int x1 = absorber.getxPos1(), y1 = absorber.getyPos1(), x2 = absorber.getxPos2(), y2 = absorber.getyPos2();
-            for (int xPos = x1; xPos <= x2; xPos++) {
-                for (int yPos = y1; yPos <= y2; yPos++) {
-                    g2.fillRect(xPos * Lwidth, yPos * Lheight, Lwidth, Lheight);
-                }
-            }
-        }
 
         if (!board.isRunMode()) {
             //Draw Grid Lines
@@ -173,28 +148,57 @@ public class BoardPanel extends JPanel implements Observer {
             }
         }
 
+
         g2.setColor(Color.BLUE);
         ArrayList<Connector> connectors = board.getConnectors();
 
         for (Connector connection : connectors) {
             IGizmo source = connection.getSource(), target = connection.getTarget();
+            Point sourcePos1 = source.getPos1(), targetPos1 = target.getPos1();
 
-                int xSource = source.getxPos(), ySource = source.getyPos(), xTarget = target.getxPos(), yTarget = target.getyPos();
-                g.drawLine((xSource * Lwidth) + (Lwidth / 2), (ySource * Lheight) + (Lheight / 2), (xTarget * Lwidth) + (Lwidth / 2), (yTarget * Lheight) + (Lheight / 2));
+            g.drawLine((sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2), (sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2));
         }
+
+
+        /**
+         * ##############################
+         * 			DEBUG VIEW
+         *
+         * ##############################
+         */
+        if (debugMode) {
+            paintDebug(g2, Lwidth, Lheight);
+        }
+
+
     }
 
 
-    public void setBoard(IBoard b) {
-
-        board = (Board) b;
-        board.addObserver(this);
-        this.repaint();
+    private void paintDebug(Graphics2D g2, int Lwidth, int Lheight) {
+        g2.setColor(Color.white);
+        for (IGizmo gizmo : board.getGizmos()) {
+            AffineTransform tx = new AffineTransform();
+            tx.scale(Lwidth, Lheight);
+            for (LineSegment lineSegment : gizmo.getLineSegments()) {
+                g2.draw(tx.createTransformedShape(lineSegment.toLine2D()));
+            }
+            for (Circle circle : gizmo.getCircles()) {
+                g2.draw(tx.createTransformedShape(circle.toEllipse2D()));
+            }
+        }
     }
 
     public IBoard getBoard() {
         return board;
     }
+
+    public void setBoard(IBoard b) {
+
+        board = b;
+        board.addObserver(this);
+        this.repaint();
+    }
+
 
     @Override
     public void update(Observable o, Object arg) {
