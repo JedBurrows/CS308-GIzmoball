@@ -35,14 +35,6 @@ public interface IGizmo {
 
 	String getID();
 
-/*	int getxPos();
-
-	void setxPos(int xPos);
-
-	int getyPos();
-
-	void setyPos(int yPos);*/
-
 	Point getPos1();
 
 	Point getPos2();

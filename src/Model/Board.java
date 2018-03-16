@@ -199,7 +199,7 @@ public class Board extends Observable implements IBoard {
 			System.out.println("hereeeeeeee");
 			String type = deletedGizmo.getClass().getSimpleName();
 
-			int x = deletedGizmo.getxPos(), y = deletedGizmo.getyPos();
+			int x = deletedGizmo.getPos1().x, y = deletedGizmo.getPos1().y;
 			grid[x][y] = false;
 
 			if (type.equals("Flipper")) {
@@ -230,8 +230,8 @@ public class Board extends Observable implements IBoard {
 
 						deleteGizmo(id);
 
-						gizmo.setxPos(newX);
-						gizmo.setyPos(newY);
+						gizmo.getPos1().setLocation(newX, newY);
+						gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
 
 						addGizmo(gizmo);
 
@@ -245,8 +245,8 @@ public class Board extends Observable implements IBoard {
 
 					deleteGizmo(id);
 
-					gizmo.setxPos(newX);
-					gizmo.setyPos(newY);
+					gizmo.getPos1().setLocation(newX, newY);
+					gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
 
 					addGizmo(gizmo);
 					return true;
