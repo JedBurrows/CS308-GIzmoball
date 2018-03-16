@@ -218,56 +218,55 @@ public class Board extends Observable implements IBoard {
             return false;
         }
 
-    }
+	}
 
-    public boolean moveGizmo(String id, int newX, int newY) {
-//		try {
-//			IGizmo gizmo = getGizmoByID(id);
-//			String type = gizmo.getClass().getSimpleName();
-//			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
-//				String gizmoClass = gizmo.getClass().getSimpleName();
-//				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
-//					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
-//						grid[newX][newY] = true;
-//						grid[newX][newY + 1] = true;
-//						grid[newX + 1][newY] = true;
-//						grid[newX + 1][newY + 1] = true;
-//
-//						deleteGizmo(id);
-//
-//						gizmo.setxPos(newX);
-//						gizmo.setyPos(newY);
-//
-//						addGizmo(gizmo);
-//
-//						return true;
-//					} else {
-//						//One of 4 grid locs required for flipper is occupied
-//						return false;
-//					}
-//				} else if (grid[newX][newY] == false) {
-//					grid[newY][newY] = true;
-//
-//					deleteGizmo(id);
-//
-//					gizmo.setxPos(newX);
-//					gizmo.setyPos(newY);
-//
-//					addGizmo(gizmo);
-//					return true;
-//				} else {
-//					//Grid loc already occupied
-//					return false;
-//				}
-//			} else {
-//				//Cords out of range
-//				return false;
-//			}
-//		} catch (NoSuchGizmoException e) {
-//			return false;
-//		}
-        return false;
-    }
+	public boolean moveGizmo(String id, int newX, int newY) {
+		try {
+			IGizmo gizmo = getGizmoByID(id);
+			String type = gizmo.getClass().getSimpleName();
+			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
+				String gizmoClass = gizmo.getClass().getSimpleName();
+				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
+					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
+						grid[newX][newY] = true;
+						grid[newX][newY + 1] = true;
+						grid[newX + 1][newY] = true;
+						grid[newX + 1][newY + 1] = true;
+
+						deleteGizmo(id);
+
+						gizmo.getPos1().setLocation(newX, newY);
+						gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
+
+						addGizmo(gizmo);
+
+						return true;
+					} else {
+						//One of 4 grid locs required for flipper is occupied
+						return false;
+					}
+				} else if (grid[newX][newY] == false) {
+					grid[newY][newY] = true;
+
+					deleteGizmo(id);
+
+					gizmo.getPos1().setLocation(newX, newY);
+					gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
+
+					addGizmo(gizmo);
+					return true;
+				} else {
+					//Grid loc already occupied
+					return false;
+				}
+			} else {
+				//Cords out of range
+				return false;
+			}
+		} catch (NoSuchGizmoException e) {
+			return false;
+		}
+	}
 
     public IGizmo getGizmoByID(String id) throws NoSuchGizmoException {
 
@@ -322,7 +321,10 @@ public class Board extends Observable implements IBoard {
 
     public void moveBall() {
 
+        //TODO Check for if in playMode then can move ball.
         // 0.05 = 20 times per second as per Gizmoball
+        System.out.println("ball: " + ball);
+        System.out.println("runMode: " + runMode);
 
         if (runMode) {
             double moveTime = 0.01;
@@ -335,6 +337,7 @@ public class Board extends Observable implements IBoard {
                 double tuc = cd.getTuc();
                 if (tuc > moveTime) {
                     // No collision ...
+
                     ball = movelBallForTime(ball, moveTime);
                 } else {
                     // We've got a collision in tuc
@@ -445,6 +448,7 @@ public class Board extends Observable implements IBoard {
                 if (time < shortestTime) {
                     collideGizmo = g;
                     shortestTime = time;
+
                     if (g.getMoving()) {
                         newVelo = Geometry.reflectRotatingWall(line, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
                     } else {
@@ -461,6 +465,7 @@ public class Board extends Observable implements IBoard {
                 if (time < shortestTime) {
                     collideGizmo = g;
                     shortestTime = time;
+
                     if (g.getMoving()) {
                         newVelo = Geometry.reflectRotatingCircle(c, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
                     } else {
