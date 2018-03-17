@@ -18,7 +18,7 @@ public abstract class AbstractGizmo {
 	public AbstractGizmo(String id, int x, int y, int width, int height, Color color) {
 		this.ID = id;
 		this.pos1 = new Point(x, y);
-		this.pos2 = new Point(x + width, y + width);
+		this.pos2 = new Point(x + width, y + height);
 		this.width = width;
 		this.height = height;
 		this.color = color;
