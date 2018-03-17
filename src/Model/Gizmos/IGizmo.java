@@ -16,6 +16,7 @@ public interface IGizmo {
 
 	int getRotation();
 
+
 	ArrayList<Circle> getCircles();
 
 	ArrayList<LineSegment> getLineSegments();

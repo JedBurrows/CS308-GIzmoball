@@ -8,7 +8,7 @@ import java.util.Observer;
 
 public interface IBoard {
 
-	void addGizmoBall(float x, float y);
+	void addGizmoBall(String name, float x, float y, float vx, float vy);
 
 	boolean hasGizmoBall();
 
@@ -45,13 +45,6 @@ public interface IBoard {
 
 	Ball getBall();
 
-//        public ArrayList<LineSegment> getLines();
-//
-//        public ArrayList<Circle> getCircles();
-//
-//        public void addLine(LineSegment l);
-//
-//        public void addCircle(Circle c);
 
 	void setBallSpeed(int x, int y);
 

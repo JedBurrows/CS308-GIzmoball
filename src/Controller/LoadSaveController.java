@@ -2,7 +2,7 @@ package Controller;
 
 import Model.*;
 import Model.Exceptions.NoSuchGizmoException;
-import Model.Gizmos.*;
+import Model.Gizmos.IGizmo;
 import View.BoardPanel;
 
 import javax.swing.*;
@@ -36,15 +36,22 @@ public class LoadSaveController implements ActionListener {
 
                 IBoard board = panel.getBoard();
                 for (IGizmo gizmo : board.getGizmos()) {
-                    bufferedWriter.write(gizmo.getClass().getSimpleName() + " " + gizmo.getID() + " " + gizmo.getPos1().x + " " + gizmo.getPos1().y);
-                    int rotations = gizmo.getRotation();
-                    if (rotations > 0) {
-                        for (int x = 0; x < rotations; x++) {
-                            bufferedWriter.newLine();
-                            bufferedWriter.write("Rotate" + " " + gizmo.getID());
-                        }
+                    String type = gizmo.getClass().getSimpleName();
+
+                    bufferedWriter.write(type + " " + gizmo.getID() + " " + gizmo.getPos1().x + " " + gizmo.getPos1().y);
+                    if (type.equals("Absorber")) {
+                        bufferedWriter.write(" " + gizmo.getPos2().x + " " + gizmo.getPos2().y);
                     }
                     bufferedWriter.newLine();
+
+                    int rotations = gizmo.getRotation();
+                    if (rotations > 0 && !type.equals("Absorber")) {
+                        for (int x = 0; x < rotations; x++) {
+                            bufferedWriter.write("Rotate" + " " + gizmo.getID());
+                            bufferedWriter.newLine();
+
+                        }
+                    }
                 }
 
                 for (Connector connection : board.getConnectors()) {
@@ -111,7 +118,7 @@ public class LoadSaveController implements ActionListener {
                                                     x2 = scanner.nextInt();
                                                     if (scanner.hasNextInt()) {
                                                         y2 = scanner.nextInt();
-                                                        board.addGizmo(new Absorber(name, x1, x2, y1, y2, Color.GRAY));
+                                                        board.addGizmo(gizmoCreator.createAbsorber(name, x1, y1, x2, y2, Color.PINK));
                                                     }
                                                 }
                                             }
@@ -136,7 +143,7 @@ public class LoadSaveController implements ActionListener {
                                                     vx = scanner.nextFloat();
                                                     if (scanner.hasNextFloat()) {
                                                         vy = scanner.nextFloat();
-                                                        //board.addGizmoBall(new Ball(name, x, y, 0.1f,0.1f));
+                                                        board.addGizmoBall(name, x, y, vx, vy);
                                                     } else {
                                                         System.out.println("Ball command missing vy velocity or velocity is not of type float.");
                                                     }
@@ -268,29 +275,16 @@ public class LoadSaveController implements ActionListener {
                                             x1 = scanner.nextInt();
                                             if (scanner.hasNextInt()) {
                                                 y1 = scanner.nextInt();
-//                                                board.addGizmo(gizmoCreator.createGizmo(name, x1, y1), x1, y1);
 												switch (element) {
 													case "Square":
-														board.addGizmo(new Square(name, x1, y1, Color.GREEN));
-														System.out.println("Created new " + element);
-														break;
 													case "Circle":
-														board.addGizmo(new Circle(name, x1, y1, Color.GREEN));
-														System.out.println("Created new " + element);
-														break;
 													case "Triangle":
-														board.addGizmo(new Triangle(name, x1, y1, Color.GREEN));
-														System.out.println("Created new " + element);
-														break;
 													case "RightFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, Color.GREEN, true));
-														System.out.println("Created new " + element);
-														break;
 													case "LeftFlipper":
-														board.addGizmo(new Flipper(name, x1, y1, Color.GREEN, false));
-														System.out.println("Created new " + element);
-														break;
-												}
+                                                        board.addGizmo(gizmoCreator.createGizmo(element, name, x1, y1, Color.GREEN));
+
+
+                                                }
                                             } else {
                                                 System.out.println(element + " command missing y position or position is not of type int.");
                                             }

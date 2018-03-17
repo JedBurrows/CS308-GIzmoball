@@ -12,6 +12,12 @@ public class GizmoCreator {
 
 		String id = createID(type, x, y);
 
+		return createGizmo(type, id, x, y, colour);
+	}
+
+	public IGizmo createGizmo(String type, String id, int x, int y, Color colour) {
+
+
 		switch (type) {
 			case "Square":
 				return new Square(id, x, y, colour);
@@ -20,10 +26,9 @@ public class GizmoCreator {
 			case "Triangle":
 				return new Triangle(id, x, y, colour);
 			case "LeftFlipper":
-				return new Flipper(id, x, y, colour, false);
+				return new LeftFlipper(id, x, y, colour);
 			case "RightFlipper":
-				return new Flipper(id, x, y, colour, true);
-			case "Absorber":
+				return new RightFlipper(id, x, y, colour);
 
 		}
 		return null;
@@ -31,6 +36,11 @@ public class GizmoCreator {
 
 	public IGizmo createAbsorber(int x1, int y1, int x2, int y2, Color colour) {
 		String id = createID("Absorber", x1, y1);
+
+		return createAbsorber(id, x1, y1, x2, y2, colour);
+	}
+
+	public IGizmo createAbsorber(String id, int x1, int y1, int x2, int y2, Color colour) {
 
 		return new Absorber(id, x1, y1, x2, y2, colour);
 	}

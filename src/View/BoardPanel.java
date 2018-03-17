@@ -84,17 +84,10 @@ public class BoardPanel extends JPanel implements Observer {
 					xPoints = new int[]{((int) (gizmo.getCircles().get(0).getCenter().x())) * Lwidth, ((int) (gizmo.getCircles().get(1).getCenter().x())) * Lwidth, ((int) (gizmo.getCircles().get(2).getCenter().x())) * Lwidth};
 					yPoints = new int[]{((int) (gizmo.getCircles().get(0).getCenter().y())) * Lheight, ((int) (gizmo.getCircles().get(1).getCenter().y())) * Lheight, ((int) (gizmo.getCircles().get(2).getCenter().y())) * Lheight};
 
-					System.out.println(xPoints.length);
-					for (int x = 0; x < xPoints.length; x++) {
-						System.out.println("xpoints: " + xPoints[x]);
-					}
-					System.out.println(yPoints.length);
-					for (int y = 0; y < yPoints.length; y++) {
-						System.out.println("ypoints: " + yPoints[y]);
-					}
 					g2.fillPolygon(xPoints, yPoints, 3);
 					break;
-				case "Flipper":
+				case "LeftFlipper":
+				case "RightFlipper":
 					//g2.setColor(Color.YELLOW);
 
 					for (LineSegment l : gizmo.getLineSegments()) {
@@ -152,7 +145,7 @@ public class BoardPanel extends JPanel implements Observer {
 			IGizmo source = connection.getSource(), target = connection.getTarget();
 			Point sourcePos1 = source.getPos1(), targetPos1 = target.getPos1();
 
-			g.drawLine((sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2), (sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2));
+			g.drawLine((sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2), (targetPos1.x * Lwidth) + (Lwidth / 2), (targetPos1.y * Lheight) + (Lheight / 2));
 		}
 
 

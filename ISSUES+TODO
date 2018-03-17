@@ -1,17 +1,13 @@
 Features
-    Add Absorber
-    Add Connect
-    Rotate Gizmo
     Add Keybinds to gizmos
+        Friction on ball.
     Saving
         KeyConnects
         Gravity
         Friction
-        Absorber
         !--Move and delete not necessary--!
 
     Change Load to use GizmoCreator
-    Stop run Mode + Stop run mode after switching
     Sliders working
     Painting
         Painting right flipper + different flipper rotations
@@ -19,8 +15,14 @@ Features
 Tests
 
 Bugs + Cleanup
+    Absorber only works dragging from Left to Right, Dragging from Right to left paints Inaccurate gizmo
     Cleanup instances of bad code + MVC breaks
     See todos in intellij
-    Collisions with rotated triangle not correct
     Split Flipper to right and left flipper for saving.
+    Absorber gets rotated in model but shouldn't (Useless but would be nice to cleanup) options:
+        Use interfaces that differentiate between Rotatable gizmos and NoRotatable gizmos?
+        Use abstract classes and split rotate associated methods into 2 classes Rotatable and NonRotatable and have NonRotatable rotate method do nothing?
+    May be able to create connections both ways Source > target and target> Source (Need to confirm)
+    Colour switching while placing gizmo, Stays as the originally selected colour.
+    Right flipper not registering on delete or connect.
 
