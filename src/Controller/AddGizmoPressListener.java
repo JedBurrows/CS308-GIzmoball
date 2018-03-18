@@ -54,6 +54,7 @@ public class AddGizmoPressListener implements MouseInputListener {
 					int y = (int) (e.getY() / L);
 
 					board.addGizmo(gizmoCreator.createGizmo(g, x, y, colour));
+					boardPanel.removedSelected();
 					boardPanel.repaint();
 				}
 				buildGUI.clearSelected();
@@ -80,6 +81,7 @@ public class AddGizmoPressListener implements MouseInputListener {
 					buildGUI.setMode("AddGizmo");
 
 					//TODO clear point selection on BoardPanel here then repaint
+					boardPanel.removedSelected();
 					boardPanel.repaint();
 				}
 			}

@@ -210,6 +210,11 @@ public class BoardPanel extends JPanel implements Observer {
 		this.point2 = point;
 	}
 
+	public void removedSelected(){
+		point1 = null;
+		point2 = null;
+	}
+
 
 	@Override
 	public void update(Observable o, Object arg) {
