@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 public class BuildModeListener implements GBallListener {
 
     private KeyListener keyListener;
-    private MouseListener mouseInputListener;
+    private MouseInputListener mouseInputListener;
     private GBallFrame gBallFrame;
     private Color col;
     private ColorChooserExample colorChooserExample;
@@ -30,7 +30,7 @@ public class BuildModeListener implements GBallListener {
     }
 
     @Override
-    public void setMouseListener(MouseListener mouseInputListener) {
+    public void setMouseListener(MouseInputListener mouseInputListener) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
         buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
         this.mouseInputListener = mouseInputListener;
