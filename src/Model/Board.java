@@ -334,7 +334,7 @@ public class Board extends Observable implements IBoard {
 
     public void gizmoAction(double moveTime) {
         for (IGizmo g : gizmoHashMap.values()) {
-            g.action(moveTime);
+            g.action(moveTime, ball);
         }
     }
 
@@ -369,10 +369,7 @@ public class Board extends Observable implements IBoard {
                             }
                         }
                     }
-                    if(collideGizmo instanceof Absorber){
-                        ((Absorber) collideGizmo).fireBall(ball);
-                        System.out.println("FireBALl!!!!!");
-                    }
+
                     else{
                         ball.setVelo(cd.getVelo());
                     }
