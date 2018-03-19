@@ -15,11 +15,6 @@ public class Square extends AbstractGizmo implements IGizmo {
 		createLines();
 	}
 
-	@Override
-	public void action(double tickTime) {
-
-	}
-
 
 	@Override
 	public void createLines() {
@@ -37,11 +32,6 @@ public class Square extends AbstractGizmo implements IGizmo {
 		circles.add(new Circle(pos1.x + width, pos1.y, 0));
 		circles.add(new Circle(pos1.x + width, pos1.y + width, 0));
 		circles.add(new Circle(pos1.x, pos1.y + width, 0));
-	}
-
-	@Override
-	public void setKeyPress() {
-
 	}
 
 	@Override

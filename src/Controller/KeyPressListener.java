@@ -38,25 +38,26 @@ public class KeyPressListener implements KeyListener {
 		if (keyCode == KeyEvent.VK_LEFT) {
 			for (IGizmo g : board.getGizmos()) {
 
-				g.setKeyPress();
+				g.setTrigger();
 
 			}
 //			}
 		}
 		if (keyCode == KeyEvent.VK_SPACE) {
-			if (board.getAbsorbCollide()) {
-				board.release();
+			for (IGizmo g : board.getGizmos()) {
+				g.setTrigger();
+
+			}
 			}
 		}
-	}
+
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if (keyCode == KeyEvent.VK_LEFT) {
 			for (IGizmo g : board.getGizmos()) {
-				g.setKeyPress();
-
+				g.setTrigger();
 			}
 //			}
 		}
