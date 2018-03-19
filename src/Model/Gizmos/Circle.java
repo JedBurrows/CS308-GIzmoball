@@ -1,10 +1,7 @@
 package Model.Gizmos;
 
 
-import physics.LineSegment;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Circle extends AbstractGizmo implements IGizmo {
 

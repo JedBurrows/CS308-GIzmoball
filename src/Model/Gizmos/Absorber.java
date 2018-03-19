@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Absorber extends AbstractGizmo implements IGizmo {
 
-	public Absorber(String id, int x1, int x2, int y1, int y2, Color color) {
+	public Absorber(String id, int x1, int y1, int x2, int y2, Color color) {
 		super(id, x1, y1, x2 - x1, y2 - y1, color);
 
 

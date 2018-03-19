@@ -9,7 +9,7 @@ import java.util.Observer;
 
 public interface IBoard {
 
-	void addGizmoBall(float x, float y);
+	void addGizmoBall(String name, float x, float y, float vx, float vy);
 
 	boolean hasGizmoBall();
 
@@ -45,6 +45,9 @@ public interface IBoard {
 	void moveBall();
 
 	Ball getBall();
+
+
+	void setBallSpeed(int x, int y);
 
 	void clearGizmos();
 

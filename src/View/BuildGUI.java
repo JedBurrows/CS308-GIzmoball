@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.Hashtable;
 
 public class BuildGUI {
-	private JToggleButton btnGizmo, btnBall, btnDelete, btnRotate, btnCon, btnDisc, btnKeyCon, btnKeyDisc;
+	private JButton btnGizmo, btnBall, btnDelete, btnRotate, btnCon, btnDisc, btnKeyCon, btnKeyDisc;
 	private JButton btnRunMode, btnColor, btnClear;
 	private JComboBox<String> boxGizmo;
 	private String mode;
@@ -65,34 +65,34 @@ public class BuildGUI {
 		boxGizmo.addItem("RightFlipper");
 		boxGizmo.addItem("Absorber");
 
-		btnGizmo = new JToggleButton("Add Gizmo");
+		btnGizmo = new JButton("Add Gizmo");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 
 		btnColor = new JButton("Choose a Colour");
 		btnColor.setPreferredSize(new Dimension(150, 50));
 
-		btnBall = new JToggleButton("Add Ball");
+		btnBall = new JButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
 
-		btnRotate = new JToggleButton("Rotate");
+		btnRotate = new JButton("Rotate");
 		btnRotate.setPreferredSize(new Dimension(150, 50));
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
 
-		btnDelete = new JToggleButton("Delete");
+		btnDelete = new JButton("Delete");
 		btnDelete.setPreferredSize(new Dimension(150, 50));
 
-		btnCon = new JToggleButton("Connect");
+		btnCon = new JButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
 
-		btnDisc = new JToggleButton("Disconnect");
+		btnDisc = new JButton("Disconnect");
 		btnDisc.setPreferredSize(new Dimension(150, 50));
 
-		btnKeyCon = new JToggleButton("Key Connect");
+		btnKeyCon = new JButton("Key Connect");
 		btnKeyCon.setPreferredSize(new Dimension(150, 50));
 
-		btnKeyDisc = new JToggleButton("Key Disconnect");
+		btnKeyDisc = new JButton("Key Disconnect");
 		btnKeyDisc.setPreferredSize(new Dimension(150, 50));
 
 
