@@ -5,6 +5,7 @@ import View.BuildGUI;
 import View.ColorChooserExample;
 import View.GBallFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -30,8 +31,6 @@ public class BuildModeListener implements GBallListener {
         buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
         this.mouseInputListener = mouseInputListener;
         buildGUI.getBoardPanel().addMouseListener(this.mouseInputListener);
-
-
     }
 
     @Override
@@ -40,12 +39,12 @@ public class BuildModeListener implements GBallListener {
         buildGUI.getBoardPanel().removeKeyListener(this.keyListener);
         this.keyListener = keyListener;
         buildGUI.getBoardPanel().addKeyListener(this.keyListener);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
+        setFocus(gBallFrame.getBuildPanel().getFrame());
 
         switch (e.getActionCommand()) {
 
@@ -85,10 +84,13 @@ public class BuildModeListener implements GBallListener {
 				break;
 			case "Disconnect":
 				this.setMouseListener(new DisconnectPressListener(buildGUI));
-
                 break;
             case "Key Connect":
-
+                System.out.println("here??");
+                KeyConnectPressListener k = new KeyConnectPressListener(buildGUI);
+                MagicKeyListener m = new MagicKeyListener(k);
+                this.setMouseListener(k);
+                this.setKeyBoardListener(m);
                 break;
 
             case "Key Disconnect":
@@ -103,6 +105,10 @@ public class BuildModeListener implements GBallListener {
 
     }
 
+    private void setFocus(JPanel frame){
+        frame.setVisible(true);
+        frame.setFocusable(true);
+    }
     @Override
     public void keyTyped(KeyEvent e) {
 

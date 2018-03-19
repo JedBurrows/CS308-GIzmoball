@@ -2,6 +2,7 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
+import javafx.scene.input.KeyCode;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
@@ -22,6 +23,7 @@ public class Board extends Observable implements IBoard {
     private boolean[][] grid;
     private float gravity, mu, mu2;
     private Set<Connector> connectors;
+    private Set<KeyConnector> keyConnectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
 
@@ -50,6 +52,7 @@ public class Board extends Observable implements IBoard {
         }
 
         connectors = new HashSet<>();
+        keyConnectors = new HashSet<>();
         gizmoHashMap = new HashMap<>();
 
         runMode = false;
@@ -110,6 +113,22 @@ public class Board extends Observable implements IBoard {
                 return true;
             }
 
+        } catch (NoSuchGizmoException e) {
+            return false;
+        }
+    }
+
+    public boolean addKeyConnector(int key, String name) {
+        try {
+            KeyConnector keyConnection = new KeyConnector(key, getGizmoByID(name)) ;
+            System.out.println("Connection hash code = " + keyConnection.hashCode());
+
+            if (keyConnectors.contains(keyConnection)) {
+                return false;
+            } else {
+                keyConnectors.add(keyConnection);
+                return true;
+            }
         } catch (NoSuchGizmoException e) {
             return false;
         }
@@ -323,8 +342,6 @@ public class Board extends Observable implements IBoard {
 
         //TODO Check for if in playMode then can move ball.
         // 0.05 = 20 times per second as per Gizmoball
-        System.out.println("ball: " + ball);
-        System.out.println("runMode: " + runMode);
 
         if (runMode) {
             double moveTime = 0.01;

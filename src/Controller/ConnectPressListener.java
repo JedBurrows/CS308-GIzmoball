@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ConnectPressListener implements MouseListener {
-	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
@@ -20,28 +19,25 @@ public class ConnectPressListener implements MouseListener {
 	private IGizmo target;
 
 	public ConnectPressListener(BuildGUI buildGUI) {
-		this.buildGUI = buildGUI;
 		this.boardPanel = buildGUI.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		this.doneFlag = true;
-
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (SwingUtilities.isLeftMouseButton(e)) {
-			setConnection(e.getX(), e.getY());
-			boardPanel.repaint();
-		}
+
 
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			setConnection(e.getX(), e.getY());
+			boardPanel.repaint();
+		}
 	}
 
 	@Override
@@ -77,7 +73,5 @@ public class ConnectPressListener implements MouseListener {
 		} catch (NullPointerException e) {
 			System.out.println("Not a gizmo.");
 		}
-
-
 	}
 }

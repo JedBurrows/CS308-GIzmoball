@@ -18,10 +18,8 @@ public class Connector {
 
 
 	}
-
 	public void execute() {
 		target.setKeyPress();
-
 	}
 
 	public IGizmo getSource() {
@@ -31,7 +29,6 @@ public class Connector {
 	public IGizmo getTarget() {
 		return target;
 	}
-
 
 	@Override
 	public int hashCode() {
