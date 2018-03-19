@@ -37,6 +37,7 @@ public class RunModeListener implements GBallListener {
 						timer.stop();
 						break;
 					case "Tick":
+						gBallFrame.getBuildPanel().getBoardPanel().getBoard().moveBall();
 						break;
 					case "Build":
 						gBallFrame.switchToBuild();
