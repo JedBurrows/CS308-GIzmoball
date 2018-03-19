@@ -8,7 +8,9 @@ import View.BuildGUI;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+//public class ConnectPressListener implements MouseListener {
 public class ConnectPressListener implements MouseInputListener {
 	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
@@ -31,17 +33,17 @@ public class ConnectPressListener implements MouseInputListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (SwingUtilities.isLeftMouseButton(e)) {
-			setConnection(e.getX(), e.getY());
-			boardPanel.repaint();
-		}
+
 
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			setConnection(e.getX(), e.getY());
+			boardPanel.repaint();
+		}
 	}
 
 	@Override
@@ -77,8 +79,6 @@ public class ConnectPressListener implements MouseInputListener {
 		} catch (NullPointerException e) {
 			System.out.println("Not a gizmo.");
 		}
-
-
 	}
 
 	@Override

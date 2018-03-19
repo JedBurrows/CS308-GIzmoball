@@ -1,99 +1,85 @@
 package Controller;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Model.Gizmos.IGizmo;
+import Model.IBoard;
+import View.BoardPanel;
+import View.BuildGUI;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.*;
+import java.awt.event.*;
 
-public class KeyConnectPressListener implements ActionListener {
+public class KeyConnectPressListener implements KeyListener, MouseListener {
+	private BoardPanel boardPanel;
+	private float L;
+	private IBoard board;
+
+	private boolean doneFlag;
+	private int sourceKey;
+	private IGizmo target;
+
+	public KeyConnectPressListener(BuildGUI buildGUI) {
+		this.boardPanel = buildGUI.getBoardPanel();
+		this.board = boardPanel.getBoard();
+		this.L = boardPanel.getDimension() / 20;
+		target = null;
+	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		String keyP = JOptionPane.showInputDialog("Select Key to Connect");
+	public void mouseClicked(MouseEvent e) {
 
 	}
 
-	public void keyPressed(KeyEvent e) {
-		int keys = e.getKeyCode();
-		int clicked;
-		if (keys == KeyEvent.VK_A) {
-			clicked = keys;
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			target = board.getGizmoByPosition(e.getX() / L, e.getY() / L);
+			System.out.println("target: " + target.getID());
+			boardPanel.repaint();
 		}
-		if (keys == KeyEvent.VK_B) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_C) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_D) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_E) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_F) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_G) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_H) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_I) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_J) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_K) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_L) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_M) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_N) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_O) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_P) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_Q) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_R) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_S) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_T) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_U) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_V) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_W) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_X) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_Y) {
-			clicked = keys;
-		}
-		if (keys == KeyEvent.VK_Z) {
-			clicked = keys;
-		}
+	}
 
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("key");
+
+		if (target != null) {
+			sourceKey = e.getKeyCode();
+			System.out.println("key: " + sourceKey);
+			setKeyConnection();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
+	}
+
+	private void setKeyConnection() {
+		try {
+			board.addKeyConnector(sourceKey, target.getID());
+		} catch (NullPointerException e) {
+			System.out.println("Not a gizmo.");
+		}
 	}
 }

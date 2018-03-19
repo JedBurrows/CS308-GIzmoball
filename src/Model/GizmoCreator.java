@@ -26,7 +26,7 @@ public class GizmoCreator {
 			case "Triangle":
 				return new Triangle(id, x, y, colour);
 			case "LeftFlipper":
-				return new LeftFlipper(id, x, y, colour);
+				return new LeftFlipper(id, x, y, colour, false);
 			case "RightFlipper":
 				return new RightFlipper(id, x, y, colour);
 

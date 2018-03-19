@@ -5,6 +5,7 @@ import View.BuildGUI;
 import View.ColorChooserExample;
 import View.GBallFrame;
 
+import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,7 @@ import java.awt.event.MouseEvent;
 public class BuildModeListener implements GBallListener {
 
     private KeyListener keyListener;
-    private MouseInputListener mouseInputListener;
+    private MouseListener mouseInputListener;
     private GBallFrame gBallFrame;
     private Color col;
     private ColorChooserExample colorChooserExample;
@@ -29,13 +30,11 @@ public class BuildModeListener implements GBallListener {
     }
 
     @Override
-    public void setMouseListener(MouseInputListener mouseInputListener) {
+    public void setMouseListener(MouseListener mouseInputListener) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
         buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
-        buildGUI.getBoardPanel().removeMouseMotionListener(this.mouseInputListener);
         this.mouseInputListener = mouseInputListener;
         buildGUI.getBoardPanel().addMouseListener(this.mouseInputListener);
-        buildGUI.getBoardPanel().addMouseMotionListener(this.mouseInputListener);
 
 
     }
@@ -52,6 +51,7 @@ public class BuildModeListener implements GBallListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
+        setFocus(gBallFrame.getBuildPanel().getFrame());
 
         switch (e.getActionCommand()) {
 
@@ -94,7 +94,11 @@ public class BuildModeListener implements GBallListener {
 
                 break;
             case "Key Connect":
-
+                System.out.println("here??");
+                KeyConnectPressListener k = new KeyConnectPressListener(buildGUI);
+                MagicKeyListener m = new MagicKeyListener(k);
+//                this.setMouseListener(m);
+                this.setKeyBoardListener(m);
                 break;
 
             case "Key Disconnect":
@@ -109,6 +113,10 @@ public class BuildModeListener implements GBallListener {
 
     }
 
+    private void setFocus(JPanel frame){
+        frame.setVisible(true);
+        frame.setFocusable(true);
+    }
     @Override
     public void keyTyped(KeyEvent e) {
 

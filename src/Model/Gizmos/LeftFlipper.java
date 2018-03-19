@@ -1,12 +1,14 @@
 package Model.Gizmos;
 
+import physics.*;
+import physics.Circle;
 import physics.LineSegment;
 
+import javax.sound.sampled.Line;
 import java.awt.*;
-
+import java.util.ArrayList;
 
 public class LeftFlipper extends AbstractGizmo implements IGizmo {
-
 	private double xpos;
 	private double ypos;
 	private double x2pos;
@@ -20,24 +22,38 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 	private boolean moving;
 
 	//left = false //right = true
+	private boolean direction;
 	private boolean keyPress;
+	//status of activated or not
+	//left and right flipper class
 
-	public LeftFlipper(String id, int x, int y, Color colour) {
+
+	//In reference to the flipper this is the Northwest corner pos on grid
+
+
+	public LeftFlipper(String id, int x, int y, Color colour, boolean d) {
 		super(id, x, y, 2, 2, colour);
+		direction = d;
 		moving = false;
 		xpos = x;
 		ypos = y;
-		x2pos = xpos;
-		y2pos = ypos + 2;
 		maxAngle = 90;
 		minAngle = 0;
 		angle = 90;
 		angVel = 1080;
 		keyPress = false;
 
+		if (direction) {
+			width = -width;
+		}
 
-		createCircles();
-		createLines();
+
+		circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
+		circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
+
+		lineSegments.add(new LineSegment(xpos, ypos + 0.25, xpos, ypos + 1.75));
+		lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, xpos + 0.5, ypos + 1.75));
+
 
 	}
 
@@ -51,13 +67,14 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 					angVel = -angVel;
 				}
 				angle = angle + (angVel * tickTime);
-				if (angle >= 90) {
+
+				if (angle > 90) {
 					angle = 90;
 				} else {
 					moving = true;
 				}
-				x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
+				createCircles(tickTime);
+				createLines(tickTime);
 			}
 		} else if (keyPress) {
 			if (angle >= minAngle) {
@@ -70,48 +87,102 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 				} else {
 					moving = true;
 				}
-				x2pos = xpos + (2.0 * Math.cos(Math.toRadians(angle)));
-				y2pos = ypos + (2.0 * Math.sin(Math.toRadians(angle)));
-
+				createCircles(tickTime);
+				createLines(tickTime);
 			}
 		}
-		createCircles();
-		createLines();
 	}
 
 
-	@Override
-	public void createCircles() {
-		circles.removeAll(circles);
-		double angleDivider = angle / 90.0;
+	public void createCircles(double tickTime) {
+		ArrayList<Circle> tempC = new ArrayList<>();
+		System.out.println(angVel / (1 / tickTime));
+		for (physics.Circle c : circles) {
+			c = Geometry.rotateAround(c, circles.get(0).getCenter(), new Angle(Math.toRadians(angVel / (1 / tickTime))));
+			if (c.getCenter().y() < ypos + 0.25 && rotation == 0) {
+				c = new Circle(xpos + 1.75, ypos + 0.25, 0.25);
+			} else if (c.getCenter().x() < xpos + 0.25 && rotation == 0) {
+				c = new Circle(xpos + 0.25, ypos + 1.75, 0.25);
 
-		double xDivider = (angleDivider * 0.5) - 0.25;
-		double yDivider = 0.25 - (angleDivider * 0.5);
-		circles.add(new physics.Circle(xpos + 0.25, ypos + 0.25, 0.25));
-		circles.add(new physics.Circle(x2pos + xDivider, y2pos + yDivider, 0.25));
+			} else if (c.getCenter().y() < ypos + 0.25 && rotation == 1) {
+				c = new Circle(xpos + 0.25, ypos + 0.25, 0.25);
+			} else if (c.getCenter().x() > xpos + 1.75 && rotation == 1) {
+				c = new Circle(xpos + 1.75, ypos + 1.75, 0.25);
 
+			} else if (c.getCenter().x() > (xpos + 1.75) && rotation == 2) {
+				c = new Circle(xpos + 1.75, ypos + 0.25, 0.25);
+			} else if (c.getCenter().y() > (ypos + 1.75) && rotation == 2) {
+				c = new Circle(xpos + 0.25, ypos + 1.75, 0.25);
+
+			} else if (c.getCenter().y() > ypos + 1.75 && rotation == 3) {
+				c = new Circle(xpos + 1.75, ypos + 1.75, 0.25);
+			} else if (c.getCenter().x() < xpos + 0.25 && rotation == 3) {
+				c = new Circle(xpos + 0.25, ypos + 0.25, 0.25);
+			}
+			tempC.add(c);
+		}
+		circles = tempC;
 	}
 
-	@Override
-	public void createLines() {
-		lineSegments.removeAll(lineSegments);
+	public void createLines(double tickTime) {
+		ArrayList<LineSegment> tempL = new ArrayList<>();
 
-		double angleDivider = angle / 90.0;
+		for (physics.LineSegment l : lineSegments) {
+			l = Geometry.rotateAround(l, circles.get(0).getCenter(), new Angle(Math.toRadians(angVel / (1 / tickTime))));
+			tempL.add(l);
+		}
+//        System.out.println("tempL: " + tempL.get(0).p2().y());
+//        System.out.println("ypos: " + (ypos));
+
+		if (tempL.get(0).p2().x() < xpos && rotation == 0) {
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos, ypos + 0.25, xpos, ypos + 1.75)); //1
+			lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, xpos + 0.5, ypos + 1.75)); //2
+		} else if (tempL.get(1).p2().y() < ypos && rotation == 0) {
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 0.5, xpos + 1.75, ypos + 0.5)); //1
+			lineSegments.add(new LineSegment(xpos + 0.25, ypos, xpos + 1.75, ypos)); //2
+		}
+		//rotation 1
+		else if (tempL.get(1).p2().y() < ypos && rotation == 1) {
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos + 1.75, ypos, xpos + 0.25, ypos)); //1
+			lineSegments.add(new LineSegment(xpos + 1.75, ypos + 0.5, xpos + 0.25, ypos + 0.5)); //2
+
+		} else if (tempL.get(1).p2().x() > (xpos + 1.5) && rotation == 1) {
+
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos + 2.0, ypos + 0.25, xpos + 2.0, ypos + 1.75)); //2
+			lineSegments.add(new LineSegment(xpos + 1.5, ypos + 0.25, xpos + 1.5, ypos + 1.75)); //1
+
+		}//rotation 2
+		else if (tempL.get(0).p2().x() > (xpos + 2.0) && rotation == 2) {
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos + 2.0, ypos + 1.75, xpos + 2.0, ypos + 0.25)); //1
+			lineSegments.add(new LineSegment(xpos + 1.5, ypos + 1.75, xpos + 1.5, ypos + 0.25)); //2
+
+		} else if (tempL.get(1).p2().y() > (ypos + 2.0) && rotation == 2) {
+
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos + 1.75, ypos + 1.5, xpos + 0.25, ypos + 1.5)); //2
+			lineSegments.add(new LineSegment(xpos + 1.75, ypos + 2.0, xpos + 0.25, ypos + 2.0)); //1
+
+		}//rotation 3
+		else if (tempL.get(0).p2().y() > (ypos + 2.0) && rotation == 3) {
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 2.0, xpos + 1.75, ypos + 2.0)); //2
+			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 1.5, xpos + 1.75, ypos + 1.5)); //1
+
+		} else if (tempL.get(1).p2().x() < xpos && rotation == 3) {
+
+			lineSegments.clear();
+			lineSegments.add(new LineSegment(xpos +0.5, ypos + 1.75, xpos + 0.5, ypos + 0.25)); //2
+			lineSegments.add(new LineSegment(xpos, ypos + 1.75, xpos, ypos + 0.25)); //1
 
 
-		double l1x1Divider = 0.25 - (angleDivider * 0.25);
-		double l1y1Divider = 0.5 - (angleDivider * 0.25);
-		double l1x2Divider = (angleDivider * 0.25) - 0.25;
-		double l1y2Divider = 0.5 - (angleDivider * 0.75);
-
-		double l2x1Divider = (angleDivider * 0.25) + 0.25;
-		double l2y1Divider = (angleDivider * 0.25);
-		double l2x2Divider = (angleDivider * 0.75) - 0.25;
-		double l2y2Divider = -(angleDivider * 0.25);
-
-		lineSegments.add(new LineSegment(xpos + l1x1Divider, ypos + l1y1Divider, x2pos + l1x2Divider, y2pos + l1y2Divider));
-		lineSegments.add(new LineSegment(xpos + l2x1Divider, ypos + l2y1Divider, x2pos + l2x2Divider, y2pos + l2y2Divider));
-
+		} else {
+			lineSegments = tempL;
+		}
 	}
 
 	@Override
@@ -131,6 +202,44 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 	}
 
 
+	@Override
+	protected void createCircles() {
 
+	}
 
+	@Override
+	public void rotate() {
+		rotation = (++rotation) % 4;
+		circles.clear();
+		lineSegments.clear();
+
+		if (rotation == 0) {
+			circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
+			circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
+			lineSegments.add(new LineSegment(xpos, ypos + 0.25, xpos, ypos + 1.75));
+			lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, xpos + 0.5, ypos + 1.75));
+		} else if (rotation == 1) {
+			circles.add(new Circle(xpos + 1.75, ypos + 0.25, 0.25));
+			circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
+			lineSegments.add(new LineSegment(xpos + 1.75, ypos, xpos + 0.25, ypos)); //1
+			lineSegments.add(new LineSegment(xpos + 1.75, ypos + 0.5, xpos + 0.25, ypos + 0.5)); //2
+		} else if (rotation == 2) {
+			circles.add(new Circle(xpos + 1.75, ypos + 1.75, 0.25));
+			circles.add(new Circle(xpos + 1.75, ypos + 0.25, 0.25));
+
+			lineSegments.add(new LineSegment(xpos + 2.0, ypos + 1.75, xpos + 2.0, ypos + 0.25)); //1
+			lineSegments.add(new LineSegment(xpos + 1.5, ypos + 1.75, xpos + 1.5, ypos + 0.25)); //2
+		} else if (rotation == 3) {
+			circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
+			circles.add(new Circle(xpos + 1.75, ypos + 1.75, 0.25));
+			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 2.0, xpos + 1.75, ypos + 2.0)); //2
+			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 1.5, xpos + 1.75, ypos + 1.5)); //1
+		}
+
+	}
+
+	@Override
+	protected void createLines() {
+
+	}
 }

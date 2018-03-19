@@ -37,7 +37,6 @@ public class BuildGUI {
 		buildFrame.add(panel);
 		buildFrame.setVisible(true);
 
-
 	}
 
 	private void createGameBoard() {
@@ -92,7 +91,6 @@ public class BuildGUI {
 
 		btnKeyCon = new JButton("Key Connect");
 		btnKeyCon.setPreferredSize(new Dimension(150, 50));
-		//btnKeyCon.addActionListener(new InputKeyEvents());
 
 		btnKeyDisc = new JButton("Key Disconnect");
 		btnKeyDisc.setPreferredSize(new Dimension(150, 50));
