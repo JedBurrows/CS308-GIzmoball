@@ -54,20 +54,6 @@ public class BoardPanel extends JPanel implements Observer {
 		ArrayList<IGizmo> gizmos = board.getGizmos();
 
 		for (IGizmo gizmo : gizmos) {
-
-			//Todo fix to use colour from picker, Beware passing null to setColor will just end up drawing the last color set ie colour of board
-			//pls = colours.getColorGiz();
-			//System.out.println("pls is" + pls);
-			//g2.setColor(pls);
-			//System.out.println(g2.getColor().toString());
-
-//            if(colours.getColorGiz()!= null){
-//                g.setColor(colours.getColorGiz());
-//            }
-//            else{
-//                g.setColor(Color.MAGENTA);
-//            }
-
 			g.setColor(gizmo.getColor());
 			String type = gizmo.getClass().getSimpleName();
 			Point pos1 = gizmo.getPos1();
@@ -88,7 +74,6 @@ public class BoardPanel extends JPanel implements Observer {
 					break;
 				case "LeftFlipper":
 				case "RightFlipper":
-					//g2.setColor(Color.YELLOW);
 
 					for (LineSegment l : gizmo.getLineSegments()) {
 						g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
@@ -126,7 +111,6 @@ public class BoardPanel extends JPanel implements Observer {
 
 
 		if (!board.isRunMode()) {
-			//Draw Grid Lines
 			g2.setStroke(new BasicStroke(1));
 			g2.setColor(Color.GRAY);
 			for (int x = Lwidth; x < width; x += Lwidth) {

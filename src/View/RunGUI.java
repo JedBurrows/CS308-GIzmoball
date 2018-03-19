@@ -27,8 +27,6 @@ public class RunGUI {
 		panel.add(getBoardPanel());
 		runFrame.add(panel);
 		runFrame.setVisible(true);
-
-
 	}
 
 	private JPanel initialiseButtons() {

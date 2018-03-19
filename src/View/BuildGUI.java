@@ -27,7 +27,7 @@ public class BuildGUI {
 
 		buildFrame = new JPanel();
 		setBoardPanel(boardPanel);
-		createGameBoard();
+		boardPanel.setVisible(true);
 		initialiseButtons(parent);
 		initialiseSliders();
 		arrangeButtons();
@@ -37,14 +37,23 @@ public class BuildGUI {
 		buildFrame.add(panel);
 		buildFrame.setVisible(true);
 
+
+		btnGizmo.setFocusable(false);
+		btnColor.setFocusable(false);
+		btnBall.setFocusable(false);
+		btnRotate.setFocusable(false);
+		btnMove.setFocusable(false);
+		btnClear.setFocusable(false);
+		btnDelete.setFocusable(false);
+		btnCon.setFocusable(false);
+		btnDisc.setFocusable(false);
+		btnKeyCon.setFocusable(false);
+		btnKeyDisc.setFocusable(false);
+		btnRunMode.setFocusable(false);
+		boxGizmo.setFocusable(false);
+
 	}
 
-	private void createGameBoard() {
-
-		getBoardPanel().setVisible(true);
-
-
-	}
 
 	private void initialiseButtons(GBallFrame parent) {
 		boxGizmo = new JComboBox<>();
@@ -147,6 +156,7 @@ public class BuildGUI {
 		frictionPanel1.setLayout(new GridLayout(1, 2));
 		frictionPanel1.add(frictionSlider1);
 		frictionPanel1.add(frictionLabel1, 0);
+		frictionSlider1.setFocusable(false);
 
 		JSlider frictionSlider2 = new JSlider();
 		frictionSlider2.addChangeListener(new SliderChangeListener());
@@ -155,6 +165,7 @@ public class BuildGUI {
 		frictionPanel2.setLayout(new GridLayout(1, 2));
 		frictionPanel2.add(frictionSlider2);
 		frictionPanel2.add(frictionLabel2, 0);
+		frictionSlider2.setFocusable(false);
 
 		JSlider gravitySlider = new JSlider();
 		gravitySlider.setMinimum(0);
@@ -174,6 +185,7 @@ public class BuildGUI {
 		gravityPanel.setLayout(new GridLayout(1, 2));
 		gravityPanel.add(gravitySlider);
 		gravityPanel.add(gravityLabel, 0);
+		gravitySlider.setFocusable(false);
 
 		JPanel slidersPanel = new JPanel();
 		slidersPanel.setLayout(new GridLayout(3, 1));
@@ -195,24 +207,36 @@ public class BuildGUI {
 		c2.insets = new Insets(5, 0, 5, 0);
 		c2.gridwidth = 0;
 
-		panelBtn.add(btnColor, c2);
 		panelBtn.add(btnGizmo, c1);
 		panelBtn.add(boxGizmo, c2);
-		panelBtn.add(btnBall, c1);
-		panelBtn.add(btnClear, c2);
+
+		panelBtn.add(btnColor, c1);
+		panelBtn.add(btnBall, c2);
+
 		panelBtn.add(btnDelete, c1);
-		panelBtn.add(btnRotate, c2);
-		panelBtn.add(btnMove,c1);
-		panelBtn.add(btnCon, c2);
-		panelBtn.add(btnKeyCon, c1);
+		panelBtn.add(btnClear, c2);
+
+
+		panelBtn.add(btnRotate, c1);
+		panelBtn.add(btnMove,c2);
+
+		panelBtn.add(btnCon, c1);
 		panelBtn.add(btnDisc, c2);
 
-		panelBtn.add(btnKeyDisc, c1);
+		panelBtn.add(btnKeyCon, c1);
+		panelBtn.add(btnKeyDisc, c2);
 
-		panelBtn.add(frictionPanel2, c2);
-		panelBtn.add(gravityPanel, c2);
-		panelBtn.add(frictionPanel1, c2);
-		panelBtn.add(btnRunMode, c2);
+
+		GridBagConstraints c3 = new GridBagConstraints();
+		c3.insets = new Insets(5, 0, 5, 0);
+		c3.gridwidth = 0;
+
+		panelBtn.add(frictionPanel2, c3);
+		panelBtn.add(gravityPanel, c3);
+		panelBtn.add(frictionPanel1, c3);
+		panelBtn.add(btnRunMode, c3);
+
+
 
 	}
 

@@ -51,6 +51,12 @@ public class GBallFrame {
 		frame.add(runPanel.getFrame());
 		frame.pack();
 		boardPanel.getBoard().switchMode();
+		boardPanel.requestFocusInWindow();
+		System.out.println(this.frame.getFocusOwner());
+
+
+
+
 	}
 
 	public void switchToBuild() {

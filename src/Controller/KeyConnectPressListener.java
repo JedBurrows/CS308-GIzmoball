@@ -14,7 +14,6 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 	private float L;
 	private IBoard board;
 
-	private boolean doneFlag;
 	private int sourceKey;
 	private IGizmo target;
 
