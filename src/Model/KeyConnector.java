@@ -20,7 +20,7 @@ public class KeyConnector {
 
     }
     public void execute() {
-        target.setKeyPress();
+        target.setTrigger();
     }
 
     public int getSource() {

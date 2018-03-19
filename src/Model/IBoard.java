@@ -60,7 +60,7 @@ public interface IBoard {
 
 	void addObserver(Observer o);
 
-	boolean getAbsorbCollide();
+//	boolean getAbsorbCollide();
 
 	void release();
 

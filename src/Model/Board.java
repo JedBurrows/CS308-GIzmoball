@@ -27,10 +27,7 @@ public class Board extends Observable implements IBoard {
     private Set<KeyConnector> keyConnectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
-
-
-	private boolean absorbCollide;
-	private boolean release;
+    private boolean release;
 
     //---------------------------------------------
 
@@ -58,7 +55,6 @@ public class Board extends Observable implements IBoard {
 
 		runMode = false;
 
-		absorbCollide = false;
 		release = false;
 		collideGizmo = null;
 		//--------------------------------------------------
@@ -344,7 +340,7 @@ public class Board extends Observable implements IBoard {
 
     public void gizmoAction(double moveTime) {
         for (IGizmo g : gizmoHashMap.values()) {
-            g.action(moveTime);
+            g.action(moveTime, ball);
         }
     }
 
@@ -372,6 +368,10 @@ public class Board extends Observable implements IBoard {
                 } else {
                     // We've got a collision in tuc
                     ball = movelBallForTime(ball, tuc);
+                    if(collideGizmo instanceof Absorber){
+                        absorbBall(collideGizmo);
+                    }
+
                     if (collideGizmo!=null) {
                         for (Connector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
@@ -379,29 +379,12 @@ public class Board extends Observable implements IBoard {
                             }
                         }
                     }
-                    if(collideGizmo instanceof Absorber){
-                        ((Absorber) collideGizmo).fireBall(ball);
-                        System.out.println("FireBALl!!!!!");
-                    }
+
                     else{
                         ball.setVelo(cd.getVelo());
                     }
                     collideGizmo = null;
-                    // Post collision velocity ...
 
-                    /*if (absorbCollide) {
-						if (!release) {
-							ball.setVelo(new Vect(0, 0));
-							ball.setXPos(absorber.getPos2().x - 1);
-							ball.setYPos(absorber.getPos1().y + 0.5f);
-						} else {
-							ball.setXPos(absorber.getPos2().x - 1);
-							ball.setYPos(absorber.getPos1().y - 3);
-							ball.setVelo(new Vect(-10, -40));
-							absorbCollide = false;
-							release = false;
-						}
-					}*/
                 }
                 applyGravity(moveTime);
                 applyFriction(moveTime);
@@ -412,6 +395,12 @@ public class Board extends Observable implements IBoard {
             this.notifyObservers();
         }
 
+    }
+
+    public void absorbBall(IGizmo g){
+        ball.setXPos((float)(g.getPos2().x - 0.5));
+        ball.setYPos((float)(g.getPos2().y - 0.25));
+        ball.setVelo(new Vect(0, 0));
     }
 
 
@@ -425,8 +414,6 @@ public class Board extends Observable implements IBoard {
         newY = ball.getYPos() + (yVel * (float) time);
         ball.setXPos(newX);
         ball.setYPos(newY);
-
-
 
         return ball;
     }
@@ -460,22 +447,6 @@ public class Board extends Observable implements IBoard {
         // Now find shortest time to hit a vertical line or a wall line
         double shortestTime = Double.MAX_VALUE;
         double time = 0.0;
-
-        // Time to collide with 4 walls
-
-
-        //Check if it's the abosrber
-	/*	if (hasAbsorber()) {
-			ArrayList<LineSegment> absorbLines = absorber.getLineSegments();
-			for (LineSegment ls : absorbLines) {
-				time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-				if (time < shortestTime) {
-					shortestTime = time;
-					absorbCollide = true;
-					newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-				}
-			}
-		}*/
 
         for (IGizmo g : gizmoHashMap.values()) {
             for (LineSegment line : g.getLineSegments()) {
@@ -543,10 +514,6 @@ public class Board extends Observable implements IBoard {
             Arrays.fill(row, false);
         }
 
-    }
-
-    public boolean getAbsorbCollide() {
-        return absorbCollide;
     }
 
     public void setRelease(boolean r) {

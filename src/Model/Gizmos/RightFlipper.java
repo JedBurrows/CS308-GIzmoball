@@ -1,18 +1,16 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.*;
 import physics.Circle;
 import physics.LineSegment;
 
-import javax.sound.sampled.Line;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class RightFlipper extends AbstractGizmo implements IGizmo {
     private double xpos;
     private double ypos;
-    private double x2pos;
-    private double y2pos;
 
     private double maxAngle;
     private double minAngle;
@@ -23,7 +21,7 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
 
     //left = false //right = true
     private boolean direction;
-    private boolean keyPress;
+    private boolean trigger;
     //status of activated or not
     //left and right flipper class
 
@@ -41,7 +39,7 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
         minAngle = 0;
         angle = 90;
         angVel = 1080;
-        keyPress = false;
+        trigger = false;
 
         if (direction) {
             width = -width;
@@ -57,9 +55,9 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
 
 
     @Override
-    public void action(double tickTime) {
+    public void action(double tickTime, Ball ball) {
         moving = false;
-        if (!keyPress) {
+        if (!trigger) {
             if (angle < maxAngle) {
                 if (angVel < 0) {
                     angVel = -angVel;
@@ -74,7 +72,7 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
                 createCircles(tickTime);
                 createLines(tickTime);
             }
-        } else if (keyPress) {
+        } else if (trigger) {
             if (angle >= minAngle) {
                 if (angVel > 0) {
                     angVel = -angVel;
@@ -90,7 +88,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
             }
         }
     }
-
 
     public void createCircles(double tickTime) {
         ArrayList<Circle> tempC = new ArrayList<>();
@@ -181,23 +178,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
     }
 
     @Override
-    public void setKeyPress() {
-        keyPress = !keyPress;
-    }
-
-
-    @Override
-    public double getAngVel() {
-        return angVel;
-    }
-
-    @Override
-    public boolean getMoving() {
-        return moving;
-    }
-
-
-    @Override
     protected void createCircles() {
 
     }
@@ -235,6 +215,11 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
             lineSegments.add(new LineSegment(xpos + 0.25, ypos, xpos + 1.75, ypos)); //2
             lineSegments.add(new LineSegment(xpos + 0.25, ypos + 0.5, xpos + 1.75, ypos + 0.5)); //1
         }
+
+    }
+
+    @Override
+    public void setTrigger() {
 
     }
 

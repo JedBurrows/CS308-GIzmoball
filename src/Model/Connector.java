@@ -19,7 +19,7 @@ public class Connector {
 
 	}
 	public void execute() {
-		target.setKeyPress();
+		target.setTrigger();
 	}
 
 	public IGizmo getSource() {

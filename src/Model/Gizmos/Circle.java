@@ -12,10 +12,6 @@ public class Circle extends AbstractGizmo implements IGizmo {
 		createCircles();
 	}
 
-	@Override
-	public void action(double tickTime) {
-
-	}
 
 
 	@Override
@@ -31,20 +27,6 @@ public class Circle extends AbstractGizmo implements IGizmo {
 	}
 
 
-	@Override
-	public void setKeyPress() {
-
-	}
-
-	@Override
-	public double getAngVel() {
-		return 0;
-	}
-
-	@Override
-	public boolean getMoving() {
-		return false;
-	}
 
 
 

@@ -15,10 +15,6 @@ public class Triangle extends AbstractGizmo implements IGizmo {
 
 
 	@Override
-	public void action(double tickTime) {
-	}
-
-	@Override
 	public void createLines() {
 		lineSegments.clear();
 		if (rotation == 0) {
@@ -61,20 +57,4 @@ public class Triangle extends AbstractGizmo implements IGizmo {
 			circles.add(new Circle(pos1.x + width, pos1.y + height, 0));
 		}
 	}
-
-	@Override
-	public void setKeyPress() {
-	}
-
-	@Override
-	public double getAngVel() {
-		return 0;
-	}
-
-	@Override
-	public boolean getMoving() {
-		return false;
-	}
-
-
 }
