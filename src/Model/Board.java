@@ -237,19 +237,26 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean moveGizmo(String id, int newX, int newY) {
-		try {
-			IGizmo gizmo = getGizmoByID(id);
+        System.out.println("in MoveGizmo before " + newX + " " +newY);
+
+        try {
+            System.out.println("in MoveGizmo after try " + newX + " " +newY);
+
+            IGizmo gizmo = getGizmoByID(id);
 			String type = gizmo.getClass().getSimpleName();
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
-				String gizmoClass = gizmo.getClass().getSimpleName();
+                System.out.println("in MoveGizmo " + newX + " " +newY);
+                String gizmoClass = gizmo.getClass().getSimpleName();
 				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
 					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
 						grid[newX][newY] = true;
 						grid[newX][newY + 1] = true;
 						grid[newX + 1][newY] = true;
 						grid[newX + 1][newY + 1] = true;
+                        System.out.println("in MoveGizmo2 " + newX + " " +newY);
 
-						deleteGizmo(id);
+
+                        deleteGizmo(id);
 
 						gizmo.getPos1().setLocation(newX, newY);
 						gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
@@ -261,12 +268,15 @@ public class Board extends Observable implements IBoard {
 						//One of 4 grid locs required for flipper is occupied
 						return false;
 					}
-				} else if (grid[newX][newY] == false) {
+				}
+				else if (grid[newX][newY] == false) {
 					grid[newY][newY] = true;
 
 					deleteGizmo(id);
+                    System.out.println("in MoveGizmo3 " + newX + " " +newY);
 
-					gizmo.getPos1().setLocation(newX, newY);
+
+                    gizmo.getPos1().setLocation(newX, newY);
 					gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
 
 					addGizmo(gizmo);

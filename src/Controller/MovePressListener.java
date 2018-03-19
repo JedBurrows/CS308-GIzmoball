@@ -43,6 +43,32 @@ public class MovePressListener implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println("Press event");
+        if (!board.isRunMode()) {
+            pressed = e;
+            boardPanel.setSelectPoint1(e.getPoint());
+
+
+            if (SwingUtilities.isLeftMouseButton(e)) {
+                String g = gizmo.getSelectedItem().toString();
+                int oldX;
+                int oldY;
+                if (g.equals("RightFlipper")) {
+                    System.out.println("here1");
+                    oldX = (int) (e.getX() / L) - 1;
+                } else {
+                    oldX = (int) (e.getX() / L);
+                }
+                oldY = (int) (e.getY() / L);
+
+                System.out.println("oldX and oldY are: "+ oldX + " " + oldY);
+
+
+
+
+
+            }
+        }
 
     }
 
@@ -57,10 +83,12 @@ public class MovePressListener implements MouseInputListener {
                 int y = (int) (released.getY() / L);
                 int i = (int) (released.getX() / L) + 1;
                 int j = (int) (released.getY() / L) + 1;
+                System.out.println("x and y are: "+ x + " " + y);
                 if ((j - y) <= (i - x)) {
-                    board.addGizmo(gizmoCreator.createGizmo(g,x,y,colour));
+                    System.out.println("In if statement");
+                    board.moveGizmo(g,x,y);
                     buildGUI.clearSelected();
-                    buildGUI.setMode("AddGizmo");
+                    buildGUI.setMode("MoveGizmo");
 
                     //TODO clear point selection on BoardPanel here then repaint
                     boardPanel.removedSelected();
@@ -92,4 +120,5 @@ public class MovePressListener implements MouseInputListener {
     public void mouseMoved(MouseEvent e) {
 
     }
+
 }
