@@ -8,6 +8,7 @@ import View.BuildGUI;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 //public class ConnectPressListener implements MouseListener {
 public class ConnectPressListener implements MouseInputListener {
@@ -21,10 +22,13 @@ public class ConnectPressListener implements MouseInputListener {
 	private IGizmo target;
 
 	public ConnectPressListener(BuildGUI buildGUI) {
+		this.buildGUI = buildGUI;
 		this.boardPanel = buildGUI.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		this.doneFlag = true;
+
+
 	}
 
 	@Override
