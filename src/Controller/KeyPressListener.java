@@ -10,57 +10,50 @@ import java.util.HashMap;
 import java.util.List;
 
 public class KeyPressListener implements KeyListener {
-	private HashMap<Integer, List<String>> keyPressEvents;
-	private HashMap<Integer, List<String>> keyReleaseEvents;
+    private HashMap<Integer, List<String>> keyPressEvents;
+    private HashMap<Integer, List<String>> keyReleaseEvents;
 
-	private IBoard board;
-
-
-	public KeyPressListener(IBoard b) {
-		board = b;
-		keyPressEvents = new HashMap<>();
-		keyReleaseEvents = new HashMap<>();
-	}
+    private IBoard board;
 
 
-	@Override
-	public void keyTyped(KeyEvent e) {
+    public KeyPressListener(IBoard b) {
+        board = b;
+        keyPressEvents = new HashMap<>();
+        keyReleaseEvents = new HashMap<>();
+    }
 
-	}
 
-	//TODO Dup code, cleanup?
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    //TODO Dup code, cleanup?
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
 //		if (keyPressEvents.containsKey(keyCode)) {
 
 //			List<String> list = keyPressEvents.get(keyCode);
-		if (keyCode == KeyEvent.VK_LEFT) {
-			for (IGizmo g : board.getGizmos()) {
+        if (keyCode == KeyEvent.VK_LEFT) {
+            for (IGizmo g : board.getGizmos()) {
+                g.setTrigger();
 
-				g.setTrigger();
-
-			}
+            }
 //			}
-		}
-		if (keyCode == KeyEvent.VK_SPACE) {
-			for (IGizmo g : board.getGizmos()) {
-				g.setTrigger();
-
-			}
-			}
-		}
+        }
+    }
 
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		if (keyCode == KeyEvent.VK_LEFT) {
-			for (IGizmo g : board.getGizmos()) {
-				g.setTrigger();
-			}
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_LEFT) {
+            for (IGizmo g : board.getGizmos()) {
+                g.setTrigger();
+            }
 //			}
-		}
+        }
 //        if (keyReleaseEvents.containsKey(keyCode)) {
 
 //            List<String> list = keyReleaseEvents.get(keyCode);
@@ -74,34 +67,34 @@ public class KeyPressListener implements KeyListener {
 ////            }
 //        }
 
-	}
+    }
 
-	public boolean addKeyPressEvent(int event, String id) {
+    public boolean addKeyPressEvent(int event, String id) {
 
 
-		if (keyPressEvents.containsKey(event)) {
-			keyPressEvents.get(event).add(id);
-		} else {
-			List<String> list = new ArrayList<>();
-			list.add(id);
-			keyPressEvents.put(event, list);
-		}
-		return true;
+        if (keyPressEvents.containsKey(event)) {
+            keyPressEvents.get(event).add(id);
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyPressEvents.put(event, list);
+        }
+        return true;
 
-	}
+    }
 
-	public boolean addKeyReleaseEvent(int event, String id) {
+    public boolean addKeyReleaseEvent(int event, String id) {
 
-		if (keyReleaseEvents.containsKey(event)) {
-			keyReleaseEvents.get(event).add(id);
+        if (keyReleaseEvents.containsKey(event)) {
+            keyReleaseEvents.get(event).add(id);
 
-		} else {
-			List<String> list = new ArrayList<>();
-			list.add(id);
-			keyReleaseEvents.put(event, list);
-		}
-		return true;
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyReleaseEvents.put(event, list);
+        }
+        return true;
 
-	}
+    }
 }
 

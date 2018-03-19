@@ -21,7 +21,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
 
     //left = false //right = true
     private boolean direction;
-    private boolean trigger;
     //status of activated or not
     //left and right flipper class
 
@@ -39,7 +38,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
         minAngle = 0;
         angle = 90;
         angVel = 1080;
-        trigger = false;
 
         if (direction) {
             width = -width;
@@ -119,6 +117,7 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
         circles = tempC;
     }
 
+
     public void createLines(double tickTime) {
         ArrayList<LineSegment> tempL = new ArrayList<>();
 
@@ -126,8 +125,7 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
             l = Geometry.rotateAround(l, circles.get(0).getCenter(), new Angle(-Math.toRadians(angVel / (1 / tickTime))));
             tempL.add(l);
         }
-//        System.out.println("tempL: " + tempL.get(0).p2().y());
-//        System.out.println("ypos: " + (ypos));
+
 
         if (tempL.get(0).p2().x() > (xpos + 2.0) && rotation == 0) {
             lineSegments.clear();
@@ -219,12 +217,18 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
     }
 
     @Override
-    public void setTrigger() {
-
+    public double getAngVel() {
+        return angVel;
     }
 
     @Override
-    protected void createLines() {
+    public boolean getMoving() {
+        return moving;
+    }
+
+    @Override
+    public void createLines() {
 
     }
+
 }

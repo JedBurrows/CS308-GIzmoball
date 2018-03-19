@@ -19,7 +19,6 @@ public interface IBoard {
 
 	Ball getGizmoBall();
 
-
 	boolean addConnector(String name1, String name2);
 
 	boolean addKeyConnector(int key, String name);
@@ -46,7 +45,6 @@ public interface IBoard {
 
 	Ball getBall();
 
-
 	void setBallSpeed(int x, int y);
 
 	void clearGizmos();
@@ -60,8 +58,6 @@ public interface IBoard {
 
 	void addObserver(Observer o);
 
-//	boolean getAbsorbCollide();
 
-	void release();
 
 }

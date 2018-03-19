@@ -88,10 +88,8 @@ public abstract class AbstractGizmo {
         return false;
     }
 
-
     protected abstract void createCircles();
 
     protected abstract void createLines();
 
-    public void action(double TickTime, Ball ball){};
 }

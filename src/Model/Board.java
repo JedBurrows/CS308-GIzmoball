@@ -349,8 +349,6 @@ public class Board extends Observable implements IBoard {
 
         //TODO Check for if in playMode then can move ball.
         // 0.05 = 20 times per second as per Gizmoball
-        System.out.println("ball: " + ball);
-        System.out.println("runMode: " + runMode);
 
         if (runMode) {
             double moveTime = 0.01;
@@ -368,7 +366,7 @@ public class Board extends Observable implements IBoard {
                 } else {
                     // We've got a collision in tuc
                     ball = movelBallForTime(ball, tuc);
-                   
+
                     if (collideGizmo!=null) {
                         for (Connector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
@@ -405,8 +403,8 @@ public class Board extends Observable implements IBoard {
 
     private Ball movelBallForTime(Ball ball, double time) {
 
-        float newX = 0.0f;
-        float newY = 0.0f;
+        float newX = 0.025f;
+        float newY = 0.025f;
         float xVel = (float) ball.getVelo().x();
         float yVel = (float) ball.getVelo().y();
         newX = ball.getXPos() + (xVel * (float) time);
@@ -513,9 +511,6 @@ public class Board extends Observable implements IBoard {
             Arrays.fill(row, false);
         }
 
-    }
-
-    public void setRelease(boolean r) {
     }
 
     public void release() {
