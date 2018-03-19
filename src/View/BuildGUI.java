@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.Hashtable;
 
 public class BuildGUI {
-	private JButton btnGizmo, btnBall, btnDelete, btnRotate, btnCon, btnDisc, btnKeyCon, btnKeyDisc;
+	private JButton btnGizmo, btnBall, btnDelete, btnRotate,btnMove, btnCon, btnDisc, btnKeyCon, btnKeyDisc;
 	private JButton btnRunMode, btnColor, btnClear;
 	private JComboBox<String> boxGizmo;
 	private String mode;
@@ -77,6 +77,9 @@ public class BuildGUI {
 		btnRotate = new JButton("Rotate");
 		btnRotate.setPreferredSize(new Dimension(150, 50));
 
+		btnMove = new JButton("Move");
+		btnMove.setPreferredSize(new Dimension(150,50));
+
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
 
@@ -110,6 +113,9 @@ public class BuildGUI {
 
 		btnRotate.addActionListener(buildModeListener);
 		btnRotate.setActionCommand("Rotate");
+
+		btnMove.addActionListener(buildModeListener);
+		btnMove.setActionCommand("Move");
 
 		btnClear.addActionListener(buildModeListener);
 		btnClear.setActionCommand("Clear Board");
@@ -196,10 +202,12 @@ public class BuildGUI {
 		panelBtn.add(btnClear, c2);
 		panelBtn.add(btnDelete, c1);
 		panelBtn.add(btnRotate, c2);
-		panelBtn.add(btnCon, c1);
-		panelBtn.add(btnDisc, c2);
+		panelBtn.add(btnMove,c1);
+		panelBtn.add(btnCon, c2);
 		panelBtn.add(btnKeyCon, c1);
-		panelBtn.add(btnKeyDisc, c2);
+		panelBtn.add(btnDisc, c2);
+
+		panelBtn.add(btnKeyDisc, c1);
 
 		panelBtn.add(frictionPanel2, c2);
 		panelBtn.add(gravityPanel, c2);

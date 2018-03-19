@@ -371,6 +371,7 @@ public class Board extends Observable implements IBoard {
                     collideGizmo = null;
                     // Post collision velocity ...
                     ball.setVelo(cd.getVelo());
+
                     /*if (absorbCollide) {
 						if (!release) {
 							ball.setVelo(new Vect(0, 0));
@@ -385,7 +386,8 @@ public class Board extends Observable implements IBoard {
 						}
 					}*/
                 }
-
+                applyGravity(moveTime);
+                applyFriction(moveTime);
                 // Notify observers ... redraw updated view
 
             }
@@ -407,8 +409,7 @@ public class Board extends Observable implements IBoard {
         ball.setXPos(newX);
         ball.setYPos(newY);
 
-        applyGravity(time);
-        applyFriction(time);
+
 
         return ball;
     }
@@ -417,12 +418,14 @@ public class Board extends Observable implements IBoard {
         double oldSpeed = ball.getVelo().y();
         double newSpeed = oldSpeed + (gravity * time);
 
-        ball.setVelo(new Vect(ball.getVelo().x(), newSpeed));
+        ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
     }
 
     private void applyFriction(double time) {
-        double mu = DEFAULT_MU; //0.025 per second
-        double mu2 = DEFAULT_MU2; //0.025 per L
+        float mu = DEFAULT_MU; //0.025 per second
+        float mu2 = DEFAULT_MU2; //0.025 per L
+
+        mu /= moveTime;
 
         double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time);
         double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);

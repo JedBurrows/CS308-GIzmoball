@@ -76,8 +76,10 @@ public class BuildModeListener implements GBallListener {
                 break;
             case "Rotate":
                 this.setMouseListener(new RotatePressListener(buildGUI));
-
 				break;
+            case "Move":
+                this.setMouseListener(new MovePressListener(buildGUI, colorChooserExample.getColorGiz()));
+                break;
 			case "Clear Board":
 				BoardPanel panel = buildGUI.getBoardPanel();
 				panel.getBoard().clearGizmos();
