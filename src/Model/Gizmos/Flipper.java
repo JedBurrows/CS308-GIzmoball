@@ -8,7 +8,7 @@
 //import java.awt.*;
 //import java.util.ArrayList;
 //
-//public class Flipper extends AbstractGizmo implements IGizmo {
+//public class RightFlipper extends AbstractGizmo implements IGizmo {
 //    private double xpos;
 //    private double ypos;
 //    private double x2pos;
@@ -31,7 +31,7 @@
 //    //In reference to the flipper this is the Northwest corner pos on grid
 //
 //
-//    public Flipper(String id, int x, int y, Color colour, boolean d) {
+//    public RightFlipper(String id, int x, int y, Color colour, boolean d) {
 //        super(id, x, y, 2, 2, colour);
 //        direction = d;
 //        moving = false;

@@ -50,8 +50,15 @@ public class AddGizmoPressListener implements MouseInputListener {
 			if (SwingUtilities.isLeftMouseButton(e)) {
 				String g = gizmo.getSelectedItem().toString();
 				if (!g.equals("Absorber")) {
-					int x = (int) (e.getX() / L);
-					int y = (int) (e.getY() / L);
+					int x;
+					int y;
+					if (g.equals("RightFlipper")){
+						System.out.println("here1");
+						x = (int) (e.getX() / L) - 1;
+					}else {
+						x = (int) (e.getX() / L);
+					}
+					y = (int) (e.getY() / L);
 
 					board.addGizmo(gizmoCreator.createGizmo(g, x, y, colour));
 					boardPanel.removedSelected();
@@ -117,5 +124,9 @@ public class AddGizmoPressListener implements MouseInputListener {
 	public void mouseMoved(MouseEvent e) {
 		//System.out.println("Move event");
 
+	}
+
+	public void setColour(Color colour) {
+		this.colour = colour;
 	}
 }

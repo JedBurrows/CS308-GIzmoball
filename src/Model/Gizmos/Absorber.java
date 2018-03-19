@@ -1,7 +1,9 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.Circle;
 import physics.LineSegment;
+import physics.Vect;
 
 import java.awt.*;
 
@@ -47,6 +49,12 @@ public class Absorber extends AbstractGizmo implements IGizmo {
 	@Override
 	public void action(double tickTime) {
 
+	}
+
+	public void fireBall(Ball ball){
+		ball.setXPos(pos2.x - 1);
+		ball.setYPos(pos1.y);
+		ball.setVelo(new Vect(0,-50));
 	}
 
 	public void createCircles() {
