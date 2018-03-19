@@ -418,14 +418,14 @@ public class Board extends Observable implements IBoard {
         double oldSpeed = ball.getVelo().y();
         double newSpeed = oldSpeed + (gravity * time);
 
-        ball.setVelo(ball.getVelo().plus(new Vect(0,gravity * time)));
+        ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
     }
 
     private void applyFriction(double time) {
-        double mu = DEFAULT_MU; //0.025 per second
-        double mu2 = DEFAULT_MU2; //0.025 per L
+        float mu = DEFAULT_MU; //0.025 per second
+        float mu2 = DEFAULT_MU2; //0.025 per L
 
-
+        mu /= moveTime;
 
         double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time);
         double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
