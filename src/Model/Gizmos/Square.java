@@ -55,4 +55,6 @@ public class Square extends AbstractGizmo implements IGizmo {
 	}
 
 
+
+
 }

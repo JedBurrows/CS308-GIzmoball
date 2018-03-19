@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class LoadSaveController implements ActionListener {
     private BoardPanel panel;
 
+
     public LoadSaveController(BoardPanel p) {
         panel = p;
     }
@@ -52,6 +53,12 @@ public class LoadSaveController implements ActionListener {
 
                         }
                     }
+
+                        Color color = gizmo.getColor();
+                        bufferedWriter.write("Color " + gizmo.getID() + " " +color.getRed()+" "+color.getGreen()+" "+color.getBlue());
+                        bufferedWriter.newLine();
+
+
                 }
 
                 for (Connector connection : board.getConnectors()) {
@@ -169,6 +176,24 @@ public class LoadSaveController implements ActionListener {
                                         IGizmo gizmo = board.getGizmoByID(scanner.next());
                                         if (gizmo != null) {
                                             gizmo.rotate();
+                                        }
+                                    } catch (NoSuchGizmoException e) {
+                                        System.out.println("Gizmo with the specified id does not exist.");
+                                    }
+                                    break;
+
+                                    /*
+                                    "Color"(IDENTIFIER name)
+                                     */
+                                case "Color":
+                                    try {
+                                        IGizmo gizmo = board.getGizmoByID(scanner.next());
+                                        int red = scanner.nextInt();
+                                        int green = scanner.nextInt();
+                                        int blue = scanner.nextInt();
+                                        Color color = new Color(red,green,blue);
+                                        if (gizmo != null) {
+                                            gizmo.setColor(color);
                                         }
                                     } catch (NoSuchGizmoException e) {
                                         System.out.println("Gizmo with the specified id does not exist.");

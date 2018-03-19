@@ -42,6 +42,8 @@ public class Absorber extends AbstractGizmo implements IGizmo {
 		return false;
 	}
 
+
+
 	@Override
 	public void action(double tickTime) {
 

@@ -62,6 +62,10 @@ public abstract class AbstractGizmo {
 		return color;
 	}
 
+	public void setColor(Color c){
+		color = c;
+	}
+
 	public Point getPos1() {
 		return pos1;
 	}

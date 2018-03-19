@@ -129,4 +129,8 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 	public boolean getMoving() {
 		return moving;
 	}
+
+
+
+
 }

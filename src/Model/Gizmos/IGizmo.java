@@ -33,6 +33,8 @@ public interface IGizmo {
 
 	Color getColor();
 
+	void setColor(Color c);
+
 	String getID();
 
 	Point getPos1();

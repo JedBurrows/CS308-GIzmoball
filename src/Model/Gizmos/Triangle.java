@@ -76,4 +76,5 @@ public class Triangle extends AbstractGizmo implements IGizmo {
 		return false;
 	}
 
+
 }
