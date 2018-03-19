@@ -47,7 +47,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 			width = -width;
 		}
 
-
 		circles.add(new Circle(xpos + 0.25, ypos + 0.25, 0.25));
 		circles.add(new Circle(xpos + 0.25, ypos + 1.75, 0.25));
 
