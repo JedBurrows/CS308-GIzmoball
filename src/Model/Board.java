@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
+import Model.Gizmos.Absorber;
 import Model.Gizmos.IGizmo;
 import javafx.scene.input.KeyCode;
 import physics.Circle;
@@ -368,9 +369,15 @@ public class Board extends Observable implements IBoard {
                             }
                         }
                     }
+                    if(collideGizmo instanceof Absorber){
+                        ((Absorber) collideGizmo).fireBall(ball);
+                        System.out.println("FireBALl!!!!!");
+                    }
+                    else{
+                        ball.setVelo(cd.getVelo());
+                    }
                     collideGizmo = null;
                     // Post collision velocity ...
-                    ball.setVelo(cd.getVelo());
 
                     /*if (absorbCollide) {
 						if (!release) {
@@ -470,7 +477,6 @@ public class Board extends Observable implements IBoard {
                 if (time < shortestTime) {
                     collideGizmo = g;
                     shortestTime = time;
-
                     if (g.getMoving()) {
                         newVelo = Geometry.reflectRotatingWall(line, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
                     } else {
