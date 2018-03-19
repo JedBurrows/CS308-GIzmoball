@@ -17,7 +17,6 @@ public class GizmoCreator {
 
 	public IGizmo createGizmo(String type, String id, int x, int y, Color colour) {
 
-
 		switch (type) {
 			case "Square":
 				return new Square(id, x, y, colour);
@@ -28,8 +27,7 @@ public class GizmoCreator {
 			case "LeftFlipper":
 				return new LeftFlipper(id, x, y, colour, false);
 			case "RightFlipper":
-				return new RightFlipper(id, x, y, colour);
-
+				return new RightFlipper(id, x, y, colour, true);
 		}
 		return null;
 	}

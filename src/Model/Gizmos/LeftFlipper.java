@@ -53,7 +53,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 		lineSegments.add(new LineSegment(xpos, ypos + 0.25, xpos, ypos + 1.75));
 		lineSegments.add(new LineSegment(xpos + 0.5, ypos + 0.25, xpos + 0.5, ypos + 1.75));
 
-
 	}
 
 
