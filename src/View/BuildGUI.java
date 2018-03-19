@@ -20,6 +20,7 @@ public class BuildGUI {
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
+	private JSlider gravitySlider,frictionSlider1,frictionSlider2;
 
 
 	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {
@@ -140,23 +141,23 @@ public class BuildGUI {
 	}
 
 	private void initialiseSliders() {
-		JSlider frictionSlider1 = new JSlider();
-		frictionSlider1.addChangeListener(new SliderChangeListener());
+		frictionSlider1 = new JSlider();
+		frictionSlider1.addChangeListener(new SliderChangeListener(this));
 		JLabel frictionLabel1 = new JLabel("Friction mu");
 		frictionPanel1 = new JPanel();
 		frictionPanel1.setLayout(new GridLayout(1, 2));
 		frictionPanel1.add(frictionSlider1);
 		frictionPanel1.add(frictionLabel1, 0);
 
-		JSlider frictionSlider2 = new JSlider();
-		frictionSlider2.addChangeListener(new SliderChangeListener());
+		frictionSlider2 = new JSlider();
+		frictionSlider2.addChangeListener(new SliderChangeListener(this));
 		JLabel frictionLabel2 = new JLabel("Friction mu\u2082");
 		frictionPanel2 = new JPanel();
 		frictionPanel2.setLayout(new GridLayout(1, 2));
 		frictionPanel2.add(frictionSlider2);
 		frictionPanel2.add(frictionLabel2, 0);
 
-		JSlider gravitySlider = new JSlider();
+		gravitySlider = new JSlider();
 		gravitySlider.setMinimum(0);
 		gravitySlider.setMajorTickSpacing(25);
 		gravitySlider.setPaintTicks(true);
@@ -168,7 +169,7 @@ public class BuildGUI {
 		table.put(50, new JLabel("50 L/sec\u00b2"));
 		gravitySlider.setLabelTable(table);
 		gravitySlider.setPaintLabels(true);
-		gravitySlider.addChangeListener(new SliderChangeListener());
+		gravitySlider.addChangeListener(new SliderChangeListener(this));
 		JLabel gravityLabel = new JLabel("Gravity");
 		gravityPanel = new JPanel();
 		gravityPanel.setLayout(new GridLayout(1, 2));
@@ -294,6 +295,15 @@ public class BuildGUI {
             IModeGUI run = new RunGUI();
 
     }*/
+    public int getGravity(){
+    	return gravitySlider.getValue();
+	}
+	public int getMu(){
+    	return frictionSlider1.getValue();
+	}
+	public int getMU2(){
+		return frictionSlider2.getValue();
+	}
 
 }
 
