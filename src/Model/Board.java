@@ -358,10 +358,7 @@ public class Board extends Observable implements IBoard {
                 } else {
                     // We've got a collision in tuc
                     ball = movelBallForTime(ball, tuc);
-                    if(collideGizmo instanceof Absorber){
-                        absorbBall(collideGizmo);
-                    }
-
+                   
                     if (collideGizmo!=null) {
                         for (Connector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
@@ -369,7 +366,9 @@ public class Board extends Observable implements IBoard {
                             }
                         }
                     }
-
+                    if(collideGizmo instanceof Absorber){
+                        absorbBall(collideGizmo);
+                    }
                     else{
                         ball.setVelo(cd.getVelo());
                     }
