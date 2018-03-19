@@ -125,4 +125,8 @@ public class AddGizmoPressListener implements MouseInputListener {
 		//System.out.println("Move event");
 
 	}
+
+	public void setColour(Color colour) {
+		this.colour = colour;
+	}
 }

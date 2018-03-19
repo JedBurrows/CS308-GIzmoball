@@ -20,11 +20,12 @@ public class BuildModeListener implements GBallListener {
     private GBallFrame gBallFrame;
     private Color col;
     private ColorChooserExample colorChooserExample;
+    String previousCommand;
 
 
     public BuildModeListener(GBallFrame gBallFrame) {
         this.gBallFrame = gBallFrame;
-
+        previousCommand = null;
 //        colorChooserExample = new ColorChooserExample();
 
     }
@@ -52,16 +53,15 @@ public class BuildModeListener implements GBallListener {
     public void actionPerformed(ActionEvent e) {
         BuildGUI buildGUI = gBallFrame.getBuildPanel();
         setFocus(gBallFrame.getBuildPanel().getFrame());
+        String command = e.getActionCommand();
+        if(command.equals("Choose Colour")){
+            colorChooserExample = new ColorChooserExample();
+            command = previousCommand;
+        }
+        previousCommand = command;
 
-        switch (e.getActionCommand()) {
+        switch (command) {
 
-            case "Add Gizmo":
-                if (colorChooserExample != null)
-                    this.setMouseListener(new AddGizmoPressListener(buildGUI, colorChooserExample.getColorGiz()));
-                else
-                    this.setMouseListener(new AddGizmoPressListener(buildGUI, Color.RED));
-
-                break;
             case "Choose Colour":
 //				this.setMouseListener(colorChooserExample);
                 colorChooserExample = new ColorChooserExample();
@@ -70,7 +70,14 @@ public class BuildModeListener implements GBallListener {
 //				System.out.println("Color is"+ color);
 //				col = color;
 
+            case "Add Gizmo":
+                if (colorChooserExample != null)
+                    this.setMouseListener(new AddGizmoPressListener(buildGUI, colorChooserExample.getColorGiz()));
+                else
+                    this.setMouseListener(new AddGizmoPressListener(buildGUI, Color.RED));
+
                 break;
+
             case "Add Ball":
                 this.setMouseListener(new AddBallPressListener(buildGUI));
                 break;
