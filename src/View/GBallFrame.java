@@ -53,12 +53,25 @@ public class GBallFrame {
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(frame,
-						"Do you want to save before closing?", "Remember to save!",
-						JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION){
+				ImageIcon icon = new ImageIcon("Images/saveIcon1.jpg");
+
+				//Custom button text
+				Object[] options = {"Yes, please",
+						"No, thanks"};
+				int n = JOptionPane.showOptionDialog(frame,
+						"Are you sure you want to exit?",
+						"Remember to Save",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						icon,
+						options,
+						options[1]);
+
+				if(n == JOptionPane.YES_OPTION){
 					System.exit(0);
+
 				}
+				
 			}
 		});
 
