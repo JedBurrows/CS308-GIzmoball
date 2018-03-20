@@ -1,7 +1,10 @@
 package Controller;
 
+import Model.Connector;
 import Model.GizmoCreator;
+import Model.Gizmos.IGizmo;
 import Model.IBoard;
+import Model.IConnector;
 import View.BoardPanel;
 import View.BuildGUI;
 import View.GBallFrame;
@@ -56,21 +59,39 @@ public class MovePressListener implements MouseInputListener {
         if (!board.isRunMode()) {
             int x2 = (int)(e.getX() / L);
             int y2 = (int)(e.getY() / L);
-//            if (x2 >= 0 && x2 <= 19 && y2 >= 0 && y2 <= 19) {
-                String g = board.getGizmoByPosition(x1, y1).getClass().getSimpleName();
-//                Color c = board.getGizmoByPosition(x1, y1).getColor();
-//                System.out.println("sting: " + g);
-//                board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
-//
-//                board.addGizmo(gizmoCreator.createGizmo(g, x2, y2, c));
+            IGizmo gizmo = board.getGizmoByPosition(x1, y1);
+            if (x2 >= 0 && x2 <= gizmo.getWidth() + 18 && y2 >= 0 && y2 <= 18 + gizmo.getHeight()) {
+                String gID = gizmo.getClass().getSimpleName();
+                Color color = gizmo.getColor();
+
+                System.out.println("colour: " + color);
+                System.out.println("string: " + gID);
+//               IGizmo newGizmo = gizmoCreator.createGizmo(gID, x2, y2, color);
+               board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
+
+                System.out.println("x2: " + x2);
+                System.out.println("y2: " + y2);
+
+                IGizmo newGizmo = gizmoCreator.createGizmo(gID, gizmo.getID(), x2, y2, color);
+
+                System.out.println(gID);
+                //String type, String id, int x, int y, Color colour
+                board.addGizmo(newGizmo);
+                for (IConnector c: board.getConnectors()){
+                    if (c.getSource().getID().equals(gizmo.getID())){
+                    }
+                }
+
+
+                    boardPanel.repaint();
+            }
+//            try {
+//                board.getGizmoByPosition(x1, y1).setPos1(x2, y2);
 //                boardPanel.repaint();
 //            }
-            try {
-                board.getGizmoByPosition(x1, y1).setPos1(x2, y2);
-                boardPanel.repaint();
-            }catch (Exception ex){
-
-            }
+//            catch (Exception exc)‏{
+//
+//            }
 
         }
     }

@@ -63,7 +63,7 @@ public class LoadSaveController implements ActionListener {
 
                 }
 
-                for (Connector connection : board.getConnectors()) {
+                for (IConnector connection : board.getConnectors()) {
                     bufferedWriter.write("Connect" + " " + connection.getSource().getID() + " " + connection.getTarget().getID());
                     bufferedWriter.newLine();
                 }

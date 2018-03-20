@@ -24,12 +24,6 @@ public class Absorber extends AbstractGizmo implements IGizmo {
 		lineSegments.add(new LineSegment(pos1.x, pos2.y, pos2.x, pos2.y));
 	}
 
-
-	@Override
-	public void setTrigger() {
-		trigger = !trigger;
-	}
-
 	@Override
 	public double getAngVel() {
 		return 0;

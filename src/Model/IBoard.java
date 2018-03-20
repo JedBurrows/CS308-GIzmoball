@@ -2,12 +2,8 @@ package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.IGizmo;
-import javafx.scene.input.KeyCode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Observer;
+import java.util.*;
 
 public interface IBoard {
 
@@ -22,8 +18,6 @@ public interface IBoard {
 	Ball getGizmoBall();
 
 	boolean addConnector(String name1, String name2);
-
-	boolean addKeyConnector(int key, String name);
 
 	boolean removeConnector(String name1, String name2);
 
@@ -41,13 +35,11 @@ public interface IBoard {
 
 	ArrayList<IGizmo> getGizmos();
 
-	ArrayList<Connector> getConnectors();
+	Set<IConnector> getConnectors();
 
 	void moveBall();
 
 	Ball getBall();
-
-	void setBallSpeed(int x, int y);
 
 	void clearGizmos();
 
@@ -56,7 +48,6 @@ public interface IBoard {
 	void deleteBall();
 
 	boolean isInsideBall(float x, float y);
-
 
 	void addObserver(Observer o);
 

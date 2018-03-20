@@ -4,6 +4,7 @@ import Model.Connector;
 import Model.Gizmos.IGizmo;
 import Model.IBall;
 import Model.IBoard;
+import Model.IConnector;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -13,6 +14,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class BoardPanel extends JPanel implements Observer {
 
@@ -127,9 +129,9 @@ public class BoardPanel extends JPanel implements Observer {
 
 
 		g2.setColor(Color.BLUE);
-		ArrayList<Connector> connectors = board.getConnectors();
+		Set<IConnector> connectors = board.getConnectors();
 
-		for (Connector connection : connectors) {
+		for (IConnector connection : connectors) {
 			IGizmo source = connection.getSource(), target = connection.getTarget();
 			Point sourcePos1 = source.getPos1(), targetPos1 = target.getPos1();
 

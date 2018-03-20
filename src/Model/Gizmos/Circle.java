@@ -14,8 +14,6 @@ public class Circle extends AbstractGizmo implements IGizmo {
 		createCircles();
 	}
 
-
-
 	@Override
 	protected void createCircles() {
 		circles.clear();

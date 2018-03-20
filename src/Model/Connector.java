@@ -4,7 +4,7 @@ import Model.Gizmos.IGizmo;
 
 import java.util.Objects;
 
-public class Connector {
+public class Connector implements IConnector {
 	private IGizmo source, target;
 
 	/**
