@@ -24,13 +24,11 @@ public class Board extends Observable implements IBoard {
     private boolean[][] grid;
     private float gravity, mu, mu2;
     private Set<Connector> connectors;
-    private Set<KeyConnector> keyConnectors;
 
     private HashMap<Integer, List<String>> keyPressEvents;
     private HashMap<Integer, List<String>> keyReleaseEvents;
 
 
-    private Set<KeyConnector> keyConnectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
     private boolean release;
@@ -58,7 +56,6 @@ public class Board extends Observable implements IBoard {
 			Arrays.fill(row, false);
 		}
 
-		keyConnectors = new HashSet<>();
 		connectors = new HashSet<>();
 		gizmoHashMap = new HashMap<>();
 
@@ -119,28 +116,7 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
-    public boolean addKeyConnector(int key, String name) {
-        try {
-            KeyConnector keyConnection = new KeyConnector(key, getGizmoByID(name)) ;
-            System.out.println("Key Connector Target ID: " + keyConnection.getTarget().getID());
-            System.out.println("Key Connector Key ID: " + keyConnection.getSource());
 
-            System.out.println("Connection hash code = " + keyConnection.hashCode());
-
-            if (keyConnectors.contains(keyConnection)) {
-                System.out.println("false in here 111?");
-                return false;
-            } else {
-                System.out.println("true in here 111?");
-                keyConnectors.add(keyConnection);
-                return true;
-            }
-        } catch (NoSuchGizmoException e) {
-            System.out.println("false in here 222?");
-
-            return false;
-        }
-    }
 
     public boolean removeConnector(String name1, String name2) {
         System.out.println("Connectors size before removal = " + connectors.size());
@@ -310,6 +286,11 @@ public class Board extends Observable implements IBoard {
     @Override
     public void deleteBall(String id) {
         balls.remove(id);
+    }
+
+    @Override
+    public boolean isInsideBall(int i, float x, float y) {
+        return false;
     }
 
     public boolean isInsideBall(float x, float y) {
@@ -543,6 +524,11 @@ public class Board extends Observable implements IBoard {
         }
         return true;
 
+    }
+
+    @Override
+    public boolean isFreeSpace(float x, float y) {
+        return true;
     }
 
     public HashMap<Integer, List<String>> getKeyPressEvents() {

@@ -20,8 +20,6 @@ public interface IBoard {
 
 	boolean addConnector(String name1, String name2);
 
-	boolean addKeyConnector(int key, String name);
-
 	boolean removeConnector(String name1, String name2);
 
 	boolean addGizmo(IGizmo gizmo);
@@ -64,6 +62,8 @@ public interface IBoard {
 	boolean addKeyPressEvent(int event, String id);
 
 	boolean addKeyReleaseEvent(int event, String id);
+
+	boolean isFreeSpace(float x, float y);
 
 
 }
