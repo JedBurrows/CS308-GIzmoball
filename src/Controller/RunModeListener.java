@@ -32,6 +32,7 @@ public class RunModeListener implements GBallListener {
 				switch (e.getActionCommand()) {
 					case "Start":
 						timer.start();
+						this.setKeyBoardListener(new KeyPressListener(board));
 						break;
 					case "Stop":
 						timer.stop();

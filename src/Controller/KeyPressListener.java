@@ -32,15 +32,16 @@ public class KeyPressListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-//		if (keyPressEvents.containsKey(keyCode)) {
 
-//			List<String> list = keyPressEvents.get(keyCode);
+        System.out.println("Key code = " + keyCode);
+
+
         if (keyCode == KeyEvent.VK_LEFT) {
             for (IGizmo g : board.getGizmos()) {
                 g.setTrigger();
 
             }
-//			}
+
         }
     }
 

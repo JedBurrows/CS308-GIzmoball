@@ -49,6 +49,7 @@ public class Board extends Observable implements IBoard {
 			Arrays.fill(row, false);
 		}
 
+		keyConnectors = new HashSet<>();
 		connectors = new HashSet<>();
 		gizmoHashMap = new HashMap<>();
 
@@ -117,15 +118,22 @@ public class Board extends Observable implements IBoard {
     public boolean addKeyConnector(int key, String name) {
         try {
             KeyConnector keyConnection = new KeyConnector(key, getGizmoByID(name)) ;
+            System.out.println("Key Connector Target ID: " + keyConnection.getTarget().getID());
+            System.out.println("Key Connector Key ID: " + keyConnection.getSource());
+
             System.out.println("Connection hash code = " + keyConnection.hashCode());
 
             if (keyConnectors.contains(keyConnection)) {
+                System.out.println("false in here 111?");
                 return false;
             } else {
+                System.out.println("true in here 111?");
                 keyConnectors.add(keyConnection);
                 return true;
             }
         } catch (NoSuchGizmoException e) {
+            System.out.println("false in here 222?");
+
             return false;
         }
     }
@@ -143,7 +151,6 @@ public class Board extends Observable implements IBoard {
         } finally {
             System.out.println("Connectors size after removal = " + connectors.size());
         }
-
     }
 
     /**
