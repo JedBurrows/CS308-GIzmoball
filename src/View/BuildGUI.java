@@ -2,6 +2,7 @@ package View;
 
 
 import Controller.BuildModeListener;
+import Controller.ExitListener;
 import Controller.LoadSaveController;
 import Controller.SliderChangeListener;
 
@@ -21,6 +22,9 @@ public class BuildGUI implements IGUI {
 	private BoardPanel boardPanel;
 	private GBallFrame gBallFrame;
 	private JSlider gravitySlider,frictionSlider1,frictionSlider2;
+
+
+
 
 
 	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {
@@ -245,7 +249,8 @@ public class BuildGUI implements IGUI {
 		menuItemSave.addActionListener(new LoadSaveController(boardPanel));
 
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		exitMenuItem.addActionListener(e -> System.exit(0));
+		exitMenuItem.addActionListener(new ExitListener(boardPanel));
+
 
 		fileMenu.add(menuItemLoad);
 		fileMenu.add(menuItemSave);

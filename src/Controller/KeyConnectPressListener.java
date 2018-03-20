@@ -17,7 +17,6 @@ public class KeyConnectPressListener implements KeyListener, MouseInputListener 
 	private float L;
 	private IBoard board;
 
-	private boolean doneFlag;
 	private int sourceKey;
 	private IGizmo target;
 
@@ -35,7 +34,6 @@ public class KeyConnectPressListener implements KeyListener, MouseInputListener 
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("clicky");
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			target = board.getGizmoByPosition(e.getX() / L, e.getY() / L);
 			System.out.println("target: " + target.getID());
@@ -65,12 +63,12 @@ public class KeyConnectPressListener implements KeyListener, MouseInputListener 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("key");
-		System.out.println("target: " + target);
 		if (target != null) {
 			sourceKey = e.getKeyCode();
-			System.out.println("key: " + sourceKey);
+			System.out.println("Key: " + sourceKey);
 			setKeyConnection();
+			target = null;
+
 		}
 	}
 
@@ -81,7 +79,8 @@ public class KeyConnectPressListener implements KeyListener, MouseInputListener 
 
 	private void setKeyConnection() {
 		try {
-			board.addKeyConnector(sourceKey, target.getID());
+			board.addKeyPressEvent(sourceKey, target.getID());
+			board.addKeyReleaseEvent(sourceKey, target.getID());
 		} catch (NullPointerException e) {
 			System.out.println("Not a gizmo.");
 		}

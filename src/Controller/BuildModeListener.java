@@ -65,31 +65,41 @@ public class BuildModeListener implements GBallListener {
             case "Add Gizmo":
                 if (colorChooserExample != null)
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, colorChooserExample.getColorGiz()));
-                else
+                else {
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, Color.RED));
+                }
+                this.setKeyBoardListener(null);
+
                 break;
             case "Add Ball":
                 this.setMouseListener(new AddBallPressListener(gBallFrame));
+                this.setKeyBoardListener(null);
                 break;
             case "Rotate":
                 this.setMouseListener(new RotatePressListener(gBallFrame));
+                this.setKeyBoardListener(null);
                 break;
             case "Move":
                 this.setMouseListener(new MovePressListener(gBallFrame));
+                this.setKeyBoardListener(null);
                 break;
             case "Clear Board":
+                this.setKeyBoardListener(null);
                 BoardPanel panel = gBallFrame.getBuildPanel().getBoardPanel();
                 panel.getBoard().clearGizmos();
                 panel.repaint();
                 break;
             case "Delete":
                 this.setMouseListener(new DeletePressListener(gBallFrame));
+                this.setKeyBoardListener(null);
                 break;
             case "Connect":
                 this.setMouseListener(new ConnectPressListener(gBallFrame));
+                this.setKeyBoardListener(null);
                 break;
             case "Disconnect":
                 this.setMouseListener(new DisconnectPressListener(gBallFrame));
+                this.setKeyBoardListener(null);
                 break;
             case "Key Connect":
                 KeyConnectPressListener k = new KeyConnectPressListener(gBallFrame);
@@ -101,13 +111,15 @@ public class BuildModeListener implements GBallListener {
 
                 break;
             case "Run":
+                this.setKeyBoardListener(new MagicKeyListener(new KeyPressListener(gBallFrame.getBoardPanel().getBoard())));
+                this.setMouseListener(null);
+
                 gBallFrame.getBoardPanel().getBoard().switchMode();
                 gBallFrame.runMode();
                 break;
 
 
-        }
-
+        };
     }
 
     private void setFocus(JPanel frame) {

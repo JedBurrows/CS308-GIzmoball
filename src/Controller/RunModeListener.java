@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.IBoard;
+import View.BuildGUI;
 import View.GBallFrame;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class RunModeListener implements GBallListener {
 
 	private GBallFrame gBallFrame;
 	private Timer timer;
+	private KeyListener keyListener;
 
 
 	public RunModeListener(GBallFrame gBallFrame) {
@@ -32,10 +34,10 @@ public class RunModeListener implements GBallListener {
 				switch (e.getActionCommand()) {
 					case "Start":
 						timer.start();
-						this.setKeyBoardListener(new KeyPressListener(board));
 						break;
 					case "Stop":
 						timer.stop();
+
 						break;
 					case "Tick":
 						board.moveBall();
@@ -93,11 +95,18 @@ public class RunModeListener implements GBallListener {
 
 	@Override
 	public void setMouseListener(MouseInputListener mouseInputListener) {
+		/*
+			No MouseListener in run
+		*/
 
 	}
 
 	@Override
 	public void setKeyBoardListener(KeyListener keyListener) {
+		BuildGUI buildGUI = gBallFrame.getBuildPanel();
+		buildGUI.getBoardPanel().removeKeyListener(this.keyListener);
+		this.keyListener = keyListener;
+		buildGUI.getBoardPanel().addKeyListener(this.keyListener);
 
 	}
 
