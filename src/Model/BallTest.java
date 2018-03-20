@@ -14,6 +14,7 @@ public class BallTest {
 
     @Before
     private void setUp() {
+        ball = new Ball("B",1,1, 2, 2);
 
     }
 
