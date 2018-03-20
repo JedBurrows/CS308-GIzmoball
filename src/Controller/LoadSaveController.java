@@ -81,6 +81,8 @@ public class LoadSaveController implements ActionListener {
                 bufferedWriter.write("Gravity" + " " + board.getGravity());
                 bufferedWriter.newLine();
 
+                board.getKeyPressEvents().values();
+
 
                 bufferedWriter.close();
                 fileWriter.close();
@@ -265,8 +267,29 @@ public class LoadSaveController implements ActionListener {
 									"KeyConnect" "key" (KEYNUM num) "up" (IDENTIFIER consumer)
 								 */
                                 case "KeyConnect":
-                                    System.out.println("'KeyConnect' - command in file in file, cannot create KeyConnect");
+                                    String keyType;
+                                    if (scanner.hasNext()){
+                                        scanner.next();
+                                        if (scanner.hasNextInt()){
+                                            Integer keyNum = scanner.nextInt();
+                                            if (scanner.hasNext()){
+                                                keyType = scanner.next();
+                                                if (scanner.hasNext()){
+                                                    name = scanner.next();
 
+                                                    if (keyType.equals("down")){
+                                                        board.addKeyPressEvent(keyNum,name);
+
+                                                    }else if (keyType.equals("up")){
+                                                        board.addKeyReleaseEvent(keyNum,name);
+
+
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
                                     break;
 
 								/*
