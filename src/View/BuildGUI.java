@@ -249,7 +249,7 @@ public class BuildGUI implements IGUI {
 		menuItemSave.addActionListener(new LoadSaveController(boardPanel));
 
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		exitMenuItem.addActionListener(new ExitListener(boardPanel));
+		exitMenuItem.addActionListener(new ExitListener());
 
 
 		fileMenu.add(menuItemLoad);
