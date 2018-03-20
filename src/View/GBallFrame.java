@@ -4,6 +4,8 @@ import Model.IBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 public class GBallFrame {
 	private JFrame frame;
@@ -13,6 +15,8 @@ public class GBallFrame {
 	private JPanel buildButtons, runButtons, main;
 	private JMenuBar buildBar, runBar;
 	private CardLayout cardLayout;
+
+
 
 
 	public GBallFrame(IBoard board) {
@@ -43,7 +47,25 @@ public class GBallFrame {
 
 
 		frame.setResizable(true);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	//	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				if (JOptionPane.showConfirmDialog(frame,
+						"Do you want to save before closing?", "Remember to save!",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION){
+					System.exit(0);
+				}
+			}
+		});
+
+
+
+
+
 		frame.pack();
 		frame.setVisible(true);
 
