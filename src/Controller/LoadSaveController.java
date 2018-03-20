@@ -20,6 +20,10 @@ public class LoadSaveController implements ActionListener {
         panel = p;
     }
 
+
+
+
+
     public void save() {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Save");

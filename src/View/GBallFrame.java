@@ -4,6 +4,8 @@ import Model.IBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 public class GBallFrame {
 	private JFrame frame;
@@ -13,6 +15,8 @@ public class GBallFrame {
 	private JPanel buildButtons, runButtons, main;
 	private JMenuBar buildBar, runBar;
 	private CardLayout cardLayout;
+
+
 
 
 	public GBallFrame(IBoard board) {
@@ -43,7 +47,38 @@ public class GBallFrame {
 
 
 		frame.setResizable(true);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	//	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				ImageIcon icon = new ImageIcon("Images/saveIcon1.jpg");
+
+				//Custom button text
+				Object[] options = {"Yes, please",
+						"No, thanks"};
+				int n = JOptionPane.showOptionDialog(frame,
+						"Are you sure you want to exit?",
+						"Remember to Save",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						icon,
+						options,
+						options[1]);
+
+				if(n == JOptionPane.YES_OPTION){
+					System.exit(0);
+
+				}
+				
+			}
+		});
+
+
+
+
+
 		frame.pack();
 		frame.setVisible(true);
 
