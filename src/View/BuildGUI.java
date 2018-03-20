@@ -20,6 +20,7 @@ public class BuildGUI {
 	private JPanel buildFrame;
 	private JPanel frictionPanel1, frictionPanel2, gravityPanel, panelBtn;
 	private BoardPanel boardPanel;
+	private JSlider gravitySlider,frictionSlider1,frictionSlider2;
 
 
 	public BuildGUI(GBallFrame parent, BoardPanel boardPanel) {

@@ -1,5 +1,6 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -13,11 +14,6 @@ public class Square extends AbstractGizmo implements IGizmo {
 		super(id, x, y, 1, 1, colour);
 		createCircles();
 		createLines();
-	}
-
-	@Override
-	public void action(double tickTime) {
-
 	}
 
 
@@ -40,7 +36,7 @@ public class Square extends AbstractGizmo implements IGizmo {
 	}
 
 	@Override
-	public void setKeyPress() {
+	public void action(double tickTime, Ball ball) {
 
 	}
 

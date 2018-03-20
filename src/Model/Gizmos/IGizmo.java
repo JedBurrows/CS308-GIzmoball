@@ -1,5 +1,6 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -8,15 +9,12 @@ import java.util.ArrayList;
 
 public interface IGizmo {
 
-
-	//	  Action performed by gizmo when struck by ball
-	void action(double tickTime);
+	void action(double tickTime, Ball ball);
 
 	void rotate();
 
 	int getRotation();
-
-
+	
 	ArrayList<Circle> getCircles();
 
 	ArrayList<LineSegment> getLineSegments();
@@ -25,7 +23,7 @@ public interface IGizmo {
 
 	int getHeight();
 
-	void setKeyPress();
+	void setTrigger();
 
 	double getAngVel();
 

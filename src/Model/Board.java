@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
+import Model.Gizmos.Absorber;
 import Model.Gizmos.IGizmo;
 import javafx.scene.input.KeyCode;
 import physics.Circle;
@@ -26,10 +27,7 @@ public class Board extends Observable implements IBoard {
     private Set<KeyConnector> keyConnectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
-
-
-	private boolean absorbCollide;
-	private boolean release;
+    private boolean release;
 
     //---------------------------------------------
 
@@ -57,7 +55,6 @@ public class Board extends Observable implements IBoard {
 
 		runMode = false;
 
-		absorbCollide = false;
 		release = false;
 		collideGizmo = null;
 		//--------------------------------------------------
@@ -240,19 +237,26 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean moveGizmo(String id, int newX, int newY) {
-		try {
-			IGizmo gizmo = getGizmoByID(id);
+        System.out.println("in MoveGizmo before " + newX + " " +newY);
+
+        try {
+            System.out.println("in MoveGizmo after try " + newX + " " +newY);
+
+            IGizmo gizmo = getGizmoByID(id);
 			String type = gizmo.getClass().getSimpleName();
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
-				String gizmoClass = gizmo.getClass().getSimpleName();
+                System.out.println("in MoveGizmo " + newX + " " +newY);
+                String gizmoClass = gizmo.getClass().getSimpleName();
 				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
 					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
 						grid[newX][newY] = true;
 						grid[newX][newY + 1] = true;
 						grid[newX + 1][newY] = true;
 						grid[newX + 1][newY + 1] = true;
+                        System.out.println("in MoveGizmo2 " + newX + " " +newY);
 
-						deleteGizmo(id);
+
+                        deleteGizmo(id);
 
 						gizmo.getPos1().setLocation(newX, newY);
 						gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
@@ -264,12 +268,15 @@ public class Board extends Observable implements IBoard {
 						//One of 4 grid locs required for flipper is occupied
 						return false;
 					}
-				} else if (grid[newX][newY] == false) {
+				}
+				else if (grid[newX][newY] == false) {
 					grid[newY][newY] = true;
 
 					deleteGizmo(id);
+                    System.out.println("in MoveGizmo3 " + newX + " " +newY);
 
-					gizmo.getPos1().setLocation(newX, newY);
+
+                    gizmo.getPos1().setLocation(newX, newY);
 					gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
 
 					addGizmo(gizmo);
@@ -333,7 +340,7 @@ public class Board extends Observable implements IBoard {
 
     public void gizmoAction(double moveTime) {
         for (IGizmo g : gizmoHashMap.values()) {
-            g.action(moveTime);
+            g.action(moveTime, ball);
         }
     }
 
@@ -342,8 +349,6 @@ public class Board extends Observable implements IBoard {
 
         //TODO Check for if in playMode then can move ball.
         // 0.05 = 20 times per second as per Gizmoball
-        System.out.println("ball: " + ball);
-        System.out.println("runMode: " + runMode);
 
         if (runMode) {
             double moveTime = 0.01;
@@ -361,6 +366,7 @@ public class Board extends Observable implements IBoard {
                 } else {
                     // We've got a collision in tuc
                     ball = movelBallForTime(ball, tuc);
+
                     if (collideGizmo!=null) {
                         for (Connector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
@@ -368,23 +374,14 @@ public class Board extends Observable implements IBoard {
                             }
                         }
                     }
+                    if(collideGizmo instanceof Absorber){
+                        absorbBall(collideGizmo);
+                    }
+                    else{
+                        ball.setVelo(cd.getVelo());
+                    }
                     collideGizmo = null;
-                    // Post collision velocity ...
-                    ball.setVelo(cd.getVelo());
 
-                    /*if (absorbCollide) {
-						if (!release) {
-							ball.setVelo(new Vect(0, 0));
-							ball.setXPos(absorber.getPos2().x - 1);
-							ball.setYPos(absorber.getPos1().y + 0.5f);
-						} else {
-							ball.setXPos(absorber.getPos2().x - 1);
-							ball.setYPos(absorber.getPos1().y - 3);
-							ball.setVelo(new Vect(-10, -40));
-							absorbCollide = false;
-							release = false;
-						}
-					}*/
                 }
                 applyGravity(moveTime);
                 applyFriction(moveTime);
@@ -397,19 +394,23 @@ public class Board extends Observable implements IBoard {
 
     }
 
+    public void absorbBall(IGizmo g){
+        ball.setXPos((float)(g.getPos2().x - 0.5));
+        ball.setYPos((float)(g.getPos2().y - 0.25));
+        ball.setVelo(new Vect(0, 0));
+    }
+
 
     private Ball movelBallForTime(Ball ball, double time) {
 
-        float newX = 0.0f;
-        float newY = 0.0f;
+        float newX = 0.025f;
+        float newY = 0.025f;
         float xVel = (float) ball.getVelo().x();
         float yVel = (float) ball.getVelo().y();
         newX = ball.getXPos() + (xVel * (float) time);
         newY = ball.getYPos() + (yVel * (float) time);
         ball.setXPos(newX);
         ball.setYPos(newY);
-
-
 
         return ball;
     }
@@ -444,22 +445,6 @@ public class Board extends Observable implements IBoard {
         double shortestTime = Double.MAX_VALUE;
         double time = 0.0;
 
-        // Time to collide with 4 walls
-
-
-        //Check if it's the abosrber
-	/*	if (hasAbsorber()) {
-			ArrayList<LineSegment> absorbLines = absorber.getLineSegments();
-			for (LineSegment ls : absorbLines) {
-				time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-				if (time < shortestTime) {
-					shortestTime = time;
-					absorbCollide = true;
-					newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-				}
-			}
-		}*/
-
         for (IGizmo g : gizmoHashMap.values()) {
             for (LineSegment line : g.getLineSegments()) {
                 if (g.getMoving()) {
@@ -470,7 +455,6 @@ public class Board extends Observable implements IBoard {
                 if (time < shortestTime) {
                     collideGizmo = g;
                     shortestTime = time;
-
                     if (g.getMoving()) {
                         newVelo = Geometry.reflectRotatingWall(line, g.getCircles().get(0).getCenter(), Math.toRadians(g.getAngVel()), ballCircle, ballVelocity);
                     } else {
@@ -527,13 +511,6 @@ public class Board extends Observable implements IBoard {
             Arrays.fill(row, false);
         }
 
-    }
-
-    public boolean getAbsorbCollide() {
-        return absorbCollide;
-    }
-
-    public void setRelease(boolean r) {
     }
 
     public void release() {

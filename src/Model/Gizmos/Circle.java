@@ -1,6 +1,8 @@
 package Model.Gizmos;
 
 
+import Model.Ball;
+
 import java.awt.*;
 
 public class Circle extends AbstractGizmo implements IGizmo {
@@ -12,17 +14,12 @@ public class Circle extends AbstractGizmo implements IGizmo {
 		createCircles();
 	}
 
-	@Override
-	public void action(double tickTime) {
-
-	}
 
 
 	@Override
 	protected void createCircles() {
 		circles.clear();
 		circles.add(new physics.Circle(pos1.x + 0.5, pos1.y + 0.5, radius));
-
 	}
 
 	@Override
@@ -30,22 +27,8 @@ public class Circle extends AbstractGizmo implements IGizmo {
 
 	}
 
-
 	@Override
-	public void setKeyPress() {
+	public void action(double tickTime, Ball ball) {
 
 	}
-
-	@Override
-	public double getAngVel() {
-		return 0;
-	}
-
-	@Override
-	public boolean getMoving() {
-		return false;
-	}
-
-
-
 }
