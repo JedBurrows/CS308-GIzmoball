@@ -6,6 +6,7 @@ import physics.LineSegment;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class AbstractGizmo {
 
@@ -31,7 +32,17 @@ public abstract class AbstractGizmo {
 
     }
 
+    public void action(double tickTime, Ball ball) {
+        if (trigger) {
+            Random rand = new Random();
+            float r = rand.nextFloat();
+            float g = rand.nextFloat();
+            float b = rand.nextFloat();
+            Color randomColor = new Color(r, g, b);
 
+            setColor(randomColor);
+        }
+    }
     public String getID() {
         return ID;
     }

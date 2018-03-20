@@ -27,8 +27,4 @@ public class Circle extends AbstractGizmo implements IGizmo {
 
 	}
 
-	@Override
-	public void action(double tickTime, Ball ball) {
-
-	}
 }

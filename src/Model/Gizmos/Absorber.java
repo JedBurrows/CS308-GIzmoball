@@ -45,7 +45,7 @@ public class Absorber extends AbstractGizmo implements IGizmo {
 		if (ball.getXPos() == pos2.x - 0.5 && ball.getYPos() == pos2.y - 0.25) {
 			if (trigger) {
 				ball.setXPos((float) (pos2.x - 0.5));
-				ball.setYPos((float) (pos2.y - 1.26));
+				ball.setYPos((float) (pos1.y - 0.26));
 				ball.setVelo(new Vect(0, -50));
 			}
 		}
