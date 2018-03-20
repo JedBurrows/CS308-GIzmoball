@@ -72,6 +72,10 @@ public class LoadSaveController implements ActionListener {
                     bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
                     bufferedWriter.newLine();
                 }
+                bufferedWriter.write("Friction" + " " + board.getMU() + " " + board.getMU2() );
+                bufferedWriter.newLine();
+                bufferedWriter.write("Gravity" + " " + board.getGravity());
+                bufferedWriter.newLine();
 
 
                 bufferedWriter.close();

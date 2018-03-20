@@ -10,6 +10,7 @@ import physics.Vect;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class Board extends Observable implements IBoard {
 
@@ -24,9 +25,13 @@ public class Board extends Observable implements IBoard {
     private float gravity, mu, mu2;
     private Set<Connector> connectors;
     private Set<KeyConnector> keyConnectors;
+
+    private HashMap<Integer, List<String>> keyPressEvents;
+    private HashMap<Integer, List<String>> keyReleaseEvents;
+
+
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
-    private boolean release;
 
     //---------------------------------------------
 
@@ -55,7 +60,6 @@ public class Board extends Observable implements IBoard {
 
 		runMode = false;
 
-		release = false;
 		collideGizmo = null;
 		//--------------------------------------------------
 
@@ -65,7 +69,8 @@ public class Board extends Observable implements IBoard {
         // Wall size 500 x 500 pixels
         walls = new Walls();
 
-        // Lines added in Proto3Main
+        keyPressEvents = new HashMap<>();
+        keyReleaseEvents = new HashMap<>();
 
 
     }
@@ -316,6 +321,21 @@ public class Board extends Observable implements IBoard {
         }
     }
 
+    @Override
+    public float getMU() {
+        return mu;
+    }
+
+    @Override
+    public float getMU2() {
+        return  mu2;
+    }
+
+    @Override
+    public float getGravity() {
+        return gravity;
+    }
+
     public void gizmoAction(double moveTime) {
         for (IGizmo g : gizmoHashMap.values()) {
             g.action(moveTime, ball);
@@ -491,7 +511,37 @@ public class Board extends Observable implements IBoard {
 
     }
 
-    public void release() {
-        release = true;
+    public boolean addKeyPressEvent(int event, String id) {
+        if (keyPressEvents.containsKey(event)) {
+            keyPressEvents.get(event).add(id);
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyPressEvents.put(event, list);
+        }
+        return true;
+
+    }
+
+    public boolean addKeyReleaseEvent(int event, String id) {
+
+        if (keyReleaseEvents.containsKey(event)) {
+            keyReleaseEvents.get(event).add(id);
+
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyReleaseEvents.put(event, list);
+        }
+        return true;
+
+    }
+
+    public HashMap<Integer, List<String>> getKeyPressEvents() {
+        return keyPressEvents;
+    }
+
+    public HashMap<Integer, List<String>> getKeyReleaseEvents() {
+        return keyReleaseEvents;
     }
 }

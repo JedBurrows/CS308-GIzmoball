@@ -5,6 +5,8 @@ import Model.Gizmos.IGizmo;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Observer;
 
 public interface IBoard {
@@ -58,6 +60,16 @@ public interface IBoard {
 
 	void addObserver(Observer o);
 
+	float getMU();
+	float getMU2();
+	float getGravity();
+
+	HashMap<Integer, List<String>> getKeyPressEvents();
+	HashMap<Integer, List<String>> getKeyReleaseEvents();
+
+	boolean addKeyPressEvent(int event, String id);
+
+	boolean addKeyReleaseEvent(int event, String id);
 
 
 }

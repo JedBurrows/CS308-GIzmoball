@@ -1,6 +1,7 @@
 package View;
 
 
+import Controller.KeyPressListener;
 import Controller.RunModeListener;
 
 import javax.swing.*;
@@ -15,7 +16,6 @@ public class RunGUI implements IGUI {
 		setBoardPanel(boardPanel);
 
 		runModeListener = new RunModeListener(parent);
-		//parent.getBoardPanel().addKeyListener(new );
 
 
 
