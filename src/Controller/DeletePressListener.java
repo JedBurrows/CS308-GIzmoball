@@ -32,8 +32,15 @@ public class DeletePressListener implements MouseInputListener {
 			board.deleteBall();
 			boardPanel.repaint();
 		} else {
-			board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
-			boardPanel.repaint();
+			try {
+				board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
+				boardPanel.repaint();
+			}
+			catch (NullPointerException ex){
+
+			}
+
+
 		}
 	}
 
