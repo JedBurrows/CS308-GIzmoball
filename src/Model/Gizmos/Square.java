@@ -36,15 +36,8 @@ public class Square extends AbstractGizmo implements IGizmo {
 	}
 
 
-	@Override
-	public double getAngVel() {
-		return 0;
-	}
 
-	@Override
-	public boolean getMoving() {
-		return false;
-	}
+
 
 
 
