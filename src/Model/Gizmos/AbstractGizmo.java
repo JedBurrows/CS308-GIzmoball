@@ -6,6 +6,7 @@ import physics.LineSegment;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class AbstractGizmo {
 
@@ -31,7 +32,17 @@ public abstract class AbstractGizmo {
 
     }
 
+    public void action(double tickTime, Ball ball) {
+        if (trigger) {
+            Random rand = new Random();
+            float r = rand.nextFloat();
+            float g = rand.nextFloat();
+            float b = rand.nextFloat();
+            Color randomColor = new Color(r, g, b);
 
+            setColor(randomColor);
+        }
+    }
     public String getID() {
         return ID;
     }
@@ -78,7 +89,9 @@ public abstract class AbstractGizmo {
         return pos2;
     }
 
-    public void setTrigger() { trigger = !trigger; }
+    public void setTrigger() {
+        trigger = !trigger;
+    }
 
     public double getAngVel() {
         return 0;
@@ -86,6 +99,12 @@ public abstract class AbstractGizmo {
 
     public boolean getMoving() {
         return false;
+    }
+
+    public void setPos1(double x, double y) {
+        if (x >= 0 && x <=19 && y >= 0 && y <=19) {
+            pos1.setLocation(x, y);
+        }
     }
 
     protected abstract void createCircles();

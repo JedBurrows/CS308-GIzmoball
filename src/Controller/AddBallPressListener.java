@@ -2,22 +2,20 @@ package Controller;
 
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
 public class AddBallPressListener implements MouseInputListener {
 
-	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
 
 
-	public AddBallPressListener(BuildGUI buildGUI) {
-		this.buildGUI = buildGUI;
-		this.boardPanel = buildGUI.getBoardPanel();
+	public AddBallPressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 
@@ -33,14 +31,8 @@ public class AddBallPressListener implements MouseInputListener {
 		if (!board.isRunMode()) {
 			float x1 = e.getX() / L;
 			float y1 = e.getY() / L;
-			System.out.println(e.getX());
-			System.out.println(e.getY());
-			System.out.println(x1);
-			System.out.println(y1);
 			board.addGizmoBall("Ball", x1, y1, 0f, 0f);
 			boardPanel.repaint();
-			buildGUI.clearSelected();
-			buildGUI.setMode("AddBall");
 		}
 
 	}

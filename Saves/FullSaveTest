@@ -1,315 +1,563 @@
 Square S0904 9 4
+Color S0904 0 255 0
 Square S0905 9 5
+Color S0905 0 255 0
 Triangle T0713 7 13
 Rotate T0713
 Rotate T0713
+Color T0713 0 255 0
 Triangle T1006 10 6
+Color T1006 0 255 0
 Square S0115 1 15
+Color S0115 0 255 0
 Square S0116 1 16
+Color S0116 0 255 0
 Square S0117 1 17
+Color S0117 0 255 0
 Triangle T0707 7 7
 Rotate T0707
 Rotate T0707
 Rotate T0707
+Color T0707 0 255 0
 Square S1208 12 8
+Color S1208 0 255 0
 Square S0110 1 10
+Color S0110 0 255 0
 Square S0111 1 11
+Color S0111 0 255 0
 Square S0112 1 12
+Color S0112 0 255 0
 Square S0113 1 13
+Color S0113 0 255 0
 Square S0114 1 14
+Color S0114 0 255 0
 Triangle T0703 7 3
 Rotate T0703
 Rotate T0703
+Color T0703 0 255 0
 Triangle T0704 7 4
 Rotate T0704
+Color T0704 0 255 0
 Square S0104 1 4
+Color S0104 0 255 0
 Square S0105 1 5
+Color S0105 0 255 0
 Square S1315 13 15
+Color S1315 0 255 0
 Square S0106 1 6
+Color S0106 0 255 0
 Square S0107 1 7
+Color S0107 0 255 0
 Square S0108 1 8
+Color S0108 0 255 0
 Square S0109 1 9
+Color S0109 0 255 0
 Square S0902 9 2
+Color S0902 0 255 0
 Square S0903 9 3
+Color S0903 0 255 0
 Square S0100 1 0
+Color S0100 0 255 0
 Square S1310 13 10
+Color S1310 0 255 0
 Square S0101 1 1
+Color S0101 0 255 0
 Square S1311 13 11
+Color S1311 0 255 0
 Square S0102 1 2
+Color S0102 0 255 0
 Square S1312 13 12
+Color S1312 0 255 0
 Square S0103 1 3
+Color S0103 0 255 0
 Absorber A0019 0 19 20 20
+Color A0019 255 175 175
 Triangle T1702 17 2
 Rotate T1702
 Rotate T1702
+Color T1702 0 255 0
 Triangle T0613 6 13
+Color T0613 0 255 0
 Triangle T0614 6 14
 Rotate T0614
 Rotate T0614
+Color T0614 0 255 0
 Square S0016 0 16
+Color S0016 0 255 0
 Square S0017 0 17
+Color S0017 0 255 0
 Square S0018 0 18
+Color S0018 0 255 0
 Triangle T1818 18 18
 Rotate T1818
+Color T1818 0 255 0
 Triangle T0606 6 6
 Rotate T0606
 Rotate T0606
 Rotate T0606
+Color T0606 0 255 0
 Square S0010 0 10
+Color S0010 0 255 0
 Square S0011 0 11
+Color S0011 0 255 0
 Square S0012 0 12
+Color S0012 0 255 0
 Square S0013 0 13
+Color S0013 0 255 0
 Square S1103 11 3
+Color S1103 0 255 0
 Square S0014 0 14
+Color S0014 0 255 0
 Square S1104 11 4
+Color S1104 0 255 0
 Square S0015 0 15
+Color S0015 0 255 0
 Square S0005 0 5
+Color S0005 0 255 0
 Square S0006 0 6
+Color S0006 0 255 0
 Square S0007 0 7
+Color S0007 0 255 0
 Square S0008 0 8
+Color S0008 0 255 0
 Square S0009 0 9
+Color S0009 0 255 0
 Square S0803 8 3
+Color S0803 0 255 0
 Square S0804 8 4
+Color S0804 0 255 0
 Square S0000 0 0
+Color S0000 0 255 0
 Square S0001 0 1
+Color S0001 0 255 0
 Square S0002 0 2
+Color S0002 0 255 0
 Square S0003 0 3
+Color S0003 0 255 0
 Square S1214 12 14
+Color S1214 0 255 0
 Square S0004 0 4
+Color S0004 0 255 0
 Triangle T1207 12 7
 Rotate T1207
 Rotate T1207
+Color T1207 0 255 0
 Triangle T0118 1 18
+Color T0118 0 255 0
 Triangle T1203 12 3
 Rotate T1203
 Rotate T1203
 Rotate T1203
+Color T1203 0 255 0
 Triangle T1204 12 4
+Color T1204 0 255 0
 Square S0313 3 13
+Color S0313 0 255 0
 Square S0314 3 14
+Color S0314 0 255 0
 Square S0315 3 15
+Color S0315 0 255 0
 Square S1406 14 6
+Color S1406 0 255 0
 Triangle T0906 9 6
 Rotate T0906
+Color T0906 0 255 0
 Square S1407 14 7
+Color S1407 0 255 0
 Square S0318 3 18
+Color S0318 0 255 0
 Square S1408 14 8
+Color S1408 0 255 0
 Square S1409 14 9
+Color S1409 0 255 0
 Square S0310 3 10
+Color S0310 0 255 0
 Square S0311 3 11
+Color S0311 0 255 0
 Square S0312 3 12
+Color S0312 0 255 0
 Square S1509 15 9
+Color S1509 0 255 0
 Triangle T1313 13 13
 Rotate T1313
+Color T1313 0 255 0
 Triangle T1314 13 14
 Rotate T1314
 Rotate T1314
 Rotate T1314
+Color T1314 0 255 0
 Square S1512 15 12
+Color S1512 0 255 0
 Square S1513 15 13
+Color S1513 0 255 0
 Square S0304 3 4
+Color S0304 0 255 0
 Square S1514 15 14
+Color S1514 0 255 0
 Square S0305 3 5
+Color S0305 0 255 0
 Square S0306 3 6
+Color S0306 0 255 0
 Square S0307 3 7
+Color S0307 0 255 0
 Square S1517 15 17
+Color S1517 0 255 0
 Square S0308 3 8
+Color S0308 0 255 0
 Square S0309 3 9
+Color S0309 0 255 0
 Square S1510 15 10
+Color S1510 0 255 0
 Square S1511 15 11
+Color S1511 0 255 0
 Triangle T1102 11 2
 Rotate T1102
 Rotate T1102
 Rotate T1102
+Color T1102 0 255 0
 Triangle T1108 11 8
 Rotate T1108
 Rotate T1108
+Color T1108 0 255 0
 Triangle T1900 19 0
 Rotate T1900
+Color T1900 0 255 0
 Triangle T1105 11 5
+Color T1105 0 255 0
 Square S0214 2 14
+Color S0214 0 255 0
 Square S0215 2 15
+Color S0215 0 255 0
 Triangle T0808 8 8
 Rotate T0808
 Rotate T0808
 Rotate T0808
+Color T0808 0 255 0
 Square S0216 2 16
+Color S0216 0 255 0
 Square S1307 13 7
+Color S1307 0 255 0
 Square S1308 13 8
+Color S1308 0 255 0
 Square S1309 13 9
+Color S1309 0 255 0
 Triangle T0805 8 5
 Rotate T0805
+Color T0805 0 255 0
 Square S0210 2 10
+Color S0210 0 255 0
 Square S0211 2 11
+Color S0211 0 255 0
 Square S0212 2 12
+Color S0212 0 255 0
 Square S0213 2 13
+Color S0213 0 255 0
 Triangle T1213 12 13
 Rotate T1213
 Rotate T1213
 Rotate T1213
+Color T1213 0 255 0
 Triangle T0802 8 2
 Rotate T0802
 Rotate T0802
+Color T0802 0 255 0
 Square S0203 2 3
+Color S0203 0 255 0
 Square S1413 14 13
+Color S1413 0 255 0
 Square S0204 2 4
+Color S0204 0 255 0
 Square S0205 2 5
+Color S0205 0 255 0
 Square S0206 2 6
+Color S0206 0 255 0
 Square S1416 14 16
+Color S1416 0 255 0
 Square S0207 2 7
+Color S0207 0 255 0
 Square S0208 2 8
+Color S0208 0 255 0
 Square S0209 2 9
+Color S0209 0 255 0
 Square S1410 14 10
+Color S1410 0 255 0
 Square S1411 14 11
+Color S1411 0 255 0
 Square S1412 14 12
+Color S1412 0 255 0
 LeftFlipper LF0813 8 13
+Color LF0813 0 255 0
 Square S0508 5 8
+Color S0508 0 255 0
 Square S0509 5 9
+Color S0509 0 255 0
 Triangle T1405 14 5
 Rotate T1405
 Rotate T1405
+Color T1405 0 255 0
 Triangle T0316 3 16
+Color T0316 0 255 0
 Triangle T0317 3 17
 Rotate T0317
 Rotate T0317
+Color T0317 0 255 0
 Square S0511 5 11
+Color S0511 0 255 0
 Square S0512 5 12
+Color S0512 0 255 0
 Square S0513 5 13
+Color S0513 0 255 0
 Square S1604 16 4
+Color S1604 0 255 0
 Square S1605 16 5
+Color S1605 0 255 0
 Square S0516 5 16
+Color S0516 0 255 0
 Square S1606 16 6
+Color S1606 0 255 0
 Square S1607 16 7
+Color S1607 0 255 0
 Square S0510 5 10
+Color S0510 0 255 0
 Square S1707 17 7
+Color S1707 0 255 0
 Square S1708 17 8
+Color S1708 0 255 0
 Triangle T1515 15 15
 Rotate T1515
+Color T1515 0 255 0
 Square S1709 17 9
+Color S1709 0 255 0
+LeftFlipper LF0809 8 9
+Color LF0809 255 0 0
 Triangle T1516 15 16
 Rotate T1516
 Rotate T1516
 Rotate T1516
+Color T1516 0 255 0
 Triangle T0303 3 3
 Rotate T0303
 Rotate T0303
 Rotate T0303
+Color T0303 0 255 0
 Square S1710 17 10
+Color S1710 0 255 0
 Square S1711 17 11
+Color S1711 0 255 0
 Square S1712 17 12
+Color S1712 0 255 0
 Square S1713 17 13
+Color S1713 0 255 0
 Square S1714 17 14
+Color S1714 0 255 0
 Square S1715 17 15
+Color S1715 0 255 0
 Square S0506 5 6
+Color S0506 0 255 0
 Square S1716 17 16
+Color S1716 0 255 0
 Square S0507 5 7
+Color S0507 0 255 0
+RightFlipper RF1009 10 9
+Color RF1009 255 0 0
 Square S0409 4 9
+Color S0409 0 255 0
 Triangle T1306 13 6
 Rotate T1306
 Rotate T1306
+Color T1306 0 255 0
 Triangle T0217 2 17
+Color T0217 0 255 0
 Triangle T0218 2 18
 Rotate T0218
 Rotate T0218
+Color T0218 0 255 0
 Square S0412 4 12
+Color S0412 0 255 0
 Square S0413 4 13
+Color S0413 0 255 0
 Square S0414 4 14
+Color S0414 0 255 0
 Square S1505 15 5
+Color S1505 0 255 0
 Square S1506 15 6
+Color S1506 0 255 0
 Square S0417 4 17
+Color S0417 0 255 0
 Square S1507 15 7
+Color S1507 0 255 0
 Square S1508 15 8
+Color S1508 0 255 0
 Square S0410 4 10
+Color S0410 0 255 0
 Square S0411 4 11
+Color S0411 0 255 0
 Square S1608 16 8
+Color S1608 0 255 0
 Square S1609 16 9
+Color S1609 0 255 0
+RightFlipper RF1013 10 13
+Color RF1013 255 0 0
 Triangle T1414 14 14
 Rotate T1414
+Color T1414 0 255 0
 Triangle T1415 14 15
 Rotate T1415
 Rotate T1415
 Rotate T1415
+Color T1415 0 255 0
 Triangle T0202 2 2
 Rotate T0202
 Rotate T0202
 Rotate T0202
+Color T0202 0 255 0
 Square S1611 16 11
+Color S1611 0 255 0
 Square S1612 16 12
+Color S1612 0 255 0
 Square S1613 16 13
+Color S1613 0 255 0
 Square S1614 16 14
+Color S1614 0 255 0
 Square S0405 4 5
+Color S0405 0 255 0
 Square S1615 16 15
+Color S1615 0 255 0
 Square S0406 4 6
+Color S0406 0 255 0
 Square S0407 4 7
+Color S0407 0 255 0
 Square S0408 4 8
+Color S0408 0 255 0
 Square S1618 16 18
+Color S1618 0 255 0
 Square S1610 16 10
+Color S1610 0 255 0
 Triangle T1603 16 3
 Rotate T1603
 Rotate T1603
+Color T1603 0 255 0
 Triangle T0514 5 14
+Color T0514 0 255 0
 Square S0708 7 8
+Color S0708 0 255 0
 Triangle T0515 5 15
 Rotate T0515
 Rotate T0515
+Color T0515 0 255 0
 Square S1802 18 2
+Color S1802 0 255 0
 Square S0714 7 14
+Color S0714 0 255 0
 Square S1803 18 3
+Color S1803 0 255 0
 Triangle T1717 17 17
 Rotate T1717
+Color T1717 0 255 0
 Square S1804 18 4
+Color S1804 0 255 0
 Triangle T1718 17 18
 Rotate T1718
 Rotate T1718
 Rotate T1718
+Color T1718 0 255 0
 Square S1805 18 5
+Color S1805 0 255 0
 Square S1002 10 2
+Color S1002 0 255 0
 Square S1003 10 3
+Color S1003 0 255 0
 Square S1004 10 4
+Color S1004 0 255 0
 Square S1005 10 5
+Color S1005 0 255 0
 Triangle T0505 5 5
 Rotate T0505
 Rotate T0505
 Rotate T0505
-RightFlipper RF1113 11 13
+Color T0505 0 255 0
 Square S0607 6 7
+Color S0607 0 255 0
 Square S1817 18 17
+Color S1817 0 255 0
 Square S0608 6 8
+Color S0608 0 255 0
 Triangle T1504 15 4
 Rotate T1504
 Rotate T1504
+Color T1504 0 255 0
 Triangle T0415 4 15
+Color T0415 0 255 0
 Square S0609 6 9
+Color S0609 0 255 0
 Triangle T0416 4 16
 Rotate T0416
 Rotate T0416
+Color T0416 0 255 0
 Square S0610 6 10
+Color S0610 0 255 0
 Square S0611 6 11
+Color S0611 0 255 0
 Square S0612 6 12
+Color S0612 0 255 0
 Square S1703 17 3
+Color S1703 0 255 0
 Square S1704 17 4
+Color S1704 0 255 0
 Square S0615 6 15
+Color S0615 0 255 0
 Square S1705 17 5
+Color S1705 0 255 0
 Square S1706 17 6
+Color S1706 0 255 0
 Triangle T1616 16 16
 Rotate T1616
+Color T1616 0 255 0
 Square S1806 18 6
+Color S1806 0 255 0
 Triangle T1617 16 17
 Rotate T1617
 Rotate T1617
 Rotate T1617
+Color T1617 0 255 0
 Square S1807 18 7
+Color S1807 0 255 0
 Triangle T0404 4 4
 Rotate T0404
 Rotate T0404
 Rotate T0404
+Color T0404 0 255 0
 Square S1808 18 8
+Color S1808 0 255 0
 Square S1809 18 9
+Color S1809 0 255 0
 Square S1810 18 10
+Color S1810 0 255 0
 Square S1811 18 11
+Color S1811 0 255 0
 Square S1812 18 12
+Color S1812 0 255 0
 Square S1813 18 13
+Color S1813 0 255 0
 Square S1814 18 14
+Color S1814 0 255 0
 Square S1815 18 15
+Color S1815 0 255 0
 Square S1816 18 16
-Ball Ball 19.5 18.5 0 -100
+Color S1816 0 255 0
+Connect A0019 A0019
+Ball Ball 19.5 18.5  0 -50
+Friction 0.025 0.025
+Gravity 25.0
+KeyConnect key 37 down LF0809
+KeyConnect key 37 down LF0813
+KeyConnect key 37 down LF0809
+KeyConnect key 37 down LF0813
+KeyConnect key 37 down LF0809
+KeyConnect key 37 down LF0813
+KeyConnect key 39 down RF1009
+KeyConnect key 39 down RF1013
+KeyConnect key 37 up LF0809
+KeyConnect key 37 up LF0813
+KeyConnect key 39 up RF1009
+KeyConnect key 39 up RF1013

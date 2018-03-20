@@ -3,7 +3,6 @@ package Model;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.Gizmos.Absorber;
 import Model.Gizmos.IGizmo;
-import javafx.scene.input.KeyCode;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
@@ -11,6 +10,7 @@ import physics.Vect;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class Board extends Observable implements IBoard {
 
@@ -23,11 +23,14 @@ public class Board extends Observable implements IBoard {
     private boolean runMode;
     private boolean[][] grid;
     private float gravity, mu, mu2;
-    private Set<Connector> connectors;
-    private Set<KeyConnector> keyConnectors;
+    private Set<IConnector> connectors;
+
+    private HashMap<Integer, List<String>> keyPressEvents;
+    private HashMap<Integer, List<String>> keyReleaseEvents;
+
+
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
-    private boolean release;
 
     //---------------------------------------------
 
@@ -55,25 +58,24 @@ public class Board extends Observable implements IBoard {
 
 		runMode = false;
 
-		release = false;
-		collideGizmo = null;
-		//--------------------------------------------------
+        collideGizmo = null;
 
-        //TODO Change from pixels to float in terms of L grid ie (x = 10.5,y = 5.5) is in centre of 11,6
-        // Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-
-        // Wall size 500 x 500 pixels
         walls = new Walls();
 
-        // Lines added in Proto3Main
+        keyPressEvents = new HashMap<>();
+        keyReleaseEvents = new HashMap<>();
 
 
     }
 
 
-	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
-		this.ball = new Ball(name, x, y, vx, vy);
-	}
+	public boolean addGizmoBall(String name, float x, float y, float vx, float vy) {
+	    if(!isInside(x,y)) {
+            this.ball = new Ball(name, x, y, vx, vy);
+            return true;
+        }
+        return false;
+    }
 
     public void switchMode() {
         runMode = !runMode;
@@ -101,7 +103,6 @@ public class Board extends Observable implements IBoard {
 	public boolean addConnector(String name1, String name2) {
 		try {
 			Connector connection = new Connector(getGizmoByID(name1), getGizmoByID(name2));
-			System.out.println("Connection hash code = " + connection.hashCode());
 
 			if (connectors.contains(connection)) {
 				return false;
@@ -115,24 +116,7 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
-    public boolean addKeyConnector(int key, String name) {
-        try {
-            KeyConnector keyConnection = new KeyConnector(key, getGizmoByID(name)) ;
-            System.out.println("Connection hash code = " + keyConnection.hashCode());
-
-            if (keyConnectors.contains(keyConnection)) {
-                return false;
-            } else {
-                keyConnectors.add(keyConnection);
-                return true;
-            }
-        } catch (NoSuchGizmoException e) {
-            return false;
-        }
-    }
-
     public boolean removeConnector(String name1, String name2) {
-        System.out.println("Connectors size before removal = " + connectors.size());
         try {
             Connector connector = new Connector(getGizmoByID(name1), getGizmoByID(name2));
 
@@ -142,9 +126,8 @@ public class Board extends Observable implements IBoard {
             return false;
 
         } finally {
-            System.out.println("Connectors size after removal = " + connectors.size());
-        }
 
+        }
     }
 
     /**
@@ -157,7 +140,7 @@ public class Board extends Observable implements IBoard {
         int y = gizmo.getPos1().y;
         String gizmoClass = gizmo.getClass().getSimpleName();
 
-        if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
+        if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19) && !isOccupiedByBall(x,y)) {
             int w = 0;
             while (w != gizmo.getWidth()) {
                 int h = 0;
@@ -196,13 +179,19 @@ public class Board extends Observable implements IBoard {
                 }
             }
             gizmoHashMap.put(gizmo.getID(), gizmo);
-            System.out.println(gizmoClass + " gizmo added");
             return true;
         } else {
             //Cords out of range
             return false;
         }
 
+    }
+
+    private boolean isOccupiedByBall(int x, int y) {
+        if(hasGizmoBall()) {
+            return x == (int) ball.getXPos() && y == (int) ball.getYPos();
+        }
+        return false;
     }
 
     public boolean deleteGizmo(String id) {
@@ -237,50 +226,19 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean moveGizmo(String id, int newX, int newY) {
-        System.out.println("in MoveGizmo before " + newX + " " +newY);
 
         try {
-            System.out.println("in MoveGizmo after try " + newX + " " +newY);
 
-            IGizmo gizmo = getGizmoByID(id);
-			String type = gizmo.getClass().getSimpleName();
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
-                System.out.println("in MoveGizmo " + newX + " " +newY);
-                String gizmoClass = gizmo.getClass().getSimpleName();
-				if (gizmoClass.equals("Flipper") && (newX < 19 && newY < 19)) {
-					if ((grid[newX][newY] == false) && (grid[newX][newY + 1] == false) && (grid[newX + 1][newY] == false) && (grid[newX + 1][newY + 1] == false)) {
-						grid[newX][newY] = true;
-						grid[newX][newY + 1] = true;
-						grid[newX + 1][newY] = true;
-						grid[newX + 1][newY + 1] = true;
-                        System.out.println("in MoveGizmo2 " + newX + " " +newY);
 
-
-                        deleteGizmo(id);
-
-						gizmo.getPos1().setLocation(newX, newY);
-						gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
-
-						addGizmo(gizmo);
-
-						return true;
-					} else {
-						//One of 4 grid locs required for flipper is occupied
-						return false;
-					}
-				}
-				else if (grid[newX][newY] == false) {
+				if (grid[newX][newY] == false) {
 					grid[newY][newY] = true;
+                    IGizmo gizmo = getGizmoByID(id);
+                    GizmoCreator gc = new GizmoCreator();
 
-					deleteGizmo(id);
-                    System.out.println("in MoveGizmo3 " + newX + " " +newY);
-
-
-                    gizmo.getPos1().setLocation(newX, newY);
-					gizmo.getPos1().setLocation(newX + gizmo.getWidth(), newY + gizmo.getHeight());
-
-					addGizmo(gizmo);
-					return true;
+                    addGizmo(gc.createGizmo(gizmo.getClass().getSimpleName(), id, newX, newY, gizmo.getColor()));
+                    deleteGizmo(id);
+                    return true;
 				} else {
 					//Grid loc already occupied
 					return false;
@@ -311,8 +269,8 @@ public class Board extends Observable implements IBoard {
         return new ArrayList<>(gizmoHashMap.values());
     }
 
-    public ArrayList<Connector> getConnectors() {
-        return new ArrayList<>(connectors);
+    public Set<IConnector> getConnectors() {
+        return connectors;
     }
 
     public IGizmo getGizmoByPosition(double x, double y) {
@@ -336,6 +294,21 @@ public class Board extends Observable implements IBoard {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public float getMU() {
+        return mu;
+    }
+
+    @Override
+    public float getMU2() {
+        return  mu2;
+    }
+
+    @Override
+    public float getGravity() {
+        return gravity;
     }
 
     public void gizmoAction(double moveTime) {
@@ -368,7 +341,7 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
 
                     if (collideGizmo!=null) {
-                        for (Connector c : connectors) {
+                        for (IConnector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
                                 c.execute();
                             }
@@ -513,7 +486,46 @@ public class Board extends Observable implements IBoard {
 
     }
 
-    public void release() {
-        release = true;
+    public boolean addKeyPressEvent(int event, String id) {
+        if (keyPressEvents.containsKey(event)) {
+            keyPressEvents.get(event).add(id);
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyPressEvents.put(event, list);
+        }
+        return true;
+
+    }
+
+    public boolean addKeyReleaseEvent(int event, String id) {
+
+        if (keyReleaseEvents.containsKey(event)) {
+            keyReleaseEvents.get(event).add(id);
+
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(id);
+            keyReleaseEvents.put(event, list);
+        }
+        return true;
+
+    }
+
+    private boolean isInside(float x,float y){
+        for(IGizmo g : gizmoHashMap.values()){
+            if(x >= g.getPos1().x && x <= g.getPos2().x && y >= g.getPos1().y && y <= g.getPos2().y){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public HashMap<Integer, List<String>> getKeyPressEvents() {
+        return keyPressEvents;
+    }
+
+    public HashMap<Integer, List<String>> getKeyReleaseEvents() {
+        return keyReleaseEvents;
     }
 }

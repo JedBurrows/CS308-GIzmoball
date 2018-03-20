@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LoadSaveController implements ActionListener {
@@ -26,7 +28,6 @@ public class LoadSaveController implements ActionListener {
         int returnVal = fc.showSaveDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             //TODO SAVING
-            System.out.println(fc.getSelectedFile().getName());
             try {
                 File saveFile = fc.getSelectedFile();
                 FileWriter fileWriter = new FileWriter(saveFile);
@@ -61,7 +62,7 @@ public class LoadSaveController implements ActionListener {
 
                 }
 
-                for (Connector connection : board.getConnectors()) {
+                for (IConnector connection : board.getConnectors()) {
                     bufferedWriter.write("Connect" + " " + connection.getSource().getID() + " " + connection.getTarget().getID());
                     bufferedWriter.newLine();
                 }
@@ -72,6 +73,28 @@ public class LoadSaveController implements ActionListener {
                     bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
                     bufferedWriter.newLine();
                 }
+                bufferedWriter.write("Friction" + " " + board.getMU() + " " + board.getMU2() );
+                bufferedWriter.newLine();
+                bufferedWriter.write("Gravity" + " " + board.getGravity());
+                bufferedWriter.newLine();
+
+                for (Map.Entry<Integer, List<String>> entry: board.getKeyPressEvents().entrySet()){
+                    for (String id: entry.getValue()){
+                        bufferedWriter.write("KeyConnect key"+ " " + entry.getKey() + " down " + id);
+                        bufferedWriter.newLine();
+                    }
+
+
+                }
+                for (Map.Entry<Integer, List<String>> entry: board.getKeyReleaseEvents().entrySet()){
+                    for (String id: entry.getValue()){
+                        bufferedWriter.write("KeyConnect key"+ " " + entry.getKey() + " up " + id);
+                        bufferedWriter.newLine();
+                    }
+
+
+                }
+
 
 
                 bufferedWriter.close();
@@ -257,8 +280,29 @@ public class LoadSaveController implements ActionListener {
 									"KeyConnect" "key" (KEYNUM num) "up" (IDENTIFIER consumer)
 								 */
                                 case "KeyConnect":
-                                    System.out.println("'KeyConnect' - command in file in file, cannot create KeyConnect");
+                                    String keyType;
+                                    if (scanner.hasNext()){
+                                        scanner.next();
+                                        if (scanner.hasNextInt()){
+                                            Integer keyNum = scanner.nextInt();
+                                            if (scanner.hasNext()){
+                                                keyType = scanner.next();
+                                                if (scanner.hasNext()){
+                                                    name = scanner.next();
 
+                                                    if (keyType.equals("down")){
+                                                        board.addKeyPressEvent(keyNum,name);
+
+                                                    }else if (keyType.equals("up")){
+                                                        board.addKeyReleaseEvent(keyNum,name);
+
+
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
                                     break;
 
 								/*
@@ -269,7 +313,6 @@ public class LoadSaveController implements ActionListener {
                                         g = scanner.nextFloat();
                                         board.setGravity(g);
                                     } else {
-                                        System.out.println("");
                                     }
                                     break;
 

@@ -3,7 +3,7 @@ package Controller;
 import Model.GizmoCreator;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 
 public class AddGizmoPressListener implements MouseInputListener {
 
-	private BuildGUI buildGUI;
 	private JComboBox<String> gizmo;
 	private BoardPanel boardPanel;
 	private float L;
@@ -23,26 +22,23 @@ public class AddGizmoPressListener implements MouseInputListener {
 	private MouseEvent released;
 	private Color colour;
 
-	public AddGizmoPressListener(BuildGUI gui, Color colour) {
-		this.buildGUI = gui;
-		this.gizmo = buildGUI.getBoxGizmo();
-		this.boardPanel = buildGUI.getBoardPanel();
+	public AddGizmoPressListener(GBallFrame gBallFrame, Color colour) {
+		//TODO NEEDS RESOLVED
+		this.gizmo = gBallFrame.getBuildPanel().getBoxGizmo();
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.gizmoCreator = new GizmoCreator();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		this.colour = colour;
-		System.out.println(this.colour);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Click event");
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("Press event");
 		if (!board.isRunMode()) {
 			pressed = e;
 			boardPanel.setSelectPoint1(e.getPoint());
@@ -53,7 +49,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 					int x;
 					int y;
 					if (g.equals("RightFlipper")){
-						System.out.println("here1");
 						x = (int) (e.getX() / L) - 1;
 					}else {
 						x = (int) (e.getX() / L);
@@ -64,8 +59,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 					boardPanel.removedSelected();
 					boardPanel.repaint();
 				}
-				buildGUI.clearSelected();
-				buildGUI.setMode("AddGizmo");
 			}
 		}
 
@@ -73,7 +66,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("Release event");
 		if (!board.isRunMode()) {
 			String g = gizmo.getSelectedItem().toString();
 			if (g.equals("Absorber")) {
@@ -84,8 +76,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 				int j = (int) (released.getY() / L) + 1;
 				if ((j - y) <= (i - x)) {
 					board.addGizmo(gizmoCreator.createAbsorber(x, y, i, j, colour));
-					buildGUI.clearSelected();
-					buildGUI.setMode("AddGizmo");
 
 					//TODO clear point selection on BoardPanel here then repaint
 					boardPanel.removedSelected();
@@ -113,7 +103,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		System.out.println("Drag Event");
 		boardPanel.setSelectPoint2(e.getPoint());
 		boardPanel.repaint();
 
@@ -122,7 +111,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		//System.out.println("Move event");
 
 	}
 

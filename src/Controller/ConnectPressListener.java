@@ -3,16 +3,14 @@ package Controller;
 import Model.Gizmos.IGizmo;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 //public class ConnectPressListener implements MouseListener {
 public class ConnectPressListener implements MouseInputListener {
-	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
@@ -21,9 +19,8 @@ public class ConnectPressListener implements MouseInputListener {
 	private IGizmo source;
 	private IGizmo target;
 
-	public ConnectPressListener(BuildGUI buildGUI) {
-		this.buildGUI = buildGUI;
-		this.boardPanel = buildGUI.getBoardPanel();
+	public ConnectPressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		this.doneFlag = true;
@@ -65,19 +62,14 @@ public class ConnectPressListener implements MouseInputListener {
 		try {
 			if (doneFlag) {
 				source = board.getGizmoByPosition(x / L, y / L);
-				System.out.println("Source set as: " + source.getID());
 				doneFlag = false;
 			} else {
 				target = board.getGizmoByPosition(x / L, y / L);
-				System.out.println("Target set as: " + target.getID());
-
-				System.out.println("Add Connection was: " + board.addConnector(source.getID(), target.getID()));
-				System.out.println("Connection created.");
+				board.addConnector(source.getID(), target.getID());
 				doneFlag = true;
 
 			}
 		} catch (NullPointerException e) {
-			System.out.println("Not a gizmo.");
 		}
 	}
 

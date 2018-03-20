@@ -4,7 +4,7 @@ import Model.Gizmos.IGizmo;
 
 import java.util.Objects;
 
-public class Connector {
+public class Connector implements IConnector {
 	private IGizmo source, target;
 
 	/**
@@ -12,9 +12,7 @@ public class Connector {
 	 */
 	public Connector(IGizmo source, IGizmo target) {
 		this.source = source;
-		System.out.println("Source HashCode = " + this.source.hashCode());
 		this.target = target;
-		System.out.println("Target HashCode = " + this.target.hashCode());
 
 
 	}

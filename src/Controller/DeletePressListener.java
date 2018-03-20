@@ -2,20 +2,18 @@ package Controller;
 
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
 public class DeletePressListener implements MouseInputListener {
-	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
 
-	public DeletePressListener(BuildGUI buildGUI) {
-		this.buildGUI = buildGUI;
-		this.boardPanel = buildGUI.getBoardPanel();
+	public DeletePressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 	}
@@ -34,11 +32,16 @@ public class DeletePressListener implements MouseInputListener {
 			board.deleteBall();
 			boardPanel.repaint();
 		} else {
-			board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
-			boardPanel.repaint();
+			try {
+				board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
+				boardPanel.repaint();
+			}
+			catch (NullPointerException ex){
+
+			}
+
+
 		}
-		buildGUI.clearSelected();
-		buildGUI.setMode("Delete");
 	}
 
 	@Override

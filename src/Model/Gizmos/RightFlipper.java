@@ -39,11 +39,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
         angle = 90;
         angVel = 1080;
 
-        if (direction) {
-            width = -width;
-        }
-
-
         circles.add(new Circle(xpos + 1.75, ypos + 0.25, 0.25));
         circles.add(new Circle(xpos + 1.75, ypos + 1.75, 0.25));
 
@@ -89,7 +84,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
 
     public void createCircles(double tickTime) {
         ArrayList<Circle> tempC = new ArrayList<>();
-        System.out.println(angVel / (1 / tickTime));
         for (physics.Circle c : circles) {
             c = Geometry.rotateAround(c, circles.get(0).getCenter(), new Angle(-Math.toRadians(angVel / (1 / tickTime))));
             if (c.getCenter().y() < ypos + 0.25 && rotation == 0) {

@@ -4,6 +4,7 @@ import Model.Connector;
 import Model.Gizmos.IGizmo;
 import Model.IBall;
 import Model.IBoard;
+import Model.IConnector;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -13,6 +14,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class BoardPanel extends JPanel implements Observer {
 
@@ -56,17 +58,6 @@ public class BoardPanel extends JPanel implements Observer {
 		for (IGizmo gizmo : gizmos) {
 
 			//Todo fix to use colour from picker, Beware passing null to setColor will just end up drawing the last color set ie colour of board
-			//pls = colours.getColorGiz();
-			//System.out.println("pls is" + pls);
-			//g2.setColor(pls);
-			//System.out.println(g2.getColor().toString());
-
-//            if(colours.getColorGiz()!= null){
-//                g.setColor(colours.getColorGiz());
-//            }
-//            else{
-//                g.setColor(Color.MAGENTA);
-//            }
 
 			g.setColor(gizmo.getColor());
 			String type = gizmo.getClass().getSimpleName();
@@ -88,7 +79,6 @@ public class BoardPanel extends JPanel implements Observer {
 					break;
 				case "LeftFlipper":
 				case "RightFlipper":
-					//g2.setColor(Color.YELLOW);
 
 					for (LineSegment l : gizmo.getLineSegments()) {
 						g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
@@ -119,8 +109,6 @@ public class BoardPanel extends JPanel implements Observer {
 
 
 			int r = (int) (ball.getRadius() * (double) Lwidth);
-
-			System.out.println(r);
 			g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
 		}
 
@@ -139,9 +127,9 @@ public class BoardPanel extends JPanel implements Observer {
 
 
 		g2.setColor(Color.BLUE);
-		ArrayList<Connector> connectors = board.getConnectors();
+		Set<IConnector> connectors = board.getConnectors();
 
-		for (Connector connection : connectors) {
+		for (IConnector connection : connectors) {
 			IGizmo source = connection.getSource(), target = connection.getTarget();
 			Point sourcePos1 = source.getPos1(), targetPos1 = target.getPos1();
 
@@ -184,9 +172,7 @@ public class BoardPanel extends JPanel implements Observer {
 		Rectangle selection = new Rectangle(point1);
 		selection.add(point2);
 		g2.setColor(Color.orange);
-
 		g2.draw(selection);
-
 	}
 
 	public IBoard getBoard() {
@@ -202,8 +188,6 @@ public class BoardPanel extends JPanel implements Observer {
 
 	public void setSelectPoint1(Point point) {
 		this.point1 = point;
-
-
 	}
 
 	public void setSelectPoint2(Point point) {
