@@ -1,5 +1,6 @@
-package Model;
+package ModelTests;
 
+import Model.Ball;
 import org.junit.Before;
 import org.junit.Test;
 

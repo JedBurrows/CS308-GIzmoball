@@ -1,8 +1,11 @@
+package ModelTests;
+
 import Model.Ball;
 import Model.Board;
 import Model.Exceptions.NoSuchGizmoException;
 import Model.GizmoCreator;
-import Model.Gizmos.*;
+import Model.Gizmos.Absorber;
+import Model.Gizmos.IGizmo;
 import Model.IBoard;
 import org.junit.Before;
 import org.junit.Test;
@@ -141,7 +144,7 @@ public class BoardTest {
     @Test
     public void getGizmoByPosition() throws Exception {
         assertNotNull(board.getGizmoByPosition(19.4,0.5));
-        
+
         assertNull(board.getGizmoByPosition(0,0));
         assertNull(board.getGizmoByPosition(5.6,5.2));
         assertNull(board.getGizmoByPosition(-1,-13));
@@ -255,8 +258,6 @@ public class BoardTest {
         triangleTest.setup();
         triangleTest.createCircles();
         triangleTest.createLines();
-
-
 
 
     }
