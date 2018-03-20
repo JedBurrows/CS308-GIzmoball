@@ -23,8 +23,6 @@ public interface IBoard {
 
 	boolean addConnector(String name1, String name2);
 
-	boolean addKeyConnector(int key, String name);
-
 	boolean removeConnector(String name1, String name2);
 
 	boolean addGizmo(IGizmo gizmo);
