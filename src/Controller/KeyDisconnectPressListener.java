@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.util.HashMap;
 import java.util.List;
 
-public class KeyDisconnectPressListener implements KeyListener, MouseListener {
+public class KeyDisconnectPressListener implements KeyListener, MouseInputListener {
 
 	private BoardPanel boardPanel;
 	private float L;
@@ -93,4 +93,13 @@ public class KeyDisconnectPressListener implements KeyListener, MouseListener {
 
 	}
 
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
+	}
 }
