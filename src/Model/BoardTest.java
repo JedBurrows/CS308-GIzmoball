@@ -16,20 +16,23 @@ public class BoardTest {
         board = new Board();
         gc = new GizmoCreator();
         board.addGizmo(gc.createGizmo("Square",  0, 0, Color.RED));
-        board.addGizmo(gc.createGizmo("Square", 19, 0, Color.RED));
-        board.addGizmo(gc.createGizmo("Square", 0, 19, Color.RED));
-        board.addGizmo(gc.createGizmo("Square", 19, 19, Color.RED));
+        board.addGizmo(gc.createGizmo("Square", 19, 0, Color.MAGENTA));
+        board.addGizmo(gc.createGizmo("Square", 0, 19, Color.YELLOW));
+        board.addGizmo(gc.createGizmo("Square", 19, 19, Color.BLUE));
 
     }
 
     @Test
     public void addGizmo() throws Exception {
         assertTrue(board.addGizmo(gc.createGizmo("Square",  0, 1, Color.RED)));
-        assertFalse(board.addGizmo(gc.createGizmo("Square",  0, 0, Color.RED)));
-        assertFalse(board.addGizmo(gc.createGizmo("Square",  -1, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("Circle",  0, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("Triangle",  -1, 0, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  20, 0, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  0, -1, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  0, 20, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("LeftFlipper",  19, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("RightFlipper",  0, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("RightFlipper",  0, 19, Color.RED)));
 
     }
 
@@ -85,10 +88,25 @@ public class BoardTest {
 
     @Test
     public void deleteGizmo() throws Exception {
+        board.addGizmo(gc.createGizmo("Square", "SQR", 0, 15, Color.YELLOW));
+
+        assertTrue(board.deleteGizmo("SQR"));
+        assertFalse(board.deleteGizmo("SQR1"));
+
     }
 
     @Test
     public void moveGizmo() throws Exception {
+        board.addGizmo(gc.createGizmo("Square", "SQR", 0, 15, Color.YELLOW));
+
+        assertTrue(board.moveGizmo("SQR", 5, 5));
+        assertFalse(board.moveGizmo("SQR", 0, 0));
+        assertFalse(board.moveGizmo("SQR1", 6, 6));
+        assertFalse(board.moveGizmo("SQR", -1, 5));
+
+
+
+
     }
 
     @Test
