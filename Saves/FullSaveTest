@@ -286,7 +286,7 @@ Color S1411 0 255 0
 Square S1412 14 12
 Color S1412 0 255 0
 LeftFlipper LF0813 8 13
-Color LF0813 0 255 0
+Color LF0813 255 0 0
 Square S0508 5 8
 Color S0508 0 255 0
 Square S0509 5 9
@@ -358,6 +358,8 @@ Square S1716 17 16
 Color S1716 0 255 0
 Square S0507 5 7
 Color S0507 0 255 0
+RightFlipper RF1009 10 9
+Color RF1009 255 0 0
 Square S0409 4 9
 Color S0409 0 255 0
 Triangle T1306 13 6
@@ -394,6 +396,8 @@ Square S1608 16 8
 Color S1608 0 255 0
 Square S1609 16 9
 Color S1609 0 255 0
+RightFlipper RF1013 10 13
+Color RF1013 255 0 0
 Triangle T1414 14 14
 Rotate T1414
 Color T1414 0 255 0
@@ -542,7 +546,7 @@ Color S1815 0 255 0
 Square S1816 18 16
 Color S1816 0 255 0
 Connect A0019 A0019
-Ball Ball 10.627679 14.154605 7.857102874474854 16.7036776624915
+Ball Ball 10.627679 14.154605 7.857102870941162 16.703678131103516
 Friction 0.025 0.025
 Gravity 25.0
 KeyConnect key 37 down LF0809
@@ -551,5 +555,11 @@ KeyConnect key 37 down LF0809
 KeyConnect key 37 down LF0813
 KeyConnect key 37 down LF0809
 KeyConnect key 37 down LF0813
+KeyConnect key 37 down LF0813
+KeyConnect key 39 down RF1013
+KeyConnect key 39 down RF1009
 KeyConnect key 37 up LF0809
 KeyConnect key 37 up LF0813
+KeyConnect key 37 up LF0813
+KeyConnect key 39 up RF1013
+KeyConnect key 39 up RF1009

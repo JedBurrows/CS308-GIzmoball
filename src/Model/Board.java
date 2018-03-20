@@ -35,7 +35,7 @@ public class Board extends Observable implements IBoard {
 
     //---------------------------------------------
 
-    private Ball ball;
+    private Map<String , Ball> balls;
     private Walls walls;
 
 
@@ -46,6 +46,8 @@ public class Board extends Observable implements IBoard {
 		gravity = DEFAULT_GRAVITY;
 		mu = DEFAULT_MU;
 		mu2 = DEFAULT_MU2;
+
+		balls = new HashMap<>();
 
 		moveTime = 0.05;
 
@@ -72,7 +74,8 @@ public class Board extends Observable implements IBoard {
 
 
 	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
-		this.ball = new Ball(name, x, y, vx, vy);
+	    balls.put(name ,new Ball(name, x, y, vx, vy));
+
 	}
 
     public void switchMode() {
@@ -81,8 +84,8 @@ public class Board extends Observable implements IBoard {
 
 
     public boolean hasGizmoBall() {
-        return ball != null;
-    }
+        return !balls.isEmpty();
+	}
 
     public void setFriction(float mu, float mu2) {
         this.mu = mu;
@@ -93,8 +96,8 @@ public class Board extends Observable implements IBoard {
         this.gravity = g;
     }
 
-    public Ball getGizmoBall() {
-        return ball;
+    public Collection<Ball> getGizmoBall() {
+        return balls.values();
     }
 
 
@@ -304,16 +307,20 @@ public class Board extends Observable implements IBoard {
     }
 
     @Override
-    public void deleteBall() {
-        ball = null;
+    public void deleteBall(String id) {
+        balls.remove(id);
     }
 
     public boolean isInsideBall(float x, float y) {
         if (hasGizmoBall()) {
-            return (x >= ball.getXPos() - ball.getRadius() && x <= ball.getXPos() + ball.getRadius() && y >= ball.getYPos() - ball.getRadius() && y <= ball.getYPos() + ball.getRadius());
-        } else {
-            return false;
+            for (Ball ball: balls.values()){
+                if ((x >= ball.getXPos() - ball.getRadius() && x <= ball.getXPos() + ball.getRadius() && y >= ball.getYPos() - ball.getRadius() && y <= ball.getYPos() + ball.getRadius())){
+                    return true;
+                }
+            }
+
         }
+        return false;
     }
 
     @Override
@@ -331,7 +338,7 @@ public class Board extends Observable implements IBoard {
         return gravity;
     }
 
-    public void gizmoAction(double moveTime) {
+    public void gizmoAction(double moveTime,Ball ball) {
         for (IGizmo g : gizmoHashMap.values()) {
             g.action(moveTime, ball);
         }
@@ -344,50 +351,51 @@ public class Board extends Observable implements IBoard {
         // 0.05 = 20 times per second as per Gizmoball
 
         if (runMode) {
+            for (Ball ball : balls.values()) {
             double moveTime = 0.01;
-            gizmoAction(moveTime);
+            gizmoAction(moveTime, ball);
             this.setChanged();
             this.notifyObservers();
-            if (ball != null && !ball.stopped()) {
+                if (ball != null && !ball.stopped()) {
 
-                CollisionDetails cd = timeUntilCollision();
-                double tuc = cd.getTuc();
-                if (tuc > moveTime) {
-                    // No collision ...
+                    CollisionDetails cd = timeUntilCollision(ball);
+                    double tuc = cd.getTuc();
+                    if (tuc > moveTime) {
+                        // No collision ...
 
-                    ball = movelBallForTime(ball, moveTime);
-                } else {
-                    // We've got a collision in tuc
-                    ball = movelBallForTime(ball, tuc);
+                        ball = movelBallForTime(ball, moveTime);
+                    } else {
+                        // We've got a collision in tuc
+                        ball = movelBallForTime(ball, tuc);
 
-                    if (collideGizmo!=null) {
-                        for (Connector c : connectors) {
-                            if (c.getSource().getID().equals(collideGizmo.getID())) {
-                                c.execute();
+                        if (collideGizmo != null) {
+                            for (Connector c : connectors) {
+                                if (c.getSource().getID().equals(collideGizmo.getID())) {
+                                    c.execute();
+                                }
                             }
                         }
+                        if (collideGizmo instanceof Absorber) {
+                            absorbBall(collideGizmo, ball);
+                        } else {
+                            ball.setVelo(cd.getVelo());
+                        }
+                        collideGizmo = null;
+
                     }
-                    if(collideGizmo instanceof Absorber){
-                        absorbBall(collideGizmo);
-                    }
-                    else{
-                        ball.setVelo(cd.getVelo());
-                    }
-                    collideGizmo = null;
+                    applyGravity(moveTime);
+                    applyFriction(moveTime);
+                    // Notify observers ... redraw updated view
 
                 }
-                applyGravity(moveTime);
-                applyFriction(moveTime);
-                // Notify observers ... redraw updated view
-
+                this.setChanged();
+                this.notifyObservers();
             }
-            this.setChanged();
-            this.notifyObservers();
         }
 
     }
 
-    public void absorbBall(IGizmo g){
+    public void absorbBall(IGizmo g, Ball ball){
         ball.setXPos((float)(g.getPos2().x - 0.5));
         ball.setYPos((float)(g.getPos2().y - 0.25));
         ball.setVelo(new Vect(0, 0));
@@ -409,10 +417,13 @@ public class Board extends Observable implements IBoard {
     }
 
     private void applyGravity(double time) {
-        double oldSpeed = ball.getVelo().y();
-        double newSpeed = oldSpeed + (gravity * time);
+        for (Ball ball: balls.values()){
+            double oldSpeed = ball.getVelo().y();
+            double newSpeed = oldSpeed + (gravity * time);
 
-        ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
+            ball.setVelo(new Vect(ball.getVelo().x(),newSpeed));
+        }
+
     }
 
     private void applyFriction(double time) {
@@ -421,15 +432,22 @@ public class Board extends Observable implements IBoard {
 
         mu /= moveTime;
 
-        double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time);
-        double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
+        for (Ball ball: balls.values()){
 
-        ball.setVelo(new Vect(newSpeedX, newSpeedY));
+            double newSpeedX = ball.getVelo().x() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().x())) * time);
+            double newSpeedY = ball.getVelo().y() * (1 - (mu * time) - (mu2 * Math.abs(ball.getVelo().y())) * time);
+
+            ball.setVelo(new Vect(newSpeedX, newSpeedY));
+
+        }
+
     }
 
-    private CollisionDetails timeUntilCollision() {
+    private CollisionDetails timeUntilCollision(Ball ball) {
         // Find Time Until Collision and also, if there is a collision, the new speed vector.
         // Create a Circle from Ball
+
+
         Circle ballCircle = ball.getCircle();
         Vect ballVelocity = ball.getVelo();
         Vect newVelo = new Vect(0, 0);
@@ -487,17 +505,11 @@ public class Board extends Observable implements IBoard {
         return new CollisionDetails(shortestTime, newVelo);
     }
 
-    public Ball getBall() {
-        return ball;
-    }
 
-    public void setBallSpeed(int x, int y) {
-        ball.setVelo(new Vect(x, y));
-    }
 
 
     public void clearGizmos() {
-        ball = null;
+        balls.clear();
         connectors.clear();
         gizmoHashMap.clear();
         for (boolean[] row : grid) {

@@ -35,7 +35,7 @@ public class AddBallPressListener implements MouseInputListener {
 			System.out.println(e.getY());
 			System.out.println(x1);
 			System.out.println(y1);
-			board.addGizmoBall("Ball", x1, y1, 0f, 0f);
+			board.addGizmoBall("Ball"+board.getGizmoBall().size()+1, x1, y1, 0f, 0f);
 			boardPanel.repaint();
 		}
 

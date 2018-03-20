@@ -1,5 +1,6 @@
 package View;
 
+import Model.Ball;
 import Model.Connector;
 import Model.Gizmos.IGizmo;
 import Model.IBall;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -98,18 +100,22 @@ public class BoardPanel extends JPanel implements Observer {
 
 		if (board.hasGizmoBall()) {
 			g2.setColor(Color.BLUE);
-			IBall ball = board.getGizmoBall();
+			Collection<Ball> balls = board.getGizmoBall();
 
-			float x = ball.getXPos(), y = ball.getYPos();
+			for (Ball ball: balls){
 
-			x = (float) Lwidth * x;
-			y = (float) Lheight * y;
+				float x = ball.getXPos(), y = ball.getYPos();
+
+				x = (float) Lwidth * x;
+				y = (float) Lheight * y;
 
 
-			int r = (int) (ball.getRadius() * (double) Lwidth);
+				int r = (int) (ball.getRadius() * (double) Lwidth);
 
-			System.out.println(r);
-			g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+				g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
+
+			}
+
 		}
 
 

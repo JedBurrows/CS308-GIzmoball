@@ -69,10 +69,13 @@ public class LoadSaveController implements ActionListener {
                 }
 
                 if (panel.getBoard().hasGizmoBall()) {
-                    Ball ball = board.getBall();
 
-                    bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
-                    bufferedWriter.newLine();
+                    for (Ball ball: board.getGizmoBall()){
+                        bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
+                        bufferedWriter.newLine();
+
+                    }
+
                 }
                 bufferedWriter.write("Friction" + " " + board.getMU() + " " + board.getMU2() );
                 bufferedWriter.newLine();
