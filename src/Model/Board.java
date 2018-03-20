@@ -126,6 +126,7 @@ public class Board extends Observable implements IBoard {
             return false;
 
         } finally {
+
         }
     }
 
