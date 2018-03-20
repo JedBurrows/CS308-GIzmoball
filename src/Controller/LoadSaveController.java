@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -69,10 +70,11 @@ public class LoadSaveController implements ActionListener {
                 }
 
                 if (panel.getBoard().hasGizmoBall()) {
-                    Ball ball = board.getBall();
-
-                    bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
-                    bufferedWriter.newLine();
+                    for(int i = 0;i<panel.getBoard().getNumberBalls();i++) {
+                        IBall ball = panel.getBoard().getGizmoBall(i);
+                        bufferedWriter.write("Ball" + " " + ball.getName() + " " + ball.getXPos() + " " + ball.getYPos() + " " + ball.getVelo().x() + " " + ball.getVelo().y());
+                        bufferedWriter.newLine();
+                    }
                 }
                 bufferedWriter.write("Friction" + " " + board.getMU() + " " + board.getMU2() );
                 bufferedWriter.newLine();

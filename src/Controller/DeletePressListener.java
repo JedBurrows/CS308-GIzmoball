@@ -28,9 +28,13 @@ public class DeletePressListener implements MouseInputListener {
 	public void mousePressed(MouseEvent e) {
 		float x2 = e.getX() / L;
 		float y2 = e.getY() / L;
-		if (board.hasGizmoBall() && board.isInsideBall(x2, y2)) {
-			board.deleteBall();
-			boardPanel.repaint();
+		if (board.hasGizmoBall()){
+			for(int i = 0; i<board.getNumberBalls();i++){
+			if(board.isInsideBall(i,x2, y2)) {
+				board.deleteBall(i);
+				boardPanel.repaint();
+			}
+			}
 		} else {
 			board.deleteGizmo(board.getGizmoByPosition(x2, y2).getID());
 			boardPanel.repaint();

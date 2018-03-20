@@ -19,7 +19,9 @@ public interface IBoard {
 
 	void setGravity(float gravity);
 
-	Ball getGizmoBall();
+	ArrayList<Ball> getGizmoBalls();
+
+	public Ball getGizmoBall(int i);
 
 	boolean addConnector(String name1, String name2);
 
@@ -45,21 +47,20 @@ public interface IBoard {
 
 	void moveBall();
 
-	Ball getBall();
-
-	void setBallSpeed(int x, int y);
+	void setBallSpeed(int i, int x, int y);
 
 	void clearGizmos();
 
 	IGizmo getGizmoByPosition(double x, double y);
 
-	void deleteBall();
+	void deleteBall(int i);
 
-	boolean isInsideBall(float x, float y);
+	boolean isInsideBall(int i, float x, float y);
 
 
 	void addObserver(Observer o);
 
+	int getNumberBalls();
 	float getMU();
 	float getMU2();
 	float getGravity();
@@ -71,5 +72,6 @@ public interface IBoard {
 
 	boolean addKeyReleaseEvent(int event, String id);
 
+	boolean isFreeSpace(float x, float y);
 
 }

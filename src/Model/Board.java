@@ -30,8 +30,10 @@ public class Board extends Observable implements IBoard {
     private HashMap<Integer, List<String>> keyReleaseEvents;
 
 
+    private Set<KeyConnector> keyConnectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
+    private boolean release;
 
     //---------------------------------------------
 
@@ -64,8 +66,7 @@ public class Board extends Observable implements IBoard {
 
         walls = new Walls();
 
-        keyPressEvents = new HashMap<>();
-        keyReleaseEvents = new HashMap<>();
+        // Lines added in Proto3Main
 
 
     }
