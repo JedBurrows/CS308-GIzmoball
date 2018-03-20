@@ -23,7 +23,6 @@ public class BoardTest {
         board.addGizmo(gc.createGizmo("Square", 0, 19, Color.YELLOW));
         board.addGizmo(gc.createGizmo("Square", 19, 19, Color.BLUE));
         board.addConnector("S0000","S0019");
-        board.addGizmoBall("Ball", 0.5f,18.25f , 0f, 0f);
     }
 
     @Test
