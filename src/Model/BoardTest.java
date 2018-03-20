@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Exceptions.NoSuchGizmoException;
+import Model.Gizmos.Square;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +21,7 @@ public class BoardTest {
         board.addGizmo(gc.createGizmo("Square", 19, 0, Color.MAGENTA));
         board.addGizmo(gc.createGizmo("Square", 0, 19, Color.YELLOW));
         board.addGizmo(gc.createGizmo("Square", 19, 19, Color.BLUE));
+        board.addConnector("S0000","S0019");
 
     }
 
@@ -77,13 +80,16 @@ public class BoardTest {
 
     @Test
     public void addConnector() throws Exception {
-        assertTrue(board.addConnector("S0000","S0019"));
+        assertTrue(board.addConnector("S0019","S0000"));
         assertFalse(board.addConnector("S0000","S0019"));
         assertFalse(board.addConnector("S0000","None-Gizmo"));
     }
 
     @Test
     public void removeConnector() throws Exception {
+        assertTrue(board.removeConnector("S0000","S0019"));
+        assertFalse(board.removeConnector("S0000","S0019"));
+        assertFalse(board.removeConnector("S0000","NoneGizmo"));
     }
 
     @Test
@@ -104,13 +110,16 @@ public class BoardTest {
         assertFalse(board.moveGizmo("SQR1", 6, 6));
         assertFalse(board.moveGizmo("SQR", -1, 5));
 
-
-
-
     }
 
     @Test
     public void getGizmoByID() throws Exception {
+        assertNotNull(board.getGizmoByID("S0019"));
+    }
+
+    @Test(expected = NoSuchGizmoException.class)
+    public void getGizmoByIDException() throws Exception {
+        board.getGizmoByID("None-Gizmo");
     }
 
     @Test
@@ -127,6 +136,12 @@ public class BoardTest {
 
     @Test
     public void getGizmoByPosition() throws Exception {
+        assertNotNull(board.getGizmoByPosition(19.4,0.5));
+        
+        assertNull(board.getGizmoByPosition(0,0));
+        assertNull(board.getGizmoByPosition(5.6,5.2));
+        assertNull(board.getGizmoByPosition(-1,-13));
+        assertNull(board.getGizmoByPosition(-1,13));
     }
 
     @Test
