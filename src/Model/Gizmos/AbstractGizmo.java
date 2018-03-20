@@ -78,7 +78,9 @@ public abstract class AbstractGizmo {
         return pos2;
     }
 
-    public void setTrigger() { trigger = !trigger; }
+    public void setTrigger() {
+        trigger = !trigger;
+    }
 
     public double getAngVel() {
         return 0;
@@ -86,6 +88,12 @@ public abstract class AbstractGizmo {
 
     public boolean getMoving() {
         return false;
+    }
+
+    public void setPos1(double x, double y) {
+        if (x >= 0 && x <=19 && y >= 0 && y <=19) {
+            pos1.setLocation(x, y);
+        }
     }
 
     protected abstract void createCircles();

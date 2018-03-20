@@ -17,9 +17,6 @@ public class RunGUI implements IGUI {
 		runModeListener = new RunModeListener(parent);
 		//parent.getBoardPanel().addKeyListener(new );
 
-
-
-
 	}
 
 

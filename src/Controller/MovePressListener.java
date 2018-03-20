@@ -56,17 +56,23 @@ public class MovePressListener implements MouseInputListener {
         if (!board.isRunMode()) {
             int x2 = (int)(e.getX() / L);
             int y2 = (int)(e.getY() / L);
+//            if (x2 >= 0 && x2 <= 19 && y2 >= 0 && y2 <= 19) {
+//                String g = board.getGizmoByPosition(x1, y1).getClass().getSimpleName();
+//                Color c = board.getGizmoByPosition(x1, y1).getColor();
+//                System.out.println("sting: " + g);
+//                board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
+//
+//                board.addGizmo(gizmoCreator.createGizmo(g, x2, y2, c));
+//                boardPanel.repaint();
+//            }
+            try
+            {
+            }
+            catch (exception(type) e(object))‏
+            {
+            }
 
-            String g = board.getGizmoByPosition(x1, y1).getClass().getSimpleName();
-            Color c = board.getGizmoByPosition(x1, y1).getColor();
-            System.out.println("sting: " + g);
-            board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
-
-            board.addGizmo(gizmoCreator.createGizmo(g, x2, y2, c));
-            boardPanel.repaint();
-//            buildGUI.clearSelected();
         }
-
     }
 
     @Override

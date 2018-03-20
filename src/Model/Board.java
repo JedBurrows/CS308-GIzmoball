@@ -26,7 +26,6 @@ public class Board extends Observable implements IBoard {
     private Set<KeyConnector> keyConnectors;
     private HashMap<String, IGizmo> gizmoHashMap;
     private IGizmo collideGizmo;
-    private boolean release;
 
     //---------------------------------------------
 
@@ -42,7 +41,7 @@ public class Board extends Observable implements IBoard {
 		mu = DEFAULT_MU;
 		mu2 = DEFAULT_MU2;
 
-		moveTime = 0.05;
+		moveTime = 0.01;
 
 		grid = new boolean[20][20];
 		for (boolean[] row : grid) {
@@ -54,20 +53,9 @@ public class Board extends Observable implements IBoard {
 		gizmoHashMap = new HashMap<>();
 
 		runMode = false;
+        collideGizmo = null;
 
-		release = false;
-		collideGizmo = null;
-		//--------------------------------------------------
-
-        //TODO Change from pixels to float in terms of L grid ie (x = 10.5,y = 5.5) is in centre of 11,6
-        // Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-
-        // Wall size 500 x 500 pixels
         walls = new Walls();
-
-        // Lines added in Proto3Main
-
-
     }
 
 
@@ -491,7 +479,5 @@ public class Board extends Observable implements IBoard {
 
     }
 
-    public void release() {
-        release = true;
-    }
+
 }
