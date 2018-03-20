@@ -69,11 +69,12 @@ public class Board extends Observable implements IBoard {
     }
 
 
-	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
-	    if(!isInside(x,y))
-		    this.ball = new Ball(name, x, y, vx, vy);
-        System.out.println("BallX: " + (int)ball.getXPos());
-        System.out.println("BallY: " + (int)ball.getYPos());
+	public boolean addGizmoBall(String name, float x, float y, float vx, float vy) {
+	    if(!isInside(x,y)) {
+            this.ball = new Ball(name, x, y, vx, vy);
+            return true;
+        }
+        return false;
     }
 
     public void switchMode() {
