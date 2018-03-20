@@ -1,5 +1,6 @@
-package Model.Gizmos;
+package ModelTests;
 
+import Model.Gizmos.Square;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Circle;
@@ -8,7 +9,7 @@ import physics.LineSegment;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class SquareTest {
 

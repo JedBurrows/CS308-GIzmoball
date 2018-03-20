@@ -1,13 +1,8 @@
-package Model;
+package ModelTests;
 
+import Model.Ball;
 import org.junit.Before;
 import org.junit.Test;
-import physics.Circle;
-import physics.Vect;
-
-import java.awt.*;
-
-import static org.junit.Assert.*;
 
 public class BallTest {
     private Ball ball;
