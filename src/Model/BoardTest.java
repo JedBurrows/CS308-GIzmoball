@@ -47,6 +47,9 @@ public class BoardTest {
 
     @Test
     public void switchMode() throws Exception {
+        assertFalse(board.isRunMode());
+        board.switchMode();
+        assertTrue(board.isRunMode());
     }
 
     @Test
