@@ -108,6 +108,9 @@ public class BuildModeListener implements GBallListener {
                 break;
 
             case "Key Disconnect":
+                KeyDisconnectPressListener kd = new KeyDisconnectPressListener(gBallFrame);
+                this.setMouseListener(kd);
+                this.setKeyBoardListener(kd);
 
                 break;
             case "Run":
