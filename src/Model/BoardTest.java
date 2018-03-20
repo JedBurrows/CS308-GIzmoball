@@ -104,9 +104,6 @@ public class BoardTest {
         assertFalse(board.moveGizmo("SQR1", 6, 6));
         assertFalse(board.moveGizmo("SQR", -1, 5));
 
-
-
-
     }
 
     @Test
@@ -155,6 +152,16 @@ public class BoardTest {
 
     @Test
     public void moveBall() throws Exception {
+        board.addGizmoBall("Ball",1,2,0,0);
+        Ball b = board.getGizmoBall();
+        board.switchMode();
+        for (int x = 0; x < 500; x ++) {
+            board.moveBall();
+            assertTrue(b.getXPos() >= 0 && b.getXPos() <= 19);
+            assertTrue(b.getYPos() >= 0 && b.getYPos() <= 19);
+        }
+
+
     }
 
     @Test

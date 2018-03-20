@@ -7,7 +7,7 @@ import java.util.*;
 
 public interface IBoard {
 
-	boolean addGizmoBall(String name, float x, float y, float vx, float vy);
+	void addGizmoBall(String name, float x, float y, float vx, float vy);
 
 	boolean hasGizmoBall();
 
