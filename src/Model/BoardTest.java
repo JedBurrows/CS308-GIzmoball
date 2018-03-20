@@ -1,7 +1,10 @@
 package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
+import Model.Gizmos.CircleTest;
 import Model.Gizmos.Square;
+import Model.Gizmos.SquareTest;
+import Model.Gizmos.TriangleTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +16,7 @@ public class BoardTest {
     private IBoard board;
     private GizmoCreator gc;
 
+
     @Before
     public void setup(){
         board = new Board();
@@ -22,6 +26,12 @@ public class BoardTest {
         board.addGizmo(gc.createGizmo("Square", 0, 19, Color.YELLOW));
         board.addGizmo(gc.createGizmo("Square", 19, 19, Color.BLUE));
         board.addConnector("S0000","S0019");
+
+
+
+
+
+
 
     }
 
@@ -212,6 +222,29 @@ public class BoardTest {
 
     @Test
     public void getKeyReleaseEvents() throws Exception {
+    }
+
+    @Test
+    public void testGizmos()throws Exception{
+
+        SquareTest squareTest = new SquareTest();
+        squareTest.setup();
+        squareTest.createCircles();
+        squareTest.createLines();
+
+        CircleTest circleTest = new CircleTest();
+        circleTest.setup();
+        circleTest.createCircles();
+        circleTest.createLines();
+
+        TriangleTest triangleTest = new TriangleTest();
+        triangleTest.setup();
+        triangleTest.createCircles();
+        triangleTest.createLines();
+
+
+
+
     }
 
 }
