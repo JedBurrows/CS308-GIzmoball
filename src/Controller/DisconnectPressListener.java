@@ -59,19 +59,13 @@ public class DisconnectPressListener implements MouseInputListener {
 		try {
 			if (doneFlag) {
 				source = board.getGizmoByPosition(x / L, y / L);
-				System.out.println("Source set as: " + source.getID());
 				doneFlag = false;
 			} else {
 				target = board.getGizmoByPosition(x / L, y / L);
-				System.out.println("Target set as: " + target.getID());
-
-				System.out.println("Add Connection was: " + board.removeConnector(target.getID(), source.getID()));
-				System.out.println("Connection created.");
 				doneFlag = true;
 
 			}
 		} catch (NullPointerException e) {
-			System.out.println("Not a gizmo.");
 		}
 	}
 

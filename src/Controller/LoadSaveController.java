@@ -28,7 +28,6 @@ public class LoadSaveController implements ActionListener {
         int returnVal = fc.showSaveDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             //TODO SAVING
-            System.out.println(fc.getSelectedFile().getName());
             try {
                 File saveFile = fc.getSelectedFile();
                 FileWriter fileWriter = new FileWriter(saveFile);
@@ -314,7 +313,6 @@ public class LoadSaveController implements ActionListener {
                                         g = scanner.nextFloat();
                                         board.setGravity(g);
                                     } else {
-                                        System.out.println("");
                                     }
                                     break;
 

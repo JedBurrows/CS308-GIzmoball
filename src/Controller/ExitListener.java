@@ -26,7 +26,6 @@ public class ExitListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Press event");
         ImageIcon icon = new ImageIcon("Images/saveIcon1.jpg");
 
 

@@ -41,8 +41,6 @@ public class GBallFrame {
 		frame.add(boardPanel);
 
 
-		System.out.println(frame.getFocusOwner());
-
 		buildMode();
 
 
