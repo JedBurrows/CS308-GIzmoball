@@ -1,6 +1,7 @@
 package View;
 
 
+import Controller.ExitListener;
 import Controller.KeyPressListener;
 import Controller.RunModeListener;
 
@@ -79,7 +80,7 @@ public class RunGUI implements IGUI {
 		menuBar.add(fileMenu);
 
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		exitMenuItem.addActionListener(e -> System.exit(0));
+		exitMenuItem.addActionListener(new ExitListener());
 		fileMenu.add(exitMenuItem);
 		return menuBar;
 	}

@@ -23,8 +23,7 @@ public class Board extends Observable implements IBoard {
     private boolean runMode;
     private boolean[][] grid;
     private float gravity, mu, mu2;
-    private Set<IConnector> connectors;
-    private Set<KeyConnector> keyConnectors;
+    private Set<Connector> connectors;
 
     private HashMap<Integer, List<String>> keyPressEvents;
     private HashMap<Integer, List<String>> keyReleaseEvents;
@@ -100,7 +99,7 @@ public class Board extends Observable implements IBoard {
 
 	public boolean addConnector(String name1, String name2) {
 		try {
-			IConnector connection = new Connector(getGizmoByID(name1), getGizmoByID(name2));
+			Connector connection = new Connector(getGizmoByID(name1), getGizmoByID(name2));
 			System.out.println("Connection hash code = " + connection.hashCode());
 
 			if (connectors.contains(connection)) {
@@ -159,10 +158,6 @@ public class Board extends Observable implements IBoard {
      */
     public boolean addGizmo(IGizmo gizmo) {
 
-        System.out.println("________________________");
-        System.out.println("X: " + gizmo.getPos1().x);
-        System.out.println("Y: " + gizmo.getPos1().y);
-
         int x = gizmo.getPos1().x;
         int y = gizmo.getPos1().y;
         String gizmoClass = gizmo.getClass().getSimpleName();
@@ -206,6 +201,7 @@ public class Board extends Observable implements IBoard {
                 }
             }
             gizmoHashMap.put(gizmo.getID(), gizmo);
+            System.out.println(gizmoClass + " gizmo added");
             return true;
         } else {
             //Cords out of range
@@ -218,6 +214,8 @@ public class Board extends Observable implements IBoard {
         if (gizmoHashMap.containsKey(id)) {
             IGizmo deletedGizmo = gizmoHashMap.remove(id);
             int x = deletedGizmo.getPos1().x, y = deletedGizmo.getPos1().y;
+
+
             int w = 0;
             while (w != deletedGizmo.getWidth()) {
                 int h = 0;
@@ -244,8 +242,14 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean moveGizmo(String id, int newX, int newY) {
+        System.out.println("in MoveGizmo before " + newX + " " +newY);
+
         try {
+            System.out.println("in MoveGizmo after try " + newX + " " +newY);
+
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
+                System.out.println("in MoveGizmo " + newX + " " +newY);
+
 				if (grid[newX][newY] == false) {
 					grid[newY][newY] = true;
                     IGizmo gizmo = getGizmoByID(id);
@@ -284,8 +288,8 @@ public class Board extends Observable implements IBoard {
         return new ArrayList<>(gizmoHashMap.values());
     }
 
-    public Set<IConnector> getConnectors() {
-        return connectors;
+    public ArrayList<Connector> getConnectors() {
+        return new ArrayList<>(connectors);
     }
 
     public IGizmo getGizmoByPosition(double x, double y) {
@@ -356,7 +360,7 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
 
                     if (collideGizmo!=null) {
-                        for (IConnector c : connectors) {
+                        for (Connector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
                                 c.execute();
                             }

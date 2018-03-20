@@ -16,8 +16,7 @@ public class ExitListener implements ActionListener {
 
 
 
-    public ExitListener(BoardPanel p) {
-        panel = p;
+    public ExitListener( ) {
 
 
 
