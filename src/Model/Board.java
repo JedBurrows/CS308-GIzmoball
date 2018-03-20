@@ -70,7 +70,8 @@ public class Board extends Observable implements IBoard {
 
 
 	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
-		this.ball = new Ball(name, x, y, vx, vy);
+	    if(!isInside(x,y))
+		    this.ball = new Ball(name, x, y, vx, vy);
 	}
 
     public void switchMode() {
@@ -505,6 +506,15 @@ public class Board extends Observable implements IBoard {
         }
         return true;
 
+    }
+
+    private boolean isInside(float x,float y){
+        for(IGizmo g : gizmoHashMap.values()){
+            if(x >= g.getPos1().x && x <= g.getPos2().x && y >= g.getPos1().y && y <= g.getPos2().y){
+                return true;
+            }
+        }
+        return false;
     }
 
     public HashMap<Integer, List<String>> getKeyPressEvents() {
