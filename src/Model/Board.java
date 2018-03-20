@@ -416,8 +416,8 @@ public class Board extends Observable implements IBoard {
     }
 
     private void applyFriction(double time) {
-        float mu = DEFAULT_MU; //0.025 per second
-        float mu2 = DEFAULT_MU2; //0.025 per L
+        float mu = this.mu; //0.025 per second
+        float mu2 = this.mu2; //0.025 per L
 
         mu /= moveTime;
 
