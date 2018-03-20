@@ -1,5 +1,6 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -13,10 +14,6 @@ public class Triangle extends AbstractGizmo implements IGizmo {
 		createCircles();
 	}
 
-
-	@Override
-	public void action(double tickTime) {
-	}
 
 	@Override
 	public void createLines() {
@@ -63,18 +60,8 @@ public class Triangle extends AbstractGizmo implements IGizmo {
 	}
 
 	@Override
-	public void setKeyPress() {
-	}
+	public void action(double tickTime, Ball ball) {
 
-	@Override
-	public double getAngVel() {
-		return 0;
 	}
-
-	@Override
-	public boolean getMoving() {
-		return false;
-	}
-
 
 }

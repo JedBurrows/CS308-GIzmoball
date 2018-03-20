@@ -1,5 +1,6 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.*;
 import physics.Circle;
 import physics.LineSegment;
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 public class LeftFlipper extends AbstractGizmo implements IGizmo {
 	private double xpos;
 	private double ypos;
-	private double x2pos;
-	private double y2pos;
 
 	private double maxAngle;
 	private double minAngle;
@@ -23,7 +22,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 
 	//left = false //right = true
 	private boolean direction;
-	private boolean keyPress;
 	//status of activated or not
 	//left and right flipper class
 
@@ -41,7 +39,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 		minAngle = 0;
 		angle = 90;
 		angVel = 1080;
-		keyPress = false;
 
 		if (direction) {
 			width = -width;
@@ -57,9 +54,9 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 
 
 	@Override
-	public void action(double tickTime) {
+	public void action(double tickTime, Ball ball) {
 		moving = false;
-		if (!keyPress) {
+		if (!trigger) {
 			if (angle < maxAngle) {
 				if (angVel < 0) {
 					angVel = -angVel;
@@ -74,7 +71,7 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 				createCircles(tickTime);
 				createLines(tickTime);
 			}
-		} else if (keyPress) {
+		} else if (trigger) {
 			if (angle >= minAngle) {
 				if (angVel > 0) {
 					angVel = -angVel;
@@ -94,7 +91,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 
 	public void createCircles(double tickTime) {
 		ArrayList<Circle> tempC = new ArrayList<>();
-		System.out.println(angVel / (1 / tickTime));
 		for (physics.Circle c : circles) {
 			c = Geometry.rotateAround(c, circles.get(0).getCenter(), new Angle(Math.toRadians(angVel / (1 / tickTime))));
 			if (c.getCenter().y() < ypos + 0.25 && rotation == 0) {
@@ -129,8 +125,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 			l = Geometry.rotateAround(l, circles.get(0).getCenter(), new Angle(Math.toRadians(angVel / (1 / tickTime))));
 			tempL.add(l);
 		}
-//        System.out.println("tempL: " + tempL.get(0).p2().y());
-//        System.out.println("ypos: " + (ypos));
 
 		if (tempL.get(0).p2().x() < xpos && rotation == 0) {
 			lineSegments.clear();
@@ -183,11 +177,6 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 		}
 	}
 
-	@Override
-	public void setKeyPress() {
-		keyPress = !keyPress;
-	}
-
 
 	@Override
 	public double getAngVel() {
@@ -233,11 +222,11 @@ public class LeftFlipper extends AbstractGizmo implements IGizmo {
 			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 2.0, xpos + 1.75, ypos + 2.0)); //2
 			lineSegments.add(new LineSegment(xpos + 0.25, ypos + 1.5, xpos + 1.75, ypos + 1.5)); //1
 		}
-
 	}
 
 	@Override
 	protected void createLines() {
 
 	}
+
 }

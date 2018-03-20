@@ -4,6 +4,7 @@ import Model.GizmoCreator;
 import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -24,49 +25,46 @@ public class MovePressListener implements MouseInputListener {
     private MouseEvent released;
     private Color colour;
 
-    public MovePressListener(BuildGUI gui, Color colour) {
-        this.buildGUI = gui;
-        this.gizmo = buildGUI.getBoxGizmo();
+    private float x1;
+    private float y1;
+
+    public MovePressListener(GBallFrame gBallFrame) {
+        this.buildGUI =gBallFrame.getBuildPanel();
         this.boardPanel = buildGUI.getBoardPanel();
         this.gizmoCreator = new GizmoCreator();
         this.board = boardPanel.getBoard();
         this.L = boardPanel.getDimension() / 20;
-        this.colour = colour;
         System.out.println(this.colour);
 
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Click event");
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (!board.isRunMode()) {
+            x1 = e.getX() / L;
+            y1 = e.getY() / L;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Release event");
         if (!board.isRunMode()) {
-            String g = gizmo.getSelectedItem().toString();
-            if (!g.equals("Absorber")) {
-                released = e;
-                int x = (int) (released.getX() / L);
-                int y = (int) (released.getY() / L);
-                int i = (int) (released.getX() / L) + 1;
-                int j = (int) (released.getY() / L) + 1;
-                if ((j - y) <= (i - x)) {
-                    board.addGizmo(gizmoCreator.createGizmo(g,x,y,colour));
-                    buildGUI.clearSelected();
-                    buildGUI.setMode("AddGizmo");
+            int x2 = (int)(e.getX() / L);
+            int y2 = (int)(e.getY() / L);
 
-                    //TODO clear point selection on BoardPanel here then repaint
-                    boardPanel.removedSelected();
-                    boardPanel.repaint();
-                }
-            }
+            String g = board.getGizmoByPosition(x1, y1).getClass().getSimpleName();
+            Color c = board.getGizmoByPosition(x1, y1).getColor();
+            System.out.println("sting: " + g);
+            board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
+
+            board.addGizmo(gizmoCreator.createGizmo(g, x2, y2, c));
+            boardPanel.repaint();
+//            buildGUI.clearSelected();
         }
 
     }
@@ -92,4 +90,5 @@ public class MovePressListener implements MouseInputListener {
     public void mouseMoved(MouseEvent e) {
 
     }
+
 }

@@ -1,114 +1,91 @@
 package View;
 
-import Controller.LoadSaveController;
 import Model.IBoard;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GBallFrame {
 	private JFrame frame;
 	private RunGUI runPanel;
 	private BuildGUI buildPanel;
-
 	private BoardPanel boardPanel;
-
+	private JPanel buildButtons, runButtons, main;
 	private JMenuBar buildBar, runBar;
+	private CardLayout cardLayout;
 
 
 	public GBallFrame(IBoard board) {
 		frame = new JFrame("Gizmoball");
-
 		boardPanel = new BoardPanel(board);
-
 		buildPanel = new BuildGUI(this, boardPanel);
 		runPanel = new RunGUI(this, boardPanel);
 
-		//boardPanel.setColours(buildPanel.getColours());
+		buildButtons = buildPanel.createButtons();
+		buildBar = buildPanel.createMenuBar();
 
-		buildPanel.getFrame().add(boardPanel);
+		runBar = runPanel.createMenuBar();
+		runButtons = runPanel.createButtons();
+
+		frame.setLayout(new GridLayout());
+		cardLayout = new CardLayout();
+		main = new JPanel(cardLayout);
+
+		main.add(buildButtons, "Build Mode");
+		main.add(runButtons, "Run Mode");
+		frame.add(main);
+		frame.add(boardPanel);
 
 
-		buildBar = createBuildBar();
-		runBar = createRunBar();
+		System.out.println(frame.getFocusOwner());
 
-		frame.setJMenuBar(createBuildBar());
-		frame.add(buildPanel.getFrame());
-		frame.pack();
-		frame.setResizable(false);
+		buildMode();
+
+
+		frame.setResizable(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.pack();
 		frame.setVisible(true);
 
-	}
+		boardPanel.setFocusable(true);
 
-
-	public void switchToRun() {
-		buildPanel.close();
-		frame.remove(buildPanel.getFrame());
-		frame.setJMenuBar(runBar);
-		runPanel.setBoardPanel(boardPanel);
-		runPanel.getFrame().add(boardPanel);
-		runPanel.open();
-		frame.add(runPanel.getFrame());
-		frame.pack();
-		boardPanel.getBoard().switchMode();
 		boardPanel.requestFocusInWindow();
-		System.out.println(this.frame.getFocusOwner());
-
-
-
+		boardPanel.requestFocus();
 
 	}
 
-	public void switchToBuild() {
-		runPanel.close();
-		frame.remove(runPanel.getFrame());
-		frame.setJMenuBar(buildBar);
-		buildPanel.setBoardPanel(boardPanel);
-		buildPanel.getFrame().add(boardPanel);
-		buildPanel.open();
-		frame.add(buildPanel.getFrame());
-		frame.pack();
-		boardPanel.getBoard().switchMode();
-
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
 	}
 
-	private JMenuBar createBuildBar() {
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		menuBar.add(fileMenu);
-
-		JMenuItem menuItemLoad = new JMenuItem("Load");
-		menuItemLoad.addActionListener(new LoadSaveController(boardPanel));
-
-		JMenuItem menuItemSave = new JMenuItem("Save");
-		menuItemSave.addActionListener(new LoadSaveController(boardPanel));
-
-		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		exitMenuItem.addActionListener(e -> System.exit(0));
-
-		fileMenu.add(menuItemLoad);
-		fileMenu.add(menuItemSave);
-		fileMenu.add(exitMenuItem);
-
-		return menuBar;
-	}
-
-	private JMenuBar createRunBar() {
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		menuBar.add(fileMenu);
-
-		JMenuItem exitMenuItem = new JMenuItem("Exit");
-		exitMenuItem.addActionListener(e -> System.exit(0));
-		fileMenu.add(exitMenuItem);
-		return menuBar;
+	public BuildGUI getBuildPanel() {
+		return buildPanel;
 	}
 
 	public RunGUI getRunPanel() {
 		return runPanel;
 	}
 
-	public BuildGUI getBuildPanel() {
-		return buildPanel;
+	public void buildMode() {
+		cardLayout.show(main, "Build Mode");
+		frame.setJMenuBar(buildBar);
+		frame.pack();
+		frame.revalidate();
+		frame.repaint();
+	}
+
+	public void runMode() {
+		cardLayout.show(main, "Run Mode");
+		frame.setJMenuBar(runBar);
+		frame.pack();
+		frame.revalidate();
+		frame.repaint();
+
+		boardPanel.setFocusable(true);
+
+		boardPanel.requestFocusInWindow();
+		boardPanel.requestFocus();
+
+
 	}
 }

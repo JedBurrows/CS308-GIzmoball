@@ -3,7 +3,7 @@ package Controller;
 import Model.GizmoCreator;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 
 public class AddGizmoPressListener implements MouseInputListener {
 
-	private BuildGUI buildGUI;
 	private JComboBox<String> gizmo;
 	private BoardPanel boardPanel;
 	private float L;
@@ -23,10 +22,10 @@ public class AddGizmoPressListener implements MouseInputListener {
 	private MouseEvent released;
 	private Color colour;
 
-	public AddGizmoPressListener(BuildGUI gui, Color colour) {
-		this.buildGUI = gui;
-		this.gizmo = buildGUI.getBoxGizmo();
-		this.boardPanel = buildGUI.getBoardPanel();
+	public AddGizmoPressListener(GBallFrame gBallFrame, Color colour) {
+		//TODO NEEDS RESOLVED
+		this.gizmo = gBallFrame.getBuildPanel().getBoxGizmo();
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.gizmoCreator = new GizmoCreator();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
@@ -64,8 +63,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 					boardPanel.removedSelected();
 					boardPanel.repaint();
 				}
-				buildGUI.clearSelected();
-				buildGUI.setMode("AddGizmo");
 			}
 		}
 
@@ -84,8 +81,6 @@ public class AddGizmoPressListener implements MouseInputListener {
 				int j = (int) (released.getY() / L) + 1;
 				if ((j - y) <= (i - x)) {
 					board.addGizmo(gizmoCreator.createAbsorber(x, y, i, j, colour));
-					buildGUI.clearSelected();
-					buildGUI.setMode("AddGizmo");
 
 					//TODO clear point selection on BoardPanel here then repaint
 					boardPanel.removedSelected();

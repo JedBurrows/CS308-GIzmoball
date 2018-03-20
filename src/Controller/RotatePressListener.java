@@ -2,20 +2,18 @@ package Controller;
 
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
 public class RotatePressListener implements MouseInputListener {
-	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
 
-	public RotatePressListener(BuildGUI buildGUI) {
-		this.buildGUI = buildGUI;
-		this.boardPanel = buildGUI.getBoardPanel();
+	public RotatePressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 

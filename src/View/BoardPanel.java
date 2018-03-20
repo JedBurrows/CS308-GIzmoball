@@ -54,6 +54,9 @@ public class BoardPanel extends JPanel implements Observer {
 		ArrayList<IGizmo> gizmos = board.getGizmos();
 
 		for (IGizmo gizmo : gizmos) {
+
+			//Todo fix to use colour from picker, Beware passing null to setColor will just end up drawing the last color set ie colour of board
+
 			g.setColor(gizmo.getColor());
 			String type = gizmo.getClass().getSimpleName();
 			Point pos1 = gizmo.getPos1();
@@ -111,6 +114,7 @@ public class BoardPanel extends JPanel implements Observer {
 
 
 		if (!board.isRunMode()) {
+			//Draw Grid Lines
 			g2.setStroke(new BasicStroke(1));
 			g2.setColor(Color.GRAY);
 			for (int x = Lwidth; x < width; x += Lwidth) {
@@ -168,9 +172,7 @@ public class BoardPanel extends JPanel implements Observer {
 		Rectangle selection = new Rectangle(point1);
 		selection.add(point2);
 		g2.setColor(Color.orange);
-
 		g2.draw(selection);
-
 	}
 
 	public IBoard getBoard() {
@@ -186,8 +188,6 @@ public class BoardPanel extends JPanel implements Observer {
 
 	public void setSelectPoint1(Point point) {
 		this.point1 = point;
-
-
 	}
 
 	public void setSelectPoint2(Point point) {

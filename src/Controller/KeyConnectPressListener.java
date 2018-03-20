@@ -3,13 +3,16 @@ package Controller;
 import Model.Gizmos.IGizmo;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class KeyConnectPressListener implements KeyListener, MouseListener {
+public class KeyConnectPressListener implements KeyListener, MouseInputListener {
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
@@ -17,8 +20,8 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 	private int sourceKey;
 	private IGizmo target;
 
-	public KeyConnectPressListener(BuildGUI buildGUI) {
-		this.boardPanel = buildGUI.getBoardPanel();
+	public KeyConnectPressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		target = null;
@@ -60,12 +63,12 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("key");
-
 		if (target != null) {
 			sourceKey = e.getKeyCode();
-			System.out.println("key: " + sourceKey);
+			System.out.println("Key: " + sourceKey);
 			setKeyConnection();
+			target = null;
+
 		}
 	}
 
@@ -76,9 +79,20 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 
 	private void setKeyConnection() {
 		try {
-			board.addKeyConnector(sourceKey, target.getID());
+			board.addKeyPressEvent(sourceKey, target.getID());
+			board.addKeyReleaseEvent(sourceKey, target.getID());
 		} catch (NullPointerException e) {
 			System.out.println("Not a gizmo.");
 		}
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
 	}
 }

@@ -1,16 +1,13 @@
 package View;
 
 
-import Controller.KeyPressListener;
-import Controller.MagicKeyListener;
 import Controller.RunModeListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RunGUI {
+public class RunGUI implements IGUI {
 
-	private JPanel runFrame;
 	private BoardPanel boardPanel;
 	private RunModeListener runModeListener;
 
@@ -18,41 +15,49 @@ public class RunGUI {
 		setBoardPanel(boardPanel);
 
 		runModeListener = new RunModeListener(parent);
+		//parent.getBoardPanel().addKeyListener(new );
 
-		runFrame = new JPanel();
 
 
-		JPanel panel = new JPanel();
-		panel.add(initialiseButtons());
-		panel.add(getBoardPanel());
-		runFrame.add(panel);
-		runFrame.setVisible(true);
+
 	}
 
-	private JPanel initialiseButtons() {
+
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
+	}
+
+	public void setBoardPanel(BoardPanel boardPanel) {
+		this.boardPanel = boardPanel;
+	}
+
+	@Override
+	public JPanel createButtons() {
 		JButton btnStart = new JButton("Start");
 		btnStart.setPreferredSize(new Dimension(75, 75));
 		btnStart.addActionListener(runModeListener);
 		btnStart.setActionCommand("Start");
-		btnStart.addKeyListener(new MagicKeyListener(new KeyPressListener(boardPanel.getBoard())));
+		btnStart.setFocusable(false);
 
 		JButton btnStop = new JButton("Stop");
 		btnStop.setPreferredSize(new Dimension(75, 75));
 		btnStop.addActionListener(runModeListener);
 		btnStop.setActionCommand("Stop");
+		btnStop.setFocusable(false);
 
 		JButton btnTick = new JButton("Tick");
 		btnTick.setPreferredSize(new Dimension(75, 75));
 		btnTick.addActionListener(runModeListener);
 		btnTick.setActionCommand("Tick");
+		btnTick.setFocusable(false);
 
 
 		JButton btnBuildMode = new JButton("Build");
 		btnBuildMode.setPreferredSize(new Dimension(75, 75));
 		btnBuildMode.setActionCommand("Build");
-
-
 		btnBuildMode.addActionListener(runModeListener);
+		btnBuildMode.setFocusable(false);
+
 
 		JPanel panelBtn = new JPanel();
 		panelBtn.setSize(150, 300);
@@ -66,32 +71,19 @@ public class RunGUI {
 		panelBtn.add(btnTick, c);
 		panelBtn.add(btnBuildMode, c);
 
+
 		return panelBtn;
-
-
 	}
 
+	@Override
+	public JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
 
-	public JPanel getFrame() {
-		return runFrame;
-	}
-
-
-	public void close() {
-		runFrame.setVisible(false);
-	}
-
-	public void open() {
-		runFrame.setVisible(true);
-
-	}
-
-
-	public BoardPanel getBoardPanel() {
-		return boardPanel;
-	}
-
-	public void setBoardPanel(BoardPanel boardPanel) {
-		this.boardPanel = boardPanel;
+		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		exitMenuItem.addActionListener(e -> System.exit(0));
+		fileMenu.add(exitMenuItem);
+		return menuBar;
 	}
 }

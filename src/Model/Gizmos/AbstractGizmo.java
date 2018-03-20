@@ -1,5 +1,6 @@
 package Model.Gizmos;
 
+import Model.Ball;
 import physics.Circle;
 import physics.LineSegment;
 
@@ -8,73 +9,87 @@ import java.util.ArrayList;
 
 public abstract class AbstractGizmo {
 
-	protected Point pos1, pos2;
-	protected ArrayList<LineSegment> lineSegments;
-	protected ArrayList<Circle> circles;
-	private String ID;
-	protected int width, height, rotation;
-	private Color color;
+    protected Point pos1, pos2;
+    protected ArrayList<LineSegment> lineSegments;
+    protected ArrayList<Circle> circles;
+    private String ID;
+    protected int width, height, rotation;
+    private Color color;
+    protected boolean trigger;
 
-	public AbstractGizmo(String id, int x, int y, int width, int height, Color color) {
-		this.ID = id;
-		this.pos1 = new Point(x, y);
-		this.pos2 = new Point(x + width, y + height);
-		this.width = width;
-		this.height = height;
-		this.color = color;
-		rotation = 0;
-		lineSegments = new ArrayList<>();
-		circles = new ArrayList<>();
+    public AbstractGizmo(String id, int x, int y, int width, int height, Color color) {
+        this.ID = id;
+        this.pos1 = new Point(x, y);
+        this.pos2 = new Point(x + width, y + height);
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        trigger = false;
+        rotation = 0;
+        lineSegments = new ArrayList<>();
+        circles = new ArrayList<>();
 
-	}
+    }
 
-	public String getID() {
-		return ID;
-	}
 
-	public void rotate() {
-		rotation = (++rotation) % 4;
-		createLines();
-		createCircles();
-	}
+    public String getID() {
+        return ID;
+    }
 
-	public int getRotation() {
-		return rotation;
-	}
+    public void rotate() {
+        rotation = (++rotation) % 4;
+        createLines();
+        createCircles();
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public int getRotation() {
+        return rotation;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public ArrayList<Circle> getCircles() {
-		return circles;
-	}
+    public int getHeight() {
+        return height;
+    }
 
-	public ArrayList<LineSegment> getLineSegments() {
-		return lineSegments;
-	}
+    public ArrayList<Circle> getCircles() {
+        return circles;
+    }
 
-	public Color getColor() {
-		return color;
-	}
+    public ArrayList<LineSegment> getLineSegments() {
+        return lineSegments;
+    }
 
-	public void setColor(Color c){
-		color = c;
-	}
+    public Color getColor() {
+        return color;
+    }
 
-	public Point getPos1() {
-		return pos1;
-	}
+    public void setColor(Color c) {
+        color = c;
+    }
 
-	public Point getPos2() {
-		return pos2;
-	}
+    public Point getPos1() {
+        return pos1;
+    }
 
-	protected abstract void createCircles();
+    public Point getPos2() {
+        return pos2;
+    }
 
-	protected abstract void createLines();
+    public void setTrigger() { trigger = !trigger; }
+
+    public double getAngVel() {
+        return 0;
+    }
+
+    public boolean getMoving() {
+        return false;
+    }
+
+    protected abstract void createCircles();
+
+    protected abstract void createLines();
+
 }

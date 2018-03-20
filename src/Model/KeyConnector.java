@@ -15,12 +15,12 @@ public class KeyConnector {
         this.source = source;
         System.out.println("Source HashCode = " + this.source);
         this.target = target;
-        System.out.println("Target HashCode = " + this.target.hashCode());
-
+        System.out.println("Target HashCode = " + this.target.getID());
 
     }
+
     public void execute() {
-        target.setKeyPress();
+        target.setTrigger();
     }
 
     public int getSource() {
