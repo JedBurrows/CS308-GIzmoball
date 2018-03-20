@@ -35,10 +35,6 @@ public class Square extends AbstractGizmo implements IGizmo {
 		circles.add(new Circle(pos1.x, pos1.y + width, 0));
 	}
 
-	@Override
-	public void action(double tickTime, Ball ball) {
-
-	}
 
 	@Override
 	public double getAngVel() {

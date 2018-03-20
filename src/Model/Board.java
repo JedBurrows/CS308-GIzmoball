@@ -60,13 +60,8 @@ public class Board extends Observable implements IBoard {
 
 		runMode = false;
 
-		collideGizmo = null;
-		//--------------------------------------------------
+        collideGizmo = null;
 
-        //TODO Change from pixels to float in terms of L grid ie (x = 10.5,y = 5.5) is in centre of 11,6
-        // Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-
-        // Wall size 500 x 500 pixels
         walls = new Walls();
 
         keyPressEvents = new HashMap<>();

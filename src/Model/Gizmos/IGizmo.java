@@ -39,4 +39,6 @@ public interface IGizmo {
 
 	Point getPos2();
 
+	void setPos1(double x, double y);
+
 }

@@ -39,11 +39,6 @@ public class RightFlipper extends AbstractGizmo implements IGizmo {
         angle = 90;
         angVel = 1080;
 
-        if (direction) {
-            width = -width;
-        }
-
-
         circles.add(new Circle(xpos + 1.75, ypos + 0.25, 0.25));
         circles.add(new Circle(xpos + 1.75, ypos + 1.75, 0.25));
 
