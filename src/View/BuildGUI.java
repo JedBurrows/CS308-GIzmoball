@@ -39,6 +39,7 @@ public class BuildGUI implements IGUI {
 		btnColor.setPreferredSize(new Dimension(150, 50));
 		btnColor.addActionListener(buildModeListener);
 		btnColor.setActionCommand("Choose Colour");
+		btnColor.setFocusable(false);
 
 
 		boxGizmo = new JComboBox<>();
@@ -49,74 +50,91 @@ public class BuildGUI implements IGUI {
 		boxGizmo.addItem("LeftFlipper");
 		boxGizmo.addItem("RightFlipper");
 		boxGizmo.addItem("Absorber");
+		boxGizmo.setFocusable(false);
 
 		btnGizmo = new JButton("Add Gizmo");
 		btnGizmo.setPreferredSize(new Dimension(150, 50));
 		btnGizmo.addActionListener(buildModeListener);
 		btnGizmo.setActionCommand("Add Gizmo");
+		btnGizmo.setFocusable(false);
 
 		btnBall = new JButton("Add Ball");
 		btnBall.setPreferredSize(new Dimension(150, 50));
 		btnBall.addActionListener(buildModeListener);
 		btnBall.setActionCommand("Add Ball");
+		btnBall.setFocusable(false);
 
 		btnRotate = new JButton("Rotate");
 		btnRotate.setPreferredSize(new Dimension(150, 50));
 		btnRotate.addActionListener(buildModeListener);
 		btnRotate.setActionCommand("Rotate");
+		btnRotate.setFocusable(false);
 
 		btnMove = new JButton("Move");
 		btnMove.setPreferredSize(new Dimension(150, 50));
 		btnMove.addActionListener(buildModeListener);
 		btnMove.setActionCommand("Move");
+		btnMove.setFocusable(false);
 
 
 		btnClear = new JButton("Clear Board");
 		btnClear.setPreferredSize(new Dimension(150, 50));
 		btnClear.addActionListener(buildModeListener);
 		btnClear.setActionCommand("Clear Board");
+		btnClear.setFocusable(false);
 
 		btnDelete = new JButton("Delete");
 		btnDelete.setPreferredSize(new Dimension(150, 50));
 		btnDelete.addActionListener(buildModeListener);
 		btnDelete.setActionCommand("Delete");
+		btnDelete.setFocusable(false);
 
 		btnCon = new JButton("Connect");
 		btnCon.setPreferredSize(new Dimension(150, 50));
 		btnCon.addActionListener(buildModeListener);
 		btnCon.setActionCommand("Connect");
+		btnCon.setFocusable(false);
 
 		btnDisc = new JButton("Disconnect");
 		btnDisc.setPreferredSize(new Dimension(150, 50));
 		btnDisc.addActionListener(buildModeListener);
 		btnDisc.setActionCommand("Disconnect");
+		btnDisc.setFocusable(false);
 
 		btnKeyCon = new JButton("Key Connect");
 		btnKeyCon.setPreferredSize(new Dimension(150, 50));
 		btnKeyCon.addActionListener(buildModeListener);
 		btnKeyCon.setActionCommand("Key Connect");
+		btnKeyCon.setFocusable(false);
 
 		btnKeyDisc = new JButton("Key Disconnect");
 		btnKeyDisc.setPreferredSize(new Dimension(150, 50));
 		btnKeyDisc.addActionListener(buildModeListener);
 		btnKeyDisc.setActionCommand("Key Disconnect");
+		btnKeyDisc.setFocusable(false);
 
 
 		btnRunMode = new JButton("Run");
 		btnRunMode.setPreferredSize(new Dimension(150, 50));
 		btnRunMode.addActionListener(buildModeListener);
 		btnRunMode.setActionCommand("Run");
+		btnRunMode.setFocusable(false);
 
 		frictionSlider1 = new JSlider();
 		frictionSlider1.addChangeListener(new SliderChangeListener(gBallFrame));
+		frictionSlider1.setFocusable(false);
+
 		JLabel frictionLabel1 = new JLabel("Friction mu");
 		frictionPanel1 = new JPanel();
 		frictionPanel1.setLayout(new GridLayout(1, 2));
 		frictionPanel1.add(frictionSlider1);
 		frictionPanel1.add(frictionLabel1, 0);
 
+
 		frictionSlider2 = new JSlider();
 		frictionSlider2.addChangeListener(new SliderChangeListener(gBallFrame));
+		frictionSlider2.setFocusable(false);
+
 		JLabel frictionLabel2 = new JLabel("Friction mu\u2082");
 		frictionPanel2 = new JPanel();
 		frictionPanel2.setLayout(new GridLayout(1, 2));
@@ -141,6 +159,7 @@ public class BuildGUI implements IGUI {
 		gravityPanel.setLayout(new GridLayout(1, 2));
 		gravityPanel.add(gravitySlider);
 		gravityPanel.add(gravityLabel, 0);
+		gravitySlider.setFocusable(false);
 
 		JPanel slidersPanel = new JPanel();
 		slidersPanel.setLayout(new GridLayout(3, 1));

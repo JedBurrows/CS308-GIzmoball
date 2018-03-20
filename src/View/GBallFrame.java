@@ -37,15 +37,20 @@ public class GBallFrame {
 		frame.add(boardPanel);
 
 
+		System.out.println(frame.getFocusOwner());
+
 		buildMode();
 
 
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.pack();
-
-
 		frame.setVisible(true);
+
+		boardPanel.setFocusable(true);
+
+		boardPanel.requestFocusInWindow();
+		boardPanel.requestFocus();
 
 	}
 
@@ -63,9 +68,8 @@ public class GBallFrame {
 
 	public void buildMode() {
 		cardLayout.show(main, "Build Mode");
-		System.out.println(main.getPreferredSize());
-
 		frame.setJMenuBar(buildBar);
+
 		frame.pack();
 		frame.revalidate();
 		frame.repaint();
@@ -75,7 +79,7 @@ public class GBallFrame {
 
 	public void runMode() {
 		cardLayout.show(main, "Run Mode");
-		System.out.println(main.getPreferredSize());
+		frame.setJMenuBar(runBar);
 		frame.pack();
 		frame.revalidate();
 		frame.repaint();

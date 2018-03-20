@@ -1,8 +1,6 @@
 package View;
 
 
-import Controller.KeyPressListener;
-import Controller.MagicKeyListener;
 import Controller.RunModeListener;
 
 import javax.swing.*;
@@ -17,6 +15,7 @@ public class RunGUI implements IGUI {
 		setBoardPanel(boardPanel);
 
 		runModeListener = new RunModeListener(parent);
+		//parent.getBoardPanel().addKeyListener(new );
 
 
 
@@ -38,23 +37,26 @@ public class RunGUI implements IGUI {
 		btnStart.setPreferredSize(new Dimension(75, 75));
 		btnStart.addActionListener(runModeListener);
 		btnStart.setActionCommand("Start");
-		btnStart.addKeyListener(new MagicKeyListener(new KeyPressListener(boardPanel.getBoard())));
+		btnStart.setFocusable(false);
 
 		JButton btnStop = new JButton("Stop");
 		btnStop.setPreferredSize(new Dimension(75, 75));
 		btnStop.addActionListener(runModeListener);
 		btnStop.setActionCommand("Stop");
+		btnStop.setFocusable(false);
 
 		JButton btnTick = new JButton("Tick");
 		btnTick.setPreferredSize(new Dimension(75, 75));
 		btnTick.addActionListener(runModeListener);
 		btnTick.setActionCommand("Tick");
+		btnTick.setFocusable(false);
 
 
 		JButton btnBuildMode = new JButton("Build");
 		btnBuildMode.setPreferredSize(new Dimension(75, 75));
 		btnBuildMode.setActionCommand("Build");
 		btnBuildMode.addActionListener(runModeListener);
+		btnBuildMode.setFocusable(false);
 
 
 		JPanel panelBtn = new JPanel();
@@ -69,7 +71,6 @@ public class RunGUI implements IGUI {
 		panelBtn.add(btnTick, c);
 		panelBtn.add(btnBuildMode, c);
 
-		System.out.println(panelBtn.isVisible());
 
 		return panelBtn;
 	}
