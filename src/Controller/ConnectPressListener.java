@@ -65,6 +65,7 @@ public class ConnectPressListener implements MouseInputListener {
 				doneFlag = false;
 			} else {
 				target = board.getGizmoByPosition(x / L, y / L);
+				board.addConnector(source.getID(), target.getID());
 				doneFlag = true;
 
 			}
