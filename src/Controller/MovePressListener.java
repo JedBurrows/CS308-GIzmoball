@@ -4,6 +4,7 @@ import Model.GizmoCreator;
 import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -27,21 +28,18 @@ public class MovePressListener implements MouseInputListener {
     private float x1;
     private float y1;
 
-    public MovePressListener(BuildGUI gui) {
-        this.buildGUI = gui;
-        this.gizmo = buildGUI.getBoxGizmo();
+    public MovePressListener(GBallFrame gBallFrame) {
+        this.buildGUI =gBallFrame.getBuildPanel();
         this.boardPanel = buildGUI.getBoardPanel();
         this.gizmoCreator = new GizmoCreator();
         this.board = boardPanel.getBoard();
         this.L = boardPanel.getDimension() / 20;
-        this.colour = colour;
         System.out.println(this.colour);
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Click event");
 
     }
 
@@ -50,11 +48,6 @@ public class MovePressListener implements MouseInputListener {
         if (!board.isRunMode()) {
             x1 = e.getX() / L;
             y1 = e.getY() / L;
-
-
-
-            buildGUI.clearSelected();
-            buildGUI.setMode("Delete");
         }
     }
 
@@ -68,10 +61,10 @@ public class MovePressListener implements MouseInputListener {
             Color c = board.getGizmoByPosition(x1, y1).getColor();
             System.out.println("sting: " + g);
             board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
-            
+
             board.addGizmo(gizmoCreator.createGizmo(g, x2, y2, c));
             boardPanel.repaint();
-            buildGUI.clearSelected();
+//            buildGUI.clearSelected();
         }
 
     }

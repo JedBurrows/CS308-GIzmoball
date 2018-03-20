@@ -70,9 +70,9 @@ public class BuildModeListener implements GBallListener {
 
             case "Add Gizmo":
                 if (colorChooserExample != null)
-                    this.setMouseListener(new AddGizmoPressListener(buildGUI, colorChooserExample.getColorGiz()));
+                    this.setMouseListener(new AddGizmoPressListener(gBallFrame, colorChooserExample.getColorGiz()));
                 else
-                    this.setMouseListener(new AddGizmoPressListener(buildGUI, Color.RED));
+                    this.setMouseListener(new AddGizmoPressListener(gBallFrame, Color.RED));
 
                 break;
 
@@ -83,11 +83,11 @@ public class BuildModeListener implements GBallListener {
                 this.setMouseListener(new RotatePressListener(gBallFrame));
                 break;
             case "Move":
-                this.setMouseListener(new MovePressListener(gBallFrame, colorChooserExample.getColorGiz()));
+                this.setMouseListener(new MovePressListener(gBallFrame));
                 break;
 			case "Clear Board":
-                BoardPanel panel = gBallFrame.getBoardPanel();
-                panel.getBoard().clearGizmos();
+				BoardPanel panel = gBallFrame.getBuildPanel().getBoardPanel();
+				panel.getBoard().clearGizmos();
 				panel.repaint();
 				break;
 			case "Delete":
@@ -102,7 +102,7 @@ public class BuildModeListener implements GBallListener {
                 break;
             case "Key Connect":
                 System.out.println("here??");
-                KeyConnectPressListener k = new KeyConnectPressListener(buildGUI);
+                KeyConnectPressListener k = new KeyConnectPressListener(gBallFrame);
                 MagicKeyListener m = new MagicKeyListener(k);
 //                this.setMouseListener(m);
                 this.setKeyBoardListener(m);
