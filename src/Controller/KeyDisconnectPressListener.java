@@ -37,7 +37,6 @@ public class KeyDisconnectPressListener implements KeyListener, MouseInputListen
 	public void keyPressed(KeyEvent e) {
 		if (target != null) {
 			sourceKey = e.getKeyCode();
-			System.out.println("Key: " + sourceKey);
 			removeKeyConnection();
 			target = null;
 
@@ -59,7 +58,6 @@ public class KeyDisconnectPressListener implements KeyListener, MouseInputListen
 	public void mousePressed(MouseEvent e) {
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			target = board.getGizmoByPosition(e.getX() / L, e.getY() / L);
-			System.out.println("target: " + target.getID());
 			boardPanel.repaint();
 		}
 

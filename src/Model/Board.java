@@ -124,6 +124,9 @@ public class Board extends Observable implements IBoard {
 
         } catch (NoSuchGizmoException e) {
             return false;
+
+        } finally {
+
         }
     }
 
@@ -176,9 +179,6 @@ public class Board extends Observable implements IBoard {
                 }
             }
             gizmoHashMap.put(gizmo.getID(), gizmo);
-            System.out.println(gizmoClass + " gizmo added");
-            System.out.println("AddedX: " + x);
-            System.out.println("AddedY: " + y);
             return true;
         } else {
             //Cords out of range
@@ -226,13 +226,10 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean moveGizmo(String id, int newX, int newY) {
-        System.out.println("in MoveGizmo before " + newX + " " +newY);
 
         try {
-            System.out.println("in MoveGizmo after try " + newX + " " +newY);
 
 			if ((newX >= 0 && newX <= 19) && (newY >= 0 && newY <= 19)) {
-                System.out.println("in MoveGizmo " + newX + " " +newY);
 
 				if (grid[newX][newY] == false) {
 					grid[newY][newY] = true;

@@ -109,8 +109,6 @@ public class BoardPanel extends JPanel implements Observer {
 
 
 			int r = (int) (ball.getRadius() * (double) Lwidth);
-
-			System.out.println(r);
 			g2.fillOval((int) x - r, (int) y - r, 2 * r, 2 * r);
 		}
 

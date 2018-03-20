@@ -37,7 +37,6 @@ public class MovePressListener implements MouseInputListener {
         this.gizmoCreator = new GizmoCreator();
         this.board = boardPanel.getBoard();
         this.L = boardPanel.getDimension() / 20;
-        System.out.println(this.colour);
 
     }
 
@@ -64,35 +63,19 @@ public class MovePressListener implements MouseInputListener {
                 String gID = gizmo.getClass().getSimpleName();
                 Color color = gizmo.getColor();
 
-                System.out.println("colour: " + color);
-                System.out.println("string: " + gID);
 //               IGizmo newGizmo = gizmoCreator.createGizmo(gID, x2, y2, color);
                board.deleteGizmo(board.getGizmoByPosition(x1, y1).getID());
 
-                System.out.println("x2: " + x2);
-                System.out.println("y2: " + y2);
-
                 IGizmo newGizmo = gizmoCreator.createGizmo(gID, gizmo.getID(), x2, y2, color);
 
-                System.out.println(gID);
                 //String type, String id, int x, int y, Color colour
                 board.addGizmo(newGizmo);
-                for (IConnector c: board.getConnectors()){
-                    if (c.getSource().getID().equals(gizmo.getID())){
+                for (IConnector c: board.getConnectors()) {
+                    if (c.getSource().getID().equals(gizmo.getID())) {
                     }
                 }
-
-
                     boardPanel.repaint();
             }
-//            try {
-//                board.getGizmoByPosition(x1, y1).setPos1(x2, y2);
-//                boardPanel.repaint();
-//            }
-//            catch (Exception exc)‏{
-//
-//            }
-
         }
     }
 
@@ -108,7 +91,6 @@ public class MovePressListener implements MouseInputListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("Drag Event");
         boardPanel.setSelectPoint2(e.getPoint());
         boardPanel.repaint();
     }
