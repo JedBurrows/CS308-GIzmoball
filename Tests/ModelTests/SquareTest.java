@@ -1,5 +1,6 @@
-package Model.Gizmos;
+package ModelTests;
 
+import Model.Gizmos.Square;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Circle;
@@ -8,7 +9,7 @@ import physics.LineSegment;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class SquareTest {
 
@@ -21,7 +22,7 @@ public class SquareTest {
 
 	@Test
 	public void createLines() throws Exception {
-		ArrayList<LineSegment> lines = square.lineSegments;
+		ArrayList<LineSegment> lines = square.getLineSegments();
 
 		for (LineSegment segment: lines){
 			assertTrue(segment.p1().x() == 2 || segment.p1().x()==1);
