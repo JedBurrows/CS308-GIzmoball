@@ -69,9 +69,9 @@ public class Board extends Observable implements IBoard {
     }
 
 
-	public boolean addGizmoBall(String name, float x, float y, float vx, float vy) {
-		this.ball = new Ball(name, x, y, vx, vy);
-		return true;
+	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
+	    if(!isInside(x,y))
+		    this.ball = new Ball(name, x, y, vx, vy);
 	}
 
     public void switchMode() {
@@ -100,23 +100,32 @@ public class Board extends Observable implements IBoard {
 	public boolean addConnector(String name1, String name2) {
 		try {
 			Connector connection = new Connector(getGizmoByID(name1), getGizmoByID(name2));
+			System.out.println("Connection hash code = " + connection.hashCode());
+
 			if (connectors.contains(connection)) {
 				return false;
 			} else {
 				connectors.add(connection);
 				return true;
 			}
+
 		} catch (NoSuchGizmoException e) {
 			return false;
 		}
 	}
 
     public boolean removeConnector(String name1, String name2) {
+        System.out.println("Connectors size before removal = " + connectors.size());
         try {
             Connector connector = new Connector(getGizmoByID(name1), getGizmoByID(name2));
+
             return connectors.remove(connector);
+
         } catch (NoSuchGizmoException e) {
             return false;
+
+        } finally {
+            System.out.println("Connectors size after removal = " + connectors.size());
         }
     }
 
@@ -497,6 +506,15 @@ public class Board extends Observable implements IBoard {
         }
         return true;
 
+    }
+
+    private boolean isInside(float x,float y){
+        for(IGizmo g : gizmoHashMap.values()){
+            if(x >= g.getPos1().x && x <= g.getPos2().x && y >= g.getPos1().y && y <= g.getPos2().y){
+                return true;
+            }
+        }
+        return false;
     }
 
     public HashMap<Integer, List<String>> getKeyPressEvents() {
