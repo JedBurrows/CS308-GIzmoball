@@ -190,7 +190,7 @@ public class BoardTest {
         Board board = new Board();
         IGizmo absorber = new Absorber("Absorber",5,18, 7, 18, Color.RED);
         Ball b = new Ball("ball",5.25f,7.75f,0f,0f);
-        board.addGizmoBall("ball",5.25f,7.75f,5f,5f);
+        board.addGizmoBall("ball",4f,3f,5f,5f);
         assertFalse(b.getVelo().equals(board.getGizmoBall().getVelo()));
         board.absorbBall(absorber);
         assertTrue(b.getVelo().equals(board.getGizmoBall().getVelo()));
@@ -202,10 +202,20 @@ public class BoardTest {
 
     @Test
     public void setBallSpeed() throws Exception {
+        Board board = new Board();
+        board.addGizmoBall("ball",5.25f,7.75f,0f,0f);
+        Ball ball1 = new Ball("ball1",6f,4f,0f,0f);
+        Ball ball2 = new Ball("ball2",2f,3f,5f,5f);
+        assertTrue(board.getGizmoBall().getVelo().equals(ball1.getVelo()));
+        board.setBallSpeed(5,5);
+        assertTrue(board.getGizmoBall().getVelo().equals(ball2.getVelo()));
     }
 
     @Test
     public void clearGizmos() throws Exception {
+        assertTrue(board.getGizmos().size()==4);
+        board.clearGizmos();
+        assertTrue(board.getGizmos().size()==0);
     }
 
     @Test
