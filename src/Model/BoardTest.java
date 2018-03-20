@@ -45,14 +45,27 @@ public class BoardTest {
 
     @Test
     public void hasGizmoBall() throws Exception {
+        assertFalse(board.hasGizmoBall());
+        board.addGizmoBall("Ball",1,2,0,0);
+        assertTrue(board.hasGizmoBall());
     }
 
     @Test
     public void setFriction() throws Exception {
+        float mu = 0.010f;
+        float mu2 = 0.033f;
+
+        board.setFriction(mu,mu2);
+        assertEquals(mu,board.getMU(),0.001);
+        assertEquals(mu2,board.getMU2(),0.001);
     }
 
     @Test
     public void setGravity() throws Exception {
+        float gravity = 5.0f;
+
+        board.setGravity(gravity);
+        assertEquals(gravity,board.getGravity(),0.01);
     }
 
     @Test
@@ -61,6 +74,9 @@ public class BoardTest {
 
     @Test
     public void addConnector() throws Exception {
+        assertTrue(board.addConnector("S0000","S0019"));
+        assertFalse(board.addConnector("S0000","S0019"));
+        assertFalse(board.addConnector("S0000","None-Gizmo"));
     }
 
     @Test

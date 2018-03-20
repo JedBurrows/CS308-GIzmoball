@@ -69,8 +69,9 @@ public class Board extends Observable implements IBoard {
     }
 
 
-	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
+	public boolean addGizmoBall(String name, float x, float y, float vx, float vy) {
 		this.ball = new Ball(name, x, y, vx, vy);
+		return true;
 	}
 
     public void switchMode() {
@@ -99,32 +100,23 @@ public class Board extends Observable implements IBoard {
 	public boolean addConnector(String name1, String name2) {
 		try {
 			Connector connection = new Connector(getGizmoByID(name1), getGizmoByID(name2));
-			System.out.println("Connection hash code = " + connection.hashCode());
-
 			if (connectors.contains(connection)) {
 				return false;
 			} else {
 				connectors.add(connection);
 				return true;
 			}
-
 		} catch (NoSuchGizmoException e) {
 			return false;
 		}
 	}
 
     public boolean removeConnector(String name1, String name2) {
-        System.out.println("Connectors size before removal = " + connectors.size());
         try {
             Connector connector = new Connector(getGizmoByID(name1), getGizmoByID(name2));
-
             return connectors.remove(connector);
-
         } catch (NoSuchGizmoException e) {
             return false;
-
-        } finally {
-            System.out.println("Connectors size after removal = " + connectors.size());
         }
     }
 
