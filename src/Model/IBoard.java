@@ -61,6 +61,4 @@ public interface IBoard {
 	boolean addKeyPressEvent(int event, String id);
 
 	boolean addKeyReleaseEvent(int event, String id);
-
-
 }

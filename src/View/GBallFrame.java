@@ -44,7 +44,7 @@ public class GBallFrame {
 		buildMode();
 
 
-		frame.setResizable(true);
+		frame.setResizable(false);
 	//	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
