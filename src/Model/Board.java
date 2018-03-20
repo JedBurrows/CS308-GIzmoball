@@ -23,7 +23,7 @@ public class Board extends Observable implements IBoard {
     private boolean runMode;
     private boolean[][] grid;
     private float gravity, mu, mu2;
-    private Set<Connector> connectors;
+    private Set<IConnector> connectors;
 
     private HashMap<Integer, List<String>> keyPressEvents;
     private HashMap<Integer, List<String>> keyReleaseEvents;
@@ -53,7 +53,6 @@ public class Board extends Observable implements IBoard {
 			Arrays.fill(row, false);
 		}
 
-		keyConnectors = new HashSet<>();
 		connectors = new HashSet<>();
 		gizmoHashMap = new HashMap<>();
 
@@ -113,29 +112,6 @@ public class Board extends Observable implements IBoard {
 			return false;
 		}
 	}
-
-    public boolean addKeyConnector(int key, String name) {
-        try {
-            KeyConnector keyConnection = new KeyConnector(key, getGizmoByID(name)) ;
-            System.out.println("Key Connector Target ID: " + keyConnection.getTarget().getID());
-            System.out.println("Key Connector Key ID: " + keyConnection.getSource());
-
-            System.out.println("Connection hash code = " + keyConnection.hashCode());
-
-            if (keyConnectors.contains(keyConnection)) {
-                System.out.println("false in here 111?");
-                return false;
-            } else {
-                System.out.println("true in here 111?");
-                keyConnectors.add(keyConnection);
-                return true;
-            }
-        } catch (NoSuchGizmoException e) {
-            System.out.println("false in here 222?");
-
-            return false;
-        }
-    }
 
     public boolean removeConnector(String name1, String name2) {
         System.out.println("Connectors size before removal = " + connectors.size());
@@ -288,8 +264,8 @@ public class Board extends Observable implements IBoard {
         return new ArrayList<>(gizmoHashMap.values());
     }
 
-    public ArrayList<Connector> getConnectors() {
-        return new ArrayList<>(connectors);
+    public Set<IConnector> getConnectors() {
+        return connectors;
     }
 
     public IGizmo getGizmoByPosition(double x, double y) {
@@ -360,7 +336,7 @@ public class Board extends Observable implements IBoard {
                     ball = movelBallForTime(ball, tuc);
 
                     if (collideGizmo!=null) {
-                        for (Connector c : connectors) {
+                        for (IConnector c : connectors) {
                             if (c.getSource().getID().equals(collideGizmo.getID())) {
                                 c.execute();
                             }
