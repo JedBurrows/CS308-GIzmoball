@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LoadSaveController implements ActionListener {
@@ -77,7 +79,23 @@ public class LoadSaveController implements ActionListener {
                 bufferedWriter.write("Gravity" + " " + board.getGravity());
                 bufferedWriter.newLine();
 
-                board.getKeyPressEvents().values();
+                for (Map.Entry<Integer, List<String>> entry: board.getKeyPressEvents().entrySet()){
+                    for (String id: entry.getValue()){
+                        bufferedWriter.write("KeyConnect key"+ " " + entry.getKey() + " down " + id);
+                        bufferedWriter.newLine();
+                    }
+
+
+                }
+                for (Map.Entry<Integer, List<String>> entry: board.getKeyReleaseEvents().entrySet()){
+                    for (String id: entry.getValue()){
+                        bufferedWriter.write("KeyConnect key"+ " " + entry.getKey() + " up " + id);
+                        bufferedWriter.newLine();
+                    }
+
+
+                }
+
 
 
                 bufferedWriter.close();

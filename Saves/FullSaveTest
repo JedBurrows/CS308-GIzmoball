@@ -542,6 +542,14 @@ Color S1815 0 255 0
 Square S1816 18 16
 Color S1816 0 255 0
 Connect A0019 A0019
-Ball Ball 18.672682 0.94198453 -9.99262468058725 2.1902225896182
+Ball Ball 10.627679 14.154605 7.857102874474854 16.7036776624915
 Friction 0.025 0.025
 Gravity 25.0
+KeyConnect key 37 down LF0809
+KeyConnect key 37 down LF0813
+KeyConnect key 37 down LF0809
+KeyConnect key 37 down LF0813
+KeyConnect key 37 down LF0809
+KeyConnect key 37 down LF0813
+KeyConnect key 37 up LF0809
+KeyConnect key 37 up LF0813
