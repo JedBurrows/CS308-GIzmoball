@@ -72,7 +72,9 @@ public class Board extends Observable implements IBoard {
 	public void addGizmoBall(String name, float x, float y, float vx, float vy) {
 	    if(!isInside(x,y))
 		    this.ball = new Ball(name, x, y, vx, vy);
-	}
+        System.out.println("BallX: " + (int)ball.getXPos());
+        System.out.println("BallY: " + (int)ball.getYPos());
+    }
 
     public void switchMode() {
         runMode = !runMode;
@@ -139,7 +141,7 @@ public class Board extends Observable implements IBoard {
         int y = gizmo.getPos1().y;
         String gizmoClass = gizmo.getClass().getSimpleName();
 
-        if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19)) {
+        if ((x >= 0 && x <= 19) && (y >= 0 && y <= 19) && !isOccupiedByBall(x,y)) {
             int w = 0;
             while (w != gizmo.getWidth()) {
                 int h = 0;
@@ -179,12 +181,21 @@ public class Board extends Observable implements IBoard {
             }
             gizmoHashMap.put(gizmo.getID(), gizmo);
             System.out.println(gizmoClass + " gizmo added");
+            System.out.println("AddedX: " + x);
+            System.out.println("AddedY: " + y);
             return true;
         } else {
             //Cords out of range
             return false;
         }
 
+    }
+
+    private boolean isOccupiedByBall(int x, int y) {
+        if(hasGizmoBall()) {
+            return x == (int) ball.getXPos() && y == (int) ball.getYPos();
+        }
+        return false;
     }
 
     public boolean deleteGizmo(String id) {
