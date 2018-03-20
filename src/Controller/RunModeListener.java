@@ -24,7 +24,7 @@ public class RunModeListener implements GBallListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		IBoard board = gBallFrame.getRunPanel().getBoardPanel().getBoard();
+		IBoard board = gBallFrame.getBoardPanel().getBoard();
 		if (board.isRunMode()) {
 			if (e.getSource() == timer) {
 				board.moveBall();
@@ -40,7 +40,8 @@ public class RunModeListener implements GBallListener {
 						board.moveBall();
 						break;
 					case "Build":
-						gBallFrame.switchToBuild();
+						gBallFrame.getBoardPanel().getBoard().switchMode();
+						gBallFrame.buildMode();
 						break;
 				}
 

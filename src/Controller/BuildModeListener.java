@@ -51,8 +51,6 @@ public class BuildModeListener implements GBallListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        BuildGUI buildGUI = gBallFrame.getBuildPanel();
-        setFocus(gBallFrame.getBuildPanel().getFrame());
         String command = e.getActionCommand();
         if(command.equals("Choose Colour")){
             colorChooserExample = new ColorChooserExample();
@@ -79,27 +77,27 @@ public class BuildModeListener implements GBallListener {
                 break;
 
             case "Add Ball":
-                this.setMouseListener(new AddBallPressListener(buildGUI));
+                this.setMouseListener(new AddBallPressListener(gBallFrame));
                 break;
             case "Rotate":
-                this.setMouseListener(new RotatePressListener(buildGUI));
-				break;
+                this.setMouseListener(new RotatePressListener(gBallFrame));
+                break;
             case "Move":
-                this.setMouseListener(new MovePressListener(buildGUI));
+                this.setMouseListener(new MovePressListener(gBallFrame, colorChooserExample.getColorGiz()));
                 break;
 			case "Clear Board":
-				BoardPanel panel = buildGUI.getBoardPanel();
-				panel.getBoard().clearGizmos();
+                BoardPanel panel = gBallFrame.getBoardPanel();
+                panel.getBoard().clearGizmos();
 				panel.repaint();
 				break;
 			case "Delete":
-				this.setMouseListener(new DeletePressListener(buildGUI));
-				break;
+                this.setMouseListener(new DeletePressListener(gBallFrame));
+                break;
 			case "Connect":
-				this.setMouseListener(new ConnectPressListener(buildGUI));
-				break;
+                this.setMouseListener(new ConnectPressListener(gBallFrame));
+                break;
 			case "Disconnect":
-				this.setMouseListener(new DisconnectPressListener(buildGUI));
+                this.setMouseListener(new DisconnectPressListener(gBallFrame));
 
                 break;
             case "Key Connect":
@@ -114,7 +112,8 @@ public class BuildModeListener implements GBallListener {
 
                 break;
             case "Run":
-                gBallFrame.switchToRun();
+                gBallFrame.getBoardPanel().getBoard().switchMode();
+                gBallFrame.runMode();
                 break;
 
 

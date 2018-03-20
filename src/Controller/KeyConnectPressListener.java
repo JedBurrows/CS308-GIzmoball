@@ -3,11 +3,13 @@ package Controller;
 import Model.Gizmos.IGizmo;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
+
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class KeyConnectPressListener implements KeyListener, MouseListener {
 	private BoardPanel boardPanel;
@@ -18,8 +20,8 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 	private int sourceKey;
 	private IGizmo target;
 
-	public KeyConnectPressListener(BuildGUI buildGUI) {
-		this.boardPanel = buildGUI.getBoardPanel();
+	public KeyConnectPressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		target = null;
