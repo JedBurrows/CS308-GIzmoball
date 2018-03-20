@@ -49,7 +49,7 @@ public interface IBoard {
 
 	void deleteBall(String id);
 
-	boolean isInsideBall(float x, float y);
+	boolean isInsideBall(int i, float x, float y);
 
 
 	void addObserver(Observer o);
