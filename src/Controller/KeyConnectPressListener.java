@@ -6,12 +6,13 @@ import View.BoardPanel;
 import View.GBallFrame;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class KeyConnectPressListener implements KeyListener, MouseListener {
+public class KeyConnectPressListener implements KeyListener, MouseInputListener {
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
@@ -34,6 +35,7 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		System.out.println("clicky");
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			target = board.getGizmoByPosition(e.getX() / L, e.getY() / L);
 			System.out.println("target: " + target.getID());
@@ -64,7 +66,7 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("key");
-
+		System.out.println("target: " + target);
 		if (target != null) {
 			sourceKey = e.getKeyCode();
 			System.out.println("key: " + sourceKey);
@@ -83,5 +85,15 @@ public class KeyConnectPressListener implements KeyListener, MouseListener {
 		} catch (NullPointerException e) {
 			System.out.println("Not a gizmo.");
 		}
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
 	}
 }

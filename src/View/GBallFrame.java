@@ -69,12 +69,9 @@ public class GBallFrame {
 	public void buildMode() {
 		cardLayout.show(main, "Build Mode");
 		frame.setJMenuBar(buildBar);
-
 		frame.pack();
 		frame.revalidate();
 		frame.repaint();
-
-
 	}
 
 	public void runMode() {
@@ -83,6 +80,11 @@ public class GBallFrame {
 		frame.pack();
 		frame.revalidate();
 		frame.repaint();
+
+		boardPanel.setFocusable(true);
+
+		boardPanel.requestFocusInWindow();
+		boardPanel.requestFocus();
 
 
 	}
