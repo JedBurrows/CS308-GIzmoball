@@ -1,12 +1,10 @@
 package Model;
 
 import Model.Exceptions.NoSuchGizmoException;
-import Model.Gizmos.CircleTest;
-import Model.Gizmos.Square;
-import Model.Gizmos.SquareTest;
-import Model.Gizmos.TriangleTest;
+import Model.Gizmos.*;
 import org.junit.Before;
 import org.junit.Test;
+import physics.Vect;
 
 import java.awt.*;
 
@@ -15,7 +13,6 @@ import static org.junit.Assert.*;
 public class BoardTest {
     private IBoard board;
     private GizmoCreator gc;
-
 
     @Before
     public void setup(){
@@ -26,13 +23,7 @@ public class BoardTest {
         board.addGizmo(gc.createGizmo("Square", 0, 19, Color.YELLOW));
         board.addGizmo(gc.createGizmo("Square", 19, 19, Color.BLUE));
         board.addConnector("S0000","S0019");
-
-
-
-
-
-
-
+        board.addGizmoBall("Ball", 0.5f,18.25f , 0f, 0f);
     }
 
     @Test
@@ -194,6 +185,13 @@ public class BoardTest {
 
     @Test
     public void absorbBall() throws Exception {
+        Board board = new Board();
+        IGizmo absorber = new Absorber("Absorber",5,18, 7, 18, Color.RED);
+        Ball b = new Ball("ball",5.25f,7.75f,0f,0f);
+        board.addGizmoBall("ball",5.25f,7.75f,5f,5f);
+        assertFalse(b.getVelo().equals(board.getGizmoBall().getVelo()));
+        board.absorbBall(absorber);
+        assertTrue(b.getVelo().equals(board.getGizmoBall().getVelo()));
     }
 
     @Test
