@@ -3,6 +3,7 @@ package Controller;
 import Model.IBoard;
 import View.BoardPanel;
 import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,9 +13,9 @@ public class SliderChangeListener implements ChangeListener {
 	private BoardPanel boardPanel;
 	private BuildGUI buildGUI;
 
-	public SliderChangeListener(BuildGUI buildGUI){
-		this.buildGUI = buildGUI;
-		boardPanel = buildGUI.getBoardPanel();
+	public SliderChangeListener(GBallFrame gBallFrame) {
+		boardPanel = gBallFrame.getBoardPanel();
+		buildGUI = gBallFrame.getBuildPanel();
 		board = boardPanel.getBoard();
 	}
 	@Override

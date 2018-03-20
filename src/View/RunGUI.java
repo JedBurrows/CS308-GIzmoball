@@ -8,9 +8,8 @@ import Controller.RunModeListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class RunGUI {
+public class RunGUI implements IGUI {
 
-	private JPanel runFrame;
 	private BoardPanel boardPanel;
 	private RunModeListener runModeListener;
 
@@ -19,19 +18,22 @@ public class RunGUI {
 
 		runModeListener = new RunModeListener(parent);
 
-		runFrame = new JPanel();
 
-
-		JPanel panel = new JPanel();
-		panel.add(initialiseButtons());
-		panel.add(getBoardPanel());
-		runFrame.add(panel);
-		runFrame.setVisible(true);
 
 
 	}
 
-	private JPanel initialiseButtons() {
+
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
+	}
+
+	public void setBoardPanel(BoardPanel boardPanel) {
+		this.boardPanel = boardPanel;
+	}
+
+	@Override
+	public JPanel createButtons() {
 		JButton btnStart = new JButton("Start");
 		btnStart.setPreferredSize(new Dimension(75, 75));
 		btnStart.addActionListener(runModeListener);
@@ -52,9 +54,8 @@ public class RunGUI {
 		JButton btnBuildMode = new JButton("Build");
 		btnBuildMode.setPreferredSize(new Dimension(75, 75));
 		btnBuildMode.setActionCommand("Build");
-
-
 		btnBuildMode.addActionListener(runModeListener);
+
 
 		JPanel panelBtn = new JPanel();
 		panelBtn.setSize(150, 300);
@@ -68,32 +69,20 @@ public class RunGUI {
 		panelBtn.add(btnTick, c);
 		panelBtn.add(btnBuildMode, c);
 
+		System.out.println(panelBtn.isVisible());
+
 		return panelBtn;
-
-
 	}
 
+	@Override
+	public JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
 
-	public JPanel getFrame() {
-		return runFrame;
-	}
-
-
-	public void close() {
-		runFrame.setVisible(false);
-	}
-
-	public void open() {
-		runFrame.setVisible(true);
-
-	}
-
-
-	public BoardPanel getBoardPanel() {
-		return boardPanel;
-	}
-
-	public void setBoardPanel(BoardPanel boardPanel) {
-		this.boardPanel = boardPanel;
+		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		exitMenuItem.addActionListener(e -> System.exit(0));
+		fileMenu.add(exitMenuItem);
+		return menuBar;
 	}
 }

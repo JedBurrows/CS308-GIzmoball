@@ -1,7 +1,6 @@
 package Controller;
 
 import View.BoardPanel;
-import View.BuildGUI;
 import View.ColorChooserExample;
 import View.GBallFrame;
 
@@ -32,27 +31,23 @@ public class BuildModeListener implements GBallListener {
 
     @Override
     public void setMouseListener(MouseInputListener mouseInputListener) {
-        BuildGUI buildGUI = gBallFrame.getBuildPanel();
-        buildGUI.getBoardPanel().removeMouseListener(this.mouseInputListener);
+        gBallFrame.getBoardPanel().removeMouseListener(this.mouseInputListener);
         this.mouseInputListener = mouseInputListener;
-        buildGUI.getBoardPanel().addMouseListener(this.mouseInputListener);
+        gBallFrame.getBoardPanel().addMouseListener(this.mouseInputListener);
 
 
     }
 
     @Override
     public void setKeyBoardListener(KeyListener keyListener) {
-        BuildGUI buildGUI = gBallFrame.getBuildPanel();
-        buildGUI.getBoardPanel().removeKeyListener(this.keyListener);
+        gBallFrame.getBoardPanel().removeMouseListener(this.mouseInputListener);
         this.keyListener = keyListener;
-        buildGUI.getBoardPanel().addKeyListener(this.keyListener);
+        gBallFrame.getBoardPanel().addKeyListener(this.keyListener);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        BuildGUI buildGUI = gBallFrame.getBuildPanel();
-        setFocus(gBallFrame.getBuildPanel().getFrame());
         String command = e.getActionCommand();
         if(command.equals("Choose Colour")){
             colorChooserExample = new ColorChooserExample();
@@ -72,41 +67,40 @@ public class BuildModeListener implements GBallListener {
 
             case "Add Gizmo":
                 if (colorChooserExample != null)
-                    this.setMouseListener(new AddGizmoPressListener(buildGUI, colorChooserExample.getColorGiz()));
+                    this.setMouseListener(new AddGizmoPressListener(gBallFrame, colorChooserExample.getColorGiz()));
                 else
-                    this.setMouseListener(new AddGizmoPressListener(buildGUI, Color.RED));
+                    this.setMouseListener(new AddGizmoPressListener(gBallFrame, Color.RED));
 
                 break;
 
             case "Add Ball":
-                this.setMouseListener(new AddBallPressListener(buildGUI));
+                this.setMouseListener(new AddBallPressListener(gBallFrame));
                 break;
             case "Rotate":
-                this.setMouseListener(new RotatePressListener(buildGUI));
-				break;
+                this.setMouseListener(new RotatePressListener(gBallFrame));
+                break;
             case "Move":
-                this.setMouseListener(new MovePressListener(buildGUI, colorChooserExample.getColorGiz()));
+                this.setMouseListener(new MovePressListener(gBallFrame, colorChooserExample.getColorGiz()));
                 break;
 			case "Clear Board":
-				BoardPanel panel = buildGUI.getBoardPanel();
-				panel.getBoard().clearGizmos();
+                BoardPanel panel = gBallFrame.getBoardPanel();
+                panel.getBoard().clearGizmos();
 				panel.repaint();
 				break;
 			case "Delete":
-				this.setMouseListener(new DeletePressListener(buildGUI));
-				break;
+                this.setMouseListener(new DeletePressListener(gBallFrame));
+                break;
 			case "Connect":
-				this.setMouseListener(new ConnectPressListener(buildGUI));
-				break;
+                this.setMouseListener(new ConnectPressListener(gBallFrame));
+                break;
 			case "Disconnect":
-				this.setMouseListener(new DisconnectPressListener(buildGUI));
+                this.setMouseListener(new DisconnectPressListener(gBallFrame));
 
                 break;
             case "Key Connect":
                 System.out.println("here??");
-                KeyConnectPressListener k = new KeyConnectPressListener(buildGUI);
+                KeyConnectPressListener k = new KeyConnectPressListener(gBallFrame);
                 MagicKeyListener m = new MagicKeyListener(k);
-//                this.setMouseListener(m);
                 this.setKeyBoardListener(m);
                 break;
 
@@ -114,7 +108,8 @@ public class BuildModeListener implements GBallListener {
 
                 break;
             case "Run":
-                gBallFrame.switchToRun();
+                gBallFrame.getBoardPanel().getBoard().switchMode();
+                gBallFrame.runMode();
                 break;
 
 

@@ -1,35 +1,26 @@
 package Controller;
 
-import Model.GizmoCreator;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
-import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class MovePressListener implements MouseInputListener {
 
 
-    private BuildGUI buildGUI;
-    private JComboBox<String> gizmo;
     private BoardPanel boardPanel;
     private float L;
-    private GizmoCreator gizmoCreator;
     private IBoard board;
     private MouseEvent pressed;
     private MouseEvent released;
     private Color colour;
 
-    public MovePressListener(BuildGUI gui, Color colour) {
-        this.buildGUI = gui;
-        this.gizmo = buildGUI.getBoxGizmo();
-        this.boardPanel = buildGUI.getBoardPanel();
-        this.gizmoCreator = new GizmoCreator();
-        this.board = boardPanel.getBoard();
+	public MovePressListener(GBallFrame gBallFrame, Color colour) {
+		this.boardPanel = gBallFrame.getBoardPanel();
+		this.board = boardPanel.getBoard();
         this.L = boardPanel.getDimension() / 20;
         this.colour = colour;
         System.out.println(this.colour);
@@ -43,8 +34,8 @@ public class MovePressListener implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("Press event");
-        if (!board.isRunMode()) {
+	/*    System.out.println("Press event");
+		if (!board.isRunMode()) {
             pressed = e;
             boardPanel.setSelectPoint1(e.getPoint());
 
@@ -68,14 +59,14 @@ public class MovePressListener implements MouseInputListener {
 
 
             }
-        }
+        }*/
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Release event");
-        if (!board.isRunMode()) {
+	 /*   System.out.println("Release event");
+		if (!board.isRunMode()) {
             String g = gizmo.getSelectedItem().toString();
             if (!g.equals("Absorber")) {
                 released = e;
@@ -95,7 +86,7 @@ public class MovePressListener implements MouseInputListener {
                     boardPanel.repaint();
                 }
             }
-        }
+        }*/
 
     }
 

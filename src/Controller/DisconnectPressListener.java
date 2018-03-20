@@ -3,7 +3,7 @@ package Controller;
 import Model.Gizmos.IGizmo;
 import Model.IBoard;
 import View.BoardPanel;
-import View.BuildGUI;
+import View.GBallFrame;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 
 public class DisconnectPressListener implements MouseInputListener {
 
-	private BuildGUI buildGUI;
 	private BoardPanel boardPanel;
 	private float L;
 	private IBoard board;
@@ -20,9 +19,8 @@ public class DisconnectPressListener implements MouseInputListener {
 	private IGizmo source;
 	private IGizmo target;
 
-	public DisconnectPressListener(BuildGUI buildGUI) {
-		this.buildGUI = buildGUI;
-		this.boardPanel = buildGUI.getBoardPanel();
+	public DisconnectPressListener(GBallFrame gBallFrame) {
+		this.boardPanel = gBallFrame.getBoardPanel();
 		this.board = boardPanel.getBoard();
 		this.L = boardPanel.getDimension() / 20;
 		this.doneFlag = true;
