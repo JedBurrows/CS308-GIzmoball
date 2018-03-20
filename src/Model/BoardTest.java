@@ -16,20 +16,23 @@ public class BoardTest {
         board = new Board();
         gc = new GizmoCreator();
         board.addGizmo(gc.createGizmo("Square",  0, 0, Color.RED));
-        board.addGizmo(gc.createGizmo("Square", 19, 0, Color.RED));
-        board.addGizmo(gc.createGizmo("Square", 0, 19, Color.RED));
-        board.addGizmo(gc.createGizmo("Square", 19, 19, Color.RED));
+        board.addGizmo(gc.createGizmo("Square", 19, 0, Color.MAGENTA));
+        board.addGizmo(gc.createGizmo("Square", 0, 19, Color.YELLOW));
+        board.addGizmo(gc.createGizmo("Square", 19, 19, Color.BLUE));
 
     }
 
     @Test
     public void addGizmo() throws Exception {
         assertTrue(board.addGizmo(gc.createGizmo("Square",  0, 1, Color.RED)));
-        assertFalse(board.addGizmo(gc.createGizmo("Square",  0, 0, Color.RED)));
-        assertFalse(board.addGizmo(gc.createGizmo("Square",  -1, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("Circle",  0, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("Triangle",  -1, 0, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  20, 0, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  0, -1, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  0, 20, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("LeftFlipper",  19, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("RightFlipper",  0, 0, Color.RED)));
+        assertFalse(board.addGizmo(gc.createGizmo("RightFlipper",  0, 19, Color.RED)));
 
     }
 
@@ -45,14 +48,27 @@ public class BoardTest {
 
     @Test
     public void hasGizmoBall() throws Exception {
+        assertFalse(board.hasGizmoBall());
+        board.addGizmoBall("Ball",1,2,0,0);
+        assertTrue(board.hasGizmoBall());
     }
 
     @Test
     public void setFriction() throws Exception {
+        float mu = 0.010f;
+        float mu2 = 0.033f;
+
+        board.setFriction(mu,mu2);
+        assertEquals(mu,board.getMU(),0.001);
+        assertEquals(mu2,board.getMU2(),0.001);
     }
 
     @Test
     public void setGravity() throws Exception {
+        float gravity = 5.0f;
+
+        board.setGravity(gravity);
+        assertEquals(gravity,board.getGravity(),0.01);
     }
 
     @Test
@@ -61,6 +77,9 @@ public class BoardTest {
 
     @Test
     public void addConnector() throws Exception {
+        assertTrue(board.addConnector("S0000","S0019"));
+        assertFalse(board.addConnector("S0000","S0019"));
+        assertFalse(board.addConnector("S0000","None-Gizmo"));
     }
 
     @Test
@@ -69,10 +88,25 @@ public class BoardTest {
 
     @Test
     public void deleteGizmo() throws Exception {
+        board.addGizmo(gc.createGizmo("Square", "SQR", 0, 15, Color.YELLOW));
+
+        assertTrue(board.deleteGizmo("SQR"));
+        assertFalse(board.deleteGizmo("SQR1"));
+
     }
 
     @Test
     public void moveGizmo() throws Exception {
+        board.addGizmo(gc.createGizmo("Square", "SQR", 0, 15, Color.YELLOW));
+
+        assertTrue(board.moveGizmo("SQR", 5, 5));
+        assertFalse(board.moveGizmo("SQR", 0, 0));
+        assertFalse(board.moveGizmo("SQR1", 6, 6));
+        assertFalse(board.moveGizmo("SQR", -1, 5));
+
+
+
+
     }
 
     @Test
