@@ -4,77 +4,77 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BallTest {
-    private Ball ball;
+    public Ball ball;
 
     @Before
-    private void setUp() {
+    public void setUp() {
         ball = new Ball("B",1,1, 2, 2);
 
     }
 
     @Test
-    private void getVelo() throws Exception {
+    public void getVelo() throws Exception {
 
     }
 
     @Test
-    private void setVelo() throws Exception {
+    public void setVelo() throws Exception {
 
     }
 
 
     @Test
-    private void getRadius() throws Exception {
+    public void getRadius() throws Exception {
 
     }
 
     @Test
-    private void getCircle() throws Exception {
+    public void getCircle() throws Exception {
 
     }
 
     @Test
-    private void getXPos() throws Exception {
+    public void getXPos() throws Exception {
 
     }
 
     @Test
-    private void setXPos() throws Exception {
+    public void setXPos() throws Exception {
 
     }
 
     @Test
-    private void getYPos() throws Exception {
+    public void getYPos() throws Exception {
 
     }
 
     @Test
-    private void setYPos() throws Exception {
+    public void setYPos() throws Exception {
 
     }
 
     @Test
-    private void getName() throws Exception {
+    public void getName() throws Exception {
 
     }
 
     @Test
-    private void stop() throws Exception {
+    public void stop() throws Exception {
 
     }
 
     @Test
-    private void start() throws Exception {
+    public void start() throws Exception {
 
     }
 
     @Test
-    private void stopped() throws Exception {
+    public void stopped() throws Exception {
 
     }
 
     @Test
-    private void getColour() throws Exception {
+    public void getColour() throws Exception {
 
     }
 
