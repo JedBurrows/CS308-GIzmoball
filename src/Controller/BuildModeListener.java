@@ -57,7 +57,9 @@ public class BuildModeListener implements GBallListener {
             command = previousCommand;
         }
         previousCommand = command;
-
+        if(command.equals(null)){
+            command = "Add Gizmo";
+        }
         switch (command) {
 
             case "Choose Colour":
