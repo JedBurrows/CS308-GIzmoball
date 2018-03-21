@@ -2,7 +2,7 @@ package Controller;
 
 import View.BoardPanel;
 import View.BuildGUI;
-import View.ColorChooserExample;
+import View.ColourChooser;
 import View.GBallFrame;
 
 import javax.swing.*;
@@ -19,14 +19,14 @@ public class BuildModeListener implements GBallListener {
     private MouseInputListener mouseInputListener;
     private GBallFrame gBallFrame;
     private Color col;
-    private ColorChooserExample colorChooserExample;
+    private ColourChooser colourChooser;
     String previousCommand;
 
 
     public BuildModeListener(GBallFrame gBallFrame) {
         this.gBallFrame = gBallFrame;
         previousCommand = null;
-//        colorChooserExample = new ColorChooserExample();
+//        colourChooser = new ColourChooser();
 
     }
 
@@ -53,7 +53,7 @@ public class BuildModeListener implements GBallListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         if (command.equals("Choose Colour")) {
-            colorChooserExample = new ColorChooserExample();
+            colourChooser = new ColourChooser();
             command = previousCommand;
         }
         previousCommand = command;
@@ -61,10 +61,10 @@ public class BuildModeListener implements GBallListener {
         switch (command) {
 
             case "Choose Colour":
-                colorChooserExample = new ColorChooserExample();
+                colourChooser = new ColourChooser();
             case "Add Gizmo":
-                if (colorChooserExample != null)
-                    this.setMouseListener(new AddGizmoPressListener(gBallFrame, colorChooserExample.getColorGiz()));
+                if (colourChooser != null)
+                    this.setMouseListener(new AddGizmoPressListener(gBallFrame, colourChooser.getColorGiz()));
                 else {
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, Color.RED));
                 }

@@ -5,10 +5,10 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class ColorChooserExample extends JFrame implements MouseListener {
+public class ColourChooser extends JFrame implements MouseListener {
 	Color col;
 
-	public ColorChooserExample() {
+	public ColourChooser() {
 		Color initialcolor = Color.RED;
 		Color color = JColorChooser.showDialog(this, "Select a color", initialcolor);
 		col = color;
