@@ -42,6 +42,7 @@ public abstract class AbstractGizmo {
 
             setColor(randomColor);
         }
+        trigger = false;
     }
     public String getID() {
         return ID;

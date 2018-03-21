@@ -28,8 +28,10 @@ public class RotatePressListener implements MouseInputListener {
 	public void mousePressed(MouseEvent e) {
 		float x2 = e.getX() / L;
 		float y2 = e.getY() / L;
-		board.getGizmoByPosition(x2, y2).rotate();
-		boardPanel.repaint();
+		if(board.getGizmoByPosition(x2, y2) != null) {
+			board.getGizmoByPosition(x2, y2).rotate();
+			boardPanel.repaint();
+		}
 
 
 	}

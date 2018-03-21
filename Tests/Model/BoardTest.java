@@ -27,6 +27,7 @@ public class BoardTest {
     @Test
     public void addGizmo() throws Exception {
         assertTrue(board.addGizmo(gc.createGizmo("Square",  0, 1, Color.RED)));
+        assertTrue(board.addGizmo((gc.createAbsorber(2,0,8,0,Color.RED))));
         assertFalse(board.addGizmo(gc.createGizmo("Circle",  0, 0, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Triangle",  -1, 0, Color.RED)));
         assertFalse(board.addGizmo(gc.createGizmo("Square",  20, 0, Color.RED)));
