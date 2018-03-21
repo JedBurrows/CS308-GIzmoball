@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -57,6 +58,10 @@ public class BoardTest {
         assertFalse(board.hasGizmoBall());
         board.addGizmoBall("Ball",1,2,0,0);
         assertTrue(board.hasGizmoBall());
+        assertFalse(board.isInsideBall(5.6f, 2.3f));
+        assertTrue(board.isInsideBall(1f, 2f));
+        board.deleteBall();
+        assertFalse(board.hasGizmoBall());
     }
 
     @Test
@@ -75,10 +80,6 @@ public class BoardTest {
 
         board.setGravity(gravity);
         assertEquals(gravity,board.getGravity(),0.01);
-    }
-
-    @Test
-    public void getGizmoBall() throws Exception {
     }
 
     @Test
@@ -126,15 +127,8 @@ public class BoardTest {
     }
 
     @Test
-    public void isRunMode() throws Exception {
-    }
-
-    @Test
-    public void getGizmos() throws Exception {
-    }
-
-    @Test
     public void getConnectors() throws Exception {
+        assertTrue(board.getConnectors().size() == 1);
     }
 
     @Test
@@ -147,13 +141,6 @@ public class BoardTest {
         assertNull(board.getGizmoByPosition(-1,13));
     }
 
-    @Test
-    public void deleteBall() throws Exception {
-    }
-
-    @Test
-    public void isInsideBall() throws Exception {
-    }
 
     @Test
     public void getMU() throws Exception {
@@ -223,20 +210,19 @@ public class BoardTest {
 
     @Test
     public void addKeyPressEvent() throws Exception {
+        assertTrue(board.getKeyPressEvents().size() == 0);
+        board.addGizmo(gc.createGizmo("Square", "SQR", 0, 15, Color.YELLOW));
+        assertTrue(board.addKeyPressEvent(83, "SQR"));
+        assertTrue(board.getKeyPressEvents().size() == 1);
     }
 
     @Test
     public void addKeyReleaseEvent() throws Exception {
+        assertTrue(board.getKeyReleaseEvents().size() == 0);
+        board.addGizmo(gc.createGizmo("Square", "SQR", 0, 15, Color.YELLOW));
+        assertTrue(board.addKeyReleaseEvent(83, "SQR"));
+        assertTrue(board.getKeyReleaseEvents().size() == 1);
     }
-
-    @Test
-    public void getKeyPressEvents() throws Exception {
-    }
-
-    @Test
-    public void getKeyReleaseEvents() throws Exception {
-    }
-
     @Test
     public void testGizmos()throws Exception{
 
