@@ -44,7 +44,7 @@ public class AbstractGizmoTest {
 
 	@Test
 	public void getRotation() throws Exception {
-
+		gizmo.rotate();
 		assertTrue(gizmo.getRotation() == 1);
 		gizmo.rotate();
 		assertTrue(gizmo.getRotation() == 2);
