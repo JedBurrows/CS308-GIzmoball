@@ -57,15 +57,11 @@ public class BuildModeListener implements GBallListener {
             command = previousCommand;
         }
         previousCommand = command;
-        if(command.equals(null)){
-            command = "Add Gizmo";
-        }
         switch (command) {
-
             case "Choose Colour":
                 colourChooser = new ColourChooser();
             case "Add Gizmo":
-                if (colourChooser != null)
+                if (colourChooser.getColorGiz() != null)
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, colourChooser.getColorGiz()));
                 else {
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, Color.RED));
