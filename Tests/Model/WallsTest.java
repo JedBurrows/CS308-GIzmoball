@@ -1,6 +1,5 @@
-package ModelTests;
+package Model;
 
-import Model.Walls;
 import org.junit.Before;
 import org.junit.Test;
 

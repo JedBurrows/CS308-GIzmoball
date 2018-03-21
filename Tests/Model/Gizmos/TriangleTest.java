@@ -1,6 +1,5 @@
-package ModelTests;
+package Model.Gizmos;
 
-import Model.Gizmos.Triangle;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Circle;
@@ -21,7 +20,7 @@ public class TriangleTest {
 
 	@Test
 	public void createLines() throws Exception {
-		ArrayList<LineSegment> lines = triangle.lineSegments;
+		ArrayList<LineSegment> lines = triangle.getLineSegments();
 
 		for (int i = 0 ; i < 4; i++){
 			for (LineSegment segment: lines){

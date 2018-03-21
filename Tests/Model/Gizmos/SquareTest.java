@@ -1,6 +1,5 @@
-package ModelTests;
+package Model.Gizmos;
 
-import Model.Gizmos.Square;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Circle;
@@ -22,7 +21,7 @@ public class SquareTest {
 
 	@Test
 	public void createLines() throws Exception {
-		ArrayList<LineSegment> lines = square.lineSegments;
+		ArrayList<LineSegment> lines = square.getLineSegments();
 
 		for (LineSegment segment: lines){
 			assertTrue(segment.p1().x() == 2 || segment.p1().x()==1);

@@ -1,12 +1,7 @@
-package ModelTests;
+package Model;
 
-import Model.Ball;
-import Model.Board;
 import Model.Exceptions.NoSuchGizmoException;
-import Model.GizmoCreator;
-import Model.Gizmos.Absorber;
-import Model.Gizmos.IGizmo;
-import Model.IBoard;
+import Model.Gizmos.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -260,6 +255,17 @@ public class BoardTest {
         triangleTest.createLines();
 
 
+    }
+
+    @Test
+    public void testAbstractGizmo() throws Exception {
+        AbstractGizmoTest abstractGizmoTest = new AbstractGizmoTest();
+        abstractGizmoTest.setup();
+        abstractGizmoTest.getID();
+        abstractGizmoTest.rotate();
+        abstractGizmoTest.getRotation();
+        abstractGizmoTest.getWidth();
+        abstractGizmoTest.getHeight();
     }
 
 }

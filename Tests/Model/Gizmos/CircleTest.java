@@ -1,6 +1,5 @@
-package ModelTests;
+package Model.Gizmos;
 
-import Model.Gizmos.Circle;
 import org.junit.Before;
 import org.junit.Test;
 
