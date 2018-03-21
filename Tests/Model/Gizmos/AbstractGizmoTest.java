@@ -44,14 +44,26 @@ public class AbstractGizmoTest {
 
 	@Test
 	public void getRotation() throws Exception {
+		AbstractGizmo ag = new AbstractGizmo("AG1", 0, 0, 1, 1, Color.GRAY) {
+			@Override
+			protected void createCircles() {
 
-		assertTrue(gizmo.getRotation() == 1);
-		gizmo.rotate();
-		assertTrue(gizmo.getRotation() == 2);
-		gizmo.rotate();
-		assertTrue(gizmo.getRotation() == 3);
-		gizmo.rotate();
-		assertTrue(gizmo.getRotation() == 0);
+			}
+
+			@Override
+			protected void createLines() {
+
+			}
+		};
+		assertTrue(ag.getRotation() == 0);
+		ag.rotate();
+		assertTrue(ag.getRotation() == 1);
+		ag.rotate();
+		assertTrue(ag.getRotation() == 2);
+		ag.rotate();
+		assertTrue(ag.getRotation() == 3);
+		ag.rotate();
+		assertTrue(ag.getRotation() == 0);
 
 	}
 

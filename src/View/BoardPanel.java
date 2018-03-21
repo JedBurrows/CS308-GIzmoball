@@ -84,9 +84,12 @@ public class BoardPanel extends JPanel implements Observer {
 						g.drawLine((int) (l.p1().x() * Lwidth), (int) (l.p1().y() * Lheight), (int) (l.p2().x() * Lwidth), (int) (l.p2().y() * Lheight));
 					}
 
+
 					for (Circle c : gizmo.getCircles()) {
 						g.fillOval((int) (c.getCenter().x() * Lwidth - (0.25 * Lwidth)), (int) (c.getCenter().y() * Lheight - (0.25 * Lheight)), (int) (c.getRadius() * 2 * Lwidth), (int) (c.getRadius() * 2 * Lwidth));
 					}
+
+
 					break;
 				case "Absorber":
 					g2.fillRect(gizmo.getPos1().x * Lwidth, gizmo.getPos1().y * Lheight, gizmo.getWidth() * Lwidth, gizmo.getHeight() * Lheight);
@@ -123,19 +126,18 @@ public class BoardPanel extends JPanel implements Observer {
 			for (int y = Lheight; y < height; y += Lheight) {
 				g2.drawLine(0, y, height, y);
 			}
+
+
+			g2.setColor(Color.BLUE);
+			Set<IConnector> connectors = board.getConnectors();
+
+			for (IConnector connection : connectors) {
+				IGizmo source = connection.getSource(), target = connection.getTarget();
+				Point sourcePos1 = source.getPos1(), targetPos1 = target.getPos1();
+
+				g.drawLine((sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2), (targetPos1.x * Lwidth) + (Lwidth / 2), (targetPos1.y * Lheight) + (Lheight / 2));
+			}
 		}
-
-
-		g2.setColor(Color.BLUE);
-		Set<IConnector> connectors = board.getConnectors();
-
-		for (IConnector connection : connectors) {
-			IGizmo source = connection.getSource(), target = connection.getTarget();
-			Point sourcePos1 = source.getPos1(), targetPos1 = target.getPos1();
-
-			g.drawLine((sourcePos1.x * Lwidth) + (Lwidth / 2), (sourcePos1.y * Lheight) + (Lheight / 2), (targetPos1.x * Lwidth) + (Lwidth / 2), (targetPos1.y * Lheight) + (Lheight / 2));
-		}
-
 
 		/**
 		 * ##############################
