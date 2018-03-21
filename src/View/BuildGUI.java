@@ -39,8 +39,8 @@ public class BuildGUI implements IGUI {
 	@Override
 	public JPanel createButtons() {
 
-		btnColor = new JButton("Choose a Colour");
-		btnColor.setPreferredSize(new Dimension(150, 50));
+		btnColor = new JButton("Choose Gizmo Colour");
+		btnColor.setPreferredSize(new Dimension(160, 50));
 		btnColor.addActionListener(buildModeListener);
 		btnColor.setActionCommand("Choose Colour");
 		btnColor.setFocusable(false);
