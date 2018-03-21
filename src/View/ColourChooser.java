@@ -10,13 +10,8 @@ public class ColourChooser extends JFrame implements MouseListener {
 
 	public ColourChooser() {
 		Color initialcolor = Color.RED;
-		JColorChooser jcc = new JColorChooser();
-		Color color = jcc.showDialog(this, "Select a color", initialcolor);
-
-		//Color color = JColorChooser.showDialog(this, "Select a color", initialcolor);
-		if(color != null) {
-			col = color;
-		}
+		Color color = JColorChooser.showDialog(this, "Select a color", initialcolor);
+		col = color;
 	}
 
 
