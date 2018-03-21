@@ -23,7 +23,6 @@ public class BuildModeListener implements GBallListener {
 
     public BuildModeListener(GBallFrame gBallFrame) {
         this.gBallFrame = gBallFrame;
-
     }
 
     @Override
@@ -54,10 +53,11 @@ public class BuildModeListener implements GBallListener {
             case "Choose Colour":
                 colourChooser = new ColourChooser();
             case "Add Gizmo":
-                if (colourChooser.getColorGiz() != null)
+                if (colourChooser != null && colourChooser.getColorGiz() != null)
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, colourChooser.getColorGiz()));
                 else {
                     this.setMouseListener(new AddGizmoPressListener(gBallFrame, Color.RED));
+
                 }
                 this.setKeyBoardListener(null);
 
@@ -113,7 +113,8 @@ public class BuildModeListener implements GBallListener {
                 break;
 
 
-        };
+        }
+        ;
     }
 
     private void setFocus(JPanel frame) {
