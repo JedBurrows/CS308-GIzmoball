@@ -43,9 +43,21 @@ public class RightFlipperTest {
     public void createLines() throws Exception {
         ArrayList<LineSegment> expectedLineSegments = new ArrayList<>();
 
+        //Test rotate 1
         flipper2.rotate();
+        flipper2.createLines(0.2);
+        expectedLineSegments.add(new LineSegment(11.5,11.75,11.5, 10.25)); //1
+        expectedLineSegments.add(new LineSegment(12.0, 11.75, 12.0, 10.25)); //2
+        assertEquals(flipper2.getLineSegments(),expectedLineSegments);
 
+        //Test rotate 2
         flipper2.rotate();
+        flipper2.createLines(0.2);
+        expectedLineSegments.clear();
+        expectedLineSegments.add(new LineSegment(10.25, 11.5, 11.75, 11.5)); //1
+        expectedLineSegments.add(new LineSegment(10.25, 12.0, 11.75, 12.0)); //2
+        assertEquals(flipper2.getLineSegments(),expectedLineSegments);
+
 
         //Test rotate 3
         flipper2.rotate();
