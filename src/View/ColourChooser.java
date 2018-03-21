@@ -28,8 +28,9 @@ public class ColourChooser extends JFrame implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		Color initialcolor = Color.RED;
 		Color color = JColorChooser.showDialog(this, "Select a color", initialcolor);
-		col = color;
-
+		if(color != null) {
+			col = color;
+		}
 	}
 
 	@Override

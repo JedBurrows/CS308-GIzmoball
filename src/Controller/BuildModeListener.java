@@ -18,15 +18,11 @@ public class BuildModeListener implements GBallListener {
     private KeyListener keyListener;
     private MouseInputListener mouseInputListener;
     private GBallFrame gBallFrame;
-    private Color col;
     private ColourChooser colourChooser;
-    String previousCommand;
 
 
     public BuildModeListener(GBallFrame gBallFrame) {
         this.gBallFrame = gBallFrame;
-        previousCommand = null;
-//        colourChooser = new ColourChooser();
 
     }
 
@@ -52,12 +48,9 @@ public class BuildModeListener implements GBallListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if (command.equals("Choose Colour")) {
-            colourChooser = new ColourChooser();
-            command = previousCommand;
-        }
-        previousCommand = command;
+
         switch (command) {
+
             case "Choose Colour":
                 colourChooser = new ColourChooser();
             case "Add Gizmo":
